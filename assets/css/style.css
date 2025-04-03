@@ -127,6 +127,12 @@ body {
     padding: 20px;
     border: 1px solid #787878;
     border-radius: 5px;
+    /* NUEVO: Ocultar por defecto y preparar para animación */
+    display: none;  /* Oculto por defecto */
+    opacity: 0;    /* Completamente transparente */
+    transition: opacity 0.4s ease-in-out; /* Transición SÓLO para opacidad */
+    width: 100%;   /* Ocupar el ancho del contenedor #formulario-completo */
+    box-sizing: border-box; /* Para que el padding no afecte el width total */
 }
 
 .seccion-formulario h2 {
@@ -140,9 +146,15 @@ body {
     /* Color de las etiquetas */
 }
 
+/* === Clase para la sección activa === */
+.seccion-formulario.seccion-activa {
+    display: block; /* Hacerla visible en el layout */
+    opacity: 1;     /* Hacerla completamente opaca (efecto fade-in) */
+}
+
 .form-group {
     margin-bottom: 15px;
-    text-align: left;
+
     /* Alinear etiquetas e inputs a la izquierda dentro de su grupo */
     /* Para centrar el bloque completo, usamos flex en el contenedor superior o margin: auto */
     /* Para centrar los form-group en sí mismos */
@@ -212,11 +224,7 @@ body {
     opacity: 0.9;
 }
 
-/* Clase para ocultar secciones */
-.oculto {
-    display: none !important;
-    /* Importante para sobreescribir otros display */
-}
+
 
 /* === Estilo para Campos de Formulario (Inputs de Texto, Número, Email, etc.) === */
 
@@ -261,22 +269,12 @@ input[type="radio"].form-control {
 
 /* === Estilos para Grupos de Preguntas Individuales === */
 
-.question-group {
-    display: none; /* Oculto por defecto */
-    opacity: 0;    /* Completamente transparente */
-    transition: opacity 0.4s ease-in-out; /* Transición suave SÓLO para opacidad */
-    width: 100%; /* Asegurar que ocupe el ancho del contenedor si es necesario */
-    margin-bottom: 20px; /* Espacio debajo de cada pregunta */
-}
-
-.question-group.active {
-    display: block; /* Hacerlo visible en el layout */
-    opacity: 1;     /* Hacerlo completamente opaco (efecto fade-in) */
-}
 
 #formulario-completo.modo-revision .seccion-formulario {
-    display: block !important; /* Asegura que todas las secciones sean visibles */
-    border: 1px solid #F7D7A5; /* Puedes añadir un borde para agruparlas visualmente */
+    display: block !important;    /* Asegura que ocupen espacio */
+    opacity: 1 !important;       /* ¡NUEVO! Asegura que sean visibles (no transparentes) */
+    transition: none !important; /* ¡NUEVO! Evita animaciones raras en modo revisión */
+    border: 1px solid #F7D7A5;
     margin-bottom: 30px;
     padding: 25px;
 }
@@ -285,14 +283,38 @@ input[type="radio"].form-control {
     display: block !important; /* Asegura que todas las preguntas sean visibles */
     opacity: 1 !important; /* Sin animación aquí */
     margin-bottom: 15px; /* Espacio normal entre preguntas en revisión */
+    /* Quitar transición si la tuvieran */
+    transition: none;
 }
 
-#formulario-completo.modo-revision .botones-navegacion {
-    display: none; /* Ocultar botones Siguiente/Anterior individuales en revisión */
+/* NUEVA REGLA: Oculta SOLO los botones de navegación DENTRO de las secciones normales en modo revisión */
+#formulario-completo.modo-revision .seccion-formulario .botones-navegacion {
+    display: none;
+}
+
+/* Opcional pero recomendado: Asegurarse que el contenedor de botones finales SÍ se muestre */
+#seccion-revision .botones-navegacion {
+    display: block; /* O 'flex' si usas flexbox para los botones */
+    margin-top: 30px; /* Añadir espacio sobre los botones finales */
+    text-align: center; /* Centrar los botones si display es block */
 }
 
 #formulario-completo.modo-revision #seccion-revision {
     display: block !important; /* Mostrar el bloque final de revisión y envío */
+    opacity: 1 !important;
+}
+
+#seccion-revision h2 {
+    color: #F7D7A5; /* Mismo color claro que otros títulos */
+    text-align: center; /* Centrar el título */
+    margin-bottom: 15px; /* Espacio debajo del título */
+    margin-top: 0; /* Quitar margen superior si lo hubiera */
+}
+
+#seccion-revision p {
+    color: #CCCCCC; /* Un gris claro o blanco (#FFFFFF) para el párrafo */
+    text-align: center; /* Centrar el párrafo */
+    margin-bottom: 30px; /* Espacio debajo del párrafo, antes del resumen */
 }
 
 /* --- Media Query para Dispositivos Móviles (ej. pantallas <= 767px) --- */
