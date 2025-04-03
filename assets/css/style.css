@@ -109,7 +109,7 @@ body {
     background-color: #1E1E1E;
     /* Fondo para el área del formulario */
     padding: 30px;
-    border-radius: 8px;
+    border-radius: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     /* Centrar texto dentro del formulario */
@@ -126,7 +126,7 @@ body {
     /* Espacio entre secciones si se muestran todas */
     padding: 20px;
     border: 1px solid #787878;
-    border-radius: 5px;
+    border-radius: 20px;
     /* NUEVO: Ocultar por defecto y preparar para animación */
     display: none;  /* Oculto por defecto */
     opacity: 0;    /* Completamente transparente */
@@ -179,7 +179,7 @@ body {
     padding: 10px;
     background-color: #3D3D3C;
     border: 1px solid #7b7b7b;
-    border-radius: 4px;
+    border-radius: 20px;
     box-sizing: border-box;
     /* Para que el padding no aumente el ancho total */
     margin: 0 auto;
@@ -205,7 +205,7 @@ body {
     /* Azul Bootstrap */
     color: #1E1E1E;
     border: none;
-    border-radius: 4px;
+    border-radius: 20px;
     cursor: pointer;
     margin: 10px 5px 0 5px;
     /* Espacio alrededor de los botones */
@@ -262,7 +262,7 @@ input[type="radio"].form-control {
    width: auto;
    background-color: transparent;
    border: none;
-   border-radius: 0;
+   border-radius: 20px;
    padding: 0;
    /* ... o crear estilos personalizados complejos ... */
 }
