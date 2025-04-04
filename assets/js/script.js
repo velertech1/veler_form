@@ -9,6 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Creamos una lista solo con las secciones por las que se navega con "Siguiente/Anterior"
     const seccionesNavegables = secciones.filter(sec => sec.id !== 'seccion-revision');
 
+    // --- Añadir estas referencias al inicio del script (junto a las otras) ---
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalContainer = document.getElementById('modal-container');
+    const modalErrorIcon = document.getElementById('modal-error-icon');
+    const modalSuccessLogo = document.getElementById('modal-success-logo');
+    const modalTitle = document.getElementById('modal-title');
+    const modalMessage = document.getElementById('modal-message');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalOkBtn = document.getElementById('modal-ok-btn');
+    let lastSubmitButton = null; // Para guardar el botón de envío
     // --- Variables de Estado ---
     let currentSeccionIndex = 0; // Para saber en qué sección estamos (empezamos en la 0)
     const FADE_DURATION = 400; // Duración de la animación de opacidad en milisegundos (0.4s = 400ms)
@@ -52,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Recibe el elemento HTML de la sección a activar
     function activarSiguienteSeccion(sectionElement) {
         if (sectionElement) {
-             // 1. La hacemos ocupar espacio en el layout
+            // 1. La hacemos ocupar espacio en el layout
             sectionElement.style.display = 'block';
             // 2. Esperamos un instante MUY corto (10ms) para asegurar que el navegador procesó el display:block
             //    antes de añadir la clase que inicia la transición de opacidad.
@@ -97,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         generarResumenFinal(); // <-- ¡AÑADIR ESTA FUNCIÓN!
     }
 
-     // --- ¡NUEVA FUNCIÓN! (Ejemplo Básico) Para generar el resumen ---
-     function generarResumenFinal() {
+    // --- ¡NUEVA FUNCIÓN! (Ejemplo Básico) Para generar el resumen ---
+    function generarResumenFinal() {
         const resumenDiv = document.getElementById('resumen-final');
         if (!resumenDiv) return;
 
@@ -129,20 +139,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(`  ${labelText}: ${displayValue}`); // Log del par label/valor
                 resumenHTML += `<li><strong>${labelText}:</strong> ${displayValue}</li>`;
             } else if (value === true || (inputElement?.type === 'checkbox' && inputElement?.checked)) {
-                 // Manejo específico para checkboxes marcados (FormData a veces no los incluye si no tienen 'value')
-                 const inputElement = form.querySelector(`[name="${key}"]`);
-                 let labelText = key;
-                 if (inputElement) {
+                // Manejo específico para checkboxes marcados (FormData a veces no los incluye si no tienen 'value')
+                const inputElement = form.querySelector(`[name="${key}"]`);
+                let labelText = key;
+                if (inputElement) {
                     const labelElement = inputElement.closest('.form-group')?.querySelector('label');
-                     if (labelElement) {
+                    if (labelElement) {
                         const cleanLabel = labelElement.cloneNode(true);
                         cleanLabel.querySelectorAll('input').forEach(el => el.remove());
                         labelText = cleanLabel.textContent.trim().replace(':', '');
-                     }
-                 }
-                 console.log(`  ${labelText}: Sí`); // Log para checkbox
-                 resumenHTML += `<li><strong>${labelText}:</strong> Sí</li>`;
-             }
+                    }
+                }
+                console.log(`  ${labelText}: Sí`); // Log para checkbox
+                resumenHTML += `<li><strong>${labelText}:</strong> Sí</li>`;
+            }
         }
         resumenHTML += '</ul>';
         resumenDiv.innerHTML = resumenHTML;
@@ -340,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 */ // FIN EJEMPLO FETCH REAL
 
-                 // --- FIN: Bloque de Corrección Post-Envío ---
+                // --- FIN: Bloque de Corrección Post-Envío ---
 
             } // Fin del else if (target.type === 'submit')
 
@@ -348,5 +358,129 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error("Elemento <form id='miFormularioDinamico'> no encontrado en el HTML.");
     }
+
+    /**
+ * Muestra el modal configurado para éxito o error.
+ * @param {'success' | 'error'} type - El tipo de modal a mostrar.
+ * @param {string} [message=''] - El mensaje específico (útil para errores).
+ */
+    function showModal(type, message = '') {
+        if (!modalContainer || !modalOverlay) {
+            console.error("Elementos del modal no encontrados!");
+            return;
+        }
+
+        // Ocultar el formulario si quieres que desaparezca del fondo
+        // if (formularioCompletoDiv) {
+        //     formularioCompletoDiv.style.display = 'none';
+        // }
+
+        // Configurar contenido según el tipo
+        if (type === 'success') {
+            modalTitle.textContent = '¡Éxito!';
+            modalMessage.textContent = message || 'Tus datos han sido enviados correctamente. ¡Gracias por tu participación!';
+            if (modalErrorIcon) modalErrorIcon.style.display = 'none';
+            if (modalSuccessLogo) modalSuccessLogo.style.display = 'inline-block';
+            if (modalCloseBtn) modalCloseBtn.style.display = 'none';
+            if (modalOkBtn) modalOkBtn.style.display = 'inline-block';
+
+        } else { // 'error'
+            modalTitle.textContent = 'Error';
+            if (modalErrorIcon) {
+                modalErrorIcon.textContent = 'error'; // Icono de error
+                modalErrorIcon.style.display = 'inline-block';
+            }
+            if (modalSuccessLogo) modalSuccessLogo.style.display = 'none';
+            modalMessage.textContent = `Hubo un problema: ${message || 'No se pudo completar la operación.'}`;
+            if (modalCloseBtn) modalCloseBtn.style.display = 'inline-block';
+            if (modalOkBtn) modalOkBtn.style.display = 'none';
+        }
+
+        // Añadir clase al body para mostrar modal con CSS
+        document.body.classList.add('modal-visible');
+    }
+
+    /**
+     * Oculta el modal y el overlay.
+     */
+    function hideModal() {
+        if (!document.body.classList.contains('modal-visible')) return; // Ya está oculto
+
+        document.body.classList.remove('modal-visible');
+
+        // Volver a habilitar el botón de envío si estaba guardado (por error)
+        if (lastSubmitButton) {
+            lastSubmitButton.disabled = false;
+            lastSubmitButton.textContent = 'Enviar Formulario';
+            lastSubmitButton = null; // Limpiar
+        }
+
+        // Aquí podrías añadir lógica extra al cerrar, como redirigir
+        // if (modalSuccessLogo.style.display !== 'none') { // Si era el modal de éxito
+        //    console.log("Modal de éxito cerrado.");
+        // window.location.href = '/gracias.html'; // Ejemplo: redirigir
+        // }
+    }
+
+    // --- Añadir listeners para cerrar el modal (una sola vez al cargar la página) ---
+    document.addEventListener('DOMContentLoaded', () => {
+        // ... (tu código existente dentro de DOMContentLoaded) ...
+
+        // Listeners para cerrar el modal
+        if (modalOverlay) modalOverlay.addEventListener('click', hideModal);
+        if (modalCloseBtn) modalCloseBtn.addEventListener('click', hideModal);
+        if (modalOkBtn) modalOkBtn.addEventListener('click', hideModal);
+
+    }); // Asegúrate que estos listeners estén dentro del DOMContentLoaded principal o después de definir los elementos.
+
+
+    // --- Modificar el manejador del botón Submit ---
+    // Dentro de form.addEventListener('click', (event) => { ... })
+    // En la sección: else if (target.type === 'submit' && target.classList.contains('btn-primary'))
+
+    // ... (event.preventDefault(), validación, recolectar formData) ...
+
+    target.disabled = true;
+    target.textContent = 'Enviando...';
+    lastSubmitButton = target; // Guardar botón
+
+    // *** Reemplaza tu bloque fetch anterior o la simulación con esto: ***
+    fetch('/tu-endpoint-real-en-el-servidor', { // <-- CAMBIA ESTA URL
+        method: 'POST',
+        body: formData
+    })
+        .then(async response => { // Usamos async para poder leer el cuerpo en caso de error
+            if (!response.ok) {
+                // Intenta obtener el texto del error del cuerpo de la respuesta
+                let errorText = response.statusText; // Mensaje por defecto
+                try {
+                    errorText = await response.text(); // Intenta leer el cuerpo
+                } catch (e) {
+                    console.warn("No se pudo leer el cuerpo del error:", e);
+                }
+                throw new Error(`${response.status}: ${errorText}`);
+            }
+            // Si la respuesta es OK, intenta parsear como JSON (o text si esperas texto)
+            // Si no esperas cuerpo en la respuesta OK, puedes retornar null o un objeto vacío
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.indexOf("application/json") !== -1) {
+                return response.json();
+            } else {
+                return response.text(); // O simplemente retornar algo como { success: true }
+            }
+        })
+        .then(data => {
+            console.log('Éxito:', data);
+            // Mostrar modal de éxito. 'data' podría tener un mensaje del servidor.
+            // Ejemplo: si el servidor devuelve { message: 'Usuario registrado' }
+            showModal('success', (typeof data === 'object' && data?.message) ? data.message : '');
+        })
+        .catch(error => {
+            console.error('Error en fetch:', error);
+            // Mostrar modal de error, pasando el mensaje de error capturado
+            showModal('error', error.message);
+            // Nota: El botón se re-habilita automáticamente cuando se cierra el modal de error (en hideModal)
+        });
+    // *** Fin del bloque Fetch Modificado ***
 
 }); // Fin del DOMContentLoaded
