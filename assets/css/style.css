@@ -224,7 +224,17 @@ h2 {
     /* Asegura que esté por encima del formulario al inicio */
 }
 
-#logo-container-inicial img {
+.logos-wrapper {
+    display: flex;
+    /* Para alinear los logos uno al lado del otro */
+    justify-content: center;
+    /* Centra los logos horizontalmente */
+    align-items: center;
+    /* Centra los logos verticalmente */
+}
+
+
+#logo-container-inicial .logos-wrapper img {
     max-height: 150px;
     /* Tamaño inicial de los logos */
     margin: 0 20px;
@@ -245,6 +255,8 @@ h2 {
     transition: height 1s ease-in-out;
     /* Animar la altura */
 }
+
+
 
 /* Estado final de los logos (cuando se aplica la clase 'logos-arriba') */
 #logo-container-inicial.logos-arriba {
@@ -268,13 +280,20 @@ h2 {
     align-items: center;
 }
 
-#logo-container-inicial.logos-arriba img {
+#logo-container-inicial.logos-arriba .logos-wrapper img {
     max-height: 50px;
     /* Tamaño final más pequeño */
     margin: 0 15px;
 }
 
-#logo-container-inicial.logos-arriba .linea-divisora {
+#logo-container-inicial .logos-wrapper .linea-divisora {
+    width: 2px;
+    height: 100px;
+    background-color: var(--logo-line-color);
+    transition: height 1s ease-in-out;
+}
+
+#logo-container-inicial.logos-arriba .logos-wrapper .linea-divisora {
     display: block;
     /* Mostrar la línea en el estado final */
     height: 40px;
@@ -283,8 +302,10 @@ h2 {
 
 /* --- NUEVO: Hacer visible el switch cuando la cabecera está lista --- */
 #logo-container-inicial.logos-arriba .theme-switch-wrapper {
-    opacity: 1; /* Lo hace visible */
-    visibility: visible; /* Lo hace interactuable */
+    opacity: 1;
+    /* Lo hace visible */
+    visibility: visible;
+    /* Lo hace interactuable */
     /* La transición definida en la regla base se encargará de la animación de opacidad */
 }
 
@@ -373,11 +394,11 @@ h2 {
 }
 
 .form-control {
-    width: 80%;
+    width: 100%;
     /* Ancho de los campos */
     padding: 10px;
     background-color: var(--input-bg);
-    
+
     /* 3px de grosor, sólido, color amarillo */
 
     /* Es buena práctica definir qué pasa con los otros bordes */
@@ -390,7 +411,7 @@ h2 {
     border-bottom-left-radius: 0px;
     box-sizing: border-box;
     /* Para que el padding no aumente el ancho total */
-    margin: 0 auto;
+    /* margin: 0 auto; */
     /* Centrar el input si su width es menor al 100% */
     color: var(--text-color-primary);
 }
@@ -684,14 +705,16 @@ body.modal-visible #modal-container {
     z-index: 11;
     /* Asegura que esté sobre otros elementos de la cabecera si es necesario*/
 
-     /* --- NUEVO: Ocultar por defecto --- */
-     opacity: 0; /* Inicia transparente */
-     visibility: hidden; /* Inicia completamente oculto y no interactuable */
-     /* --- NUEVO: Transición para aparecer suavemente --- */
-     /* Aplica una transición a la opacidad que dure 0.3s, con un retraso de 0.8s */
-     /* El retraso (0.8s) espera a que la animación principal de los logos casi termine (que dura 1s) */
-     transition: opacity 0.3s ease-in-out 0.8s;
-     /* Nota: No necesitamos transición para 'visibility' aquí */
+    /* --- NUEVO: Ocultar por defecto --- */
+    opacity: 0;
+    /* Inicia transparente */
+    visibility: hidden;
+    /* Inicia completamente oculto y no interactuable */
+    /* --- NUEVO: Transición para aparecer suavemente --- */
+    /* Aplica una transición a la opacidad que dure 0.3s, con un retraso de 0.8s */
+    /* El retraso (0.8s) espera a que la animación principal de los logos casi termine (que dura 1s) */
+    transition: opacity 0.3s ease-in-out 0.8s;
+    /* Nota: No necesitamos transición para 'visibility' aquí */
 }
 
 /* Ocultar el checkbox real */
@@ -811,141 +834,108 @@ body.modal-visible #modal-container {
 
 
 /* --- Media Query para Dispositivos Móviles (ej. pantallas <= 767px) --- */
+/* --- Media Query para Dispositivos Móviles (ej. pantallas <= 767px) --- */
 @media (max-width: 767px) {
 
     /* === Ajustes para el Estado INICIAL de los Logos en Móvil === */
 
-    #logo-container-inicial {
-        flex-direction: column;
+    /* Aplica flex-direction al wrapper para apilar */
+    #logo-container-inicial .logos-wrapper {
+        flex-direction: column; /* Apila los logos verticalmente */
+        align-items: center;    /* Centra los logos apilados */
     }
 
-    /* ... */
-    .linea-divisora {
+    /* CORREGIDO: Selector específico para las imágenes DENTRO del wrapper */
+    #logo-container-inicial .logos-wrapper img {
+        max-height: 80px;  /* Tamaño inicial móvil (ajústalo si es necesario) */
+        margin: 15px 0;    /* Margen vertical entre logos */
+        /* Asegúrate de que el ancho no cause problemas, width: auto; es implícito */
+        width: auto;
+        max-width: 80%; /* Evita que logos muy anchos se desborden */
+    }
+
+    /* Oculta la línea divisora DENTRO del wrapper en estado inicial móvil */
+    #logo-container-inicial .logos-wrapper .linea-divisora {
         display: none;
-    }
-
-    #logo-container-inicial img {
-        max-height: 100px;
-        /* Puedes ajustar el tamaño inicial si 150px es muy grande */
-        margin: 15px 0;
-        /* Añade margen vertical entre logos, quita el horizontal */
-    }
-
-    .linea-divisora {
-        /* Opción 1: Ocultar la línea vertical, no tiene mucho sentido entre logos apilados */
-        display: none;
-
-        /* Opción 2: Convertirla en línea horizontal (si prefieres) */
-        /*
-        width: 60%; // Ancho de la línea horizontal
-        height: 2px; // Grosor de la línea
-        background-color: #333; // Asegúrate que el color sea visible
-        margin: 5px auto; // Margen arriba/abajo y centrado horizontal
-        */
     }
 
     /* === Ajustes para el Estado FINAL de los Logos (arriba) en Móvil === */
 
+    /* CORREGIDO: Altura auto y padding en el contenedor principal */
     #logo-container-inicial.logos-arriba {
-        /* Podrías querer que sigan uno al lado del otro arriba, o mantenerlos apilados */
-        /* Si quieres que vuelvan a estar horizontales arriba: */
-        /*flex-direction: row;*/
-        height: auto;
-        /* Altura automática para contenido vertical */
-        /* position: fixed; <<-- Hereda de la regla base o la especificas aquí */
-        padding: 10px 0;
-        flex-direction: column;
-        /* Mantiene la columna */
-        align-items: center;
+        height: auto;     /* Altura automática para el contenido apilado */
+        padding: 10px 0;  /* Padding vertical reducido para el contenedor */
+        /* flex-direction: row; <-- No necesario, ya es flex y align-items: center hereda */
     }
 
-    #logo-container-inicial.logos-arriba img {
-        max-height: 30px;
-        /* Tamaño final móvil */
-        margin: 5px 0;
-        /* Margen vertical móvil */
+    /* CORREGIDO: Estilos del wrapper en estado final */
+    #logo-container-inicial.logos-arriba .logos-wrapper {
+        flex-direction: column; /* Mantiene la columna */
+        align-items: center;    /* Centra los logos */
+        padding: 0; /* Quitamos el padding extra del wrapper */
+        /* height: auto; <-- No es necesario aquí */
     }
 
-    #logo-container-inicial.logos-arriba .linea-divisora {
-        display: none;
-        /* Sigue oculta */
+    /* CORREGIDO: Selector específico para las imágenes DENTRO del wrapper en estado final */
+    #logo-container-inicial.logos-arriba .logos-wrapper img {
+        max-height: 55px;  /* Tamaño final móvil (un poco más grande quizás?) */
+        margin: 5px 0;     /* Margen vertical móvil */
+        width: auto;
+        max-width: 60%; /* Límite de ancho por si acaso */
+    }
+
+    /* CORREGIDO: Regla específica para ocultar la línea en estado final móvil */
+    #logo-container-inicial.logos-arriba .logos-wrapper .linea-divisora {
+        display: none; /* Asegura que siga oculta */
     }
 
     /* === Ajustes para el Formulario en Móvil === */
 
     #formulario-completo {
         width: 90%;
-        padding: 40px 40px;
-        /* Ajusta este margen según la altura final MÓVIL de .logos-arriba */
-        /* Ej: Si son ~70px de logos apilados + padding */
-        margin-top: 90px;
-        /* (70px + 20px extra) */
-
+        padding: 20px; /* Padding reducido para móvil */
+        /* AJUSTAR ESTE MARGEN: */
+        /* Inspecciona la altura real de #logo-container-inicial.logos-arriba en el navegador */
+        /* y pon un valor un poco mayor aquí. Ej: si mide 100px, pon 115px o 120px */
+        margin-top: 120px; /* ¡¡AJUSTA ESTE VALOR DESPUÉS DE PROBAR!! */
     }
 
     .form-control {
         width: 100%;
-
-        /* Añade solo el borde izquierdo */
+        /* Tus otros estilos de borde están bien */
         border-left: 3px solid var(--accent-color);
-        /* 3px de grosor, sólido, color amarillo */
-
-        /* Es buena práctica definir qué pasa con los otros bordes */
         border-top: none;
         border-right: none;
         border-bottom: none;
-
-
-        /* Que los campos usen casi todo el ancho disponible */
-        /* box-sizing: border-box; ya debería estar, pero asegura */
+        /* ... */
     }
 
     .form-group {
         text-align: left;
-
-        /* Puedes ajustar algo aquí si es necesario, pero el text-align: left */
-        /* y display: flex; flex-direction: column; align-items: center; */
-        /* que teníamos antes debería funcionar bien */
+        /* ... */
     }
-
 
     /* Asegurarse que los botones se vean bien */
     .btn-siguiente,
     .btn-anterior,
     .btn-primary {
         padding: 12px 15px;
-        /* Hacerlos un poco más grandes para tocar */
         font-size: 1rem;
-        /* Tamaño de letra legible */
         width: auto;
-        /* Ancho automático */
         min-width: 100px;
-        /* Ancho mínimo */
         margin: 5px;
     }
 
-    /* Podrías querer que los botones ocupen más ancho en móvil */
-    /* div .botones-navegacion { // Si envuelves los botones en un div
-         display: flex;
-         flex-direction: column; // Un botón sobre otro
-         gap: 10px; // Espacio entre botones
-     }
-     .botones-navegacion button {
-         width: 100%; // Ocupan todo el ancho del contenedor
-     } */
-
+    /* Ajustes para el switch de tema */
     .theme-switch-wrapper {
         right: 15px;
-        /* Más cerca del borde en móvil */
-        /* Podrías necesitar ajustar 'top' o 'transform' si la altura de la cabecera cambia mucho */
+        top: 50%; /* Puede que necesites ajustarlo si el centrado vertical no es exacto */
+        transform: translateY(-50%); /* Ayuda a centrar verticalmente */
     }
 
-    /* Texto opcional al lado del switch */
+    /* Ocultamos el texto opcional si no lo usas */
     .theme-label-text {
-        margin-left: 10px;
-        color: var(--text-color-primary);
-        font-size: 0.8em;
+       display: none; /* Ocultar si no hay texto */
+       /* Si SÍ usas texto, ajusta su estilo aquí */
     }
-
-
-}
+} /* Fin de @media (max-width: 767px) */
