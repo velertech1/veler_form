@@ -23,6 +23,33 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSeccionIndex = 0; // Para saber en qué sección estamos (empezamos en la 0)
     const FADE_DURATION = 400; // Duración de la animación de opacidad en milisegundos (0.4s = 400ms)
 
+    const themeSwitch = document.getElementById('theme-checkbox');
+    // Función para aplicar el tema basado en el estado guardado o el switch
+    function applyTheme(theme) {
+        if (theme === 'light') {
+            document.documentElement.classList.add('light-theme');
+            if(themeSwitch) themeSwitch.checked = true;
+        } else {
+            document.documentElement.classList.remove('light-theme');
+            if(themeSwitch) themeSwitch.checked = false;
+        }
+    }
+
+    // Cargar el tema guardado al inicio
+    const savedTheme = localStorage.getItem('theme') || 'dark'; // Por defecto 'dark' si no hay nada
+    applyTheme(savedTheme);
+
+    // Listener para cuando el usuario cambia el switch
+    if (themeSwitch) {
+        themeSwitch.addEventListener('change', function() {
+            const currentTheme = this.checked ? 'light' : 'dark';
+            applyTheme(currentTheme); // Aplica el cambio visual
+            localStorage.setItem('theme', currentTheme); // Guarda la preferencia
+        });
+    } else {
+        console.warn("Elemento #theme-checkbox no encontrado. El switch de tema no funcionará.");
+    }
+
     // --- Función para mostrar una SECCIÓN específica con animación ---
     // Recibe el índice (número) de la sección a mostrar
     function mostrarSeccion(indexToShow) {

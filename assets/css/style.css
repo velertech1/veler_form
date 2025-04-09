@@ -107,6 +107,67 @@
 
 /* --- FIN: Definición de Fuentes Personalizadas --- */
 
+/* Variables de Colores */
+
+:root {
+    --bg-color: #1E1E1E;
+    --text-color-primary: #F0E6D2;
+    /* O el blanco que uses más */
+    --text-color-secondary: #CCCCCC;
+    /* Ejemplo para párrafos */
+    --accent-color: #F7D7A5;
+    /* Color de acento */
+    --input-bg: #3D3D3C;
+    --input-border-color: var(--accent-color);
+    /* Puedes referenciar otras variables */
+    --input-text-color: var(--text-color-primary);
+    --input-placeholder-color: #C8B575;
+    --button-primary-bg: var(--accent-color);
+    --button-primary-text: #1E1E1E;
+    /* El color de texto para el botón primario */
+    --button-secondary-bg: #161616;
+    --border: #444;
+    --light-color: #ffffff;
+    --error-alert: #E57373;
+    /* Color de error */
+    --button-secondary-text: var(--accent-color);
+    --logo-line-color: var(--accent-color);
+    --modal-bg: var(--bg-color);
+    --modal-text: var(--text-color-primary);
+    /* ... Añade todas las variables que necesites ... */
+}
+
+/* assets/css/style.css */
+
+/* ... (variables :root del tema oscuro) ... */
+
+:root.light-theme {
+    /* O body.light-theme */
+    --bg-color: #ffebdb;
+    --bg-container: #ffffff;
+    --text-color-primary: #0d3a7c;
+    --text-color-secondary: #495057;
+    --accent-color: #fc6c11;
+    /* Ejemplo con azul */
+    --input-bg: #ffffff;
+    --input-border-color: #CED4DA;
+    --input-text-color: var(--text-color-primary);
+    --input-placeholder-color: #7495bc;
+    --button-primary-bg: var(--accent-color);
+    --button-primary-text: #FFFFFF;
+    --button-secondary-bg: #ffffff;
+    --button-secondary-text: #212529;
+    --logo-line-color: #DEE2E6;
+    /* Un gris claro para la línea */
+    --modal-bg: var(--bg-color);
+    --modal-text: var(--text-color-primary);
+    /* ... Redefine TODAS las variables con sus valores claros ... */
+}
+
+/* ... (resto de las reglas CSS usando var(...) ) ... */
+
+/* Fin de Variables de Colores */
+
 body {
     display: flex;
     flex-direction: column;
@@ -117,7 +178,7 @@ body {
     min-height: 100vh;
     margin: 0;
     /* Quitar margen por defecto */
-    background-color: #1E1E1E;
+    background-color: var(--bg-container);
     /* O el color que prefieras */
 }
 
@@ -148,7 +209,7 @@ h2 {
     /* Para poder animarlo y sacarlo del flujo normal */
     top: 0;
     left: 0;
-    background-color: #1E1E1E;
+    background-color: var(--bg-container);
     /* Fondo blanco para la pantalla inicial si es necesario */
     transition: height 1s ease-in-out,
         padding 1s ease-in-out,
@@ -178,7 +239,7 @@ h2 {
     background-color: white;
     /* Color de la línea (pusiste blanco, pero quizá negro sobre fondo blanco?) */
     /* Si el fondo es blanco, la línea debe ser de otro color para verse */
-    background-color: #F7D7A5;
+    background-color: var(--accent-color);
     /* Ejemplo: gris oscuro */
     transition: height 1s ease-in-out;
     /* Animar la altura */
@@ -193,7 +254,7 @@ h2 {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #1E1E1E;
+    background-color: var(--bg-container);
     /* O tu fondo final */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 10;
@@ -219,6 +280,13 @@ h2 {
     /* Altura final de la línea */
 }
 
+/* --- NUEVO: Hacer visible el switch cuando la cabecera está lista --- */
+#logo-container-inicial.logos-arriba .theme-switch-wrapper {
+    opacity: 1; /* Lo hace visible */
+    visibility: visible; /* Lo hace interactuable */
+    /* La transición definida en la regla base se encargará de la animación de opacidad */
+}
+
 
 
 /* Estilos básicos del formulario */
@@ -228,7 +296,7 @@ h2 {
     max-width: 600px;
     margin-top: 20px;
     /* Espacio después de los logos */
-    background-color: #1E1E1E;
+    background-color: var(--bg-color);
     /* Fondo para el área del formulario */
     padding: 30px;
     border-radius: 20px;
@@ -247,7 +315,7 @@ h2 {
     margin-bottom: 20px;
     /* Espacio entre secciones si se muestran todas */
     padding: 20px;
-    border: 1px solid #1E1E1E;
+    border: 3px solid var(--bg-color);
     border-radius: 20px;
     /* NUEVO: Ocultar por defecto y preparar para animación */
     display: none;
@@ -264,12 +332,12 @@ h2 {
 
 .seccion-formulario h2 {
     margin-top: 0;
-    color: #F7D7A5;
+    color: var(--text-color-primary);
 }
 
 .seccion-formulario label {
 
-    color: #ffffff;
+    color: var(--text-color-secondary);
     /* Color de las etiquetas */
 }
 
@@ -289,9 +357,9 @@ h2 {
     display: flex;
     flex-direction: column;
     /* Etiqueta arriba, input abajo */
-    
+
     /* Centra la etiqueta y el input */
-    
+
 
 }
 
@@ -306,8 +374,8 @@ h2 {
     width: 80%;
     /* Ancho de los campos */
     padding: 10px;
-    background-color: #3D3D3C;
-    border-left: 3px solid #F7D7A5;
+    background-color: var(--input-bg);
+    border-left: 3px solid var(--accent-color);
     /* 3px de grosor, sólido, color amarillo */
 
     /* Es buena práctica definir qué pasa con los otros bordes */
@@ -319,7 +387,7 @@ h2 {
     /* Para que el padding no aumente el ancho total */
     margin: 0 auto;
     /* Centrar el input si su width es menor al 100% */
-    color: #F0E6D2;
+    color: var(--text-color-primary);
 }
 
 /* Centrar checkboxes específicamente si es necesario */
@@ -336,9 +404,9 @@ h2 {
 .btn-anterior,
 .btn-primary {
     padding: 10px 20px;
-    background-color: #F7D7A5;
+    background-color: var(--accent-color);
     /* Azul Bootstrap */
-    color: #1E1E1E;
+    color: var(--bg-color);
     border: none;
     border-radius: 20px;
     cursor: pointer;
@@ -348,8 +416,8 @@ h2 {
 }
 
 .btn-anterior {
-    background-color: #161616;
-    color: #F7D7A5;
+    background-color: var(--button-secondary-bg);
+    color: var(--accent-color);
     /* Gris */
 }
 
@@ -367,7 +435,7 @@ h2 {
 
 /* Estilo para el texto del Placeholder (ej. "Email" dentro del campo) */
 .form-control::placeholder {
-    color: #C8B575;
+    color: var(--input-placeholder-color);
     /* Mismo color que el borde (o uno similar) */
     opacity: 0.8;
     /* Ligeramente más tenue si quieres */
@@ -375,7 +443,7 @@ h2 {
 
 /* Estilo cuando el campo está enfocado (cuando haces clic en él) */
 .form-control:focus {
-    border-color: #E0C98D;
+    border-color: var(--input-placeholder-color);
     /* Hacer el borde ligeramente más brillante al hacer focus */
     /* Opcional: añadir una sombra sutil */
     /* box-shadow: 0 0 5px rgba(200, 181, 117, 0.5); */
@@ -417,7 +485,7 @@ input[type="radio"].form-control {
     /* ¡NUEVO! Asegura que sean visibles (no transparentes) */
     transition: none !important;
     /* ¡NUEVO! Evita animaciones raras en modo revisión */
-    border: 1px solid #1E1E1E;
+    border: 1px solid var(--bg-color);
     margin-bottom: 30px;
     padding: 25px;
 }
@@ -455,7 +523,7 @@ input[type="radio"].form-control {
 }
 
 #seccion-revision h2 {
-    color: #F7D7A5;
+    color: var(--accent-color);
     /* Mismo color claro que otros títulos */
     text-align: center;
     /* Centrar el título */
@@ -466,7 +534,7 @@ input[type="radio"].form-control {
 }
 
 #seccion-revision p {
-    color: #CCCCCC;
+    color: var(--text-color-secondary);
     /* Un gris claro o blanco (#FFFFFF) para el párrafo */
     text-align: center;
     /* Centrar el párrafo */
@@ -477,36 +545,51 @@ input[type="radio"].form-control {
 /* --- Estilos para el Modal --- */
 
 #modal-overlay {
-    display: none; /* Oculto por defecto */
-    position: fixed; /* Fijo en la pantalla */
+    display: none;
+    /* Oculto por defecto */
+    position: fixed;
+    /* Fijo en la pantalla */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(30, 30, 30, 0.7); /* Negro semi-transparente */
-    backdrop-filter: blur(5px); /* Efecto de desenfoque */
-    z-index: 1000; /* Por encima del contenido normal */
-    opacity: 0; /* Para animación de fundido */
+    background-color: rgba(30, 30, 30, 0.7);
+    /* Negro semi-transparente */
+    backdrop-filter: blur(5px);
+    /* Efecto de desenfoque */
+    z-index: 1000;
+    /* Por encima del contenido normal */
+    opacity: 0;
+    /* Para animación de fundido */
     transition: opacity 0.3s ease-in-out;
 }
 
 #modal-container {
-    display: none; /* Oculto por defecto */
-    position: fixed; /* Fijo en la pantalla */
+    display: none;
+    /* Oculto por defecto */
+    position: fixed;
+    /* Fijo en la pantalla */
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.95); /* Centrado y escalado inicial */
-    width: 90%; /* Ancho relativo */
-    max-width: 480px; /* Ancho máximo */
-    background-color: #1E1E1E; /* Mismo fondo oscuro que el form */
-    color: #E0E0E0; /* Color de texto claro */
+    transform: translate(-50%, -50%) scale(0.95);
+    /* Centrado y escalado inicial */
+    width: 90%;
+    /* Ancho relativo */
+    max-width: 480px;
+    /* Ancho máximo */
+    background-color: var(--bg-color);
+    /* Mismo fondo oscuro que el form */
+    color: #E0E0E0;
+    /* Color de texto claro */
     padding: 35px 40px;
     border-radius: 10px;
-    border: 1px solid #444;
+    border: 1px solid var(--border);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-    z-index: 1001; /* Por encima del overlay */
+    z-index: 1001;
+    /* Por encima del overlay */
     text-align: center;
-    opacity: 0; /* Para animación */
+    opacity: 0;
+    /* Para animación */
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
@@ -519,7 +602,8 @@ body.modal-visible #modal-overlay {
 body.modal-visible #modal-container {
     display: block;
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1); /* Escala final */
+    transform: translate(-50%, -50%) scale(1);
+    /* Escala final */
 }
 
 /* Estilos internos del modal */
@@ -528,23 +612,30 @@ body.modal-visible #modal-container {
 }
 
 #modal-error-icon {
-    font-size: 64px; /* Tamaño icono */
-    color: #E57373; /* Rojo claro para error */
-    display: none; /* Oculto por defecto */
+    font-size: 64px;
+    /* Tamaño icono */
+    color: #E57373;
+    /* Rojo claro para error */
+    display: none;
+    /* Oculto por defecto */
     vertical-align: middle;
 }
 
 #modal-success-logo {
-    max-height: 70px; /* Tamaño logo */
-    display: none; /* Oculto por defecto */
+    max-height: 70px;
+    /* Tamaño logo */
+    display: none;
+    /* Oculto por defecto */
 }
 
 #modal-title {
-    color: #F7D7A5; /* Color dorado */
+    color: var(--accent-color);
+    /* Color dorado */
     font-size: 1.6em;
     margin-top: 0;
     margin-bottom: 15px;
-    font-weight: 600; /* Un poco más de peso */
+    font-weight: 600;
+    /* Un poco más de peso */
 }
 
 #modal-message {
@@ -554,21 +645,165 @@ body.modal-visible #modal-container {
 }
 
 #modal-buttons button {
-    display: none; /* Ocultar botones por defecto, JS mostrará el apropiado */
+    display: none;
+    /* Ocultar botones por defecto, JS mostrará el apropiado */
     margin: 0 8px;
-    min-width: 100px; /* Ancho mínimo para botones */
-     /* Hereda estilos de .btn-primary y .btn-anterior */
+    min-width: 100px;
+    /* Ancho mínimo para botones */
+    /* Hereda estilos de .btn-primary y .btn-anterior */
 }
 
 /* Asegúrate que Material Symbols funcione (necesitas el link en <head>) */
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 300,
-  'GRAD' 0,
-  'opsz' 48; /* Ajusta estos valores si quieres */
-  vertical-align: middle;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 300,
+        'GRAD' 0,
+        'opsz' 48;
+    /* Ajusta estos valores si quieres */
+    vertical-align: middle;
 }
+
+/* --- Estilos para el Switch de Tema --- */
+
+.theme-switch-wrapper {
+    /* Posicionamiento dentro de la cabecera - AJUSTAR SEGÚN NECESITES */
+    /* Ejemplo: si quieres alinearlo a la derecha en la cabecera fija */
+    position: absolute;
+    /* O 'relative' si el contenedor ya es flex/grid */
+    top: 50%;
+    right: 30px;
+    /* Ajusta esta distancia */
+    display: flex;
+    align-items: center;
+    z-index: 11;
+    /* Asegura que esté sobre otros elementos de la cabecera si es necesario*/
+
+     /* --- NUEVO: Ocultar por defecto --- */
+     opacity: 0; /* Inicia transparente */
+     visibility: hidden; /* Inicia completamente oculto y no interactuable */
+     /* --- NUEVO: Transición para aparecer suavemente --- */
+     /* Aplica una transición a la opacidad que dure 0.3s, con un retraso de 0.8s */
+     /* El retraso (0.8s) espera a que la animación principal de los logos casi termine (que dura 1s) */
+     transition: opacity 0.3s ease-in-out 0.8s;
+     /* Nota: No necesitamos transición para 'visibility' aquí */
+}
+
+/* Ocultar el checkbox real */
+.theme-switch input[type="checkbox"] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+/* La etiqueta que actúa como base del switch */
+.theme-switch {
+    cursor: pointer;
+    text-indent: -9999px;
+    /* Ocultar texto si lo hubiera */
+    width: 50px;
+    /* Ancho del switch */
+    height: 25px;
+    /* Alto del switch */
+    background: grey;
+    /* Color base cuando está apagado (oscuro) */
+    display: block;
+    border-radius: 25px;
+    /* Completamente redondeado */
+    position: relative;
+    transition: background-color 0.3s ease;
+    /* Transición suave del fondo */
+}
+
+/* Estilo del fondo usando variables (se adapta al tema) */
+.theme-switch {
+    background-color: var(--input-bg, grey);
+    /* Usa el fondo del input o gris como fallback */
+    border: 1px solid var(--accent-color, #555);
+    /* Borde con el color de acento */
+}
+
+/* El círculo deslizante (slider) */
+.theme-switch .slider {
+    position: absolute;
+    top: 1px;
+    /* Espacio desde arriba */
+    left: 1px;
+    /* Espacio desde la izquierda */
+    width: 21px;
+    /* Ancho del círculo (alto - 2*top - 2*border?) */
+    height: 21px;
+    /* Alto del círculo */
+    background-color: var(--accent-color, white);
+    /* Color del slider (color de acento) */
+    border-radius: 50%;
+    /* Hacerlo circular */
+    transition: 0.3s ease;
+    /* Animación de deslizamiento */
+    display: flex;
+    /* Para centrar iconos si los usas */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* Para ocultar el icono que no toca */
+}
+
+/* --- Iconos Sol/Luna (Opcional) --- */
+.slider .icon {
+    font-size: 12px;
+    /* Tamaño de los iconos */
+    line-height: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.slider .sun {
+    opacity: 0;
+    /* Oculto en tema oscuro por defecto */
+    transform: scale(0);
+}
+
+.slider .moon {
+    opacity: 1;
+    /* Visible en tema oscuro por defecto */
+    transform: scale(1);
+    color: var(--button-primary-text);
+    /* Color del icono luna */
+}
+
+
+/* --- Estado Activado (Tema Claro) --- */
+
+/* Cuando el checkbox está marcado, mueve el slider */
+.theme-switch input:checked+.slider {
+    transform: translateX(25px);
+    /* Mueve el círculo a la derecha (ancho_switch - ancho_slider - 2*left) */
+    background-color: var(--accent-color);
+    /* Cambia color si es necesario en modo claro */
+}
+
+/* Cambia el fondo del switch cuando está activado (opcional, ya usa variable) */
+/* .theme-switch input:checked ~ .theme-switch { */
+/* background-color: var(--button-primary-bg); */
+/* O un color específico */
+/* } */
+
+
+/* Mostrar/ocultar iconos en modo claro */
+.theme-switch input:checked+.slider .sun {
+    opacity: 1;
+    transform: scale(1);
+    color: var(--button-primary-text);
+    /* Color del icono sol */
+}
+
+.theme-switch input:checked+.slider .moon {
+    opacity: 0;
+    transform: scale(0);
+}
+
+
+
 
 /* --- Media Query para Dispositivos Móviles (ej. pantallas <= 767px) --- */
 @media (max-width: 767px) {
@@ -640,21 +875,21 @@ body.modal-visible #modal-container {
         /* Ej: Si son ~70px de logos apilados + padding */
         margin-top: 90px;
         /* (70px + 20px extra) */
-        
+
     }
 
     .form-control {
         width: 100%;
-        
+
         /* Añade solo el borde izquierdo */
-        border-left: 3px solid #F7D7A5;
+        border-left: 3px solid var(--accent-color);
         /* 3px de grosor, sólido, color amarillo */
 
         /* Es buena práctica definir qué pasa con los otros bordes */
         border-top: none;
         border-right: none;
         border-bottom: none;
-        
+
 
         /* Que los campos usen casi todo el ancho disponible */
         /* box-sizing: border-box; ya debería estar, pero asegura */
@@ -693,4 +928,19 @@ body.modal-visible #modal-container {
      .botones-navegacion button {
          width: 100%; // Ocupan todo el ancho del contenedor
      } */
+
+    .theme-switch-wrapper {
+        right: 15px;
+        /* Más cerca del borde en móvil */
+        /* Podrías necesitar ajustar 'top' o 'transform' si la altura de la cabecera cambia mucho */
+    }
+
+    /* Texto opcional al lado del switch */
+    .theme-label-text {
+        margin-left: 10px;
+        color: var(--text-color-primary);
+        font-size: 0.8em;
+    }
+
+
 }

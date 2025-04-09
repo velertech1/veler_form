@@ -13,8 +13,9 @@
         rel="stylesheet">
 
     <link rel="icon" href="assets/img/V_icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-   
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
 </head>
 
 <body>
@@ -23,51 +24,76 @@
         <img id="logo1" src="assets/img/VELER_LOGO.png" alt="Logo Empresa 1">
         <div class="linea-divisora"></div>
         <img id="logo2" src="assets/img/gnp_logo.png" alt="Logo Empresa 2">
+
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="theme-checkbox">
+                <input type="checkbox" id="theme-checkbox" />
+                <div class="slider round">
+                     <span class="icon sun">☀️</span>
+                     <span class="icon moon">🌙</span>
+                </div>
+            </label>
+            </div>
     </div>
+
+    
 
     <div id="formulario-completo" style="display: none;">
         <form id="miFormularioDinamico">
 
-            <div class="table-form seccion-formulario" id="seccion-solicitantes"> <h2>Solicitantes</h2>
+            
+
+            <div class="table-form seccion-formulario" id="seccion-solicitantes">
+                <h2>Solicitantes</h2>
                 <div class="form-group question-group">
                     <label for="sol_codigo_cliente">Código de cliente:</label>
-                    <input type="text" id="sol_codigo_cliente" name="sol_codigo_cliente" class="form-control" placeholder="Código de cliente" maxlength="20">
+                    <input type="text" id="sol_codigo_cliente" name="sol_codigo_cliente" class="form-control"
+                        placeholder="Código de cliente" maxlength="20">
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_primer_apellido">Primer apellido:</label>
-                    <input type="text" id="sol_primer_apellido" name="sol_primer_apellido" class="form-control" placeholder="Primer apellido" maxlength="50" required>
+                    <input type="text" id="sol_primer_apellido" name="sol_primer_apellido" class="form-control"
+                        placeholder="Primer apellido" maxlength="50" required>
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_segundo_apellido">Segundo apellido:</label>
-                    <input type="text" id="sol_segundo_apellido" name="sol_segundo_apellido" class="form-control" placeholder="Segundo apellido" maxlength="50">
+                    <input type="text" id="sol_segundo_apellido" name="sol_segundo_apellido" class="form-control"
+                        placeholder="Segundo apellido" maxlength="50">
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_nombres">Nombre(s):</label>
-                    <input type="text" id="sol_nombres" name="sol_nombres" class="form-control" placeholder="Nombre(s)" maxlength="100" required>
+                    <input type="text" id="sol_nombres" name="sol_nombres" class="form-control" placeholder="Nombre(s)"
+                        maxlength="100" required>
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_fecha_nacimiento">Fecha de nacimiento:</label>
-                    <input type="date" id="sol_fecha_nacimiento" name="sol_fecha_nacimiento" class="form-control" required>
+                    <input type="date" id="sol_fecha_nacimiento" name="sol_fecha_nacimiento" class="form-control"
+                        required>
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_rfc">RFC:</label>
-                    <input type="text" id="sol_rfc" name="sol_rfc" class="form-control" placeholder="RFC con homoclave" maxlength="13">
+                    <input type="text" id="sol_rfc" name="sol_rfc" class="form-control" placeholder="RFC con homoclave"
+                        maxlength="13">
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_curp">CURP:</label>
-                    <input type="text" id="sol_curp" name="sol_curp" class="form-control" placeholder="CURP" maxlength="18">
+                    <input type="text" id="sol_curp" name="sol_curp" class="form-control" placeholder="CURP"
+                        maxlength="18">
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_pais_nacimiento">País de nacimiento:</label>
-                    <input type="text" id="sol_pais_nacimiento" name="sol_pais_nacimiento" class="form-control" placeholder="País de nacimiento" maxlength="50">
+                    <input type="text" id="sol_pais_nacimiento" name="sol_pais_nacimiento" class="form-control"
+                        placeholder="País de nacimiento" maxlength="50">
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_nacionalidad">Nacionalidad:</label>
-                    <input type="text" id="sol_nacionalidad" name="sol_nacionalidad" class="form-control" placeholder="Nacionalidad" maxlength="50">
+                    <input type="text" id="sol_nacionalidad" name="sol_nacionalidad" class="form-control"
+                        placeholder="Nacionalidad" maxlength="50">
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_ocupacion">Ocupación:</label>
-                    <input type="text" id="sol_ocupacion" name="sol_ocupacion" class="form-control" placeholder="Ocupación" maxlength="100">
+                    <input type="text" id="sol_ocupacion" name="sol_ocupacion" class="form-control"
+                        placeholder="Ocupación" maxlength="100">
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_genero">Género:</label>
@@ -79,171 +105,194 @@
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_certificado_digital_fiel">No. serie certificado digital:</label>
-                    <input type="text" id="sol_certificado_digital_fiel" name="sol_certificado_digital_fiel" class="form-control" placeholder="No. serie FIEL" maxlength="50">
+                    <input type="text" id="sol_certificado_digital_fiel" name="sol_certificado_digital_fiel"
+                        class="form-control" placeholder="No. serie FIEL" maxlength="50">
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_email">Correo electrónico:</label>
-                    <input type="email" id="sol_email" name="sol_email" class="form-control" placeholder="Correo electrónico" maxlength="100">
+                    <input type="email" id="sol_email" name="sol_email" class="form-control"
+                        placeholder="Correo electrónico" maxlength="100">
                 </div>
                 <div class="form-group question-group">
-                     <label>
+                    <label>
                         <input type="checkbox" id="sol_cargo_gobierno" name="sol_cargo_gobierno" value="true">
-                         ¿Desempeñó cargo en gobierno?
+                        ¿Desempeñó cargo en gobierno?
                     </label>
-                 </div>
+                </div>
                 <div class="form-group question-group">
                     <label for="sol_cargo_dependencia">Cargo y dependencia (si aplica):</label>
-                    <input type="text" id="sol_cargo_dependencia" name="sol_cargo_dependencia" class="form-control" placeholder="Cargo y dependencia" maxlength="100">
+                    <input type="text" id="sol_cargo_dependencia" name="sol_cargo_dependencia" class="form-control"
+                        placeholder="Cargo y dependencia" maxlength="100">
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_estatura">Estatura (metros):</label>
-                    <input type="number" id="sol_estatura" name="sol_estatura" class="form-control" placeholder="Ej: 1.75" step="0.01" min="0.5" max="2.5">
+                    <input type="number" id="sol_estatura" name="sol_estatura" class="form-control"
+                        placeholder="Ej: 1.75" step="0.01" min="0.5" max="2.5">
                 </div>
                 <div class="form-group question-group">
                     <label for="sol_peso">Peso (kg):</label>
-                    <input type="number" id="sol_peso" name="sol_peso" class="form-control" placeholder="Ej: 70.5" step="0.1" min="10" max="300">
+                    <input type="number" id="sol_peso" name="sol_peso" class="form-control" placeholder="Ej: 70.5"
+                        step="0.1" min="10" max="300">
                 </div>
                 <div class="botones-navegacion">
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
             </div>
 
-            <div class="table-form seccion-formulario" id="seccion-domicilios"> <h2>Domicilios</h2>
-                 <div class="form-group question-group">
-                     <label for="dom_calle">Calle:</label>
-                     <input type="text" id="dom_calle" name="dom_calle" class="form-control" placeholder="Calle" maxlength="100">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="dom_no_exterior">No. Exterior:</label>
-                     <input type="text" id="dom_no_exterior" name="dom_no_exterior" class="form-control" placeholder="No. Exterior" maxlength="10">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="dom_no_interior">No. Interior:</label>
-                     <input type="text" id="dom_no_interior" name="dom_no_interior" class="form-control" placeholder="No. Interior (si aplica)" maxlength="10">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="dom_colonia">Colonia:</label>
-                     <input type="text" id="dom_colonia" name="dom_colonia" class="form-control" placeholder="Colonia" maxlength="100">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="dom_cp">Código Postal:</label>
-                     <input type="text" id="dom_cp" name="dom_cp" class="form-control" placeholder="Código Postal" maxlength="10">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="dom_tipo_identificacion">Tipo Identificación (Domicilio):</label>
-                     <input type="text" id="dom_tipo_identificacion" name="dom_tipo_identificacion" class="form-control" placeholder="Ej: INE, Pasaporte" maxlength="50">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="dom_institucion_emisora">Institución Emisora (Domicilio):</label>
-                     <input type="text" id="dom_institucion_emisora" name="dom_institucion_emisora" class="form-control" placeholder="Ej: INE, SRE" maxlength="50">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="dom_folio_identificacion">Folio Identificación (Domicilio):</label>
-                     <input type="text" id="dom_folio_identificacion" name="dom_folio_identificacion" class="form-control" placeholder="Folio/Número" maxlength="50">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="dom_telefono">Teléfono Fijo:</label>
-                     <input type="tel" id="dom_telefono" name="dom_telefono" class="form-control" placeholder="Teléfono Fijo" maxlength="20">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="dom_extension">Extensión:</label>
-                     <input type="text" id="dom_extension" name="dom_extension" class="form-control" placeholder="Extensión (si aplica)" maxlength="10">
-                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
-            </div>
-
-            <div class="table-form seccion-formulario" id="seccion-actividades_riesgo"> <h2>Actividades de Riesgo</h2>
-                 <div class="form-group question-group">
-                      <label>
-                         <input type="checkbox" id="labores_administrativas" name="labores_administrativas" value="true">
-                         Labores Administrativas
-                     </label>
-                  </div>
-                  <div class="form-group question-group">
-                      <label>
-                         <input type="checkbox" id="operador_maquinaria_pesada" name="operador_maquinaria_pesada" value="true">
-                         Operador Maquinaria Pesada
-                     </label>
-                  </div>
-                  <div class="form-group question-group">
-                      <label>
-                         <input type="checkbox" id="trabaja_explosivos" name="trabaja_explosivos" value="true">
-                         Trabaja con Explosivos
-                     </label>
-                  </div>
-                  <div class="form-group question-group">
-                      <label>
-                         <input type="checkbox" id="visita_obras" name="visita_obras" value="true">
-                         Visita Obras en Construcción/Campo
-                     </label>
-                  </div>
-                  <div class="form-group question-group">
-                      <label>
-                         <input type="checkbox" id="uso_armas" name="uso_armas" value="true">
-                         Uso/Portación de Armas
-                     </label>
-                  </div>
-                  <div class="form-group question-group">
-                      <label>
-                         <input type="checkbox" id="actividad_agricola" name="actividad_agricola" value="true">
-                         Realiza Actividad Agrícola/Ganadera
-                     </label>
-                  </div>
-                  <div class="form-group question-group">
-                      <label>
-                         <input type="checkbox" id="utiliza_motocicleta" name="utiliza_motocicleta" value="true">
-                         Utiliza Motocicleta Regularmente
-                     </label>
-                  </div>
-                  <div class="form-group question-group">
-                      <label>
-                         <input type="checkbox" id="viaja_aviones_particulares" name="viaja_aviones_particulares" value="true">
-                         Viaja en Aviones Particulares/No Comerciales
-                     </label>
-                  </div>
-                  <div class="botones-navegacion">
-                      <button type="button" class="btn-anterior">Anterior</button>
-                      <button type="button" class="btn-siguiente">Siguiente</button>
-                  </div>
-            </div>
-
-             <div class="table-form seccion-formulario" id="seccion-habitos"> <h2>Hábitos</h2>
+            <div class="table-form seccion-formulario" id="seccion-domicilios">
+                <h2>Domicilios</h2>
                 <div class="form-group question-group">
-                     <label>
+                    <label for="dom_calle">Calle:</label>
+                    <input type="text" id="dom_calle" name="dom_calle" class="form-control" placeholder="Calle"
+                        maxlength="100">
+                </div>
+                <div class="form-group question-group">
+                    <label for="dom_no_exterior">No. Exterior:</label>
+                    <input type="text" id="dom_no_exterior" name="dom_no_exterior" class="form-control"
+                        placeholder="No. Exterior" maxlength="10">
+                </div>
+                <div class="form-group question-group">
+                    <label for="dom_no_interior">No. Interior:</label>
+                    <input type="text" id="dom_no_interior" name="dom_no_interior" class="form-control"
+                        placeholder="No. Interior (si aplica)" maxlength="10">
+                </div>
+                <div class="form-group question-group">
+                    <label for="dom_colonia">Colonia:</label>
+                    <input type="text" id="dom_colonia" name="dom_colonia" class="form-control" placeholder="Colonia"
+                        maxlength="100">
+                </div>
+                <div class="form-group question-group">
+                    <label for="dom_cp">Código Postal:</label>
+                    <input type="text" id="dom_cp" name="dom_cp" class="form-control" placeholder="Código Postal"
+                        maxlength="10">
+                </div>
+                <div class="form-group question-group">
+                    <label for="dom_tipo_identificacion">Tipo Identificación (Domicilio):</label>
+                    <input type="text" id="dom_tipo_identificacion" name="dom_tipo_identificacion" class="form-control"
+                        placeholder="Ej: INE, Pasaporte" maxlength="50">
+                </div>
+                <div class="form-group question-group">
+                    <label for="dom_institucion_emisora">Institución Emisora (Domicilio):</label>
+                    <input type="text" id="dom_institucion_emisora" name="dom_institucion_emisora" class="form-control"
+                        placeholder="Ej: INE, SRE" maxlength="50">
+                </div>
+                <div class="form-group question-group">
+                    <label for="dom_folio_identificacion">Folio Identificación (Domicilio):</label>
+                    <input type="text" id="dom_folio_identificacion" name="dom_folio_identificacion"
+                        class="form-control" placeholder="Folio/Número" maxlength="50">
+                </div>
+                <div class="form-group question-group">
+                    <label for="dom_telefono">Teléfono Fijo:</label>
+                    <input type="tel" id="dom_telefono" name="dom_telefono" class="form-control"
+                        placeholder="Teléfono Fijo" maxlength="20">
+                </div>
+                <div class="form-group question-group">
+                    <label for="dom_extension">Extensión:</label>
+                    <input type="text" id="dom_extension" name="dom_extension" class="form-control"
+                        placeholder="Extensión (si aplica)" maxlength="10">
+                </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
+            </div>
+
+            <div class="table-form seccion-formulario" id="seccion-actividades_riesgo">
+                <h2>Actividades de Riesgo</h2>
+                <div class="form-group question-group">
+                    <label>
+                        <input type="checkbox" id="labores_administrativas" name="labores_administrativas" value="true">
+                        Labores Administrativas
+                    </label>
+                </div>
+                <div class="form-group question-group">
+                    <label>
+                        <input type="checkbox" id="operador_maquinaria_pesada" name="operador_maquinaria_pesada"
+                            value="true">
+                        Operador Maquinaria Pesada
+                    </label>
+                </div>
+                <div class="form-group question-group">
+                    <label>
+                        <input type="checkbox" id="trabaja_explosivos" name="trabaja_explosivos" value="true">
+                        Trabaja con Explosivos
+                    </label>
+                </div>
+                <div class="form-group question-group">
+                    <label>
+                        <input type="checkbox" id="visita_obras" name="visita_obras" value="true">
+                        Visita Obras en Construcción/Campo
+                    </label>
+                </div>
+                <div class="form-group question-group">
+                    <label>
+                        <input type="checkbox" id="uso_armas" name="uso_armas" value="true">
+                        Uso/Portación de Armas
+                    </label>
+                </div>
+                <div class="form-group question-group">
+                    <label>
+                        <input type="checkbox" id="actividad_agricola" name="actividad_agricola" value="true">
+                        Realiza Actividad Agrícola/Ganadera
+                    </label>
+                </div>
+                <div class="form-group question-group">
+                    <label>
+                        <input type="checkbox" id="utiliza_motocicleta" name="utiliza_motocicleta" value="true">
+                        Utiliza Motocicleta Regularmente
+                    </label>
+                </div>
+                <div class="form-group question-group">
+                    <label>
+                        <input type="checkbox" id="viaja_aviones_particulares" name="viaja_aviones_particulares"
+                            value="true">
+                        Viaja en Aviones Particulares/No Comerciales
+                    </label>
+                </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
+            </div>
+
+            <div class="table-form seccion-formulario" id="seccion-habitos">
+                <h2>Hábitos</h2>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="fuma" name="fuma" value="true">
                         ¿Fuma actualmente?
                     </label>
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="cigarrillos_dia">Cigarrillos al día (si fuma):</label>
-                     <input type="number" id="cigarrillos_dia" name="cigarrillos_dia" class="form-control" placeholder="Cantidad" min="0">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="cuando_dejo_fumar">Si dejó de fumar, ¿cuándo?</label>
-                     <input type="text" id="cuando_dejo_fumar" name="cuando_dejo_fumar" class="form-control" placeholder="Mes/Año o Años" maxlength="50">
-                 </div>
-                 <div class="form-group question-group">
-                      <label>
+                </div>
+                <div class="form-group question-group">
+                    <label for="cigarrillos_dia">Cigarrillos al día (si fuma):</label>
+                    <input type="number" id="cigarrillos_dia" name="cigarrillos_dia" class="form-control"
+                        placeholder="Cantidad" min="0">
+                </div>
+                <div class="form-group question-group">
+                    <label for="cuando_dejo_fumar">Si dejó de fumar, ¿cuándo?</label>
+                    <input type="text" id="cuando_dejo_fumar" name="cuando_dejo_fumar" class="form-control"
+                        placeholder="Mes/Año o Años" maxlength="50">
+                </div>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="consume_drogas" name="consume_drogas" value="true">
                         ¿Consume drogas?
                     </label>
-                 </div>
-                  <div class="form-group question-group">
-                      <label>
+                </div>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="embarazada" name="embarazada" value="true">
                         ¿Está embarazada? (Solo mujeres ≥15 años)
                     </label>
-                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
+                </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
             </div>
 
-            <div class="table-form seccion-formulario" id="seccion-deportes"> <h2>Deportes</h2>
+            <div class="table-form seccion-formulario" id="seccion-deportes">
+                <h2>Deportes</h2>
                 <div class="form-group question-group">
                     <label for="tipo_deporte">Tipo de práctica:</label>
                     <select id="tipo_deporte" name="tipo_deporte" class="form-control">
@@ -254,9 +303,10 @@
                 </div>
                 <div class="form-group question-group">
                     <label for="nombre_deporte">Nombre del Deporte:</label>
-                    <input type="text" id="nombre_deporte" name="nombre_deporte" class="form-control" placeholder="Nombre del Deporte" maxlength="50">
+                    <input type="text" id="nombre_deporte" name="nombre_deporte" class="form-control"
+                        placeholder="Nombre del Deporte" maxlength="50">
                 </div>
-                 <div class="form-group question-group">
+                <div class="form-group question-group">
                     <label for="frecuencia_deporte">Frecuencia:</label>
                     <select id="frecuencia_deporte" name="frecuencia_deporte" class="form-control">
                         <option value="" disabled selected>Seleccione...</option>
@@ -264,61 +314,65 @@
                         <option value="Más de 3 veces/semana">Más de 3 veces por semana</option>
                     </select>
                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
             </div>
 
-             <div class="table-form seccion-formulario" id="seccion-informacion_medica"> <h2>Información Médica General</h2>
-                 <div class="form-group question-group">
-                     <label>
+            <div class="table-form seccion-formulario" id="seccion-informacion_medica">
+                <h2>Información Médica General</h2>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="padece_enfermedad" name="padece_enfermedad" value="true">
                         ¿Padece alguna enfermedad crónica? (Ej: hipertensión, diabetes)
                     </label>
-                 </div>
-                 <div class="form-group question-group">
-                      <label>
+                </div>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="hospitalizado_cirugia" name="hospitalizado_cirugia" value="true">
                         ¿Ha sido hospitalizado o tenido cirugía en los últimos 5 años?
                     </label>
-                 </div>
-                  <div class="form-group question-group">
-                      <label>
+                </div>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="otro_padecimiento" name="otro_padecimiento" value="true">
                         ¿Tiene algún otro padecimiento o síntoma relevante?
                     </label>
-                 </div>
-                 <div class="form-group question-group">
+                </div>
+                <div class="form-group question-group">
                     <label for="detalles_padecimiento">Detalles (si marcó alguna opción anterior):</label>
-                    <textarea id="detalles_padecimiento" name="detalles_padecimiento" class="form-control" rows="4" placeholder="Describa brevemente"></textarea>
-                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
+                    <textarea id="detalles_padecimiento" name="detalles_padecimiento" class="form-control" rows="4"
+                        placeholder="Describa brevemente"></textarea>
+                </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
             </div>
 
-            <div class="table-form seccion-formulario" id="seccion-padecimientos_detalle"> <h2>Detalle de Padecimientos (si aplica)</h2>
-                 <div class="form-group question-group">
+            <div class="table-form seccion-formulario" id="seccion-padecimientos_detalle">
+                <h2>Detalle de Padecimientos (si aplica)</h2>
+                <div class="form-group question-group">
                     <label for="nombre_padecimiento">Nombre del Padecimiento/Diagnóstico:</label>
-                    <input type="text" id="nombre_padecimiento" name="nombre_padecimiento" class="form-control" placeholder="Nombre del Padecimiento" maxlength="100">
+                    <input type="text" id="nombre_padecimiento" name="nombre_padecimiento" class="form-control"
+                        placeholder="Nombre del Padecimiento" maxlength="100">
                 </div>
-                 <div class="form-group question-group">
+                <div class="form-group question-group">
                     <label for="tipo_evento">Tipo de Evento:</label>
-                     <select id="tipo_evento" name="tipo_evento" class="form-control">
+                    <select id="tipo_evento" name="tipo_evento" class="form-control">
                         <option value="" disabled selected>Seleccione...</option>
                         <option value="Enfermedad">Enfermedad</option>
                         <option value="Accidente">Accidente</option>
                     </select>
                 </div>
-                 <div class="form-group question-group">
+                <div class="form-group question-group">
                     <label for="fecha_inicio">Fecha de Inicio/Diagnóstico:</label>
                     <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control">
                 </div>
-                 <div class="form-group question-group">
+                <div class="form-group question-group">
                     <label for="tipo_tratamiento">Tipo de Tratamiento:</label>
-                     <select id="tipo_tratamiento" name="tipo_tratamiento" class="form-control">
+                    <select id="tipo_tratamiento" name="tipo_tratamiento" class="form-control">
                         <option value="" disabled selected>Seleccione...</option>
                         <option value="Quirúrgico">Quirúrgico</option>
                         <option value="Médico">Médico</option>
@@ -326,185 +380,208 @@
                         <option value="Otro">Otro</option>
                     </select>
                 </div>
-                  <div class="form-group question-group">
-                     <label>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="hospitalizado" name="hospitalizado" value="true">
                         ¿Requirió hospitalización?
                     </label>
-                 </div>
-                  <div class="form-group question-group">
-                    <label for="complicacion">Complicaciones (si hubo):</label>
-                    <input type="text" id="complicacion" name="complicacion" class="form-control" placeholder="Complicaciones" maxlength="100">
                 </div>
-                  <div class="form-group question-group">
-                     <label>
+                <div class="form-group question-group">
+                    <label for="complicacion">Complicaciones (si hubo):</label>
+                    <input type="text" id="complicacion" name="complicacion" class="form-control"
+                        placeholder="Complicaciones" maxlength="100">
+                </div>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="toma_medicamento" name="toma_medicamento" value="true">
                         ¿Toma medicamento actualmente para esto?
                     </label>
-                 </div>
-                 <div class="form-group question-group">
+                </div>
+                <div class="form-group question-group">
                     <label for="medicamento">Medicamento (si aplica):</label>
-                    <input type="text" id="medicamento" name="medicamento" class="form-control" placeholder="Nombre del medicamento" maxlength="100">
-                 </div>
-                 <div class="form-group question-group">
+                    <input type="text" id="medicamento" name="medicamento" class="form-control"
+                        placeholder="Nombre del medicamento" maxlength="100">
+                </div>
+                <div class="form-group question-group">
                     <label for="estado_salud">Estado de Salud Actual:</label>
-                     <select id="estado_salud" name="estado_salud" class="form-control">
+                    <select id="estado_salud" name="estado_salud" class="form-control">
                         <option value="" disabled selected>Seleccione...</option>
                         <option value="Sano">Sano / Recuperado</option>
                         <option value="En tratamiento">En tratamiento</option>
                         <option value="Con secuelas">Con secuelas</option>
                     </select>
                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
             </div>
 
-            <div class="table-form seccion-formulario" id="seccion-planes_seguro"> <h2>Plan de Seguro Solicitado</h2>
-                 <div class="form-group question-group">
+            <div class="table-form seccion-formulario" id="seccion-planes_seguro">
+                <h2>Plan de Seguro Solicitado</h2>
+                <div class="form-group question-group">
                     <label for="nombre_plan">Nombre del Plan:</label>
-                    <input type="text" id="nombre_plan" name="nombre_plan" class="form-control" placeholder="Ej: Esencial 300, Versátil" maxlength="50">
-                 </div>
-                 <div class="form-group question-group">
+                    <input type="text" id="nombre_plan" name="nombre_plan" class="form-control"
+                        placeholder="Ej: Esencial 300, Versátil" maxlength="50">
+                </div>
+                <div class="form-group question-group">
                     <label for="tipo_plan">Tipo de Plan:</label>
-                     <select id="tipo_plan" name="tipo_plan" class="form-control">
+                    <select id="tipo_plan" name="tipo_plan" class="form-control">
                         <option value="" disabled selected>Seleccione...</option>
                         <option value="Nacional">Nacional</option>
                         <option value="Internacional">Internacional</option>
                     </select>
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="suma_asegurada">Suma Asegurada:</label>
-                     <input type="number" id="suma_asegurada" name="suma_asegurada" class="form-control" placeholder="Monto" step="0.01" min="0">
-                 </div>
-                  <div class="form-group question-group">
+                </div>
+                <div class="form-group question-group">
+                    <label for="suma_asegurada">Suma Asegurada:</label>
+                    <input type="number" id="suma_asegurada" name="suma_asegurada" class="form-control"
+                        placeholder="Monto" step="0.01" min="0">
+                </div>
+                <div class="form-group question-group">
                     <label for="tipo_suma_asegurada">Tipo Suma Asegurada:</label>
-                     <select id="tipo_suma_asegurada" name="tipo_suma_asegurada" class="form-control">
+                    <select id="tipo_suma_asegurada" name="tipo_suma_asegurada" class="form-control">
                         <option value="" disabled selected>Seleccione...</option>
                         <option value="Única">Única</option>
                         <option value="Anual">Anual</option>
-                         <option value="Por Padecimiento">Por Padecimiento</option>
-                         <option value="Vitalicia">Vitalicia</option>
+                        <option value="Por Padecimiento">Por Padecimiento</option>
+                        <option value="Vitalicia">Vitalicia</option>
                     </select>
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="deducible">Deducible:</label>
-                     <input type="number" id="deducible" name="deducible" class="form-control" placeholder="Monto" step="0.01" min="0">
-                 </div>
-                  <div class="form-group question-group">
-                     <label for="tipo_deducible">Tipo Deducible:</label>
-                     <input type="text" id="tipo_deducible" name="tipo_deducible" class="form-control" placeholder="Ej: Por evento, Anual" maxlength="50">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="coaseguro">Coaseguro (%):</label>
-                     <input type="number" id="coaseguro" name="coaseguro" class="form-control" placeholder="Porcentaje Ej: 10" step="0.1" min="0" max="100">
-                 </div>
-                  <div class="form-group question-group">
-                     <label for="tipo_coaseguro">Tipo Coaseguro:</label>
-                     <input type="text" id="tipo_coaseguro" name="tipo_coaseguro" class="form-control" placeholder="Ej: Topado, No Topado" maxlength="50">
-                 </div>
-                  <div class="form-group question-group">
-                     <label for="folio_riesgo_selecto">Folio Riesgo Selecto (si aplica):</label>
-                     <input type="text" id="folio_riesgo_selecto" name="folio_riesgo_selecto" class="form-control" placeholder="Folio" maxlength="50">
-                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
+                </div>
+                <div class="form-group question-group">
+                    <label for="deducible">Deducible:</label>
+                    <input type="number" id="deducible" name="deducible" class="form-control" placeholder="Monto"
+                        step="0.01" min="0">
+                </div>
+                <div class="form-group question-group">
+                    <label for="tipo_deducible">Tipo Deducible:</label>
+                    <input type="text" id="tipo_deducible" name="tipo_deducible" class="form-control"
+                        placeholder="Ej: Por evento, Anual" maxlength="50">
+                </div>
+                <div class="form-group question-group">
+                    <label for="coaseguro">Coaseguro (%):</label>
+                    <input type="number" id="coaseguro" name="coaseguro" class="form-control"
+                        placeholder="Porcentaje Ej: 10" step="0.1" min="0" max="100">
+                </div>
+                <div class="form-group question-group">
+                    <label for="tipo_coaseguro">Tipo Coaseguro:</label>
+                    <input type="text" id="tipo_coaseguro" name="tipo_coaseguro" class="form-control"
+                        placeholder="Ej: Topado, No Topado" maxlength="50">
+                </div>
+                <div class="form-group question-group">
+                    <label for="folio_riesgo_selecto">Folio Riesgo Selecto (si aplica):</label>
+                    <input type="text" id="folio_riesgo_selecto" name="folio_riesgo_selecto" class="form-control"
+                        placeholder="Folio" maxlength="50">
+                </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
             </div>
 
-            <div class="table-form seccion-formulario" id="seccion-solicitud"> <h2>Detalles de la Solicitud</h2>
-                 <div class="form-group question-group">
+            <div class="table-form seccion-formulario" id="seccion-solicitud">
+                <h2>Detalles de la Solicitud</h2>
+                <div class="form-group question-group">
                     <label for="fecha_solicitud">Fecha de Solicitud:</label>
                     <input type="date" id="fecha_solicitud" name="fecha_solicitud" class="form-control" required>
-                 </div>
-                 <div class="form-group question-group">
-                      <label>
+                </div>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="viaje_extranjero" name="viaje_extranjero" value="true">
                         ¿Planea viajar al extranjero en los próximos 12 meses?
                     </label>
-                 </div>
-                 <div class="form-group question-group">
+                </div>
+                <div class="form-group question-group">
                     <label for="fecha_inicio_viaje">Fecha Inicio Viaje:</label>
                     <input type="date" id="fecha_inicio_viaje" name="fecha_inicio_viaje" class="form-control">
-                 </div>
-                 <div class="form-group question-group">
+                </div>
+                <div class="form-group question-group">
                     <label for="fecha_fin_viaje">Fecha Fin Viaje:</label>
                     <input type="date" id="fecha_fin_viaje" name="fecha_fin_viaje" class="form-control">
-                 </div>
-                 <div class="form-group question-group">
+                </div>
+                <div class="form-group question-group">
                     <label for="destino_viaje">Destino(s) Viaje:</label>
-                    <input type="text" id="destino_viaje" name="destino_viaje" class="form-control" placeholder="País(es) / Ciudad(es)" maxlength="100">
-                 </div>
-                 <div class="form-group question-group">
-                      <label>
+                    <input type="text" id="destino_viaje" name="destino_viaje" class="form-control"
+                        placeholder="País(es) / Ciudad(es)" maxlength="100">
+                </div>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="conversion_individual" name="conversion_individual" value="true">
                         ¿Es conversión de Póliza Colectiva a Individual?
                     </label>
-                 </div>
-                  <div class="form-group question-group">
-                     <label for="poliza_colectiva">Póliza Colectiva Origen (si aplica):</label>
-                     <input type="text" id="poliza_colectiva" name="poliza_colectiva" class="form-control" placeholder="No. Póliza Colectiva" maxlength="50">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="certificados">Certificado(s) Origen (si aplica):</label>
-                     <input type="text" id="certificados" name="certificados" class="form-control" placeholder="No. Certificado(s)" maxlength="100">
-                 </div>
-                 <div class="form-group question-group">
-                      <label>
-                        <input type="checkbox" id="reduccion_periodos_espera" name="reduccion_periodos_espera" value="true">
+                </div>
+                <div class="form-group question-group">
+                    <label for="poliza_colectiva">Póliza Colectiva Origen (si aplica):</label>
+                    <input type="text" id="poliza_colectiva" name="poliza_colectiva" class="form-control"
+                        placeholder="No. Póliza Colectiva" maxlength="50">
+                </div>
+                <div class="form-group question-group">
+                    <label for="certificados">Certificado(s) Origen (si aplica):</label>
+                    <input type="text" id="certificados" name="certificados" class="form-control"
+                        placeholder="No. Certificado(s)" maxlength="100">
+                </div>
+                <div class="form-group question-group">
+                    <label>
+                        <input type="checkbox" id="reduccion_periodos_espera" name="reduccion_periodos_espera"
+                            value="true">
                         ¿Solicita Reducción de Periodos de Espera por Antigüedad?
                     </label>
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="compania_procedente">Compañía Procedente (si aplica):</label>
-                     <input type="text" id="compania_procedente" name="compania_procedente" class="form-control" placeholder="Nombre Compañía" maxlength="100">
-                 </div>
-                 <div class="form-group question-group">
+                </div>
+                <div class="form-group question-group">
+                    <label for="compania_procedente">Compañía Procedente (si aplica):</label>
+                    <input type="text" id="compania_procedente" name="compania_procedente" class="form-control"
+                        placeholder="Nombre Compañía" maxlength="100">
+                </div>
+                <div class="form-group question-group">
                     <label for="firma_titular">Firma del Titular:</label>
                     <input type="file" id="firma_titular" name="firma_titular" class="form-control" accept="image/*">
                 </div>
-                 <div class="form-group question-group">
+                <div class="form-group question-group">
                     <label for="fecha_firma">Fecha de Firma:</label>
                     <input type="date" id="fecha_firma" name="fecha_firma" class="form-control" required>
-                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
+                </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
             </div>
 
-            <div class="table-form seccion-formulario" id="seccion-contratante"> <h2>Contratante (Si es diferente al Solicitante Titular)</h2>
+            <div class="table-form seccion-formulario" id="seccion-contratante">
+                <h2>Contratante (Si es diferente al Solicitante Titular)</h2>
                 <div class="form-group question-group">
                     <label for="con_codigo_cliente">Código de cliente:</label>
-                    <input type="text" id="con_codigo_cliente" name="con_codigo_cliente" class="form-control" placeholder="Código de cliente" maxlength="20">
+                    <input type="text" id="con_codigo_cliente" name="con_codigo_cliente" class="form-control"
+                        placeholder="Código de cliente" maxlength="20">
                 </div>
                 <div class="form-group question-group">
                     <label for="con_primer_apellido">Primer apellido:</label>
-                    <input type="text" id="con_primer_apellido" name="con_primer_apellido" class="form-control" placeholder="Primer apellido" maxlength="50">
+                    <input type="text" id="con_primer_apellido" name="con_primer_apellido" class="form-control"
+                        placeholder="Primer apellido" maxlength="50">
                 </div>
                 <div class="form-group question-group">
                     <label for="con_segundo_apellido">Segundo apellido:</label>
-                    <input type="text" id="con_segundo_apellido" name="con_segundo_apellido" class="form-control" placeholder="Segundo apellido" maxlength="50">
+                    <input type="text" id="con_segundo_apellido" name="con_segundo_apellido" class="form-control"
+                        placeholder="Segundo apellido" maxlength="50">
                 </div>
                 <div class="form-group question-group">
                     <label for="con_nombres">Nombre(s):</label>
-                    <input type="text" id="con_nombres" name="con_nombres" class="form-control" placeholder="Nombre(s)" maxlength="100">
+                    <input type="text" id="con_nombres" name="con_nombres" class="form-control" placeholder="Nombre(s)"
+                        maxlength="100">
                 </div>
                 <div class="form-group question-group">
                     <label for="con_fecha_nacimiento">Fecha de nacimiento:</label>
                     <input type="date" id="con_fecha_nacimiento" name="con_fecha_nacimiento" class="form-control">
                 </div>
-                 <div class="form-group question-group">
+                <div class="form-group question-group">
                     <label for="con_rfc">RFC:</label>
-                    <input type="text" id="con_rfc" name="con_rfc" class="form-control" placeholder="RFC con homoclave" maxlength="13">
+                    <input type="text" id="con_rfc" name="con_rfc" class="form-control" placeholder="RFC con homoclave"
+                        maxlength="13">
                 </div>
                 <div class="form-group question-group">
                     <label for="con_curp">CURP:</label>
-                    <input type="text" id="con_curp" name="con_curp" class="form-control" placeholder="CURP" maxlength="18">
+                    <input type="text" id="con_curp" name="con_curp" class="form-control" placeholder="CURP"
+                        maxlength="18">
                 </div>
-                 <div class="form-group question-group">
+                <div class="form-group question-group">
                     <label for="con_genero">Género:</label>
                     <select id="con_genero" name="con_genero" class="form-control">
                         <option value="" disabled selected>Seleccione...</option>
@@ -512,89 +589,107 @@
                         <option value="M">Masculino</option>
                     </select>
                 </div>
-                 <div class="form-group question-group">
+                <div class="form-group question-group">
                     <label for="con_pais_nacimiento">País de nacimiento:</label>
-                    <input type="text" id="con_pais_nacimiento" name="con_pais_nacimiento" class="form-control" placeholder="País de nacimiento" maxlength="50">
+                    <input type="text" id="con_pais_nacimiento" name="con_pais_nacimiento" class="form-control"
+                        placeholder="País de nacimiento" maxlength="50">
                 </div>
                 <div class="form-group question-group">
                     <label for="con_nacionalidad">Nacionalidad:</label>
-                    <input type="text" id="con_nacionalidad" name="con_nacionalidad" class="form-control" placeholder="Nacionalidad" maxlength="50">
+                    <input type="text" id="con_nacionalidad" name="con_nacionalidad" class="form-control"
+                        placeholder="Nacionalidad" maxlength="50">
                 </div>
                 <div class="form-group question-group">
                     <label for="con_ocupacion">Ocupación:</label>
-                    <input type="text" id="con_ocupacion" name="con_ocupacion" class="form-control" placeholder="Ocupación" maxlength="100">
-                </div>
-                 <div class="form-group question-group">
-                    <label for="con_certificado_digital_fiel">No. serie certificado digital:</label>
-                    <input type="text" id="con_certificado_digital_fiel" name="con_certificado_digital_fiel" class="form-control" placeholder="No. serie FIEL" maxlength="50">
-                </div>
-                 <div class="form-group question-group">
-                    <label for="con_email">Correo electrónico:</label>
-                    <input type="email" id="con_email" name="con_email" class="form-control" placeholder="Correo electrónico" maxlength="100">
+                    <input type="text" id="con_ocupacion" name="con_ocupacion" class="form-control"
+                        placeholder="Ocupación" maxlength="100">
                 </div>
                 <div class="form-group question-group">
-                     <label>
+                    <label for="con_certificado_digital_fiel">No. serie certificado digital:</label>
+                    <input type="text" id="con_certificado_digital_fiel" name="con_certificado_digital_fiel"
+                        class="form-control" placeholder="No. serie FIEL" maxlength="50">
+                </div>
+                <div class="form-group question-group">
+                    <label for="con_email">Correo electrónico:</label>
+                    <input type="email" id="con_email" name="con_email" class="form-control"
+                        placeholder="Correo electrónico" maxlength="100">
+                </div>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="con_cargo_gobierno" name="con_cargo_gobierno" value="true">
-                         ¿Desempeñó cargo en gobierno?
+                        ¿Desempeñó cargo en gobierno?
                     </label>
-                 </div>
-                 <div class="form-group question-group">
+                </div>
+                <div class="form-group question-group">
                     <label for="con_cargo_dependencia">Cargo y dependencia (si aplica):</label>
-                    <input type="text" id="con_cargo_dependencia" name="con_cargo_dependencia" class="form-control" placeholder="Cargo y dependencia" maxlength="100">
+                    <input type="text" id="con_cargo_dependencia" name="con_cargo_dependencia" class="form-control"
+                        placeholder="Cargo y dependencia" maxlength="100">
                 </div>
-                 <div class="form-group question-group">
-                     <label for="con_tipo_identificacion">Tipo Identificación:</label>
-                     <input type="text" id="con_tipo_identificacion" name="con_tipo_identificacion" class="form-control" placeholder="Ej: INE, Pasaporte" maxlength="50">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="con_institucion_emisora">Institución Emisora:</label>
-                     <input type="text" id="con_institucion_emisora" name="con_institucion_emisora" class="form-control" placeholder="Ej: INE, SRE" maxlength="50">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="con_folio_identificacion">Folio Identificación:</label>
-                     <input type="text" id="con_folio_identificacion" name="con_folio_identificacion" class="form-control" placeholder="Folio/Número" maxlength="50">
-                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
+                <div class="form-group question-group">
+                    <label for="con_tipo_identificacion">Tipo Identificación:</label>
+                    <input type="text" id="con_tipo_identificacion" name="con_tipo_identificacion" class="form-control"
+                        placeholder="Ej: INE, Pasaporte" maxlength="50">
+                </div>
+                <div class="form-group question-group">
+                    <label for="con_institucion_emisora">Institución Emisora:</label>
+                    <input type="text" id="con_institucion_emisora" name="con_institucion_emisora" class="form-control"
+                        placeholder="Ej: INE, SRE" maxlength="50">
+                </div>
+                <div class="form-group question-group">
+                    <label for="con_folio_identificacion">Folio Identificación:</label>
+                    <input type="text" id="con_folio_identificacion" name="con_folio_identificacion"
+                        class="form-control" placeholder="Folio/Número" maxlength="50">
+                </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
             </div>
 
-             <div class="table-form seccion-formulario" id="seccion-coberturas_adicionales"> <h2>Coberturas Adicionales</h2>
-                  <div class="form-group question-group">
+            <div class="table-form seccion-formulario" id="seccion-coberturas_adicionales">
+                <h2>Coberturas Adicionales</h2>
+                <div class="form-group question-group">
                     <label for="tipo_cobertura">Tipo Cobertura:</label>
-                     <input type="text" id="tipo_cobertura" name="tipo_cobertura" class="form-control" placeholder="Ej: CECE, CRH, CRF" maxlength="10">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="monto_cobertura">Monto:</label>
-                     <input type="number" id="monto_cobertura" name="monto_cobertura" class="form-control" placeholder="Monto" step="0.01" min="0">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="detalles_cobertura">Detalles:</label>
-                     <textarea id="detalles_cobertura" name="detalles_cobertura" class="form-control" rows="3" placeholder="Detalles adicionales"></textarea>
-                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
+                    <input type="text" id="tipo_cobertura" name="tipo_cobertura" class="form-control"
+                        placeholder="Ej: CECE, CRH, CRF" maxlength="10">
+                </div>
+                <div class="form-group question-group">
+                    <label for="monto_cobertura">Monto:</label>
+                    <input type="number" id="monto_cobertura" name="monto_cobertura" class="form-control"
+                        placeholder="Monto" step="0.01" min="0">
+                </div>
+                <div class="form-group question-group">
+                    <label for="detalles_cobertura">Detalles:</label>
+                    <textarea id="detalles_cobertura" name="detalles_cobertura" class="form-control" rows="3"
+                        placeholder="Detalles adicionales"></textarea>
+                </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
             </div>
 
-            <div class="table-form seccion-formulario" id="seccion-beneficiarios"> <h2>Beneficiarios</h2>
-                 <div class="form-group question-group">
+            <div class="table-form seccion-formulario" id="seccion-beneficiarios">
+                <h2>Beneficiarios</h2>
+                <div class="form-group question-group">
                     <label for="ben_primer_apellido">Primer apellido:</label>
-                    <input type="text" id="ben_primer_apellido" name="ben_primer_apellido" class="form-control" placeholder="Primer apellido" maxlength="50" required>
+                    <input type="text" id="ben_primer_apellido" name="ben_primer_apellido" class="form-control"
+                        placeholder="Primer apellido" maxlength="50" required>
                 </div>
-                 <div class="form-group question-group">
+                <div class="form-group question-group">
                     <label for="ben_segundo_apellido">Segundo apellido:</label>
-                    <input type="text" id="ben_segundo_apellido" name="ben_segundo_apellido" class="form-control" placeholder="Segundo apellido" maxlength="50">
+                    <input type="text" id="ben_segundo_apellido" name="ben_segundo_apellido" class="form-control"
+                        placeholder="Segundo apellido" maxlength="50">
                 </div>
-                 <div class="form-group question-group">
+                <div class="form-group question-group">
                     <label for="ben_nombres">Nombre(s):</label>
-                    <input type="text" id="ben_nombres" name="ben_nombres" class="form-control" placeholder="Nombre(s)" maxlength="100" required>
+                    <input type="text" id="ben_nombres" name="ben_nombres" class="form-control" placeholder="Nombre(s)"
+                        maxlength="100" required>
                 </div>
                 <div class="form-group question-group">
                     <label for="ben_fecha_nacimiento">Fecha de nacimiento:</label>
-                    <input type="date" id="ben_fecha_nacimiento" name="ben_fecha_nacimiento" class="form-control" required>
+                    <input type="date" id="ben_fecha_nacimiento" name="ben_fecha_nacimiento" class="form-control"
+                        required>
                 </div>
                 <div class="form-group question-group">
                     <label for="ben_genero">Género:</label>
@@ -605,158 +700,180 @@
                     </select>
                 </div>
                 <div class="form-group question-group">
-                     <label for="ben_domicilio">Domicilio:</label>
-                     <textarea id="ben_domicilio" name="ben_domicilio" class="form-control" rows="3" placeholder="Domicilio Completo"></textarea>
-                 </div>
-                  <div class="form-group question-group">
-                     <label for="ben_cp">Código Postal:</label>
-                     <input type="text" id="ben_cp" name="ben_cp" class="form-control" placeholder="Código Postal" maxlength="10">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="ben_relacion_solicitante">Relación con Solicitante:</label>
-                     <input type="text" id="ben_relacion_solicitante" name="ben_relacion_solicitante" class="form-control" placeholder="Ej: Cónyuge, Hijo, Padre" maxlength="50" required>
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="ben_porcentaje_cobertura">Porcentaje Cobertura (%):</label>
-                     <input type="number" id="ben_porcentaje_cobertura" name="ben_porcentaje_cobertura" class="form-control" placeholder="%" step="0.1" min="0" max="100" required>
-                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
+                    <label for="ben_domicilio">Domicilio:</label>
+                    <textarea id="ben_domicilio" name="ben_domicilio" class="form-control" rows="3"
+                        placeholder="Domicilio Completo"></textarea>
+                </div>
+                <div class="form-group question-group">
+                    <label for="ben_cp">Código Postal:</label>
+                    <input type="text" id="ben_cp" name="ben_cp" class="form-control" placeholder="Código Postal"
+                        maxlength="10">
+                </div>
+                <div class="form-group question-group">
+                    <label for="ben_relacion_solicitante">Relación con Solicitante:</label>
+                    <input type="text" id="ben_relacion_solicitante" name="ben_relacion_solicitante"
+                        class="form-control" placeholder="Ej: Cónyuge, Hijo, Padre" maxlength="50" required>
+                </div>
+                <div class="form-group question-group">
+                    <label for="ben_porcentaje_cobertura">Porcentaje Cobertura (%):</label>
+                    <input type="number" id="ben_porcentaje_cobertura" name="ben_porcentaje_cobertura"
+                        class="form-control" placeholder="%" step="0.1" min="0" max="100" required>
+                </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
             </div>
 
-             <div class="table-form seccion-formulario" id="seccion-forma_pago"> <h2>Forma de Pago</h2>
-                 <div class="form-group question-group">
-                     <label for="forma_pago">Forma de Pago:</label>
-                     <select id="forma_pago" name="forma_pago" class="form-control" required>
-                         <option value="" disabled selected>Seleccione...</option>
-                         <option value="Anual">Anual</option>
-                         <option value="Semestral">Semestral</option>
-                         <option value="Trimestral">Trimestral</option>
-                         <option value="Mensual">Mensual</option>
-                     </select>
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="via_pago">Vía de Pago:</label>
-                     <select id="via_pago" name="via_pago" class="form-control" required>
-                         <option value="" disabled selected>Seleccione...</option>
-                         <option value="Domiciliación">Domiciliación Bancaria</option>
-                         <option value="Tarjeta Crédito">Tarjeta de Crédito</option>
-                         <option value="Tarjeta Débito">Tarjeta de Débito</option>
-                         <option value="Referencia">Pago por Referencia</option>
-                     </select>
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="tipo_cuenta">Tipo Cuenta/Tarjeta:</label>
-                      <select id="tipo_cuenta" name="tipo_cuenta" class="form-control">
-                         <option value="" disabled selected>Seleccione...</option>
-                         <option value="Crédito">Crédito</option>
-                         <option value="Débito">Débito</option>
-                         <option value="CLABE">CLABE (Domiciliación)</option>
-                     </select>
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="numero_tarjeta_cuenta">Número Tarjeta/Cuenta CLABE:</label>
-                     <input type="text" id="numero_tarjeta_cuenta" name="numero_tarjeta_cuenta" class="form-control" placeholder="Número" maxlength="20"> </div>
-                 <div class="form-group question-group">
-                     <label for="fecha_vencimiento">Fecha Vencimiento (Tarjeta):</label>
-                     <input type="text" id="fecha_vencimiento" name="fecha_vencimiento" class="form-control" placeholder="MM/AAAA" maxlength="7">
-                 </div>
-                  <div class="form-group question-group">
-                     <label for="banco">Banco Emisor:</label>
-                     <input type="text" id="banco" name="banco" class="form-control" placeholder="Nombre del Banco" maxlength="50">
-                 </div>
-                 <div class="form-group question-group">
-                      <label>
-                        <input type="checkbox" id="titular_igual_contratante" name="titular_igual_contratante" value="true">
+            <div class="table-form seccion-formulario" id="seccion-forma_pago">
+                <h2>Forma de Pago</h2>
+                <div class="form-group question-group">
+                    <label for="forma_pago">Forma de Pago:</label>
+                    <select id="forma_pago" name="forma_pago" class="form-control" required>
+                        <option value="" disabled selected>Seleccione...</option>
+                        <option value="Anual">Anual</option>
+                        <option value="Semestral">Semestral</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Mensual">Mensual</option>
+                    </select>
+                </div>
+                <div class="form-group question-group">
+                    <label for="via_pago">Vía de Pago:</label>
+                    <select id="via_pago" name="via_pago" class="form-control" required>
+                        <option value="" disabled selected>Seleccione...</option>
+                        <option value="Domiciliación">Domiciliación Bancaria</option>
+                        <option value="Tarjeta Crédito">Tarjeta de Crédito</option>
+                        <option value="Tarjeta Débito">Tarjeta de Débito</option>
+                        <option value="Referencia">Pago por Referencia</option>
+                    </select>
+                </div>
+                <div class="form-group question-group">
+                    <label for="tipo_cuenta">Tipo Cuenta/Tarjeta:</label>
+                    <select id="tipo_cuenta" name="tipo_cuenta" class="form-control">
+                        <option value="" disabled selected>Seleccione...</option>
+                        <option value="Crédito">Crédito</option>
+                        <option value="Débito">Débito</option>
+                        <option value="CLABE">CLABE (Domiciliación)</option>
+                    </select>
+                </div>
+                <div class="form-group question-group">
+                    <label for="numero_tarjeta_cuenta">Número Tarjeta/Cuenta CLABE:</label>
+                    <input type="text" id="numero_tarjeta_cuenta" name="numero_tarjeta_cuenta" class="form-control"
+                        placeholder="Número" maxlength="20">
+                </div>
+                <div class="form-group question-group">
+                    <label for="fecha_vencimiento">Fecha Vencimiento (Tarjeta):</label>
+                    <input type="text" id="fecha_vencimiento" name="fecha_vencimiento" class="form-control"
+                        placeholder="MM/AAAA" maxlength="7">
+                </div>
+                <div class="form-group question-group">
+                    <label for="banco">Banco Emisor:</label>
+                    <input type="text" id="banco" name="banco" class="form-control" placeholder="Nombre del Banco"
+                        maxlength="50">
+                </div>
+                <div class="form-group question-group">
+                    <label>
+                        <input type="checkbox" id="titular_igual_contratante" name="titular_igual_contratante"
+                            value="true">
                         Titular de la cuenta es el mismo Contratante
                     </label>
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="nombre_titular_cuenta">Nombre Titular Cuenta (si es diferente):</label>
-                     <input type="text" id="nombre_titular_cuenta" name="nombre_titular_cuenta" class="form-control" placeholder="Nombre Completo" maxlength="100">
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="parentesco_titular">Parentesco con Contratante (si aplica):</label>
-                     <input type="text" id="parentesco_titular" name="parentesco_titular" class="form-control" placeholder="Parentesco" maxlength="50">
-                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
+                </div>
+                <div class="form-group question-group">
+                    <label for="nombre_titular_cuenta">Nombre Titular Cuenta (si es diferente):</label>
+                    <input type="text" id="nombre_titular_cuenta" name="nombre_titular_cuenta" class="form-control"
+                        placeholder="Nombre Completo" maxlength="100">
+                </div>
+                <div class="form-group question-group">
+                    <label for="parentesco_titular">Parentesco con Contratante (si aplica):</label>
+                    <input type="text" id="parentesco_titular" name="parentesco_titular" class="form-control"
+                        placeholder="Parentesco" maxlength="50">
+                </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
             </div>
 
-            <div class="table-form seccion-formulario" id="seccion-declaraciones_legales"> <h2>Declaraciones Legales</h2>
-                 <div class="form-group question-group">
-                     <label>
+            <div class="table-form seccion-formulario" id="seccion-declaraciones_legales">
+                <h2>Declaraciones Legales</h2>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="nexos_delincuencia" name="nexos_delincuencia" value="true">
                         ¿Usted o algún familiar tiene nexos con actividades ilícitas o delincuencia organizada?
                     </label>
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="detalles_nexos">Detalles (si marcó la opción anterior):</label>
-                     <textarea id="detalles_nexos" name="detalles_nexos" class="form-control" rows="3" placeholder="Explique brevemente"></textarea>
-                 </div>
-                  <div class="form-group question-group">
-                     <label>
-                        <input type="checkbox" id="consentimiento_datos" name="consentimiento_datos" value="true" required>
-                        Otorgo mi consentimiento para el tratamiento de mis datos personales conforme al Aviso de Privacidad.
+                </div>
+                <div class="form-group question-group">
+                    <label for="detalles_nexos">Detalles (si marcó la opción anterior):</label>
+                    <textarea id="detalles_nexos" name="detalles_nexos" class="form-control" rows="3"
+                        placeholder="Explique brevemente"></textarea>
+                </div>
+                <div class="form-group question-group">
+                    <label>
+                        <input type="checkbox" id="consentimiento_datos" name="consentimiento_datos" value="true"
+                            required>
+                        Otorgo mi consentimiento para el tratamiento de mis datos personales conforme al Aviso de
+                        Privacidad.
                     </label>
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="email_entrega_documentos">Email para entrega de documentos contractuales:</label>
-                     <input type="email" id="email_entrega_documentos" name="email_entrega_documentos" class="form-control" placeholder="Correo electrónico" maxlength="100" required>
-                 </div>
-                 <div class="form-group question-group">
-                      <label>
+                </div>
+                <div class="form-group question-group">
+                    <label for="email_entrega_documentos">Email para entrega de documentos contractuales:</label>
+                    <input type="email" id="email_entrega_documentos" name="email_entrega_documentos"
+                        class="form-control" placeholder="Correo electrónico" maxlength="100" required>
+                </div>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="firma_electronica" name="firma_electronica" value="true">
                         Acepto el uso de medios electrónicos y firma electrónica para este proceso.
                     </label>
-                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente">Siguiente</button>
-                 </div>
+                </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente">Siguiente</button>
+                </div>
             </div>
 
-            <div class="table-form seccion-formulario" id="seccion-agente"> <h2>Información del Agente</h2>
-                 <div class="form-group question-group">
-                     <label for="agente_nombre">Nombre del Agente:</label>
-                     <input type="text" id="agente_nombre" name="agente_nombre" class="form-control" placeholder="Nombre Completo" maxlength="100" required>
-                 </div>
-                 <div class="form-group question-group">
-                     <label for="agente_distribucion">Distribución (%):</label>
-                      <input type="number" id="agente_distribucion" name="agente_distribucion" class="form-control" placeholder="%" step="0.1" min="0" max="100">
-                 </div>
-                 <div class="form-group question-group">
-                      <label for="agente_fecha_conocimiento">Fecha Conocimiento del Cliente:</label>
-                     <input type="text" id="agente_fecha_conocimiento" name="agente_fecha_conocimiento" class="form-control" placeholder="MM/AAAA" maxlength="7">
-                 </div>
-                 <div class="form-group question-group">
-                       <label>
+            <div class="table-form seccion-formulario" id="seccion-agente">
+                <h2>Información del Agente</h2>
+                <div class="form-group question-group">
+                    <label for="agente_nombre">Nombre del Agente:</label>
+                    <input type="text" id="agente_nombre" name="agente_nombre" class="form-control"
+                        placeholder="Nombre Completo" maxlength="100" required>
+                </div>
+                <div class="form-group question-group">
+                    <label for="agente_distribucion">Distribución (%):</label>
+                    <input type="number" id="agente_distribucion" name="agente_distribucion" class="form-control"
+                        placeholder="%" step="0.1" min="0" max="100">
+                </div>
+                <div class="form-group question-group">
+                    <label for="agente_fecha_conocimiento">Fecha Conocimiento del Cliente:</label>
+                    <input type="text" id="agente_fecha_conocimiento" name="agente_fecha_conocimiento"
+                        class="form-control" placeholder="MM/AAAA" maxlength="7">
+                </div>
+                <div class="form-group question-group">
+                    <label>
                         <input type="checkbox" id="agente_recomendacion" name="agente_recomendacion" value="true">
                         ¿Recomienda al solicitante?
                     </label>
-                 </div>
-                 <div class="form-group question-group">
+                </div>
+                <div class="form-group question-group">
                     <label for="agente_firma">Firma del Agente:</label>
                     <input type="file" id="agente_firma" name="agente_firma" class="form-control" accept="image/*">
                 </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior">Anterior</button>
-                     <button type="button" class="btn-siguiente btn-final">Ir a Revisión</button>
-                 </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior">Anterior</button>
+                    <button type="button" class="btn-siguiente btn-final">Ir a Revisión</button>
+                </div>
             </div>
 
-            <div id="seccion-revision" style="display: none;"> <h2>Revisa tu información</h2>
-                 <p>Por favor, verifica que todos los datos sean correctos antes de enviar.</p>
-                 <div id="resumen-final">
-                     </div>
-                 <div class="botones-navegacion">
-                     <button type="button" class="btn-anterior btn-volver-a-editar">Volver a Editar</button>
-                     <button type="submit" class="btn btn-primary">Enviar Formulario</button>
-                 </div>
+            <div id="seccion-revision" style="display: none;">
+                <h2>Revisa tu información</h2>
+                <p>Por favor, verifica que todos los datos sean correctos antes de enviar.</p>
+                <div id="resumen-final">
+                </div>
+                <div class="botones-navegacion">
+                    <button type="button" class="btn-anterior btn-volver-a-editar">Volver a Editar</button>
+                    <button type="submit" class="btn btn-primary">Enviar Formulario</button>
+                </div>
             </div>
 
         </form>
@@ -769,7 +886,7 @@
             <div id="modal-icon-area">
                 <span id="modal-error-icon" class="material-symbols-outlined"></span>
                 <img id="modal-success-logo" src="assets/img/V_icon.png" alt="Logo GNP" />
-                </div>
+            </div>
 
             <h3 id="modal-title"></h3>
 
@@ -783,7 +900,7 @@
     </div>
 
 
-    
+
     <script src="assets/js/script.js"></script>
 </body>
 
