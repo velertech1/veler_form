@@ -143,8 +143,8 @@
 
 :root.light-theme {
     /* O body.light-theme */
-    --bg-color: #ffebdb;
-    --bg-container: #ffffff;
+    --bg-color: #FFFFFF;
+    --bg-container: #ffebdb;
     --text-color-primary: #0d3a7c;
     --text-color-secondary: #495057;
     --accent-color: #fc6c11;
@@ -178,7 +178,7 @@ body {
     min-height: 100vh;
     margin: 0;
     /* Quitar margen por defecto */
-    background-color: var(--bg-container);
+    background-color: var(--bg-color);
     /* O el color que prefieras */
 }
 
@@ -296,7 +296,7 @@ h2 {
     max-width: 600px;
     margin-top: 20px;
     /* Espacio después de los logos */
-    background-color: var(--bg-color);
+    background-color: var(--bg-container);
     /* Fondo para el área del formulario */
     padding: 30px;
     border-radius: 20px;
@@ -579,7 +579,7 @@ input[type="radio"].form-control {
     /* Ancho máximo */
     background-color: var(--bg-color);
     /* Mismo fondo oscuro que el form */
-    color: #E0E0E0;
+    color: #e1b1b1;
     /* Color de texto claro */
     padding: 35px 40px;
     border-radius: 10px;
