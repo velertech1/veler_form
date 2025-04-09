@@ -111,6 +111,7 @@
 
 :root {
     --bg-color: #1E1E1E;
+    --bg-container: #1E1E1E;
     --text-color-primary: #F0E6D2;
     /* O el blanco que uses más */
     --text-color-secondary: #CCCCCC;
@@ -149,7 +150,7 @@
     --text-color-secondary: #495057;
     --accent-color: #fc6c11;
     /* Ejemplo con azul */
-    --input-bg: #ffffff;
+    --input-bg: #f6f6f6;
     --input-border-color: #CED4DA;
     --input-text-color: var(--text-color-primary);
     --input-placeholder-color: #7495bc;
@@ -256,7 +257,7 @@ h2 {
     width: 100%;
     background-color: var(--bg-container);
     /* O tu fondo final */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
     z-index: 10;
     /* Asegura que esté arriba */
     padding: 5px 0;
@@ -300,7 +301,7 @@ h2 {
     /* Fondo para el área del formulario */
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
     text-align: center;
     /* Centrar texto dentro del formulario */
     margin-top: 100px;
@@ -314,8 +315,8 @@ h2 {
 .seccion-formulario {
     margin-bottom: 20px;
     /* Espacio entre secciones si se muestran todas */
-    padding: 20px;
-    border: 3px solid var(--bg-color);
+    padding: 0px;
+    /* border: 3px solid var(--bg-color); */
     border-radius: 20px;
     /* NUEVO: Ocultar por defecto y preparar para animación */
     display: none;
@@ -331,6 +332,7 @@ h2 {
 }
 
 .seccion-formulario h2 {
+    text-align: left;
     margin-top: 0;
     color: var(--text-color-primary);
 }
@@ -375,14 +377,17 @@ h2 {
     /* Ancho de los campos */
     padding: 10px;
     background-color: var(--input-bg);
-    border-left: 3px solid var(--accent-color);
+    
     /* 3px de grosor, sólido, color amarillo */
 
     /* Es buena práctica definir qué pasa con los otros bordes */
     border-top: none;
     border-right: none;
     border-bottom: none;
-    border-radius: 20px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 0px;
     box-sizing: border-box;
     /* Para que el padding no aumente el ancho total */
     margin: 0 auto;
@@ -485,7 +490,7 @@ input[type="radio"].form-control {
     /* ¡NUEVO! Asegura que sean visibles (no transparentes) */
     transition: none !important;
     /* ¡NUEVO! Evita animaciones raras en modo revisión */
-    border: 1px solid var(--bg-color);
+    /* border: 1px solid var(--bg-color); */
     margin-bottom: 30px;
     padding: 25px;
 }
