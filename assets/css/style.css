@@ -4,9 +4,7 @@
 @font-face {
     font-family: 'SF Pro Display';
     src: url('../fonts/SFPRODISPLAYREGULAR.OTF') format('opentype');
-    /* <- Corregido */
-    font-weight: 400;
-    /* Regular */
+    font-weight: 400; /* Regular */
     font-style: normal;
     font-display: swap;
 }
@@ -15,9 +13,7 @@
 @font-face {
     font-family: 'SF Pro Display';
     src: url('../fonts/SFPRODISPLAYBOLD.OTF') format('opentype');
-    /* <- Corregido */
-    font-weight: 700;
-    /* Bold */
+    font-weight: 700; /* Bold */
     font-style: normal;
     font-display: swap;
 }
@@ -26,9 +22,7 @@
 @font-face {
     font-family: 'SF Pro Display';
     src: url('../fonts/SFPRODISPLAYMEDIUM.OTF') format('opentype');
-    /* <- Corregido */
-    font-weight: 500;
-    /* Medium */
+    font-weight: 500; /* Medium */
     font-style: normal;
     font-display: swap;
 }
@@ -37,11 +31,8 @@
 @font-face {
     font-family: 'SF Pro Display';
     src: url('../fonts/SFPRODISPLAYBLACKITALIC.OTF') format('opentype');
-    /* <- Corregido */
-    font-weight: 900;
-    /* Black */
-    font-style: italic;
-    /* Italic */
+    font-weight: 900; /* Black */
+    font-style: italic; /* Italic */
     font-display: swap;
 }
 
@@ -49,11 +40,8 @@
 @font-face {
     font-family: 'SF Pro Display';
     src: url('../fonts/SFPRODISPLAYHEAVYITALIC.OTF') format('opentype');
-    /* <- Corregido */
-    font-weight: 800;
-    /* Heavy (o 900 si es similar a Black) */
-    font-style: italic;
-    /* Italic */
+    font-weight: 800; /* Heavy */
+    font-style: italic; /* Italic */
     font-display: swap;
 }
 
@@ -61,11 +49,8 @@
 @font-face {
     font-family: 'SF Pro Display';
     src: url('../fonts/SFPRODISPLAYLIGHTITALIC.OTF') format('opentype');
-    /* <- Corregido */
-    font-weight: 300;
-    /* Light */
-    font-style: italic;
-    /* Italic */
+    font-weight: 300; /* Light */
+    font-style: italic; /* Italic */
     font-display: swap;
 }
 
@@ -73,11 +58,8 @@
 @font-face {
     font-family: 'SF Pro Display';
     src: url('../fonts/SFPRODISPLAYSEMIBOLDITALIC.OTF') format('opentype');
-    /* <- Corregido */
-    font-weight: 600;
-    /* Semibold */
-    font-style: italic;
-    /* Italic */
+    font-weight: 600; /* Semibold */
+    font-style: italic; /* Italic */
     font-display: swap;
 }
 
@@ -85,11 +67,8 @@
 @font-face {
     font-family: 'SF Pro Display';
     src: url('../fonts/SFPRODISPLAYTHINITALIC.OTF') format('opentype');
-    /* <- Corregido */
-    font-weight: 200;
-    /* Thin (o 100) */
-    font-style: italic;
-    /* Italic */
+    font-weight: 200; /* Thin */
+    font-style: italic; /* Italic */
     font-display: swap;
 }
 
@@ -97,59 +76,44 @@
 @font-face {
     font-family: 'SF Pro Display';
     src: url('../fonts/SFPRODISPLAYULTRALIGHTITALIC.OTF') format('opentype');
-    /* <- Corregido */
-    font-weight: 100;
-    /* Ultralight (o 200) */
-    font-style: italic;
-    /* Italic */
+    font-weight: 100; /* Ultralight */
+    font-style: italic; /* Italic */
     font-display: swap;
 }
 
 /* --- FIN: Definición de Fuentes Personalizadas --- */
 
-/* Variables de Colores */
 
+/* --- Variables de Colores --- */
 :root {
     --bg-color: #1E1E1E;
     --bg-container: #1E1E1E;
     --text-color-primary: #F0E6D2;
-    /* O el blanco que uses más */
     --text-color-secondary: #CCCCCC;
-    /* Ejemplo para párrafos */
     --accent-color: #F7D7A5;
-    /* Color de acento */
     --input-bg: #3D3D3C;
     --input-border-color: var(--accent-color);
-    /* Puedes referenciar otras variables */
     --input-text-color: var(--text-color-primary);
     --input-placeholder-color: #C8B575;
     --button-primary-bg: var(--accent-color);
     --button-primary-text: #1E1E1E;
-    /* El color de texto para el botón primario */
     --button-secondary-bg: #161616;
     --border: #444;
     --light-color: #ffffff;
     --error-alert: #E57373;
-    /* Color de error */
     --button-secondary-text: var(--accent-color);
     --logo-line-color: var(--accent-color);
     --modal-bg: var(--bg-color);
     --modal-text: var(--text-color-primary);
-    /* ... Añade todas las variables que necesites ... */
 }
 
-/* assets/css/style.css */
-
-/* ... (variables :root del tema oscuro) ... */
-
+/* Tema Claro */
 :root.light-theme {
-    /* O body.light-theme */
     --bg-color: #FFFFFF;
     --bg-container: #ffffff;
     --text-color-primary: #0d3a7c;
     --text-color-secondary: #495057;
     --accent-color: #fc6c11;
-    /* Ejemplo con azul */
     --input-bg: #f6f6f6;
     --input-border-color: #CED4DA;
     --input-text-color: var(--text-color-primary);
@@ -159,197 +123,163 @@
     --button-secondary-bg: #ffffff;
     --button-secondary-text: #212529;
     --logo-line-color: #DEE2E6;
-    /* Un gris claro para la línea */
     --modal-bg: var(--bg-color);
     --modal-text: var(--text-color-primary);
-    /* ... Redefine TODAS las variables con sus valores claros ... */
 }
+/* --- Fin de Variables de Colores --- */
 
-/* ... (resto de las reglas CSS usando var(...) ) ... */
 
-/* Fin de Variables de Colores */
-
+/* --- Estilos Base --- */
 body {
     display: flex;
     flex-direction: column;
     font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    /* Para que el formulario quede debajo de los logos (después de la animación) */
     align-items: center;
-    /* Centra todo horizontalmente */
     min-height: 100vh;
     margin: 0;
-    /* Quitar margen por defecto */
     background-color: var(--bg-color);
-    /* O el color que prefieras */
 }
 
-/* Para usar otros pesos/estilos: */
 h2 {
     font-style: normal;
     font-weight: 700;
-    /* Usará SFPRODISPLAYBOLD.OTF */
 }
 
 .subtitulo-ligero {
     font-weight: 300;
     font-style: italic;
-    /* Usará SFPRODISPLAYLIGHTITALIC.OTF */
 }
 
+
+/* --- Contenedor Inicial Logos (Pantalla Completa) --- */
 #logo-container-inicial {
     display: flex;
-    /* Pone los logos uno al lado del otro */
     justify-content: center;
-    /* Centra los logos horizontalmente */
     align-items: center;
-    /* Centra los logos verticalmente */
     width: 100%;
     height: 100vh;
-    /* Ocupa toda la pantalla inicialmente */
     position: absolute;
-    /* Para poder animarlo y sacarlo del flujo normal */
     top: 0;
     left: 0;
     background-color: var(--bg-container);
-    /* Fondo blanco para la pantalla inicial si es necesario */
     transition: height 1s ease-in-out,
         padding 1s ease-in-out,
         background-color 1s ease-in-out,
         top 1s ease-in-out,
-        /* <-- ¡AÑADIDO! */
         left 1s ease-in-out;
-    /* <-- ¡AÑADIDO! (por seguridad) */
-    /* Añade cualquier otra propiedad que cambie y quieras animar */
     z-index: 10;
-    /* Asegura que esté por encima del formulario al inicio */
 }
 
-.logos-wrapper {
+.logos-wrapper { /* Wrapper inicial, no el de la cabecera */
     display: flex;
-    /* Para alinear los logos uno al lado del otro */
     justify-content: center;
-    /* Centra los logos horizontalmente */
     align-items: center;
-    /* Centra los logos verticalmente */
 }
-
 
 #logo-container-inicial .logos-wrapper img {
     max-height: 150px;
-    /* Tamaño inicial de los logos */
     margin: 0 20px;
-    /* Espacio entre logos y línea */
     transition: max-height 1s ease-in-out;
-    /* Animar el tamaño */
 }
 
-.linea-divisora {
+.linea-divisora { /* Línea inicial entre logos */
     width: 2px;
     height: 100px;
-    /* Altura de la línea */
-    background-color: white;
-    /* Color de la línea (pusiste blanco, pero quizá negro sobre fondo blanco?) */
-    /* Si el fondo es blanco, la línea debe ser de otro color para verse */
-    background-color: var(--accent-color);
-    /* Ejemplo: gris oscuro */
+    background-color: var(--accent-color); /* Usaba accent-color en tu código */
     transition: height 1s ease-in-out;
-    /* Animar la altura */
+    /* No tenía margen en tu código aquí */
 }
 
 
+/* --- Estado FINAL Logos (Cabecera Fija) --- */
 
-/* Estado final de los logos (cuando se aplica la clase 'logos-arriba') */
+/* Contenedor principal de la cabecera */
 #logo-container-inicial.logos-arriba {
     height: 80px;
-    /* Altura final del contenedor de logos */
     position: fixed;
-    /* O 'sticky' si quieres que se quede fijo al hacer scroll */
     top: 0;
     left: 0;
     width: 100%;
     background-color: var(--bg-container);
-    /* O tu fondo final */
-    /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
     z-index: 10;
-    /* Asegura que esté arriba */
-    padding: 5px 0;
-    /* Ajusta el padding final si es necesario */
-    /* Asegúrate que flex-direction sea 'row' aquí para desktop */
-    flex-direction: row;
+    display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
 }
+
+/* Contenedor interno para limitar ancho y distribuir */
+.header-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 960px;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* Grupo de logos dentro de la cabecera final */
+/* Nota: La regla específica para .logos-wrapper dentro de .logos-arriba no estaba en tu último código, */
+/* así que se aplicarán los estilos base de .logos-wrapper si no hay otra más específica */
+/* Si necesitas estilos específicos aquí (como quitar margen), debes añadirlos */
+/* #logo-container-inicial.logos-arriba .logos-wrapper { */
+/* margin: 0; */
+/* } */
 
 #logo-container-inicial.logos-arriba .logos-wrapper img {
     max-height: 50px;
-    /* Tamaño final más pequeño */
-    margin: 0 15px;
+    margin: 0 15px; /* Mantenido de tu código */
 }
 
+/* Línea divisora DENTRO del wrapper de logos inicial */
+/* Este selector parece aplicar a la línea inicial y a la final si no se sobreescribe */
 #logo-container-inicial .logos-wrapper .linea-divisora {
     width: 2px;
-    height: 100px;
+    height: 100px; /* Base height */
     background-color: var(--logo-line-color);
     transition: height 1s ease-in-out;
 }
 
+/* Línea divisora DENTRO de logos-arriba */
 #logo-container-inicial.logos-arriba .logos-wrapper .linea-divisora {
     display: block;
-    /* Mostrar la línea en el estado final */
-    height: 40px;
-    /* Altura final de la línea */
+    height: 40px; /* Altura final */
 }
 
-/* --- NUEVO: Hacer visible el switch cuando la cabecera está lista --- */
+/* Hacer visible el switch cuando la cabecera está lista */
 #logo-container-inicial.logos-arriba .theme-switch-wrapper {
     opacity: 1;
-    /* Lo hace visible */
     visibility: visible;
-    /* Lo hace interactuable */
-    /* La transición definida en la regla base se encargará de la animación de opacidad */
 }
 
 
-
-/* Estilos básicos del formulario */
+/* --- Estilos del Formulario --- */
 #formulario-completo {
     width: 80%;
-    /* O el ancho que prefieras */
     max-width: 600px;
-    margin-top: 20px;
-    /* Espacio después de los logos */
+    /* margin-top: 20px; */ /* Comentado en tu código */
     background-color: var(--bg-container);
-    /* Fondo para el área del formulario */
     padding: 30px;
     border-radius: 20px;
-    /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
     text-align: left;
-    /* Centrar texto dentro del formulario */
-    margin-top: 100px;
+    margin-top: 100px; /* Este sí estaba activo */
     display: none;
-    /* Oculto inicialmente por JS */
     z-index: 1;
-    /* Asegura que esté debajo de la barra de logos */
     position: relative;
+    /* box-shadow estaba comentado */
 }
 
 .seccion-formulario {
     margin-bottom: 20px;
-    /* Espacio entre secciones si se muestran todas */
     padding: 0px;
-    /* border: 3px solid var(--bg-color); */
     border-radius: 20px;
-    /* NUEVO: Ocultar por defecto y preparar para animación */
     display: none;
-    /* Oculto por defecto */
     opacity: 0;
-    /* Completamente transparente */
     transition: opacity 0.4s ease-in-out;
-    /* Transición SÓLO para opacidad */
     width: 100%;
-    /* Ocupar el ancho del contenedor #formulario-completo */
     box-sizing: border-box;
-    /* Para que el padding no afecte el width total */
+    /* border: 3px solid var(--bg-color); */ /* Comentado */
 }
 
 .seccion-formulario h2 {
@@ -359,99 +289,72 @@ h2 {
 }
 
 .seccion-formulario label {
-
     color: var(--text-color-secondary);
-    /* Color de las etiquetas */
 }
 
-/* === Clase para la sección activa === */
 .seccion-formulario.seccion-activa {
     display: block;
-    /* Hacerla visible en el layout */
     opacity: 1;
-    /* Hacerla completamente opaca (efecto fade-in) */
 }
 
 .form-group {
     margin-bottom: 15px;
-    /* Alinear etiquetas e inputs a la izquierda dentro de su grupo */
-    /* Para centrar el bloque completo, usamos flex en el contenedor superior o margin: auto */
-    /* Para centrar los form-group en sí mismos */
     display: flex;
     flex-direction: column;
-    /* Etiqueta arriba, input abajo */
-
-    /* Centra la etiqueta y el input */
-
-
 }
 
 .form-group label {
     display: block;
-    /* Asegura que ocupe su línea */
     margin-bottom: 5px;
     font-weight: bold;
 }
 
 .form-control {
     width: 100%;
-    /* Ancho de los campos */
     padding: 10px;
     background-color: var(--input-bg);
-
-    /* 3px de grosor, sólido, color amarillo */
-
-    /* Es buena práctica definir qué pasa con los otros bordes */
     border-left: 3px solid var(--accent-color);
-        border-top: none;
-        border-right: none;
-        border-bottom: none;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
     border-top-left-radius: 0px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 0px;
     box-sizing: border-box;
-    /* Para que el padding no aumente el ancho total */
-    /* margin: 0 auto; */
-    /* Centrar el input si su width es menor al 100% */
     color: var(--text-color-primary);
+    /* margin: 0 auto; */ /* Comentado */
 }
 
-/* Centrar checkboxes específicamente si es necesario */
-.form-group input[type="checkbox"] {
+.form-group input[type="checkbox"] { /* Estilo para checkbox DENTRO de form-group (puede ser la label) */
     width: auto;
-    /* Ancho automático para checkbox */
     margin: 0;
-    /* Quitar margen auto para checkbox */
-    /* Puedes necesitar envolver label e input en otro div para centrarlos juntos */
+    /* No aplica a checkboxes con clase .form-control */
 }
 
+
+/* --- Botones Navegación Formulario --- */
 .botones-navegacion {
     text-align: right;
     margin-top: 25px;
 }
 
-/* Estilos para botones */
 .btn-siguiente,
 .btn-anterior,
 .btn-primary {
     padding: 10px 20px;
     background-color: var(--accent-color);
-    /* Azul Bootstrap */
-    color: var(--bg-color);
+    color: var(--bg-color); /* Color texto botón primario */
     border: none;
     border-radius: 20px;
     cursor: pointer;
     margin: 10px 5px 0 5px;
-    /* Espacio alrededor de los botones */
     transition: background-color 0.3s ease;
-
 }
 
 .btn-anterior {
     background-color: var(--button-secondary-bg);
-    color: var(--accent-color);
-    /* Gris */
+    color: var(--accent-color); /* Color texto botón secundario */
 }
 
 .btn-siguiente:hover,
@@ -461,172 +364,146 @@ h2 {
 }
 
 
-
-/* === Estilo para Campos de Formulario (Inputs de Texto, Número, Email, etc.) === */
-
-
-
-/* Estilo para el texto del Placeholder (ej. "Email" dentro del campo) */
+/* --- Estilos Placeholders y Focus --- */
 .form-control::placeholder {
     color: var(--input-placeholder-color);
-    /* Mismo color que el borde (o uno similar) */
     opacity: 0.8;
-    /* Ligeramente más tenue si quieres */
 }
 
-/* Estilo cuando el campo está enfocado (cuando haces clic en él) */
 .form-control:focus {
-    border-color: var(--input-placeholder-color);
-    /* Hacer el borde ligeramente más brillante al hacer focus */
-    /* Opcional: añadir una sombra sutil */
-    /* box-shadow: 0 0 5px rgba(200, 181, 117, 0.5); */
+    border-color: var(--input-placeholder-color); /* Color del borde izquierdo al enfocar */
+    /* box-shadow: 0 0 5px rgba(200, 181, 117, 0.5); */ /* Comentado */
+     outline: none; /* Añadido para quitar outline por defecto */
 }
 
-/* Ajustes específicos si usas otros tipos de input con la clase .form-control */
-/* Por ejemplo, asegurar que <select> se vea similar (requiere más trabajo) */
+
+/* --- Estilos Específicos Inputs --- */
 select.form-control {
-    /* Estilos base heredados, pero <select> es más difícil de estilizar */
-    /* Puede que necesites buscar técnicas específicas para estilizar selects */
     background-repeat: no-repeat;
     background-position: right 15px center;
-    background-size: 10px 10px;
+    background-size: 10px 10px; /* Puede ser muy pequeño, revisar */
     padding-right: 40px;
-    /* Espacio para la flecha */
+     appearance: none; /* Añadido para quitar flecha nativa si se usa fondo */
+     /* Considerar añadir una imagen de flecha en background-image */
 }
 
-/* NOTA: Los checkboxes y radio buttons necesitarán estilos completamente diferentes */
 input[type="checkbox"].form-control,
-input[type="radio"].form-control {
-    /* Quitar estilos por ahora o definir los específicos */
+input[type="radio"].form-control { /* Checkboxes/Radios CON clase form-control */
     appearance: auto;
-    /* Devolver apariencia normal */
     width: auto;
     background-color: transparent;
     border: none;
-    border-radius: 20px;
+    border-radius: 20px; /* Inconsistente con otros inputs */
     padding: 0;
-    /* ... o crear estilos personalizados complejos ... */
 }
 
-/* === Estilos para Grupos de Preguntas Individuales === */
 
-
+/* --- Modo Revisión --- */
 #formulario-completo.modo-revision .seccion-formulario {
     display: block !important;
-    /* Asegura que ocupen espacio */
     opacity: 1 !important;
-    /* ¡NUEVO! Asegura que sean visibles (no transparentes) */
     transition: none !important;
-    /* ¡NUEVO! Evita animaciones raras en modo revisión */
-    /* border: 1px solid var(--bg-color); */
     margin-bottom: 30px;
     padding: 25px;
+    /* border: 1px solid var(--bg-color); */ /* Comentado */
+     border: 1px solid var(--border); /* Añadido borde sutil como en la versión anterior */
+     border-radius: 15px; /* Radio consistente */
 }
 
 #formulario-completo.modo-revision .question-group {
     display: block !important;
-    /* Asegura que todas las preguntas sean visibles */
     opacity: 1 !important;
-    /* Sin animación aquí */
     margin-bottom: 15px;
-    /* Espacio normal entre preguntas en revisión */
-    /* Quitar transición si la tuvieran */
     transition: none;
 }
 
-/* NUEVA REGLA: Oculta SOLO los botones de navegación DENTRO de las secciones normales en modo revisión */
 #formulario-completo.modo-revision .seccion-formulario .botones-navegacion {
-    display: none;
-}
-
-/* Opcional pero recomendado: Asegurarse que el contenedor de botones finales SÍ se muestre */
-#seccion-revision .botones-navegacion {
-    display: block;
-    /* O 'flex' si usas flexbox para los botones */
-    margin-top: 30px;
-    /* Añadir espacio sobre los botones finales */
-    text-align: center;
-    /* Centrar los botones si display es block */
+    display: none; /* Ocultar botones internos */
 }
 
 #formulario-completo.modo-revision #seccion-revision {
     display: block !important;
-    /* Mostrar el bloque final de revisión y envío */
     opacity: 1 !important;
+     border: none; /* Sin borde en la sección final */
+     padding: 15px 0; /* Padding vertical */
+}
+
+#seccion-revision { display: none; } /* Oculto por defecto */
+
+#seccion-revision .botones-navegacion {
+    display: block; /* O flex si se prefiere */
+    margin-top: 30px;
+    text-align: center;
+     border-top: none; /* Asegurar que no tenga línea superior */
+     padding-top: 0;
 }
 
 #seccion-revision h2 {
     color: var(--accent-color);
-    /* Mismo color claro que otros títulos */
     text-align: center;
-    /* Centrar el título */
     margin-bottom: 15px;
-    /* Espacio debajo del título */
     margin-top: 0;
-    /* Quitar margen superior si lo hubiera */
 }
 
 #seccion-revision p {
     color: var(--text-color-secondary);
-    /* Un gris claro o blanco (#FFFFFF) para el párrafo */
     text-align: center;
-    /* Centrar el párrafo */
     margin-bottom: 30px;
-    /* Espacio debajo del párrafo, antes del resumen */
 }
 
-/* --- Estilos para el Modal --- */
+/* Estilos para el resumen (añadidos para claridad) */
+#seccion-revision #resumen-final {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--text-color-secondary);
+    margin-bottom: 30px;
+}
+#seccion-revision #resumen-final ul { list-style: none; padding: 0; margin: 0; text-align: left; }
+#seccion-revision #resumen-final li {
+    margin-bottom: 10px; border-bottom: 1px dotted var(--border); padding-bottom: 10px;
+    line-height: 1.5;
+}
+#seccion-revision #resumen-final li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+#seccion-revision #resumen-final li strong { color: var(--text-color-primary); margin-right: 8px; display: inline-block; min-width: 150px; }
 
+
+/* --- Estilos para el Modal --- */
 #modal-overlay {
     display: none;
-    /* Oculto por defecto */
     position: fixed;
-    /* Fijo en la pantalla */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(30, 30, 30, 0.7);
-    /* Negro semi-transparente */
     backdrop-filter: blur(5px);
-    /* Efecto de desenfoque */
     z-index: 1000;
-    /* Por encima del contenido normal */
     opacity: 0;
-    /* Para animación de fundido */
     transition: opacity 0.3s ease-in-out;
 }
 
 #modal-container {
     display: none;
-    /* Oculto por defecto */
     position: fixed;
-    /* Fijo en la pantalla */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.95);
-    /* Centrado y escalado inicial */
     width: 90%;
-    /* Ancho relativo */
     max-width: 480px;
-    /* Ancho máximo */
-    background-color: var(--bg-color);
-    /* Mismo fondo oscuro que el form */
-    color: #e1b1b1;
-    /* Color de texto claro */
+    background-color: var(--modal-bg); /* Usar variable */
+    color: #e1b1b1; /* Color específico en tu código */
     padding: 35px 40px;
     border-radius: 10px;
     border: 1px solid var(--border);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
     z-index: 1001;
-    /* Por encima del overlay */
     text-align: center;
     opacity: 0;
-    /* Para animación */
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-/* Clase que se añade al <body> con JS para mostrar el modal */
 body.modal-visible #modal-overlay {
     display: block;
     opacity: 1;
@@ -636,95 +513,77 @@ body.modal-visible #modal-container {
     display: block;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
-    /* Escala final */
 }
 
-/* Estilos internos del modal */
 #modal-icon-area {
     margin-bottom: 25px;
 }
 
 #modal-error-icon {
     font-size: 64px;
-    /* Tamaño icono */
-    color: #E57373;
-    /* Rojo claro para error */
+    color: #E57373; /* Color específico */
     display: none;
-    /* Oculto por defecto */
     vertical-align: middle;
 }
 
 #modal-success-logo {
     max-height: 70px;
-    /* Tamaño logo */
     display: none;
-    /* Oculto por defecto */
 }
 
 #modal-title {
     color: var(--accent-color);
-    /* Color dorado */
     font-size: 1.6em;
     margin-top: 0;
     margin-bottom: 15px;
     font-weight: 600;
-    /* Un poco más de peso */
 }
 
 #modal-message {
     font-size: 1.1em;
     line-height: 1.6;
     margin-bottom: 30px;
+     color: var(--modal-text); /* Añadido para consistencia */
+}
+
+#modal-buttons {
+     display: flex; /* Añadido para alinear botones */
+     justify-content: center; /* Centrar botones */
+     gap: 15px; /* Espacio entre botones */
 }
 
 #modal-buttons button {
     display: none;
-    /* Ocultar botones por defecto, JS mostrará el apropiado */
-    margin: 0 8px;
+    margin: 0; /* Quitado margen, usar gap */
     min-width: 100px;
-    /* Ancho mínimo para botones */
-    /* Hereda estilos de .btn-primary y .btn-anterior */
 }
 
-/* Asegúrate que Material Symbols funcione (necesitas el link en <head>) */
 .material-symbols-outlined {
     font-variation-settings:
         'FILL' 0,
         'wght' 300,
         'GRAD' 0,
         'opsz' 48;
-    /* Ajusta estos valores si quieres */
     vertical-align: middle;
 }
 
-/* --- Estilos para el Switch de Tema --- */
 
+/* --- Estilos para el Switch de Tema --- */
 .theme-switch-wrapper {
-    /* Posicionamiento dentro de la cabecera - AJUSTAR SEGÚN NECESITES */
-    /* Ejemplo: si quieres alinearlo a la derecha en la cabecera fija */
-    position: absolute;
-    /* O 'relative' si el contenedor ya es flex/grid */
-    top: 50%;
-    right: 30px;
-    /* Ajusta esta distancia */
+    /* position: absolute; */ /* Comentado */
+    /* top: 50%; */ /* Comentado */
+    /* right: 30px; */ /* Comentado */
+    /* transform: translateY(-50%); */ /* Comentado */
     display: flex;
     align-items: center;
     z-index: 11;
-    /* Asegura que esté sobre otros elementos de la cabecera si es necesario*/
-
-    /* --- NUEVO: Ocultar por defecto --- */
     opacity: 0;
-    /* Inicia transparente */
     visibility: hidden;
-    /* Inicia completamente oculto y no interactuable */
-    /* --- NUEVO: Transición para aparecer suavemente --- */
-    /* Aplica una transición a la opacidad que dure 0.3s, con un retraso de 0.8s */
-    /* El retraso (0.8s) espera a que la animación principal de los logos casi termine (que dura 1s) */
     transition: opacity 0.3s ease-in-out 0.8s;
-    /* Nota: No necesitamos transición para 'visibility' aquí */
 }
 
-/* Ocultar el checkbox real */
+/* La regla duplicada de #logo-container-inicial.logos-arriba .theme-switch-wrapper se omite */
+
 .theme-switch input[type="checkbox"] {
     height: 0;
     width: 0;
@@ -732,104 +591,65 @@ body.modal-visible #modal-container {
     position: absolute;
 }
 
-/* La etiqueta que actúa como base del switch */
 .theme-switch {
     cursor: pointer;
     text-indent: -9999px;
-    /* Ocultar texto si lo hubiera */
     width: 50px;
-    /* Ancho del switch */
     height: 25px;
-    /* Alto del switch */
-    background: grey;
-    /* Color base cuando está apagado (oscuro) */
+    /* background: grey; */ /* Comentado, se usa variable abajo */
     display: block;
     border-radius: 25px;
-    /* Completamente redondeado */
     position: relative;
     transition: background-color 0.3s ease;
-    /* Transición suave del fondo */
+    background-color: var(--input-bg, grey); /* Re-aplicado desde abajo */
+    border: 1px solid var(--accent-color, #555); /* Re-aplicado desde abajo */
 }
 
-/* Estilo del fondo usando variables (se adapta al tema) */
-.theme-switch {
-    background-color: var(--input-bg, grey);
-    /* Usa el fondo del input o gris como fallback */
-    border: 1px solid var(--accent-color, #555);
-    /* Borde con el color de acento */
-}
+/* Regla duplicada para .theme-switch se omite, las propiedades se movieron arriba */
 
-/* El círculo deslizante (slider) */
 .theme-switch .slider {
     position: absolute;
     top: 1px;
-    /* Espacio desde arriba */
     left: 1px;
-    /* Espacio desde la izquierda */
     width: 21px;
-    /* Ancho del círculo (alto - 2*top - 2*border?) */
     height: 21px;
-    /* Alto del círculo */
     background-color: var(--accent-color, white);
-    /* Color del slider (color de acento) */
     border-radius: 50%;
-    /* Hacerlo circular */
     transition: 0.3s ease;
-    /* Animación de deslizamiento */
     display: flex;
-    /* Para centrar iconos si los usas */
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    /* Para ocultar el icono que no toca */
 }
 
-/* --- Iconos Sol/Luna (Opcional) --- */
 .slider .icon {
     font-size: 12px;
-    /* Tamaño de los iconos */
     line-height: 1;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .slider .sun {
     opacity: 0;
-    /* Oculto en tema oscuro por defecto */
     transform: scale(0);
 }
 
 .slider .moon {
     opacity: 1;
-    /* Visible en tema oscuro por defecto */
     transform: scale(1);
     color: var(--button-primary-text);
-    /* Color del icono luna */
 }
 
-
-/* --- Estado Activado (Tema Claro) --- */
-
-/* Cuando el checkbox está marcado, mueve el slider */
 .theme-switch input:checked+.slider {
     transform: translateX(25px);
-    /* Mueve el círculo a la derecha (ancho_switch - ancho_slider - 2*left) */
     background-color: var(--accent-color);
-    /* Cambia color si es necesario en modo claro */
 }
 
-/* Cambia el fondo del switch cuando está activado (opcional, ya usa variable) */
-/* .theme-switch input:checked ~ .theme-switch { */
-/* background-color: var(--button-primary-bg); */
-/* O un color específico */
-/* } */
+/* Regla comentada omitida */
 
-
-/* Mostrar/ocultar iconos en modo claro */
 .theme-switch input:checked+.slider .sun {
     opacity: 1;
     transform: scale(1);
     color: var(--button-primary-text);
-    /* Color del icono sol */
 }
 
 .theme-switch input:checked+.slider .moon {
@@ -838,110 +658,117 @@ body.modal-visible #modal-container {
 }
 
 
-
-
-/* --- Media Query para Dispositivos Móviles (ej. pantallas <= 767px) --- */
-/* --- Media Query para Dispositivos Móviles (ej. pantallas <= 767px) --- */
+/* --- Media Query para Dispositivos Móviles --- */
 @media (max-width: 767px) {
 
-    /* === Ajustes para el Estado INICIAL de los Logos en Móvil === */
-    #logo-container-inicial .logos-wrapper {
-        /* flex-direction: column; */ /* <-- ELIMINADO o COMENTADO */
-        /* Mantenemos align-items para centrar verticalmente */
-        align-items: center;
-    
+    /* Estado INICIAL logos móvil */
+    /* #logo-container-inicial .logos-wrapper { */ /* Comentado */
+        /* align-items: center; */ /* Comentado */
+    /* } */ /* Comentado */
 
-    /* CORREGIDO: Selector específico para las imágenes DENTRO del wrapper */
-    #logo-container-inicial .logos-wrapper img {
-        max-height: 80px;  /* Tamaño inicial móvil (ajústalo si es necesario) */
-        margin: 25px 0;    /* Margen vertical entre logos */
-        /* Asegúrate de que el ancho no cause problemas, width: auto; es implícito */
+    #logo-container-inicial .logos-wrapper img { /* Aplica a estado inicial y potencialmente al final si no se sobreescribe */
+        max-height: 80px;
+        margin: 25px 0; /* Solo margen vertical */
         width: auto;
-        max-width: 80%; /* Evita que logos muy anchos se desborden */
+        max-width: 80%;
     }
 
-    /* Oculta la línea divisora DENTRO del wrapper en estado inicial móvil */
-    #logo-container-inicial .logos-wrapper .linea-divisora {
-        display: none; /* Asegúrate que esté visible en el estado inicial */
+    #logo-container-inicial .logos-wrapper .linea-divisora { /* Aplica a estado inicial */
+        display: none; /* Oculta línea inicial en móvil */
     }
 
-    /* === Ajustes para el Estado FINAL de los Logos (arriba) en Móvil === */
-
-    /* CORREGIDO: Altura auto y padding en el contenedor principal */
-    #logo-container-inicial.logos-arriba {
-        height: auto;     /* Altura automática para el contenido apilado */
-        padding: 10px 0;  /* Padding vertical reducido para el contenedor */
-        /* flex-direction: row; <-- No necesario, ya es flex y align-items: center hereda */
+    /* Estado FINAL logos móvil */
+    #logo-container-inicial.logos-arriba { /* Sobreescribe regla base */
+        height: auto;
+        padding: 10px 0; /* Padding vertical en el contenedor principal */
+         justify-content: center; /* Asegura centrado del wrapper interno */
     }
 
-    /* CORREGIDO: Estilos del wrapper en estado final */
-    #logo-container-inicial.logos-arriba .logos-wrapper {
+    /* Wrapper interno en móvil */
+     .header-content-wrapper {
+         padding: 0 10px; /* Menos padding */
+         /* Hereda space-between */
+     }
 
-        align-items: center;    /* Centra los logos */
-        padding: 0; /* Quitamos el padding extra del wrapper */
-        /* height: auto; <-- No es necesario aquí */
-    }
+    /* Wrapper de logos en estado final móvil (no presente en tu código, podría heredar de base o necesitar especificarse) */
+    /* #logo-container-inicial.logos-arriba .logos-wrapper { */
+    /* align-items: center; */
+    /* padding: 0; */
+    /* } */
 
-    /* CORREGIDO: Selector específico para las imágenes DENTRO del wrapper en estado final */
-    #logo-container-inicial.logos-arriba .logos-wrapper img {
-        max-height: 35px;  /* Tamaño final móvil (un poco más grande quizás?) */
-        margin: 5px 0;     /* Margen vertical móvil */
+    #logo-container-inicial.logos-arriba .logos-wrapper img { /* Sobreescribe regla base de img */
+        max-height: 35px;
+        margin: 5px 0; /* Margen vertical final */
         width: auto;
-        max-width: 60%; /* Límite de ancho por si acaso */
+        max-width: 60%;
     }
 
-    /* CORREGIDO: Regla específica para ocultar la línea en estado final móvil */
-    #logo-container-inicial.logos-arriba .logos-wrapper .linea-divisora {
-        display: visible; /* Asegura que siga oculta */
+    #logo-container-inicial.logos-arriba .logos-wrapper .linea-divisora { /* Sobreescribe regla base de línea */
+        /* display: visible; */ /* 'visible' no es un valor válido, probablemente querías 'block' o quitar esta línea si se hereda display:none */
+        /* Si se quiere mostrar la línea en móvil en la cabecera final, usar display: block; y ajustar height/margin */
+        display: block; /* Mostrar línea */
+        height: 30px; /* Altura móvil */
+        margin: 0 5px; /* Margen móvil */
     }
 
-    /* === Ajustes para el Formulario en Móvil === */
-
+    /* Formulario en móvil */
     #formulario-completo {
         width: 90%;
-        padding: 20px; /* Padding reducido para móvil */
-        /* AJUSTAR ESTE MARGEN: */
-        /* Inspecciona la altura real de #logo-container-inicial.logos-arriba en el navegador */
-        /* y pon un valor un poco mayor aquí. Ej: si mide 100px, pon 115px o 120px */
-        margin-top: 120px; /* ¡¡AJUSTA ESTE VALOR DESPUÉS DE PROBAR!! */
+        padding: 20px;
+        margin-top: 120px; /* AJUSTAR SEGÚN ALTURA REAL CABECERA */
     }
 
     .form-control {
         width: 100%;
-        /* Tus otros estilos de borde están bien */
-        border-left: 3px solid var(--accent-color);
-        border-top: none;
-        border-right: none;
-        border-bottom: none;
-        /* ... */
+        /* Estilos de borde se heredan */
     }
 
     .form-group {
-        text-align: left;
-        /* ... */
+        text-align: left; /* Esto no tiene efecto en form-group con display flex */
     }
 
-    /* Asegurarse que los botones se vean bien */
+    /* Botones en móvil */
     .btn-siguiente,
     .btn-anterior,
     .btn-primary {
         padding: 12px 15px;
         font-size: 1rem;
-        width: auto;
+        width: auto; /* Ancho automático base */
         min-width: 100px;
-        margin: 5px;
+        margin: 5px; /* Mantenido de tu código */
+    }
+    /* Ajustes específicos para botones en móvil */
+     .botones-navegacion {
+         gap: 8px;
+         justify-content: space-between;
+     }
+     .botones-navegacion button {
+        width: calc(50% - 4px); /* Dos botones por fila */
+     }
+     .botones-navegacion button:only-child {
+        width: 100%;
+        margin-left: 0; /* Corregido para botón único */
+     }
+     #seccion-revision .botones-navegacion {
+        justify-content: center;
+     }
+     #seccion-revision .botones-navegacion button {
+        width: calc(50% - 4px);
+     }
+
+    /* Switch tema en móvil (con posicionamiento absoluto original) */
+theme-switch input:checked+.slider { transform: translateX(23px); } */
+
+
+    .theme-label-text { /* Texto opcional junto al switch */
+        display: none;
     }
 
-    /* Ajustes para el switch de tema */
-    .theme-switch-wrapper {
-        right: 15px;
-        top: 50%; /* Puede que necesites ajustarlo si el centrado vertical no es exacto */
-        transform: translateY(-50%); /* Ayuda a centrar verticalmente */
-    }
+     /* Modal en móvil (añadido para consistencia) */
+     #modal-container { padding: 25px 20px; }
+     #modal-title { font-size: 1.4em; }
+     #modal-message { font-size: 1em; }
 
-    /* Ocultamos el texto opcional si no lo usas */
-    .theme-label-text {
-       display: none; /* Ocultar si no hay texto */
-       /* Si SÍ usas texto, ajusta su estilo aquí */
-    }
 } /* Fin de @media (max-width: 767px) */
+
+/* Llave extra eliminada */
