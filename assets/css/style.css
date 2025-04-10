@@ -145,7 +145,7 @@
 :root.light-theme {
     /* O body.light-theme */
     --bg-color: #FFFFFF;
-    --bg-container: #ffebdb;
+    --bg-container: #ffffff;
     --text-color-primary: #0d3a7c;
     --text-color-secondary: #495057;
     --accent-color: #fc6c11;
@@ -426,6 +426,11 @@ h2 {
     /* Puedes necesitar envolver label e input en otro div para centrarlos juntos */
 }
 
+.botones-navegacion {
+    text-align: right;
+    margin-top: 25px;
+}
+
 /* Estilos para botones */
 .btn-siguiente,
 .btn-anterior,
@@ -440,6 +445,7 @@ h2 {
     margin: 10px 5px 0 5px;
     /* Espacio alrededor de los botones */
     transition: background-color 0.3s ease;
+
 }
 
 .btn-anterior {
@@ -839,17 +845,16 @@ body.modal-visible #modal-container {
 @media (max-width: 767px) {
 
     /* === Ajustes para el Estado INICIAL de los Logos en Móvil === */
-
-    /* Aplica flex-direction al wrapper para apilar */
     #logo-container-inicial .logos-wrapper {
-        flex-direction: column; /* Apila los logos verticalmente */
-        align-items: center;    /* Centra los logos apilados */
-    }
+        /* flex-direction: column; */ /* <-- ELIMINADO o COMENTADO */
+        /* Mantenemos align-items para centrar verticalmente */
+        align-items: center;
+    
 
     /* CORREGIDO: Selector específico para las imágenes DENTRO del wrapper */
     #logo-container-inicial .logos-wrapper img {
         max-height: 80px;  /* Tamaño inicial móvil (ajústalo si es necesario) */
-        margin: 15px 0;    /* Margen vertical entre logos */
+        margin: 25px 0;    /* Margen vertical entre logos */
         /* Asegúrate de que el ancho no cause problemas, width: auto; es implícito */
         width: auto;
         max-width: 80%; /* Evita que logos muy anchos se desborden */
@@ -857,7 +862,7 @@ body.modal-visible #modal-container {
 
     /* Oculta la línea divisora DENTRO del wrapper en estado inicial móvil */
     #logo-container-inicial .logos-wrapper .linea-divisora {
-        display: none;
+        display: none; /* Asegúrate que esté visible en el estado inicial */
     }
 
     /* === Ajustes para el Estado FINAL de los Logos (arriba) en Móvil === */
@@ -871,7 +876,7 @@ body.modal-visible #modal-container {
 
     /* CORREGIDO: Estilos del wrapper en estado final */
     #logo-container-inicial.logos-arriba .logos-wrapper {
-        flex-direction: column; /* Mantiene la columna */
+
         align-items: center;    /* Centra los logos */
         padding: 0; /* Quitamos el padding extra del wrapper */
         /* height: auto; <-- No es necesario aquí */
@@ -879,7 +884,7 @@ body.modal-visible #modal-container {
 
     /* CORREGIDO: Selector específico para las imágenes DENTRO del wrapper en estado final */
     #logo-container-inicial.logos-arriba .logos-wrapper img {
-        max-height: 55px;  /* Tamaño final móvil (un poco más grande quizás?) */
+        max-height: 35px;  /* Tamaño final móvil (un poco más grande quizás?) */
         margin: 5px 0;     /* Margen vertical móvil */
         width: auto;
         max-width: 60%; /* Límite de ancho por si acaso */
@@ -887,7 +892,7 @@ body.modal-visible #modal-container {
 
     /* CORREGIDO: Regla específica para ocultar la línea en estado final móvil */
     #logo-container-inicial.logos-arriba .logos-wrapper .linea-divisora {
-        display: none; /* Asegura que siga oculta */
+        display: visible; /* Asegura que siga oculta */
     }
 
     /* === Ajustes para el Formulario en Móvil === */
