@@ -87,44 +87,53 @@
 /* --- Variables de Colores --- */
 :root {
     --bg-color: #1E1E1E;
-    --bg-container: #1E1E1E;
-    --text-color-primary: #F0E6D2;
-    --text-color-secondary: #CCCCCC;
-    --accent-color: #F7D7A5;
-    --input-bg: #3D3D3C;
-    --input-border-color: var(--accent-color);
-    --input-text-color: var(--text-color-primary);
-    --input-placeholder-color: #C8B575;
-    --button-primary-bg: var(--accent-color);
-    --button-primary-text: #1E1E1E;
-    --button-secondary-bg: #161616;
-    --border: #444;
-    --light-color: #ffffff;
-    --error-alert: #E57373;
-    --button-secondary-text: var(--accent-color);
-    --logo-line-color: var(--accent-color);
-    --modal-bg: var(--bg-color);
-    --modal-text: var(--text-color-primary);
+    --bg-container: #1E1E1E; /* Fondo general y de contenedores */
+    --text-color-primary: #F0E6D2; /* Texto principal (más claro) */
+    --text-color-secondary: #CCCCCC; /* Texto secundario (grisáceo) */
+    --accent-color: #F7D7A5; /* Color de acento (dorado pálido) */
+    --input-bg: #3D3D3C; /* Fondo de inputs */
+    --input-border-color: var(--accent-color); /* Color borde izquierdo input */
+    --input-text-color: var(--text-color-primary); /* Color texto dentro input */
+    --input-placeholder-color: #C8B575; /* Color placeholder */
+    --button-primary-bg: var(--accent-color); /* Fondo botón primario */
+    --button-primary-text: #1E1E1E; /* Texto botón primario */
+    --button-secondary-bg: #161616; /* Fondo botón secundario */
+    --button-secondary-text: var(--accent-color); /* Texto botón secundario */
+    --border: #444; /* Color para bordes sutiles */
+    --light-color: #ffffff; /* Blanco (si se necesita) */
+    --error-alert: #E57373; /* Color para errores */
+    --logo-line-color: var(--accent-color); /* Color línea entre logos */
+    --modal-bg: var(--bg-container); /* Fondo del modal */
+    --modal-text: var(--text-color-primary); /* Texto del modal */
+    --header-bg: var(--bg-container); /* Fondo específico cabecera (igual por ahora) */
+    /* RGB versions for box-shadow alpha */
+    --accent-color-rgb: 247, 215, 165;
+    --bg-color-rgb: 30, 30, 30;
 }
 
 /* Tema Claro */
 :root.light-theme {
     --bg-color: #FFFFFF;
     --bg-container: #ffffff;
-    --text-color-primary: #0d3a7c;
-    --text-color-secondary: #495057;
-    --accent-color: #fc6c11;
-    --input-bg: #f6f6f6;
-    --input-border-color: #CED4DA;
+    --text-color-primary: #0d3a7c; /* Azul oscuro GNP */
+    --text-color-secondary: #495057; /* Gris oscuro texto */
+    --accent-color: #fc6c11; /* Naranja GNP */
+    --input-bg: #f6f6f6; /* Fondo input claro */
+    --input-border-color: #CED4DA; /* Borde input claro (usado en focus) */
     --input-text-color: var(--text-color-primary);
-    --input-placeholder-color: #7495bc;
+    --input-placeholder-color: #7495bc; /* Azul grisáceo placeholder */
     --button-primary-bg: var(--accent-color);
     --button-primary-text: #FFFFFF;
     --button-secondary-bg: #ffffff;
-    --button-secondary-text: #212529;
-    --logo-line-color: #DEE2E6;
+    --button-secondary-text: #212529; /* Texto oscuro botón secundario */
+    --border: #DEE2E6; /* Borde claro */
+    --logo-line-color: #DEE2E6; /* Línea divisora clara */
     --modal-bg: var(--bg-color);
     --modal-text: var(--text-color-primary);
+    --header-bg: var(--bg-container);
+    /* RGB versions for box-shadow alpha */
+    --accent-color-rgb: 252, 108, 17;
+    --bg-color-rgb: 255, 255, 255;
 }
 /* --- Fin de Variables de Colores --- */
 
@@ -138,119 +147,143 @@ body {
     min-height: 100vh;
     margin: 0;
     background-color: var(--bg-color);
+    padding-top: 80px; /* Añade padding para compensar la cabecera fija */
+    box-sizing: border-box; /* Incluye padding en el tamaño */
 }
 
 h2 {
     font-style: normal;
     font-weight: 700;
+    color: var(--text-color-primary); /* Color para H2 */
+    margin-bottom: 20px; /* Espacio debajo de H2 */
+    /* No añadir margin-top aquí para evitar acumulación */
 }
 
 .subtitulo-ligero {
     font-weight: 300;
     font-style: italic;
+    color: var(--text-color-secondary);
+    font-size: 0.9em;
+    margin-top: -15px; /* Acerca al H2 */
+    margin-bottom: 20px;
 }
 
-
-/* --- Contenedor Inicial Logos (Pantalla Completa) --- */
-#logo-container-inicial {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    position: absolute;
+/* --- ESTILOS PARA SPLASH SCREEN --- */
+#splash-screen {
+    position: fixed; /* Ocupa toda la pantalla y se queda fijo */
     top: 0;
     left: 0;
-    background-color: var(--bg-container);
-    transition: height 1s ease-in-out,
-        padding 1s ease-in-out,
-        background-color 1s ease-in-out,
-        top 1s ease-in-out,
-        left 1s ease-in-out;
-    z-index: 10;
-}
-
-.logos-wrapper { /* Wrapper inicial, no el de la cabecera */
+    width: 100%;
+    height: 100vh;
+    background-color: var(--bg-container); /* Mismo fondo */
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 20; /* Por encima de todo al inicio */
+    opacity: 0; /* Empieza invisible */
+    transition: opacity 0.5s ease-in-out; /* Transición para fade in/out (0.5s) */
+    pointer-events: none; /* Para no interferir una vez oculto */
 }
 
-#logo-container-inicial .logos-wrapper img {
-    max-height: 150px;
+#splash-screen .logos-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%; /* Asegura que el contenedor no sea 100% para evitar que los márgenes se peguen */
+    max-width: 600px; /* Límite opcional para pantallas grandes */
+}
+
+#splash-screen .logos-wrapper img {
+    max-height: 150px; /* Tamaño grande inicial GENERAL */
     margin: 0 20px;
-    transition: max-height 1s ease-in-out;
+    width: auto; /* Permite que el ancho se ajuste con la altura */
+    /* max-width: 48%; */ /* Limitador opcional para escritorio si es necesario */
+    flex-shrink: 1; /* Permite encoger si no hay espacio */
+    transition: transform 0.3s ease; /* Añadido para suavizar cambio de escala */
 }
 
-.linea-divisora { /* Línea inicial entre logos */
+
+#splash-screen .linea-divisora {
     width: 2px;
     height: 100px;
-    background-color: var(--accent-color); /* Usaba accent-color en tu código */
-    transition: height 1s ease-in-out;
-    /* No tenía margen en tu código aquí */
+    background-color: var(--accent-color);
+    margin: 0 20px;
+    flex-shrink: 0; /* Evita que la línea se encoja */
 }
 
-
-/* --- Estado FINAL Logos (Cabecera Fija) --- */
-
-/* Contenedor principal de la cabecera */
-#logo-container-inicial.logos-arriba {
+/* --- ESTILOS PARA CABECERA FINAL --- */
+#main-header {
+    display: none; /* Oculto inicialmente, se muestra con JS como 'flex' */
     height: 80px;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: var(--bg-container);
-    z-index: 10;
-    display: flex;
+    background-color: var(--header-bg); /* Variable específica para cabecera */
+    z-index: 10; /* Debajo del splash (20), encima del form (1) */
+    /* Usa flex para centrar el .header-content-wrapper */
     justify-content: center;
     align-items: center;
     padding: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra opcional */
 }
 
-/* Contenedor interno para limitar ancho y distribuir */
-.header-content-wrapper {
+#main-header .header-content-wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Logos a la izq, switch a la der */
     align-items: center;
     width: 100%;
-    max-width: 960px;
-    padding: 0 15px;
+    max-width: 960px; /* Ancho máximo del contenido */
+    padding: 0 15px; /* Padding interno */
     box-sizing: border-box;
 }
 
-/* Grupo de logos dentro de la cabecera final */
-/* Nota: La regla específica para .logos-wrapper dentro de .logos-arriba no estaba en tu último código, */
-/* así que se aplicarán los estilos base de .logos-wrapper si no hay otra más específica */
-/* Si necesitas estilos específicos aquí (como quitar margen), debes añadirlos */
-/* #logo-container-inicial.logos-arriba .logos-wrapper { */
-/* margin: 0; */
-/* } */
-
-#logo-container-inicial.logos-arriba .logos-wrapper img {
-    max-height: 50px;
-    margin: 0 15px; /* Mantenido de tu código */
+#main-header .logos-wrapper {
+     display: flex;
+     align-items: center;
+     justify-content: flex-start; /* Alinea logos a la izquierda dentro de su espacio */
+     flex-grow: 1; /* Permite que ocupe espacio disponible */
+     overflow: hidden; /* Evita overflow si los logos son muy anchos */
 }
 
-/* Línea divisora DENTRO del wrapper de logos inicial */
-/* Este selector parece aplicar a la línea inicial y a la final si no se sobreescribe */
-#logo-container-inicial .logos-wrapper .linea-divisora {
+#main-header .logos-wrapper img {
+    max-height: 50px; /* Tamaño pequeño final GENERAL */
+    margin: 0 15px;
+    flex-shrink: 0; /* Evita que los logos se encojan */
+    transition: transform 0.3s ease; /* Añadido para suavizar cambio de escala */
+}
+
+
+#main-header .linea-divisora {
+    display: block; /* Asegura visibilidad */
     width: 2px;
-    height: 100px; /* Base height */
-    background-color: var(--logo-line-color);
-    transition: height 1s ease-in-out;
+    height: 40px;
+    background-color: var(--logo-line-color); /* Color línea en cabecera */
+    margin: 0 15px;
+    flex-shrink: 0; /* Evita que la línea se encoja */
 }
 
-/* Línea divisora DENTRO de logos-arriba */
-#logo-container-inicial.logos-arriba .logos-wrapper .linea-divisora {
-    display: block;
-    height: 40px; /* Altura final */
-}
-
-/* Hacer visible el switch cuando la cabecera está lista */
-#logo-container-inicial.logos-arriba .theme-switch-wrapper {
-    opacity: 1;
+/* Switch de tema en la cabecera final */
+#main-header .theme-switch-wrapper {
+    display: flex; /* Asegura que sea visible */
+    align-items: center;
+    opacity: 1; /* Visible directamente */
     visibility: visible;
+    flex-shrink: 0; /* Evita que el switch se encoja */
+}
+
+/* --- Ajuste Proporcional Logos --- */
+/* --- ¡NUEVO! Aumento proporcional Logo Veler (Splash y Header) --- */
+#splash-screen #logo1-splash,
+#main-header #logo1-header {
+    transform: scale(1.1); /* Aumenta al 110% (ajusta si es necesario) */
+    transform-origin: center center;
+}
+/* --- ¡MODIFICADO! Reducción proporcional Logo GNP (Splash y Header) --- */
+#splash-screen #logo2-splash,
+#main-header #logo2-header {
+    transform: scale(0.75); /* Reduce al 75% (ajusta si es necesario) */
+    transform-origin: center center;
 }
 
 
@@ -258,34 +291,33 @@ h2 {
 #formulario-completo {
     width: 80%;
     max-width: 600px;
-    /* margin-top: 20px; */ /* Comentado en tu código */
     background-color: var(--bg-container);
-    padding: 30px;
+    /* padding: 30px; */
+    padding: 0 30px 30px 30px; /* padding-top: 0 */
     border-radius: 20px;
     text-align: left;
-    margin-top: 100px; /* Este sí estaba activo */
-    display: none;
+    margin-top: 10px; /* Margen superior pequeño */
+    /* display: none; */ /* Controlado por JS */
     z-index: 1;
-    position: relative;
-    /* box-shadow estaba comentado */
+    position: relative; /* Mantenido */
+    margin-bottom: 40px; /* Espacio al final */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Sombra opcional */
 }
 
 .seccion-formulario {
     margin-bottom: 20px;
-    padding: 0px;
-    border-radius: 20px;
-    display: none;
-    opacity: 0;
+    padding: 0px; /* Sin padding extra aquí */
+    border-radius: 20px; /* Heredado o aplicar si es necesario */
+    display: none; /* Controlado por JS */
+    opacity: 0; /* Para transición fade */
     transition: opacity 0.4s ease-in-out;
     width: 100%;
     box-sizing: border-box;
-    /* border: 3px solid var(--bg-color); */ /* Comentado */
 }
 
 .seccion-formulario h2 {
-    text-align: left;
-    margin-top: 0;
-    color: var(--text-color-primary);
+    /* Estilos ya definidos globalmente */
+    margin-top: 0; /* Asegura que el primer h2 no tenga margen superior */
 }
 
 .seccion-formulario label {
@@ -307,94 +339,144 @@ h2 {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    font-size: 0.9em; /* Tamaño label ligeramente reducido */
+    color: var(--text-color-secondary); /* Color label */
 }
+/* Estilo específico para etiquetas de checkbox/radio */
+.form-group label:has(input[type="checkbox"]),
+.form-group label:has(input[type="radio"]) {
+    display: flex; /* Alinea checkbox/radio con el texto */
+    align-items: center;
+    cursor: pointer;
+    font-weight: normal; /* Peso normal para estas etiquetas */
+}
+
 
 .form-control {
     width: 100%;
-    padding: 10px;
+    padding: 10px 15px; /* Ajusta padding */
     background-color: var(--input-bg);
-    border-left: 3px solid var(--accent-color);
-    border-top: none;
-    border-right: none;
-    border-bottom: none;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 0px;
+    border: none; /* Quita todos los bordes por defecto */
+    border-left: 3px solid var(--accent-color); /* Mantiene borde izquierdo */
+    border-radius: 0 20px 20px 0; /* Ajusta radios */
     box-sizing: border-box;
-    color: var(--text-color-primary);
-    /* margin: 0 auto; */ /* Comentado */
+    color: var(--input-text-color);
+    font-size: 1rem; /* Asegura tamaño de fuente */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Suaviza focus */
 }
 
-.form-group input[type="checkbox"] { /* Estilo para checkbox DENTRO de form-group (puede ser la label) */
+/* Checkbox y Radio (estilos nativos mejorados) */
+input[type="checkbox"],
+input[type="radio"] {
+    width: 1em; /* Tamaño relativo a la fuente */
+    height: 1em;
+    margin-right: 0.5em;
+    vertical-align: middle; /* Mejor alineación vertical */
+    accent-color: var(--accent-color); /* Usa color de acento para el check/dot */
+    cursor: pointer;
+}
+/* Si se usa .form-control en ellos (generalmente no es buena idea) */
+input[type="checkbox"].form-control,
+input[type="radio"].form-control {
+    appearance: auto;
     width: auto;
-    margin: 0;
-    /* No aplica a checkboxes con clase .form-control */
+    height: auto;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+    border-left: none;
 }
 
 
 /* --- Botones Navegación Formulario --- */
 .botones-navegacion {
-    text-align: right;
+    /* text-align: right; */ /* No necesario con flex */
     margin-top: 25px;
+    display: flex;
+    justify-content: flex-end; /* Alinea botones a la derecha por defecto */
+    gap: 10px;
+    border-top: 1px solid var(--border); /* Línea separadora opcional */
+    padding-top: 20px; /* Espacio sobre botones */
 }
+/* Caso especial si solo hay un botón */
+.botones-navegacion button:only-child {
+    margin-left: auto;
+}
+/* Centrar si hay dos botones importantes (ej. Volver y Enviar) */
+#seccion-revision .botones-navegacion {
+    justify-content: center;
+    gap: 15px;
+}
+
 
 .btn-siguiente,
 .btn-anterior,
 .btn-primary {
-    padding: 10px 20px;
-    background-color: var(--accent-color);
-    color: var(--bg-color); /* Color texto botón primario */
+    padding: 10px 25px; /* Más padding horizontal */
+    background-color: var(--button-primary-bg);
+    color: var(--button-primary-text);
     border: none;
-    border-radius: 20px;
+    border-radius: 25px; /* Más redondeado */
     cursor: pointer;
-    margin: 10px 5px 0 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.1s ease;
+    font-weight: 600; /* Más peso */
+    font-size: 0.95rem;
+    text-transform: uppercase; /* Mayúsculas opcional */
+    letter-spacing: 0.5px; /* Espaciado letras opcional */
+}
+.btn-siguiente:active,
+.btn-anterior:active,
+.btn-primary:active {
+    transform: scale(0.98); /* Efecto al presionar */
 }
 
 .btn-anterior {
     background-color: var(--button-secondary-bg);
-    color: var(--accent-color); /* Color texto botón secundario */
+    color: var(--button-secondary-text);
+    border: 1px solid var(--accent-color);
 }
 
 .btn-siguiente:hover,
 .btn-anterior:hover,
 .btn-primary:hover {
-    opacity: 0.9;
+    opacity: 0.85; /* Más notable el hover */
 }
 
 
 /* --- Estilos Placeholders y Focus --- */
 .form-control::placeholder {
     color: var(--input-placeholder-color);
-    opacity: 0.8;
+    opacity: 0.7; /* Ligeramente más sutil */
 }
 
 .form-control:focus {
-    border-color: var(--input-placeholder-color); /* Color del borde izquierdo al enfocar */
-    /* box-shadow: 0 0 5px rgba(200, 181, 117, 0.5); */ /* Comentado */
-     outline: none; /* Añadido para quitar outline por defecto */
+    border-color: var(--accent-color); /* Mantiene color acento en borde */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb), 0.3); /* Sombra de foco */
 }
 
 
 /* --- Estilos Específicos Inputs --- */
 select.form-control {
+    appearance: none;
+    /* Flecha SVG con color variable */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 15px center;
-    background-size: 10px 10px; /* Puede ser muy pequeño, revisar */
+    background-size: 1em 1em; /* Tamaño relativo */
     padding-right: 40px;
-     appearance: none; /* Añadido para quitar flecha nativa si se usa fondo */
-     /* Considerar añadir una imagen de flecha en background-image */
+    color: var(--input-text-color); /* Asegura color flecha */
+}
+/* Ajuste color flecha en tema claro */
+:root.light-theme select.form-control {
+     color: var(--text-color-secondary); /* Color flecha tema claro */
 }
 
-input[type="checkbox"].form-control,
-input[type="radio"].form-control { /* Checkboxes/Radios CON clase form-control */
-    appearance: auto;
-    width: auto;
-    background-color: transparent;
-    border: none;
-    border-radius: 20px; /* Inconsistente con otros inputs */
-    padding: 0;
+textarea.form-control {
+    min-height: 80px; /* Altura mínima para textareas */
+    resize: vertical; /* Permitir redimensionar solo verticalmente */
 }
 
 
@@ -405,38 +487,36 @@ input[type="radio"].form-control { /* Checkboxes/Radios CON clase form-control *
     transition: none !important;
     margin-bottom: 30px;
     padding: 25px;
-    /* border: 1px solid var(--bg-color); */ /* Comentado */
-     border: 1px solid var(--border); /* Añadido borde sutil como en la versión anterior */
-     border-radius: 15px; /* Radio consistente */
+     border: 1px solid var(--border);
+     border-radius: 15px;
+     background-color: rgba(0,0,0,0.05); /* Fondo muy sutil */
+}
+:root.light-theme #formulario-completo.modo-revision .seccion-formulario {
+    background-color: rgba(0,0,0,0.02);
 }
 
+
 #formulario-completo.modo-revision .question-group {
-    display: block !important;
-    opacity: 1 !important;
+    /* No es necesario display:block aquí */
     margin-bottom: 15px;
-    transition: none;
 }
 
 #formulario-completo.modo-revision .seccion-formulario .botones-navegacion {
     display: none; /* Ocultar botones internos */
 }
 
+/* #seccion-revision está dentro del form ahora */
 #formulario-completo.modo-revision #seccion-revision {
     display: block !important;
     opacity: 1 !important;
-     border: none; /* Sin borde en la sección final */
-     padding: 15px 0; /* Padding vertical */
+    border: none; /* Sin borde */
+    padding: 15px 0;
+    background-color: transparent; /* Sin fondo especial */
 }
 
-#seccion-revision { display: none; } /* Oculto por defecto */
+/* Oculta #seccion-revision por defecto (fuera del modo revisión) */
+#seccion-revision { display: none; }
 
-#seccion-revision .botones-navegacion {
-    display: block; /* O flex si se prefiere */
-    margin-top: 30px;
-    text-align: center;
-     border-top: none; /* Asegurar que no tenga línea superior */
-     padding-top: 0;
-}
 
 #seccion-revision h2 {
     color: var(--accent-color);
@@ -451,22 +531,37 @@ input[type="radio"].form-control { /* Checkboxes/Radios CON clase form-control *
     margin-bottom: 30px;
 }
 
-/* Estilos para el resumen (añadidos para claridad) */
+/* Estilos para el resumen final */
 #seccion-revision #resumen-final {
     background-color: rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 25px; /* Más padding */
     border-radius: 8px;
     border: 1px solid var(--border);
     color: var(--text-color-secondary);
     margin-bottom: 30px;
 }
+:root.light-theme #seccion-revision #resumen-final {
+     background-color: rgba(0, 0, 0, 0.03);
+}
+
 #seccion-revision #resumen-final ul { list-style: none; padding: 0; margin: 0; text-align: left; }
 #seccion-revision #resumen-final li {
-    margin-bottom: 10px; border-bottom: 1px dotted var(--border); padding-bottom: 10px;
-    line-height: 1.5;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px dotted var(--border);
+    line-height: 1.6;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 #seccion-revision #resumen-final li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-#seccion-revision #resumen-final li strong { color: var(--text-color-primary); margin-right: 8px; display: inline-block; min-width: 150px; }
+#seccion-revision #resumen-final li strong {
+    color: var(--text-color-primary);
+    display: inline-block;
+    min-width: 150px;
+    font-weight: 600;
+    flex-shrink: 0; /* Evita que la etiqueta se encoja */
+}
 
 
 /* --- Estilos para el Modal --- */
@@ -477,7 +572,7 @@ input[type="radio"].form-control { /* Checkboxes/Radios CON clase form-control *
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(30, 30, 30, 0.7);
+    background-color: rgba(var(--bg-color-rgb), 0.7); /* Fondo overlay basado en bg */
     backdrop-filter: blur(5px);
     z-index: 1000;
     opacity: 0;
@@ -492,8 +587,7 @@ input[type="radio"].form-control { /* Checkboxes/Radios CON clase form-control *
     transform: translate(-50%, -50%) scale(0.95);
     width: 90%;
     max-width: 480px;
-    background-color: var(--modal-bg); /* Usar variable */
-    color: #e1b1b1; /* Color específico en tu código */
+    background-color: var(--modal-bg);
     padding: 35px 40px;
     border-radius: 10px;
     border: 1px solid var(--border);
@@ -521,7 +615,7 @@ body.modal-visible #modal-container {
 
 #modal-error-icon {
     font-size: 64px;
-    color: #E57373; /* Color específico */
+    color: var(--error-alert);
     display: none;
     vertical-align: middle;
 }
@@ -543,46 +637,49 @@ body.modal-visible #modal-container {
     font-size: 1.1em;
     line-height: 1.6;
     margin-bottom: 30px;
-     color: var(--modal-text); /* Añadido para consistencia */
+     color: var(--modal-text);
 }
 
 #modal-buttons {
-     display: flex; /* Añadido para alinear botones */
-     justify-content: center; /* Centrar botones */
-     gap: 15px; /* Espacio entre botones */
+     display: flex;
+     justify-content: center;
+     gap: 15px;
 }
 
 #modal-buttons button {
-    display: none;
-    margin: 0; /* Quitado margen, usar gap */
+    margin: 0;
     min-width: 100px;
+    /* Estilos base de botones ya aplican (.btn-primary, .btn-anterior) */
 }
 
+
+/* Estilo para icono Material Symbols */
 .material-symbols-outlined {
-    font-variation-settings:
-        'FILL' 0,
-        'wght' 300,
-        'GRAD' 0,
-        'opsz' 48;
-    vertical-align: middle;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 24; /* Tamaño óptico ajustado */
+   vertical-align: middle; /* Mejor alineación con texto */
+   line-height: 1; /* Evita espacio extra */
+   font-size: 1.2em; /* Tamaño relativo si está junto a texto */
+}
+/* Iconos específicos */
+#modal-error-icon.material-symbols-outlined {
+    font-size: 64px; /* Tamaño grande para icono modal */
+    line-height: 1;
+}
+.slider .icon.material-symbols-outlined {
+     font-size: 16px; /* Tamaño icono switch */
+     position: absolute; /* Necesario para superponer iconos en switch */
+     top: 50%;            /* Centra verticalmente el icono */
+     left: 50%;           /* Centra horizontalmente el icono */
+     transform: translate(-50%, -50%); /* Ajuste fino del centrado */
 }
 
 
 /* --- Estilos para el Switch de Tema --- */
-.theme-switch-wrapper {
-    /* position: absolute; */ /* Comentado */
-    /* top: 50%; */ /* Comentado */
-    /* right: 30px; */ /* Comentado */
-    /* transform: translateY(-50%); */ /* Comentado */
-    display: flex;
-    align-items: center;
-    z-index: 11;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out 0.8s;
-}
-
-/* La regla duplicada de #logo-container-inicial.logos-arriba .theme-switch-wrapper se omite */
+/* .theme-switch-wrapper ahora está dentro de #main-header */
 
 .theme-switch input[type="checkbox"] {
     height: 0;
@@ -596,16 +693,13 @@ body.modal-visible #modal-container {
     text-indent: -9999px;
     width: 50px;
     height: 25px;
-    /* background: grey; */ /* Comentado, se usa variable abajo */
+    background-color: var(--input-bg);
     display: block;
     border-radius: 25px;
     position: relative;
     transition: background-color 0.3s ease;
-    background-color: var(--input-bg, grey); /* Re-aplicado desde abajo */
-    border: 1px solid var(--accent-color, #555); /* Re-aplicado desde abajo */
+    border: 1px solid var(--accent-color);
 }
-
-/* Regla duplicada para .theme-switch se omite, las propiedades se movieron arriba */
 
 .theme-switch .slider {
     position: absolute;
@@ -613,162 +707,185 @@ body.modal-visible #modal-container {
     left: 1px;
     width: 21px;
     height: 21px;
-    background-color: var(--accent-color, white);
+    background-color: var(--accent-color);
     border-radius: 50%;
-    transition: 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    /* display: flex; */ /* No necesario si iconos son absolute */
+    /* align-items: center; */
+    /* justify-content: center; */
     overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 .slider .icon {
-    font-size: 12px;
+    /* font-size: 14px; */ /* Controlado por .material-symbols-outlined ahora */
     line-height: 1;
     transition: opacity 0.3s ease, transform 0.3s ease;
+    /* position: absolute; */ /* Controlado por .material-symbols-outlined ahora */
+    color: var(--button-primary-text);
 }
 
 .slider .sun {
     opacity: 0;
-    transform: scale(0);
+    transform: translate(-50%, -50%) scale(0) rotate(-90deg); /* Incluye translate */
 }
 
 .slider .moon {
     opacity: 1;
-    transform: scale(1);
-    color: var(--button-primary-text);
+    transform: translate(-50%, -50%) scale(1) rotate(0deg); /* Incluye translate */
 }
 
-.theme-switch input:checked+.slider {
+/* Estado cuando el checkbox está marcado (Tema Claro) */
+.theme-switch input:checked + .slider {
     transform: translateX(25px);
-    background-color: var(--accent-color);
 }
 
-/* Regla comentada omitida */
-
-.theme-switch input:checked+.slider .sun {
+.theme-switch input:checked + .slider .sun {
     opacity: 1;
-    transform: scale(1);
-    color: var(--button-primary-text);
+    transform: translate(-50%, -50%) scale(1) rotate(0deg); /* Incluye translate */
 }
 
-.theme-switch input:checked+.slider .moon {
+.theme-switch input:checked + .slider .moon {
     opacity: 0;
-    transform: scale(0);
+    transform: translate(-50%, -50%) scale(0) rotate(90deg); /* Incluye translate */
 }
 
 
 /* --- Media Query para Dispositivos Móviles --- */
 @media (max-width: 767px) {
 
-    /* Estado INICIAL logos móvil */
-    /* #logo-container-inicial .logos-wrapper { */ /* Comentado */
-        /* align-items: center; */ /* Comentado */
-    /* } */ /* Comentado */
-
-    #logo-container-inicial .logos-wrapper img { /* Aplica a estado inicial y potencialmente al final si no se sobreescribe */
-        max-height: 80px;
-        margin: 25px 0; /* Solo margen vertical */
-        width: auto;
-        max-width: 80%;
+    body {
+        padding-top: 60px; /* Menos padding si la cabecera es más pequeña en móvil */
     }
 
-    #logo-container-inicial .logos-wrapper .linea-divisora { /* Aplica a estado inicial */
-        display: none; /* Oculta línea inicial en móvil */
+    /* Splash screen móvil */
+    #splash-screen .logos-wrapper {
+        width: 90%; /* Mantiene un pequeño margen lateral en el contenedor */
+        justify-content: center; /* Centra los logos si hay espacio extra */
     }
 
-    /* Estado FINAL logos móvil */
-    #logo-container-inicial.logos-arriba { /* Sobreescribe regla base */
-        height: auto;
-        padding: 10px 0; /* Padding vertical en el contenedor principal */
-         justify-content: center; /* Asegura centrado del wrapper interno */
+    #splash-screen .logos-wrapper img {
+        max-height: 100px; /* Altura máxima reducida GENERAL */
+        margin: 0 10px;  /* Margen reducido */
+        max-width: 45%;  /* Limita el ancho de cada logo */
+        width: auto;     /* Asegura que el navegador calcule el ancho */
+        flex-shrink: 1;  /* Permite que se encojan si no caben */
+    }
+    /* Nota: Las reglas de transform:scale() base se aplican también aquí */
+
+
+    #splash-screen .linea-divisora {
+        display: none; /* Oculta la línea divisora */
     }
 
-    /* Wrapper interno en móvil */
-     .header-content-wrapper {
-         padding: 0 10px; /* Menos padding */
-         /* Hereda space-between */
+    /* Cabecera final móvil */
+    #main-header {
+        height: 60px; /* Cabecera más pequeña */
+    }
+    /* Ajuste para el contenedor de la cabecera en móvil */
+     #main-header .header-content-wrapper {
+         /* justify-content: flex-start; */ /* Comentado/Eliminado */
+         padding: 0 15px; /* Padding lateral */
+         /* Ahora heredará justify-content: space-between; */
+         gap: 10px; /* Añade un pequeño espacio entre logos y switch si se acercan mucho */
      }
 
-    /* Wrapper de logos en estado final móvil (no presente en tu código, podría heredar de base o necesitar especificarse) */
-    /* #logo-container-inicial.logos-arriba .logos-wrapper { */
-    /* align-items: center; */
-    /* padding: 0; */
-    /* } */
-
-    #logo-container-inicial.logos-arriba .logos-wrapper img { /* Sobreescribe regla base de img */
-        max-height: 35px;
-        margin: 5px 0; /* Margen vertical final */
-        width: auto;
-        max-width: 60%;
+    /* Ya no es necesaria esta regla porque space-between lo maneja */
+    /*
+    #main-header .theme-switch-wrapper {
+        margin-left: auto;
     }
+    */
 
-    #logo-container-inicial.logos-arriba .logos-wrapper .linea-divisora { /* Sobreescribe regla base de línea */
-        /* display: visible; */ /* 'visible' no es un valor válido, probablemente querías 'block' o quitar esta línea si se hereda display:none */
-        /* Si se quiere mostrar la línea en móvil en la cabecera final, usar display: block; y ajustar height/margin */
-        display: block; /* Mostrar línea */
-        height: 30px; /* Altura móvil */
-        margin: 0 5px; /* Margen móvil */
+    #main-header .logos-wrapper img {
+        max-height: 35px; /* Tamaño GENERAL header móvil */
+        margin: 0 5px; /* Reducido margen entre logos en móvil */
+    }
+    /* Nota: Las reglas de transform:scale() base se aplican también aquí */
+
+
+    #main-header .linea-divisora {
+        height: 30px;
+        margin: 0 8px;
     }
 
     /* Formulario en móvil */
     #formulario-completo {
-        width: 90%;
-        padding: 20px;
-        margin-top: 120px; /* AJUSTAR SEGÚN ALTURA REAL CABECERA */
+        width: 95%;
+        /* padding: 15px; */
+        padding: 0 15px 15px 15px; /* Mantenido: padding-top: 0 */
+        margin-top: 10px; /* Margen superior pequeño */
+        margin-bottom: 20px;
     }
 
     .form-control {
-        width: 100%;
-        /* Estilos de borde se heredan */
+        padding: 12px 15px;
+        padding-right: 40px; /* Espacio para flecha select */
+        font-size: 0.95rem;
+    }
+    select.form-control {
+         background-position: right 10px center;
+         background-size: 0.9em 0.9em;
     }
 
-    .form-group {
-        text-align: left; /* Esto no tiene efecto en form-group con display flex */
-    }
 
     /* Botones en móvil */
+    .botones-navegacion {
+         gap: 8px;
+         padding-top: 15px;
+         /* flex-wrap: wrap; */
+         /* justify-content: space-between; */ /* Ajusta si prefieres que ocupen todo */
+    }
+
     .btn-siguiente,
     .btn-anterior,
     .btn-primary {
-        padding: 12px 15px;
-        font-size: 1rem;
-        width: auto; /* Ancho automático base */
-        min-width: 100px;
-        margin: 5px; /* Mantenido de tu código */
+        padding: 10px 15px;
+        font-size: 0.9rem; /* Fuente más pequeña */
+        flex-grow: 1;
+        text-align: center;
+        min-width: 0; /* Permite que se encojan */
+        letter-spacing: normal; /* Quita espaciado extra si lo había */
+        text-transform: none; /* Quita mayúsculas si lo había */
     }
-    /* Ajustes específicos para botones en móvil */
-     .botones-navegacion {
-         gap: 8px;
-         justify-content: space-between;
-     }
-     .botones-navegacion button {
-        width: calc(50% - 4px); /* Dos botones por fila */
-     }
-     .botones-navegacion button:only-child {
-        width: 100%;
-        margin-left: 0; /* Corregido para botón único */
-     }
+
+    .botones-navegacion button:only-child {
+       flex-grow: 0;
+       width: 100%;
+    }
+
+    /* Botones en sección revisión móvil */
      #seccion-revision .botones-navegacion {
-        justify-content: center;
+        flex-direction: column; /* Apila los botones */
+        align-items: stretch; /* Estira botones al ancho */
+        gap: 10px;
      }
      #seccion-revision .botones-navegacion button {
-        width: calc(50% - 4px);
+        width: 100%;
      }
 
-    /* Switch tema en móvil (con posicionamiento absoluto original) */
-theme-switch input:checked+.slider { transform: translateX(23px); } */
-
-
-    .theme-label-text { /* Texto opcional junto al switch */
-        display: none;
+    /* Resumen final en móvil */
+     #seccion-revision #resumen-final { padding: 15px; }
+    #seccion-revision #resumen-final li { flex-direction: column; gap: 4px; align-items: flex-start; } /* Apila label y valor */
+    #seccion-revision #resumen-final li strong {
+        min-width: auto; /* Ancho automático */
     }
 
-     /* Modal en móvil (añadido para consistencia) */
-     #modal-container { padding: 25px 20px; }
+    /* Modal en móvil */
+     #modal-container {
+        padding: 25px 20px;
+        max-width: 90%;
+     }
      #modal-title { font-size: 1.4em; }
      #modal-message { font-size: 1em; }
+     #modal-buttons { flex-direction: column; gap: 10px; }
+     #modal-buttons button { width: 100%; }
+
+
+    /* Switch tema en móvil */
+    .theme-switch { width: 45px; height: 22px; }
+    .theme-switch .slider { width: 18px; height: 18px; }
+    .theme-switch input:checked + .slider { transform: translateX(23px); }
+    .slider .icon.material-symbols-outlined { font-size: 14px; }
 
 } /* Fin de @media (max-width: 767px) */
-
-/* Llave extra eliminada */
