@@ -28,6 +28,12 @@
         </div>
     </div>
 
+    <div class="sidebar-toggle-area">
+        <button class="sidebar-toggle material-symbols-outlined" title="Contraer menú">
+            menu </button>
+    </div>
+    
+
     <header id="main-header">
         <div class="header-content-wrapper">
             <div class="logos-wrapper">
@@ -46,6 +52,46 @@
             </div>
         </div>
     </header>
+
+    <aside id="sidebar-navegacion">
+
+    
+        <div class="sidebar-header" style="display: none;"> <h3>Progreso del Formulario</h3>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <ul>
+                <li class="menu-item" data-section="seccion-solicitantes">
+                    <span class="menu-icon material-symbols-outlined">person</span>
+                    <span class="menu-text">Solicitantes</span>
+                    <span class="menu-status"></span>
+                </li>
+                <li class="menu-item" data-section="seccion-domicilios">
+                    <span class="menu-icon material-symbols-outlined">home</span>
+                    <span class="menu-text">Domicilios</span>
+                    <span class="menu-status"></span>
+                </li>
+                <li class="menu-item" data-section="seccion-actividades_riesgo">
+                    <span class="menu-icon material-symbols-outlined">warning</span>
+                    <span class="menu-text">Actividades de Riesgo</span>
+                    <span class="menu-status"></span>
+                </li>
+                <!-- Añade los demás items del menú siguiendo el mismo patrón -->
+                <li class="menu-item" data-section="seccion-habitos">
+                    <span class="menu-icon material-symbols-outlined">smoking_rooms</span>
+                    <span class="menu-text">Hábitos</span>
+                    <span class="menu-status"></span>
+                </li>
+                <!-- Continúa con las demás secciones -->
+            </ul>
+        </nav>
+        <div class="sidebar-progress">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <span class="progress-text">0% completado</span>
+        </div>
+    </aside>
 
     <div id="formulario-completo" style="display: none;">
         <nav id="navegacion-horizontal">
