@@ -1,0 +1,215 @@
+/* --- Formulario Principal y Secciones --- */
+/* Se aplica a <main id="formulario-completo"> */
+main#formulario-completo {
+    padding-top: calc(var(--top-bar-height) + 30px); /* Mantenemos ~100px arriba */
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    margin-left: var(--sidebar-width-expanded); /* Mantiene el espacio para el sidebar */
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    /* --- ANCHO FORZADO CON CALC() --- */
+    width: calc(100% - var(--sidebar-width-expanded)); /* Ocupa el resto del ancho */
+    /* max-width ELIMINADO */
+    /* --- FIN ANCHO FORZADO --- */
+    min-height: 100vh;
+    box-sizing: border-box; /* Importante para que padding no se sume al width */
+    transition: margin-left 0.3s ease, background-color 0.3s ease, width 0.3s ease; /* Añadida transición de width */
+    background-color: var(--bg-color);
+    text-align: left;
+    position: relative;
+    z-index: 1;
+    display: block;
+}
+
+/* Ajuste para estado colapsado */
+body.body-sidebar-collapsed main#formulario-completo {
+    margin-left: var(--sidebar-width-collapsed);
+    /* --- ANCHO FORZADO CON CALC() PARA ESTADO COLAPSADO --- */
+    width: calc(100% - var(--sidebar-width-collapsed)); /* Ajusta el ancho al sidebar colapsado */
+    /* --- FIN ANCHO FORZADO --- */
+}
+
+/* Estilos para cada sección dentro del main */
+.seccion-formulario {
+    /* Mantenemos el max-width y el centrado para el contenido interno */
+    max-width: 1400px; /* Ancho máximo deseado para el contenido del form */
+    margin: 0 auto 20px auto; /* Centrado horizontal y margen inferior */
+    /* --- FIN --- */
+    padding: 15px;
+    border-radius: 12px;
+    background-color: var(--bg-container);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out, background-color 0.3s ease, box-shadow 0.3s ease, max-width 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.seccion-formulario.seccion-activa {
+    display: block;
+    opacity: 1;
+}
+
+/* Grupos de Campos */
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 0.9em;
+    color: var(--text-color-secondary);
+    transition: color 0.3s ease;
+}
+.form-group label:has(input[type="checkbox"]),
+.form-group label:has(input[type="radio"]) {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: normal;
+    color: var(--text-color-primary);
+}
+
+/* Campos */
+.form-control {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    color: var(--input-text-color);
+    background-color: var(--input-bg);
+    border: none;
+    border-left: 3px solid var(--accent-color);
+    border-radius: 0 20px 20px 0;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: 1.1em;
+    height: 1.1em;
+    margin-right: 0.6em;
+    vertical-align: middle;
+    accent-color: var(--accent-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.radio-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+.radio-group label {
+    margin-bottom: 0;
+    font-weight: normal;
+    color: var(--text-color-primary);
+}
+input[type="checkbox"].form-control,
+input[type="radio"].form-control {
+    appearance: auto; width: auto; height: auto; background-color: transparent;
+    border: none; border-radius: 0; padding: 0; box-shadow: none; border-left: none;
+}
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 1em 1em;
+    padding-right: 40px;
+    color: var(--input-text-color);
+}
+:root.light-theme select.form-control {
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23495057' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+}
+textarea.form-control {
+    min-height: 90px;
+    resize: vertical;
+}
+.form-control::placeholder {
+    color: var(--input-placeholder-color);
+    opacity: 0.6;
+    transition: color 0.3s ease;
+}
+.form-control:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb, 252, 108, 17), 0.2);
+}
+
+/* Modo Revisión */
+main#formulario-completo.modo-revision {
+    padding-left: 40px;
+    padding-right: 40px;
+    /* El width calculado también aplicará aquí si el body tiene la clase de revisión */
+}
+main#formulario-completo.modo-revision .seccion-formulario {
+    display: block !important; opacity: 1 !important; transition: none !important;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 15px; background-color: rgba(var(--text-color-primary-rgb, 0, 0, 0), 0.05);
+    box-shadow: none;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+main#formulario-completo.modo-revision .form-columns-container {
+    display: block;
+}
+main#formulario-completo.modo-revision .question-group { margin-bottom: 15px; }
+main#formulario-completo.modo-revision .seccion-formulario .botones-navegacion { display: none; }
+main#formulario-completo.modo-revision #seccion-revision {
+    display: block !important; opacity: 1 !important; border: none;
+    padding: 10px 0;
+    background-color: transparent; box-shadow: none;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#seccion-revision { display: none; }
+#seccion-revision h2 { color: var(--accent-color); text-align: center; margin-bottom: 10px; }
+#seccion-revision p { color: var(--text-color-secondary); text-align: center; margin-bottom: 20px; }
+#seccion-revision #resumen-final {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px; border: 1px solid var(--border);
+    color: var(--text-color-secondary); background-color: rgba(var(--text-color-primary-rgb, 0, 0, 0), 0.03);
+    text-align: left;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+#seccion-revision #resumen-final ul { list-style: none; padding: 0; margin: 0; }
+#seccion-revision #resumen-final li {
+    margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dotted var(--border);
+    line-height: 1.5; display: flex; flex-wrap: wrap; gap: 6px;
+     transition: border-color 0.3s ease;
+}
+#seccion-revision #resumen-final li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+#seccion-revision #resumen-final li strong {
+    color: var(--text-color-primary); display: inline-block; min-width: 140px;
+    font-weight: 600; flex-shrink: 0;
+     transition: color 0.3s ease;
+}
+
+/* --- Layout de Columnas para Campos del Formulario --- */
+.form-columns-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px 25px;
+    align-items: start;
+}
+.form-columns-container .form-group {
+    margin-bottom: 8px;
+}
+.form-group.full-width-column,
+.form-columns-container > hr.full-width-column,
+.form-columns-container > p.full-width-column,
+.form-columns-container > div.full-width-column
+{
+    grid-column: 1 / -1;
+}

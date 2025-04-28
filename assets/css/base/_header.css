@@ -1,0 +1,38 @@
+/* --- Cabecera Principal (Layout Nuevo - Colores de Tema) --- */
+#main-header {
+    display: flex;
+    height: var(--top-bar-height);
+    position: fixed;
+    top: 0;
+    left: var(--sidebar-width-expanded); /* Inicia después del sidebar */
+    right: 0;
+    width: auto; /* Ancho automático */
+    z-index: 10; /* Mismo nivel que sidebar */
+    padding: 0;
+    background-color: var(--header-bg, var(--bg-container)); /* Variable de tema */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    border-bottom: 1px solid var(--border); /* Borde usa variable de tema */
+}
+
+#main-header .header-content-wrapper {
+    display: flex;
+    justify-content: flex-end; /* Switch a la derecha */
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 20px; /* Padding lateral para el switch */
+    box-sizing: border-box;
+}
+
+/* Ya no hay .logos-wrapper ni .linea-divisora aquí */
+
+#main-header .theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+/* Ajuste para estado colapsado */
+body.body-sidebar-collapsed #main-header {
+    left: var(--sidebar-width-collapsed);
+}

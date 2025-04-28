@@ -1,0 +1,35 @@
+/* --- Botones de Navegación Formulario --- */
+.botones-navegacion {
+    margin-top: 25px;
+    padding-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    border-top: 1px solid var(--border);
+}
+.botones-navegacion button:only-child { margin-left: auto; }
+#seccion-revision .botones-navegacion { justify-content: center; gap: 15px; }
+
+/* Estilos Comunes Botones */
+.btn-siguiente, .btn-anterior, .btn-primary {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.1s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.btn-siguiente, .btn-primary {
+    background-color: var(--button-primary-bg);
+    color: var(--button-primary-text);
+}
+.btn-anterior {
+    background-color: var(--button-secondary-bg);
+    color: var(--button-secondary-text);
+    border: 1px solid var(--accent-color);
+}
+.btn-siguiente:active, .btn-anterior:active, .btn-primary:active { transform: scale(0.98); }
+.btn-siguiente:hover, .btn-anterior:hover, .btn-primary:hover { opacity: 0.85; }

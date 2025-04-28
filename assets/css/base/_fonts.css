@@ -1,0 +1,64 @@
+/* --- Fuentes Personalizadas --- */
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../../fonts/SFPRODISPLAYREGULAR.OTF') format('opentype'); /* Ajusta ruta si es necesario */
+    font-weight: 400; /* Regular */
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../../fonts/SFPRODISPLAYBOLD.OTF') format('opentype'); /* Ajusta ruta si es necesario */
+    font-weight: 700; /* Bold */
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../../fonts/SFPRODISPLAYMEDIUM.OTF') format('opentype'); /* Ajusta ruta si es necesario */
+    font-weight: 500; /* Medium */
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../../fonts/SFPRODISPLAYBLACKITALIC.OTF') format('opentype'); /* Ajusta ruta si es necesario */
+    font-weight: 900; /* Black */
+    font-style: italic; /* Italic */
+    font-display: swap;
+}
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../../fonts/SFPRODISPLAYHEAVYITALIC.OTF') format('opentype'); /* Ajusta ruta si es necesario */
+    font-weight: 800; /* Heavy */
+    font-style: italic; /* Italic */
+    font-display: swap;
+}
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../../fonts/SFPRODISPLAYLIGHTITALIC.OTF') format('opentype'); /* Ajusta ruta si es necesario */
+    font-weight: 300; /* Light */
+    font-style: italic; /* Italic */
+    font-display: swap;
+}
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../../fonts/SFPRODISPLAYSEMIBOLDITALIC.OTF') format('opentype'); /* Ajusta ruta si es necesario */
+    font-weight: 600; /* Semibold */
+    font-style: italic; /* Italic */
+    font-display: swap;
+}
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../../fonts/SFPRODISPLAYTHINITALIC.OTF') format('opentype'); /* Ajusta ruta si es necesario */
+    font-weight: 200; /* Thin */
+    font-style: italic; /* Italic */
+    font-display: swap;
+}
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../../fonts/SFPRODISPLAYULTRALIGHTITALIC.OTF') format('opentype'); /* Ajusta ruta si es necesario */
+    font-weight: 100; /* Ultralight */
+    font-style: italic; /* Italic */
+    font-display: swap;
+}
