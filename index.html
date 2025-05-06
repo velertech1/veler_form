@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/theme-veler-blue_2.css">
-
     <title>GNP Form - Solicitud Seguro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,17 +14,18 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
-<body class="body-sidebar-expanded">
-
-    <div id="splash-screen">
+<body class="body-sidebar-expanded"> <div id="splash-screen">
         <div class="logos-wrapper">
-            <img id="logo1-splash" src="assets/img/VELER_DARK.png" alt="Logo Veler Technologies"> <div class="linea-divisora"></div>
-            <img id="logo2-splash" src="assets/img/GNP_DARK.png" alt="Logo GNP Seguros"> </div>
+            <img id="logo1-splash" src="assets/img/VELER_DARK.png" alt="Logo Veler Technologies">
+            <div class="linea-divisora"></div>
+            <img id="logo2-splash" src="assets/img/GNP_DARK.png" alt="Logo GNP Seguros">
+        </div>
     </div>
 
     <aside id="sidebar-navegacion">
         <div class="sidebar-top-area">
-            <img id="logo-veler-sidebar" src="assets/img/VELER_DARK.png" alt="Logo Veler Technologies"> <button class="sidebar-toggle material-symbols-outlined" title="Contraer/Expandir menú">
+            <img id="logo-veler-sidebar" src="assets/img/VELER_DARK.png" alt="Logo Veler Technologies">
+            <button class="sidebar-toggle material-symbols-outlined" title="Contraer/Expandir menú">
                 menu_open </button>
         </div>
         <div class="sidebar-bottom-area">
@@ -58,16 +57,21 @@
 
     <header id="main-header">
         <div class="header-content-wrapper">
-            <div class="theme-switch-wrapper">
-                <label class="theme-switch" for="theme-checkbox">
-                    <input type="checkbox" id="theme-checkbox" />
-                    <div class="slider round">
-                        <span class="icon material-symbols-outlined sun">light_mode</span>
-                        <span class="icon material-symbols-outlined moon">dark_mode</span>
-                    </div>
-                </label>
+             <div class="theme-controls">
+                <select id="theme-selector" title="Seleccionar Tema de Color">
+                    </select>
+
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="theme-checkbox">
+                        <input type="checkbox" id="theme-checkbox" />
+                        <div class="slider round">
+                            <span class="icon material-symbols-outlined sun">light_mode</span>
+                            <span class="icon material-symbols-outlined moon">dark_mode</span>
+                        </div>
+                    </label>
+                </div>
             </div>
-        </div>
+             </div>
     </header>
 
     <div id="transition-nudge" class="transition-nudge-container" style="display: none;">
@@ -214,7 +218,7 @@
                            <div class="form-group question-group"> <label for="pad_medico_tratante_1">Médico tratante y hospital (si aplica):</label> <input type="text" id="pad_medico_tratante_1" name="pad_medico_tratante_1" class="form-control" placeholder="Nombre del médico y/o clínica/hospital" maxlength="150"> </div>
                        </div>
                     </div>
-                 </div>
+                     </div>
                  <div class="botones-navegacion"> <button type="button" class="btn-anterior">Anterior</button> <button type="button" class="btn-siguiente">Siguiente</button> </div>
             </div>
 
@@ -287,7 +291,7 @@
                         <div class="form-group question-group"> <label for="con_folio_identificacion">Folio Identificación:</label> <input type="text" id="con_folio_identificacion" name="con_folio_identificacion" class="form-control" placeholder="Folio/Número de la identificación" maxlength="50"> </div>
                         <div class="form-group question-group"> <label for="con_relacion_titular">Relación con el Solicitante Titular:</label> <input type="text" id="con_relacion_titular" name="con_relacion_titular" class="form-control" placeholder="Ej: Padre/Madre, Empleador, Otro" maxlength="50"> </div>
                     </div>
-                     </div>
+                 </div>
                 <div class="botones-navegacion"> <button type="button" class="btn-anterior">Anterior</button> <button type="button" class="btn-siguiente">Siguiente</button> </div>
             </div>
 
@@ -301,7 +305,7 @@
                             <div class="form-group question-group"> <label for="cob_prima_1">Prima Adicional (si se conoce):</label> <input type="number" id="cob_prima_1" name="cob_prima_1" class="form-control" placeholder="Prima" step="0.01" min="0"> </div>
                          </div>
                      </div>
-                 </div>
+                     </div>
                  <div class="botones-navegacion"> <button type="button" class="btn-anterior">Anterior</button> <button type="button" class="btn-siguiente">Siguiente</button> </div>
             </div>
 
@@ -323,7 +327,7 @@
                          </div>
                          <p style="font-size: 0.85em; color: var(--text-color-secondary); margin-top: 10px;">Nota: La suma de los porcentajes de los beneficiarios principales debe ser 100%.</p>
                      </div>
-                 </div>
+                      </div>
                  <div class="botones-navegacion"> <button type="button" class="btn-anterior">Anterior</button> <button type="button" class="btn-siguiente">Siguiente</button> </div>
             </div>
 
@@ -333,8 +337,7 @@
                     <div class="form-group question-group"> <label for="pago_forma_pago">Forma de Pago (Periodicidad):</label> <select id="pago_forma_pago" name="pago_forma_pago" class="form-control" required> <option value="" disabled selected>Seleccione...</option> <option value="Anual">Anual</option> <option value="Semestral">Semestral</option> <option value="Trimestral">Trimestral</option> <option value="Mensual">Mensual</option> </select> </div>
                     <div class="form-group question-group"> <label for="pago_via_pago">Medio de Pago Inicial y/o Recurrente:</label> <select id="pago_via_pago" name="pago_via_pago" class="form-control" required> <option value="" disabled selected>Seleccione...</option> <option value="Tarjeta Crédito">Tarjeta de Crédito</option> <option value="Tarjeta Débito">Tarjeta de Débito</option> <option value="CLABE">Cuenta CLABE (Domiciliación)</option> <option value="Referencia Bancaria">Referencia Bancaria (Pago en ventanilla/SPEI)</option> <option value="Otro">Otro</option> </select> </div>
                  </div>
-                 <div id="datos-pago-tarjeta-clabe" style="display: block;">
-                     <div class="form-columns-container">
+                 <div id="datos-pago-tarjeta-clabe" style="display: block;"> <div class="form-columns-container">
                         <div class="form-group question-group"> <label for="pago_tipo_cuenta">Tipo (si aplica):</label> <select id="pago_tipo_cuenta" name="pago_tipo_cuenta" class="form-control"> <option value="" disabled selected>Seleccione...</option> <option value="Crédito">Crédito</option> <option value="Débito">Débito</option> <option value="CLABE">CLABE (Domiciliación)</option> </select> </div>
                         <div class="form-group question-group"> <label for="pago_numero_tarjeta_cuenta">Número Tarjeta (16 dígitos) / Cuenta CLABE (18 dígitos):</label> <input type="text" id="pago_numero_tarjeta_cuenta" name="pago_numero_tarjeta_cuenta" class="form-control" placeholder="Número completo" maxlength="18" inputmode="numeric"> </div>
                         <div class="form-group question-group"> <label for="pago_fecha_vencimiento">Fecha Vencimiento (Tarjeta):</label> <input type="text" id="pago_fecha_vencimiento" name="pago_fecha_vencimiento" class="form-control" placeholder="MM/AA" maxlength="5"> </div>
@@ -349,7 +352,7 @@
                             <div class="form-group question-group"> <label for="pago_parentesco_titular">Parentesco con el Contratante:</label> <input type="text" id="pago_parentesco_titular" name="pago_parentesco_titular" class="form-control" placeholder="Ej: Cónyuge, Padre/Madre, Hijo(a)" maxlength="50"> </div>
                             <div class="form-group question-group"> <label for="pago_autorizacion_cargo">Autorización de Cargo a Terceros (Adjuntar formato):</label> <input type="file" id="pago_autorizacion_cargo" name="pago_autorizacion_cargo" class="form-control" accept="image/*,.pdf"> </div>
                         </div>
-                         </div>
+                     </div>
                 </div>
                 <div class="botones-navegacion"> <button type="button" class="btn-anterior">Anterior</button> <button type="button" class="btn-siguiente">Siguiente</button> </div>
             </div>
@@ -389,36 +392,41 @@
             <div id="seccion-revision" class="seccion-formulario" style="display: none;">
                  <h2>Revisa tu información</h2>
                  <p class="subtitulo-ligero">Por favor, verifica cuidadosamente que todos los datos sean correctos antes de enviar.</p>
-                 <div id="resumen-final"></div>
+                 <div id="resumen-final">
+                     </div>
                  <div class="final-nudge-area">
                      <div class="testimonial"> <span class="material-symbols-outlined">record_voice_over</span> <div> <p>"Saber que mi familia está protegida con GNP me da una tranquilidad invaluable. El proceso fue más sencillo de lo que esperaba."</p> <span>- Ana L., Cliente GNP desde 2021</span> </div> </div>
                      <div class="data-point"> <span class="material-symbols-outlined">shield_lock</span> <p>Más del <strong>95% de nuestros clientes</strong> renuevan su póliza año tras año. ¡Confía en los expertos!</p> </div>
                      <div class="emotional-appeal"> <span class="material-symbols-outlined">volunteer_activism</span> <p>Estás a un solo clic de asegurar lo que más importa. <strong>¡Completa tu solicitud hoy!</strong></p> </div>
                  </div>
-                 <div class="botones-navegacion"> <button type="button" class="btn-anterior btn-volver-a-editar">Volver a Editar</button> <button type="submit" class="btn-primary">Enviar Formulario</button> </div>
+                 <div class="botones-navegacion">
+                      <button type="button" class="btn-anterior btn-volver-a-editar">Volver a Editar</button>
+                      <button type="submit" class="btn-primary">Enviar Formulario</button>
+                 </div>
              </div>
 
-        </form>
+            </form>
     </main>
 
     <div id="modal-overlay"></div>
     <div id="modal-container">
-        <div class="modal-content">
-            <div id="modal-icon-area">
-                <span id="modal-error-icon" class="material-symbols-outlined"></span>
-                <img id="modal-success-logo" src="assets/img/V_icon.png" alt="Veler Icon" />
-            </div>
-            <h3 id="modal-title"></h3>
-            <p id="modal-message"></p>
-            <div id="modal-buttons">
-                <button id="modal-ok-btn" class="btn-primary">OK</button>
-                <button id="modal-close-btn" class="btn-anterior">Cerrar</button>
-            </div>
-        </div>
+         <div class="modal-content">
+             <div id="modal-icon-area">
+                 <span id="modal-error-icon" class="material-symbols-outlined"></span>
+                 <img id="modal-success-logo" src="assets/img/V_icon.png" alt="Veler Icon" />
+             </div>
+             <h3 id="modal-title"></h3>
+             <p id="modal-message"></p>
+             <div id="modal-buttons">
+                 <button id="modal-ok-btn" class="btn-primary">OK</button>
+                 <button id="modal-close-btn" class="btn-anterior">Cerrar</button>
+             </div>
+         </div>
     </div>
 
     <script src="assets/js/script.js"></script>
     <script>
+        // Scripts inline para lógica condicional (se mantienen)
         document.addEventListener('DOMContentLoaded', () => {
             const radioContratanteIgual = document.querySelectorAll('input[name="con_igual_titular"]');
             const datosContratanteDiferente = document.getElementById('datos-contratante-diferente');
