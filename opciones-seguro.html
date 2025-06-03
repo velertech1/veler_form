@@ -8,6 +8,9 @@
     <link id="dynamic-theme-style-link" rel="stylesheet" href="assets/css/theme-veler-blue_2.css">
     <link rel="icon" href="assets/img/V_icon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    
+    <link rel="stylesheet" href="components/chatbot_seguros.css"> 
+    
     <style>
         body {
             display: flex;
@@ -51,7 +54,7 @@
         .tarjetas-opciones-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 35px; /* <--- AUMENTADO DE 25px a 35px (o el valor que prefieras) */
+            gap: 35px;
             justify-items: center;
         }
 
@@ -141,9 +144,9 @@
              transform: scale(0.98);
         }
 
-        /* Controles de tema (sin cambios) */
+        /* Controles de tema */
         .theme-controls-opciones {
-            position: fixed; top: 20px; right: 20px; z-index: 100;
+            position: fixed; top: 20px; right: 20px; z-index: 1050; /* Z-index más alto por el chatbot */
             display: flex; align-items: center; gap: 15px;
         }
         .theme-controls-opciones #theme-selector-opciones {
@@ -177,7 +180,6 @@
         .theme-controls-opciones .theme-switch input:checked + .slider { transform: translateX(25px); }
         .theme-controls-opciones .theme-switch input:checked + .slider .sun { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
         .theme-controls-opciones .theme-switch input:checked + .slider .moon { opacity: 0; transform: translate(-50%, -50%) scale(0) rotate(90deg); }
-
     </style>
 </head>
 <body>
@@ -194,7 +196,7 @@
 
     <div class="opciones-main-container">
         <div class="opciones-header">
-            <img id="logo-main-opciones" src="assets/img/GNP_Medium.png" alt="Logo GNP Seguros" style="max-height: 70px; margin-bottom: 20px;">
+            <img id="logo-main-opciones" src="assets/img/veler_light.png" alt="Logo Veler Technologies" style="max-height: 70px; margin-bottom: 20px;">
             <h1>Tus Opciones de Seguro</h1>
             <p class="subtitulo-opciones">Hemos preparado estas alternativas basadas en tus datos. <br>Selecciona una para ver todos los detalles y completar tu solicitud.</p>
         </div>
@@ -243,8 +245,83 @@
         </div>
     </div>
 
+    <button id="chatbot-gnp-toggle-button" class="chatbot-gnp-toggle-button">
+        <span class="material-symbols-outlined icon-open">support_agent</span>
+        <span class="material-symbols-outlined icon-close" style="display:none;">close</span>
+    </button>
+    
+    <div id="chatbotGNPContainer" class="chatbot-gnp-container" style="display: none;">
+        <div class="chatbot-gnp-header">
+            <img src="assets/img/Mascota/asistente_gnp_icon.png" alt="Asistente GNP" class="chatbot-gnp-avatar">
+            <div class="chatbot-gnp-header-info">
+                <span class="chatbot-gnp-name">Asistente de Seguros GNP</span>
+                <span class="chatbot-gnp-status">En línea para ayudarte</span>
+            </div>
+            <button id="chatbot-gnp-close-button" class="chatbot-gnp-close-button">&times;</button>
+        </div>
+        <div class="chatbot-gnp-chat-area" id="chatbotGNPChatArea">
+            <div class="chatbot-gnp-message bot-message" id="initialBotMessageSection">
+                <div class="chatbot-gnp-bubble">
+                    <p>¡Hola! 👋 Soy tu Asistente Virtual GNP. Estoy aquí para ayudarte con tus dudas sobre nuestros planes de seguro.</p>
+                    <p>¿Sobre qué te gustaría saber?</p>
+                    <div class="chatbot-gnp-quick-replies">
+                        <button onclick="showGNPFAQ('faqCoberturaEsencial')">Plan Esencial</button>
+                        <button onclick="showGNPFAQ('faqDeducibleCoaseguro')">Deducible y Coaseguro</button>
+                        <button onclick="showGNPFAQ('faqComoContratar')">¿Cómo contratar?</button>
+                        <button onclick="showGNPFAQ('faqContactoAgente')">Contactar un Agente</button>
+                    </div>
+                    <div class="chatbot-gnp-timestamp">Ahora mismo</div>
+                </div>
+            </div>
+    
+            <div class="chatbot-gnp-message bot-message" id="faqCoberturaEsencial" style="display: none;">
+                <div class="chatbot-gnp-bubble">
+                    <p><strong>🛡️ Sobre el Plan Esencial GNP...</strong></p>
+                    <p>El Plan Esencial te ofrece una cobertura nacional con una suma asegurada de $2,000,000 MXN, un deducible de $15,000 MXN y un coaseguro del 10%. Es ideal si buscas protección completa a un costo accesible.</p>
+                    <p>¿Tienes alguna pregunta específica sobre este plan?</p>
+                    <div class="chatbot-gnp-quick-replies">
+                        <button onclick="showGNPInitialOptions()">Ver otras preguntas</button>
+                    </div>
+                    <div class="chatbot-gnp-timestamp">Información</div>
+                </div>
+            </div>
+    
+            <div class="chatbot-gnp-message bot-message" id="faqDeducibleCoaseguro" style="display: none;">
+                <div class="chatbot-gnp-bubble">
+                    <p><strong>💰 ¿Qué es Deducible y Coaseguro?</strong></p>
+                    <p>El <strong>deducible</strong> es la cantidad fija que pagas primero en caso de un siniestro antes de que el seguro comience a cubrir.</p>
+                    <p>El <strong>coaseguro</strong> es un porcentaje del total de los gastos cubiertos (después del deducible) que también corre por tu cuenta. Por ejemplo, un coaseguro del 10% significa que tú pagas ese porcentaje y GNP el 90% restante.</p>
+                    <div class="chatbot-gnp-quick-replies">
+                        <button onclick="showGNPInitialOptions()">Ver otras preguntas</button>
+                    </div>
+                    <div class="chatbot-gnp-timestamp">Información</div>
+                </div>
+            </div>
+            
+            <div class="chatbot-gnp-message bot-message" id="faqComoContratar" style="display: none;">
+                <div class="chatbot-gnp-bubble">
+                    <p><strong>✍️ ¿Cómo puedo contratar un seguro?</strong></p>
+                    <p>¡Es muy sencillo! Una vez que eliges un plan en esta página, haz clic en "Seleccionar Plan". Esto te llevará a un formulario donde podrás ingresar tus datos para completar la solicitud. Si tienes dudas durante el proceso, ¡no dudes en preguntar!</p>
+                    <div class="chatbot-gnp-quick-replies">
+                        <button onclick="showGNPInitialOptions()">Ver otras preguntas</button>
+                    </div>
+                    <div class="chatbot-gnp-timestamp">Información</div>
+                </div>
+            </div>
+    
+            <div class="chatbot-gnp-message bot-message" id="faqContactoAgente" style="display: none;">
+                <div class="chatbot-gnp-bubble">
+                    <p><strong>🧑‍💼 ¿Cómo contacto a un agente?</strong></p>
+                    <p>Si prefieres atención personalizada, un agente GNP puede asesorarte. Puedes indicarlo al final del proceso de solicitud o buscar un agente en nuestro <a href='#' onclick='alert(\"Redirigiendo a directorio de agentes...\")'>directorio oficial</a>.</p>
+                    <div class="chatbot-gnp-quick-replies">
+                        <button onclick="showGNPInitialOptions()">Ver otras preguntas</button>
+                    </div>
+                    <div class="chatbot-gnp-timestamp">Información</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-        // Tu script existente para opciones-seguro.html permanece igual
         document.addEventListener('DOMContentLoaded', () => {
             const themeSwitchOps = document.getElementById('theme-checkbox-opciones');
             const themeSelectorOps = document.getElementById('theme-selector-opciones');
@@ -276,6 +353,11 @@
 
             function applyThemeModeOps(mode) {
                 htmlEl.classList.toggle('light-theme', mode === 'light');
+                 // Cambiar logo principal de la página si es necesario
+                const logoMain = document.getElementById('logo-main-opciones');
+                if (logoMain) {
+                    logoMain.src = mode === 'light' ? 'assets/img/VELER_LIGHT.png' : 'assets/img/VELER_DARK.png';
+                }
             }
 
             function _initThemeSelectorDOMOps() {
@@ -308,7 +390,6 @@
                          localStorage.setItem(CONFIG_OPS.SELECTED_THEME_FILE_KEY, CONFIG_OPS.DEFAULT_THEME_FILE);
                     }
 
-
                     themeSelectorOps.addEventListener('change', function() {
                         themeLink.href = this.value;
                         localStorage.setItem(CONFIG_OPS.SELECTED_THEME_FILE_KEY, this.value);
@@ -317,14 +398,16 @@
                     });
                 }
             }
-             function _initCurrentThemeModeOps() {
+
+            function _initCurrentThemeModeOps() {
                 const savedMode = localStorage.getItem(CONFIG_OPS.THEME_STORAGE_KEY) || 'dark';
-                applyThemeModeOps(savedMode);
+                applyThemeModeOps(savedMode); // Aplica el modo y cambia el logo si es necesario
                 if (themeSwitchOps) themeSwitchOps.checked = (savedMode === 'light');
             }
 
             _initThemeSelectorDOMOps();
             _initCurrentThemeModeOps();
+
             if (themeSwitchOps) {
                 themeSwitchOps.addEventListener('change', function() {
                     const mode = this.checked ? 'light' : 'dark';
@@ -349,5 +432,7 @@
             });
         });
     </script>
+    
+    <script src="components/chatbot_seguros.js"></script>
 </body>
 </html>
