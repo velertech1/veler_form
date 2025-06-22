@@ -268,109 +268,56 @@ function clearRevealListenerFromGroup(groupElement) {
     }
 }
 
+// ESTE ES EL NUEVO BLOQUE QUE DEBES PEGAR
 export function initSequentialRevealForSection(sectionElement) {
     if (!sectionElement) return;
     const sectionDef = formSections.find(s => s.id === sectionElement.id);
     if (!sectionDef) return;
 
-    const processFieldsAndUpdateVisibility = (fieldsToProcess) => {
-        let firstSequentialInScopeToShow = null; // El primer campo secuencial que realmente se mostrará
-
-        fieldsToProcess.forEach(fieldDef => {
+    // Función interna que simplemente muestra u oculta campos según su visibilidad condicional.
+    const showAllVisibleFields = (fields) => {
+        fields.forEach(fieldDef => {
             const groupId = fieldDef.isGroupWrapper ? fieldDef.id : `group-${fieldDef.id}`;
             const groupElement = document.getElementById(groupId);
-            if (!groupElement) return;
 
-            const isConditionallyVisible = evaluateConditionalShow(fieldDef);
-            toggleFieldVisibility(groupId, isConditionallyVisible); // Aplica visibilidad condicional
+            if (groupElement) {
+                const isConditionallyVisible = evaluateConditionalShow(fieldDef);
 
-            if (isConditionallyVisible) {
-                if (fieldDef.sequentialReveal) {
-                    if (!firstSequentialInScopeToShow) { // Si es el primero secuencial Y condicionalmente visible
-                        firstSequentialInScopeToShow = groupElement;
-                    } else { // Otros secuenciales se ocultan por ahora
-                        groupElement.classList.remove('field-visible');
-                        groupElement.style.display = 'none';
-                        clearRevealListenerFromGroup(groupElement);
-                    }
-                } else { // No secuencial pero condicionalmente visible
-                    groupElement.classList.add('field-visible'); // Asegurar que esté visible
-                    groupElement.style.display = 'flex';
+                // Ya no hay lógica secuencial. Si debe ser visible, se muestra. Si no, se oculta.
+                if (isConditionallyVisible) {
+                    groupElement.style.display = 'flex'; // O 'block' si corresponde
+                    groupElement.classList.add('field-visible');
+                } else {
+                    groupElement.style.display = 'none';
+                    groupElement.classList.remove('field-visible');
                 }
+
+                // Si es un grupo de campos, procesar sus campos internos también.
                 if (fieldDef.isGroupWrapper && fieldDef.fields && isConditionallyVisible) {
-                    processFieldsAndUpdateVisibility(fieldDef.fields);
+                    showAllVisibleFields(fieldDef.fields);
                 }
-            } else { // No es condicionalmente visible
-                 groupElement.classList.remove('field-visible');
-                 groupElement.style.display = 'none';
-                 clearRevealListenerFromGroup(groupElement);
             }
         });
-
-        if (firstSequentialInScopeToShow) {
-            firstSequentialInScopeToShow.classList.add('field-visible');
-            firstSequentialInScopeToShow.style.display = 'flex';
-            addRevealListenerToGroup(firstSequentialInScopeToShow);
-
-            // Ahora, intenta revelar en cascada desde este primer campo
-            // si los campos ya tienen datos o son checkboxes/radios.
-            let currentGroupForCascade = firstSequentialInScopeToShow;
-            let fieldElementForCascade = currentGroupForCascade.querySelector('input, select, textarea'); // El primer input del grupo
-            
-            while(fieldElementForCascade){
-                const currentFieldDefCascade = getFieldDefinitionFromElement(fieldElementForCascade);
-                if (!fieldSatisfiesReveal(fieldElementForCascade, currentFieldDefCascade) && currentFieldDefCascade.type !== 'checkbox' && currentFieldDefCascade.type !== 'radio') {
-                    break; // Detener la cascada si un campo no está satisfecho (y no es checkbox/radio)
-                }
-
-                const potentialSequenceGroups = Array.from((currentGroupForCascade.parentElement || sectionElement).children)
-                    .filter(el => el.classList.contains('form-group') && el.classList.contains('question-group'));
-                const currentIndex = potentialSequenceGroups.indexOf(currentGroupForCascade);
-                let nextActualGroupInCascade = null;
-
-                for (let i = currentIndex + 1; i < potentialSequenceGroups.length; i++) {
-                    const candidate = potentialSequenceGroups[i];
-                    const candidateDef = findFieldDefinitionByGroupId(sectionElement.id, candidate.id);
-                    if (candidateDef && candidateDef.sequentialReveal && evaluateConditionalShow(candidateDef)) {
-                        if(!candidate.classList.contains('field-visible')){ // Solo si no está ya visible
-                            candidate.classList.add('field-visible');
-                            candidate.style.display = 'flex';
-                            addRevealListenerToGroup(candidate);
-                        }
-                        nextActualGroupInCascade = candidate;
-                        if (candidateDef.type !== 'checkbox' && candidateDef.type !== 'radio') break; // Detener si no es checkbox/radio
-                    } else if (candidateDef && !candidateDef.sequentialReveal && evaluateConditionalShow(candidateDef)){
-                        // Si no es secuencial, pero está visible, no afecta la cadena secuencial.
-                         if(!candidate.classList.contains('field-visible')){
-                            candidate.classList.add('field-visible');
-                            candidate.style.display = 'flex';
-                        }
-                    } else if (candidateDef && candidateDef.sequentialReveal && !evaluateConditionalShow(candidateDef)){
-                        break; // El siguiente secuencial no cumple condiciones, detener cascada.
-                    }
-                }
-                if(!nextActualGroupInCascade) break; // No hay más grupos en la cascada.
-                currentGroupForCascade = nextActualGroupInCascade;
-                fieldElementForCascade = currentGroupForCascade.querySelector('input, select, textarea');
-            }
-        }
     };
 
-    processFieldsAndUpdateVisibility(sectionDef.fields);
+    // Ejecutar la lógica para los campos principales y las subsecciones condicionales.
+    showAllVisibleFields(sectionDef.fields);
 
     if (sectionDef.conditionalSubSections) {
         sectionDef.conditionalSubSections.forEach(subSecDef => {
             const subSectionContainer = document.getElementById(subSecDef.id);
             if (subSectionContainer) {
-                const isSubSectionVisible = evaluateConditionalShow({ conditionalShow: subSecDef.condition }); // Usar objeto para evaluateConditionalShow
+                const isSubSectionVisible = evaluateConditionalShow({ conditionalShow: subSecDef.condition });
                 subSectionContainer.style.display = isSubSectionVisible ? (subSectionContainer.classList.contains('form-columns-container') ? 'grid' : 'block') : 'none';
                 if (isSubSectionVisible) {
-                    processFieldsAndUpdateVisibility(subSecDef.fields);
+                    showAllVisibleFields(subSecDef.fields);
                 }
             }
         });
     }
-     actualizarProgreso(); // Actualizar progreso después de ajustar toda la visibilidad
+    
+    // Al final, siempre actualizar el progreso.
+    actualizarProgreso();
 }
 
 
