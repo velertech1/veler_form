@@ -107,3 +107,46 @@ export function initializeSidebar() {
     _applyInitialSidebarState();
     actualizarProgreso();
 }
+
+// En GNP_Local/assets/js/base/_sidebar.js
+
+/**
+ * Genera dinámicamente los ítems del menú en el sidebar.
+ * @param {Array} sections - El array de secciones a renderizar en el menú.
+ */
+export function renderSidebarMenu(sections) {
+    const menuContainer = document.getElementById('sidebar-menu');
+    if (!menuContainer) {
+        console.error("El contenedor del menú del sidebar con ID 'sidebar-menu' no fue encontrado.");
+        return;
+    }
+    menuContainer.innerHTML = ''; // Limpiar menú existente
+
+    sections.forEach(section => {
+        const li = document.createElement('li');
+        li.className = 'menu-item';
+        li.setAttribute('data-section', section.id);
+
+        const icon = document.createElement('span');
+        icon.className = 'material-symbols-outlined';
+        icon.textContent = section.icon || 'article';
+
+        const text = document.createElement('span');
+        text.className = 'menu-text';
+        text.textContent = section.title;
+
+        // --- INICIO DE LA CORRECCIÓN ---
+        // Se reemplaza la lógica del ícono "check" por el span para el "punto verde".
+        const status = document.createElement('span');
+        status.className = 'menu-status';
+        // Este span se deja vacío a propósito. Tu CSS se encargará de
+        // añadirle el fondo de color verde cuando la sección esté completada.
+        // --- FIN DE LA CORRECCIÓN ---
+
+        li.appendChild(icon);
+        li.appendChild(text);
+        li.appendChild(status); // Se añade el span de estado corregido
+
+        menuContainer.appendChild(li);
+    });
+}

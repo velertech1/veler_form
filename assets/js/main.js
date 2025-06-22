@@ -1,4 +1,8 @@
 // GNP_Local/assets/js/main.js
+// AÑADE ESTAS LÍNEAS AL PRINCIPIO DE main.js
+import { formDefinitions } from './formDefinition.js';
+import { renderSidebarMenu } from './base/_sidebar.js';
+
 import { CONFIG, state, DOMElements } from './config.js';
 import { formSections } from './formDefinition.js'; // Cambiado de '../formDefinition.js'
 import { renderDynamicForm } from './base/_formRenderer.js'; // <--- IMPORTAR RENDERIZADOR
@@ -12,16 +16,35 @@ import { initializeModals } from './base/_modal.js';
 import { initializeTooltips } from './base/_tooltips.js';
 import { validateEssentialElements } from './base/_utils.js';
 
+// En tu archivo GNP_Local/assets/js/main.js
 function initializeApp() {
-    // Validar elementos esenciales del esqueleto HTML (splash, header, sidebar, main, modal overlay)
-    // No validamos $form aquí porque aún no se ha renderizado su contenido.
+    // 1. DETERMINAR QUÉ FORMULARIO USAR (basado en URL)
+    const urlParams = new URLSearchParams(window.location.search);
+    const tipoDeSolicitante = urlParams.get('solicitante') || 'persona';
+
+    let seccionesActivas;
+    // 2. SELECCIONAR LAS SECCIONES CORRECTAS USANDO SWITCH
+    switch (tipoDeSolicitante) {
+        case 'empresa':
+            seccionesActivas = formDefinitions.empresa;
+            break;
+        case 'grupo':
+            seccionesActivas = formDefinitions.grupo;
+            break;
+        case 'persona':
+        default:
+            seccionesActivas = formDefinitions.persona;
+            break;
+    }
+
+    // 3. TU CÓDIGO DE VALIDACIÓN (se mantiene intacto)
     const essentialSkeletonElements = {
         $html: DOMElements.$html,
         $body: DOMElements.$body,
         $splashScreen: DOMElements.$splashScreen,
         $mainHeader: DOMElements.$mainHeader,
         $sidebar: DOMElements.$sidebar,
-        $formularioCompleto: DOMElements.$formularioCompleto, // El <main>
+        $formularioCompleto: DOMElements.$formularioCompleto,
         $modalOverlay: DOMElements.$modalOverlay,
         $themeSwitch: DOMElements.$themeSwitch,
         $themeSelector: DOMElements.$themeSelector,
@@ -38,26 +61,26 @@ function initializeApp() {
         return;
     }
 
-    // 1. Renderizar el formulario dinámicamente AHORA
+    // 4. RENDERIZADO DINÁMICO (corregido)
     if (DOMElements.$form) {
-        renderDynamicForm(formSections); // Pasa la definición al renderizador
+        // Dibuja el menú y el formulario correctos usando 'seccionesActivas'
+        renderSidebarMenu(seccionesActivas);
+        renderDynamicForm(seccionesActivas);
     } else {
         console.error("Elemento <form id='miFormularioDinamico'> no encontrado en el DOM.");
-        return; // No se puede continuar sin el formulario
+        return;
     }
 
-    // 2. Ahora que el form y sus secciones existen, los módulos pueden inicializarse
-    // y encontrar los elementos que necesitan.
+    // 5. TUS INICIALIZACIONES FINALES (se mantienen intactas)
     initializeTheme();
     initializeSidebar();
-    initializeTooltips();  // Ahora encontrará los iconos de tooltip generados
+    initializeTooltips();
     initializeModals();
-    initializeFormLogic(); // Necesita los campos del formulario para la lógica condicional, etc.
-    initializeFormNavigation(); // Necesita las secciones y botones generados
+    initializeFormLogic(seccionesActivas); // Le pasamos las secciones activas para una lógica más precisa
+    initializeFormNavigation();
+    initializeSplash();
 
-    initializeSplash(); // Splash al final, llamará a showSection(0)
-
-    console.log('Aplicación GNP con Formulario Dinámico Inicializada');
+    console.log(`Aplicación GNP con Formulario Dinámico Inicializada para: ${tipoDeSolicitante.toUpperCase()}`);
 }
 
 document.addEventListener('DOMContentLoaded', initializeApp);

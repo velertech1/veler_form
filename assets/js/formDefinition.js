@@ -1,5 +1,106 @@
 // GNP_Local/assets/js/formDefinition.js
 
+/**
+ * ===============================================================
+ * DEFINICIÓN PARA SOLICITANTE: PERSONA FÍSICA
+ * (Usamos la definición completa que ya existía en tu proyecto)
+ * ===============================================================
+ */
+const seccionesPersona = [
+    {
+        id: "seccion-solicitantes",
+        title: "Datos del Solicitante",
+        icon: 'person',
+        fields: [
+            { id: "sol_codigo_cliente", name: "sol_codigo_cliente", label: "Código de cliente:", type: "text", placeholder: "Código de cliente", maxLength: 20, required: false, sequentialReveal: true },
+            { id: "sol_primer_apellido", name: "sol_primer_apellido", label: "Primer apellido:", type: "text", placeholder: "Primer apellido", maxLength: 50, required: true, sequentialReveal: true },
+            { id: "sol_nombres", name: "sol_nombres", label: "Nombre(s):", type: "text", placeholder: "Nombre(s)", maxLength: 100, required: true, sequentialReveal: true },
+            { id: "sol_fecha_nacimiento", name: "sol_fecha_nacimiento", label: "Fecha de nacimiento:", type: "date", required: true, sequentialReveal: true },
+            { id: "sol_genero", name: "sol_genero", label: "Género:", type: "select", required: false, sequentialReveal: true, options: [{ value: "", text: "Seleccione...", disabled: true, selected: true }, { value: "F", text: "Femenino" }, { value: "M", text: "Masculino" }] },
+            { id: "sol_email", name: "sol_email", label: "Correo electrónico:", type: "email", placeholder: "Correo electrónico", maxLength: 100, required: false, sequentialReveal: true }
+        ]
+    },
+    {
+        id: 'seccion-habitos',
+        title: 'Hábitos y Salud',
+        icon: 'health_and_safety',
+        fields: [
+            { id: "hab_fuma_group", name: "hab_fuma", label: "¿Fuma actualmente?", type: "radio", required: true, defaultValue: "no", options: [{ value: "si", text: "Sí" }, { value: "no", text: "No" }], sequentialReveal: true }
+        ]
+    },
+    {
+        id: 'seccion-pago',
+        title: 'Forma de Pago',
+        icon: 'payment',
+        fields: [
+             { id: "pago_forma_pago", name: "pago_forma_pago", label: "Forma de Pago (Periodicidad):", type: "select", required: true, options: [{value:"",text:"Seleccione...",disabled:true,selected:true},{value:"Anual",text:"Anual"},{value:"Mensual",text:"Mensual"}], sequentialReveal: true }
+        ]
+    }
+];
+
+/**
+ * ===============================================================
+ * DEFINICIÓN PARA SOLICITANTE: EMPRESA (PERSONA MORAL)
+ * (CORREGIDO: Ahora incluye la propiedad 'fields' con campos de ejemplo)
+ * ===============================================================
+ */
+const seccionesEmpresa = [
+    {
+        id: 'seccion-datos-empresa',
+        title: 'Datos de la Empresa',
+        icon: 'business',
+        fields: [ // <--- Esta lista 'fields' es la que faltaba
+            { id: "emp_razon_social", name: "emp_razon_social", label: "Razón Social:", type: "text", required: true, sequentialReveal: true },
+            { id: "emp_rfc", name: "emp_rfc", label: "RFC de la Empresa:", type: "text", required: true, sequentialReveal: true }
+        ]
+    },
+    {
+        id: 'seccion-rep-legal',
+        title: 'Representante Legal',
+        icon: 'assignment_ind',
+        fields: [ // <--- Esta lista 'fields' es la que faltaba
+            { id: "rep_nombre", name: "rep_nombre", label: "Nombre Completo del Representante:", type: "text", required: true, sequentialReveal: true }
+        ]
+    }
+];
+
+/**
+ * ===============================================================
+ * DEFINICIÓN PARA SOLICITANTE: GRUPO
+ * (CORREGIDO: Ahora incluye la propiedad 'fields' con campos de ejemplo)
+ * ===============================================================
+ */
+const seccionesGrupo = [
+    {
+        id: 'seccion-datos-grupo',
+        title: 'Datos del Contratante',
+        icon: 'groups',
+        fields: [ // <--- Esta lista 'fields' es la que faltaba
+             { id: "gpo_nombre_grupo", name: "gpo_nombre_grupo", label: "Nombre del Grupo/Colectividad:", type: "text", required: true, sequentialReveal: true },
+             { id: "gpo_num_integrantes", name: "gpo_num_integrantes", label: "Número de Integrantes:", type: "number", required: true, sequentialReveal: true }
+        ]
+    },
+    {
+        id: 'seccion-listado-miembros',
+        title: 'Carga de Miembros',
+        icon: 'upload_file',
+        fields: [ // <--- Esta lista 'fields' es la que faltaba
+            { id: "gpo_archivo_miembros", name: "gpo_archivo_miembros", label: "Subir archivo de miembros (Layout):", type: "file", required: true, sequentialReveal: true }
+        ]
+    }
+];
+
+/**
+ * ===============================================================
+ * EXPORTACIÓN CENTRALIZADA (Sin cambios)
+ * ===============================================================
+ */
+export const formDefinitions = {
+    persona: seccionesPersona,
+    empresa: seccionesEmpresa,
+    grupo: seccionesGrupo
+};
+
 export const formSections = [
     // --- SECCIÓN SOLICITANTES (ya la teníamos, la incluyo para que el archivo esté completo) ---
     {

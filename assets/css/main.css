@@ -9,3 +9,4 @@
 @import url('base/_buttons.css');        /* 8. Botones específicos */
 @import url('base/_modal.css');          /* 9. Modal */
 @import url('base/_responsive.css');     /* 10. Estilos responsivos (móvil) */
+@import url("base/admin.css");
