@@ -1,43 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. CONFIGURACIÓN CENTRALIZADA (ACTUALIZADA CON 11 SECCIONES) ---
+    // --- 1. CONFIGURACIÓN ---
     const config = {
         menuItems: [
-            { id: 'solicitante', icon: 'person', text: 'Solicitante' },
-            { id: 'contratante-asegurado', icon: 'how_to_reg', text: 'Contratante y Asegurado' },
-            { id: 'domicilio', icon: 'home', text: 'Domicilio' },
-            { id: 'actividades-riesgo', icon: 'warning', text: 'Actividades de Riesgo' },
-            { id: 'habitos', icon: 'health_and_safety', text: 'Hábitos' },
-            { id: 'deportes', icon: 'sports_soccer', text: 'Deportes' },
-            { id: 'info-medica', icon: 'medical_services', text: 'Información Médica' },
-            { id: 'detalles-solicitud', icon: 'description', text: 'Detalles de la Solicitud' },
-            { id: 'forma-pago', icon: 'payment', text: 'Forma de Pago' },
-            { id: 'declaraciones', icon: 'gavel', text: 'Declaraciones' },
+            { id: 'solicitante', icon: 'badge', text: 'Datos del Solicitante' },
+            { id: 'empresa', icon: 'apartment', text: 'Info. de la Empresa' },
+            { id: 'coberturas', icon: 'checklist', text: 'Selección de Coberturas' },
+            { id: 'detalles-coberturas', icon: 'fact_check', text: 'Detalles de Coberturas' },
+            { id: 'historial', icon: 'history', text: 'Historial' },
             { id: 'revision', icon: 'preview', text: 'Revisión Final' }
         ],
         availableThemes: [
-            { name: "Veler Blue v2", file: "assets/css/theme-veler-blue_2.css" },
-            { name: "Veler Blue", file: "assets/css/theme-veler-blue.css" },
-            { name: "Teal Green v2", file: "assets/css/theme-teal-green_v2.css" },
-            { name: "Teal Green", file: "assets/css/theme-teal-green.css" },
-            { name: "Slate Mauve v2", file: "assets/css/theme-slate-mauve_2.css" },
-            { name: "Slate Mauve", file: "assets/css/theme-slate-mauve.css" },
-            { name: "Pink v2", file: "assets/css/theme-pink_2.css"},
-            { name: "Pink", file: "assets/css/theme-pink.css" },
-            { name: "Gold Teal v2", file: "assets/css/theme-gold-teal_2.css" },
-            { name: "Gold Teal", file: "assets/css/theme-gold-teal.css" },
-            { name: "Gold v2", file: "assets/css/theme-gold_2.css"},
-            { name: "Gold", file: "assets/css/theme-gold.css"},
-            { name: "Red Dark v2", file: "assets/css/theme-red-dark_2.css"},
-            { name: "Red Dark", file: "assets/css/theme-red-dark.css"},
-            { name: "GNP Default", file: "assets/css/theme-default.css" }
+             { name: "Veler Blue v2", file: "assets/css/theme-veler-blue_2.css" },
+             { name: "Pink v2", file: "assets/css/theme-pink_2.css"},
         ],
         domSelectors: {
             sidebar: '#sidebar-navegacion',
             header: '#main-header',
-            form: '#formulario-completo',
+            mainContainer: '#formulario-completo', // Contenedor <main>
+            form: '#miFormularioDinamico',      // El <form>
             sections: '.seccion-formulario',
-            menuItems: '.sidebar-menu .menu-item',
             nextBtn: '#next-btn',
             prevBtn: '#prev-btn',
             submitBtn: '#submit-btn',
@@ -51,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- 2. ESTADO DE LA APLICACIÓN (SIN CAMBIOS) ---
+    // --- 2. ESTADO ---
     let state = {
         currentSectionIndex: 0,
         isLightMode: false,
@@ -59,21 +41,19 @@ document.addEventListener('DOMContentLoaded', () => {
         menuItems: []
     };
 
-    // --- 3. FUNCIONES DE INICIALIZACIÓN (CON LÓGICA AÑADIDA) ---
+    // --- 3. INICIALIZACIÓN ---
     function initialize() {
         state.isLightMode = (localStorage.getItem(config.storageKeys.themeMode) || 'dark') === 'light';
         buildHeader();
-        buildSidebar();
-
+        buildSidebar(); 
         state.formSections = document.querySelectorAll(config.domSelectors.sections);
-        state.menuItems = document.querySelectorAll(config.domSelectors.menuItems);
-        
+        state.menuItems = document.querySelectorAll('.sidebar-menu .menu-item');
         setupFormNavigation();
-        setupConditionalFields(); // <--- LÓGICA NUEVA AÑADIDA AQUÍ
+        setupConditionalFields(); 
         showSection(0);
     }
 
-    // El resto de tus funciones originales se mantienen, pero actualizadas
+    // --- 4. CONSTRUCCIÓN DE UI ---
     function buildHeader() {
         const headerContainer = document.querySelector(config.domSelectors.header);
         if (!headerContainer) return;
@@ -81,24 +61,15 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="header-content-wrapper">
                 <div class="theme-controls">
                     <select id="theme-selector" title="Seleccionar Tema de Color"></select>
-                    <label class="theme-switch" for="theme-checkbox">
-                        <input type="checkbox" id="theme-checkbox" />
-                        <div class="slider round">
-                            <span class="icon material-symbols-outlined sun">light_mode</span>
-                            <span class="icon material-symbols-outlined moon">dark_mode</span>
-                        </div>
-                    </label>
+                    <label class="theme-switch" for="theme-checkbox"><input type="checkbox" id="theme-checkbox" /><div class="slider round"><span class="icon material-symbols-outlined sun">light_mode</span><span class="icon material-symbols-outlined moon">dark_mode</span></div></label>
                 </div>
             </div>`;
         const themeSelector = headerContainer.querySelector('#theme-selector');
         const themeCheckbox = headerContainer.querySelector('#theme-checkbox');
-        config.availableThemes.forEach(theme => {
-            const option = new Option(theme.name, theme.file);
-            themeSelector.add(option);
-        });
+        config.availableThemes.forEach(theme => themeSelector.add(new Option(theme.name, theme.file)));
         themeSelector.addEventListener('change', (e) => setThemePalette(e.target.value));
         themeCheckbox.addEventListener('change', (e) => setThemeMode(e.target.checked ? 'light' : 'dark'));
-        const savedFile = localStorage.getItem(config.storageKeys.themeFile) || config.availableThemes[config.availableThemes.length - 1].file;
+        const savedFile = localStorage.getItem(config.storageKeys.themeFile) || config.availableThemes[0].file;
         themeSelector.value = savedFile;
         setThemePalette(savedFile);
         themeCheckbox.checked = state.isLightMode;
@@ -114,26 +85,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="menu-text">${item.text}</span>
             </li>`).join('');
         sidebarContainer.innerHTML = `
-            <div class="sidebar-top-area">
-                <img id="logo-veler-sidebar" src="assets/img/veler_light.png" alt="Logo Veler Technologies">
-                <button class="sidebar-toggle material-symbols-outlined" title="Contraer/Expandir menú">menu_open</button>
-            </div>
-            <div class="sidebar-bottom-area">
-                <nav class="sidebar-menu"><ul class="menu-navegacion">${menuItemsHTML}</ul></nav>
-            </div>`;
+            <div class="sidebar-top-area"><img id="logo-veler-sidebar" src="${state.isLightMode ? 'assets/img/VELER_LIGHT.png' : 'assets/img/VELER_DARK.png'}" alt="Logo"><button class="sidebar-toggle material-symbols-outlined" title="Contraer/Expandir menú">menu_open</button></div>
+            <div class="sidebar-bottom-area"><nav class="sidebar-menu"><ul class="menu-navegacion">${menuItemsHTML}</ul></nav></div>`;
         sidebarContainer.querySelector('.sidebar-toggle').addEventListener('click', toggleSidebar);
         sidebarContainer.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                const targetIndex = parseInt(e.currentTarget.dataset.sectionIndex, 10);
-                showSection(targetIndex);
-            });
+            item.addEventListener('click', (e) => showSection(parseInt(e.currentTarget.dataset.sectionIndex, 10)));
         });
         if (localStorage.getItem(config.storageKeys.sidebarCollapsed) === 'true') {
             document.body.classList.replace('body-sidebar-expanded', 'body-sidebar-collapsed');
         }
     }
     
-    // --- 4. LÓGICA DE FORMULARIO (ACTUALIZADA) ---
+    // --- 5. LÓGICA DE FORMULARIO ---
     function setupFormNavigation() {
         document.querySelector(config.domSelectors.nextBtn)?.addEventListener('click', () => {
             if (state.currentSectionIndex < config.menuItems.length - 1) {
@@ -146,88 +109,119 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         document.querySelector(config.domSelectors.editBtn)?.addEventListener('click', () => {
-            const lastEditableSectionIndex = config.menuItems.length - 2;
-            showSection(lastEditableSectionIndex);
+            // Vuelve a la primera sección para editar
+            showSection(0);
         });
     }
 
     function setupConditionalFields() {
-        const addListener = (selector, event, handler) => {
-            const element = document.querySelector(selector);
-            if (element) element.addEventListener(event, handler);
-        };
-        const addListenerAll = (selector, event, handler) => {
-            document.querySelectorAll(selector).forEach(el => el.addEventListener(event, handler));
-        };
-        const toggleDisplay = (id, show) => {
-            const element = document.getElementById(id);
-            if (element) element.style.display = show ? 'block' : 'none';
-        };
-
-        addListenerAll('input[name="cargo_gobierno"]', 'change', e => toggleDisplay('cargo_dependencia_group', e.target.value === 'si'));
-        addListener('input[value="motocicleta"]', 'change', e => toggleDisplay('moto_details', e.target.checked));
-        addListener('input[value="aviones"]', 'change', e => toggleDisplay('avion_details', e.target.checked));
-        addListener('#genero', 'change', e => toggleDisplay('embarazo_group', e.target.value === 'femenino'));
-        addListenerAll('input[name="fuma"]', 'change', e => {
-            toggleDisplay('fuma_details', e.target.value === 'si');
-            toggleDisplay('no_fuma_details', e.target.value === 'no');
-        });
-        addListenerAll('input[name="alcohol"]', 'change', e => toggleDisplay('alcohol_details', e.target.value === 'si'));
-        addListenerAll('input[name="drogas"]', 'change', e => toggleDisplay('drogas_details', e.target.value === 'si'));
-        addListenerAll('input[name="embarazo"]', 'change', e => toggleDisplay('embarazo_details', e.target.value === 'si'));
-        const deportesCheckboxes = document.querySelectorAll('input[name="deporte_riesgo"]');
-        deportesCheckboxes.forEach(cb => cb.addEventListener('change', () => {
-            const algunoMarcado = Array.from(deportesCheckboxes).some(c => c.checked);
-            toggleDisplay('deporte_details', algunoMarcado);
+        document.querySelectorAll('input[name="pep"]').forEach(radio => radio.addEventListener('change', (e) => {
+            document.getElementById('pep-detalles').style.display = (e.target.value === 'si' && e.target.checked) ? 'block' : 'none';
         }));
-        const padecimientosRadios = document.querySelectorAll('input[name="enf_cronica"], input[name="trat_medico"], input[name="hospitalizado"], input[name="discapacidad"], input[name="otro_padecimiento"]');
-        padecimientosRadios.forEach(radio => radio.addEventListener('change', () => {
-            const algunoSi = Array.from(padecimientosRadios).some(r => r.checked && r.value === 'si');
-            toggleDisplay('detalle_padecimientos_group', algunoSi);
+        document.querySelectorAll('input[name="poliza-actual"]').forEach(radio => radio.addEventListener('change', (e) => {
+            document.getElementById('poliza-actual-detalles').style.display = (e.target.value === 'si' && e.target.checked) ? 'block' : 'none';
         }));
-        addListenerAll('input[name="viajar"]', 'change', e => toggleDisplay('viajar_details', e.target.value === 'si'));
-        addListenerAll('input[name="antiguedad"]', 'change', e => toggleDisplay('antiguedad_details', e.target.value === 'si'));
-        addListener('#pago_medio', 'change', e => {
-            toggleDisplay('pago_tarjeta_details', e.target.value === 'tarjeta');
-            toggleDisplay('pago_clabe_details', e.target.value === 'clabe');
+        document.querySelectorAll('#coberturas-checkboxes input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', updateDetallesCoberturas);
         });
     }
 
+    function updateDetallesCoberturas() {
+        const selections = {
+            danos: document.getElementById('chk-danos').checked,
+            rc: document.getElementById('chk-rc-general').checked || document.getElementById('chk-rc-profesional').checked,
+        };
+        let anySelection = Object.values(selections).some(isSelected => isSelected);
+        document.getElementById('detalles-danos').style.display = selections.danos ? 'block' : 'none';
+        document.getElementById('detalles-rc').style.display = selections.rc ? 'block' : 'none';
+        document.getElementById('detalles-placeholder').style.display = anySelection ? 'none' : 'block';
+    }
+
+    function generateReview() {
+        const formElement = document.querySelector(config.domSelectors.form);
+        const reviewContainer = document.getElementById('resumen-final-container');
+        if (!formElement || !reviewContainer) return;
+
+        const formData = new FormData(formElement);
+        let summaryHTML = '<ul>';
+
+        for (const [name, value] of formData.entries()) {
+            if (value) { // Solo mostrar campos con valor
+                const labelElement = formElement.querySelector(`label[for="${name}"]`);
+                const labelText = labelElement ? labelElement.innerText.replace('*', '').trim() : name;
+                summaryHTML += `<li><strong>${labelText}:</strong> ${value}</li>`;
+            }
+        }
+        summaryHTML += '</ul>';
+        reviewContainer.innerHTML = summaryHTML;
+    }
+
+    // --- FUNCIÓN SHOWSECTION CON LÓGICA DE REVISIÓN RESTAURADA ---
     function showSection(index) {
-        const mainForm = document.querySelector(config.domSelectors.form);
-        if (!mainForm) return;
+        if (index < 0 || index >= config.menuItems.length) return;
 
+        const mainContainer = document.querySelector(config.domSelectors.mainContainer);
         const isReviewMode = config.menuItems[index].id === 'revision';
-        mainForm.classList.toggle('modo-revision', isReviewMode);
 
-        state.formSections.forEach(section => {
-            section.querySelectorAll('input, select, textarea').forEach(el => {
-                el.disabled = isReviewMode;
+        // 1. Activar/Desactivar el "modo revisión" global en el <main>
+        mainContainer.classList.toggle('modo-revision', isReviewMode);
+
+        // 2. Si es modo revisión, generar el resumen y deshabilitar campos
+        if (isReviewMode) {
+            generateReview();
+            state.formSections.forEach(section => {
+                section.querySelectorAll('input, select, textarea').forEach(el => el.disabled = true);
             });
-        });
+            // Ocultamos todas las secciones del formulario
+            state.formSections.forEach(section => section.classList.remove('seccion-activa'));
+            // Y mostramos explícitamente la de revisión
+            document.getElementById('seccion-revision')?.classList.add('seccion-activa');
 
-        if (!isReviewMode) {
+        } else {
+            // 3. Si NO es modo revisión, funciona como antes
+            state.formSections.forEach(section => {
+                section.querySelectorAll('input, select, textarea').forEach(el => el.disabled = false);
+            });
             state.formSections.forEach((section, i) => {
                 section.classList.toggle('seccion-activa', i === index);
             });
         }
         
+        // El resto de la lógica se mantiene
         state.currentSectionIndex = index;
-        document.querySelectorAll(config.domSelectors.menuItems).forEach((item, i) => {
-            item.classList.toggle('active', i === index);
-        });
+        state.menuItems.forEach((item, i) => item.classList.toggle('active', i === index));
+
+        const sectionId = config.menuItems[index]?.id;
+        if (sectionId === 'detalles-coberturas') {
+            updateDetallesCoberturas();
+        }
+
         updateButtons();
     }
     
     function updateButtons() {
-        const isLastSection = state.currentSectionIndex === config.menuItems.length - 1;
-        document.querySelector(config.domSelectors.prevBtn).style.display = (state.currentSectionIndex > 0 && !isLastSection) ? 'inline-block' : 'none';
-        document.querySelector(config.domSelectors.nextBtn).style.display = isLastSection ? 'none' : 'inline-block';
-        document.querySelector(config.domSelectors.submitBtn).style.display = isLastSection ? 'inline-block' : 'none';
-        document.querySelector(config.domSelectors.editBtn).style.display = isLastSection ? 'inline-block' : 'none';
+        const prevBtn = document.querySelector(config.domSelectors.prevBtn);
+        const nextBtn = document.querySelector(config.domSelectors.nextBtn);
+        const submitBtn = document.querySelector(config.domSelectors.submitBtn);
+        const editBtn = document.querySelector(config.domSelectors.editBtn);
+        if (!prevBtn || !nextBtn || !submitBtn || !editBtn) return;
+
+        const isReviewMode = config.menuItems[state.currentSectionIndex].id === 'revision';
+
+        prevBtn.style.display = (state.currentSectionIndex > 0 && !isReviewMode) ? 'inline-block' : 'none';
+        nextBtn.style.display = isReviewMode ? 'none' : 'inline-block';
+        submitBtn.style.display = isReviewMode ? 'inline-block' : 'none';
+        editBtn.style.display = isReviewMode ? 'inline-block' : 'none';
+        
+        // Condición para el último paso antes de la revisión
+        if (state.currentSectionIndex === config.menuItems.length - 2) {
+             nextBtn.textContent = 'Ir a Revisión';
+        } else {
+             nextBtn.textContent = 'Siguiente';
+        }
     }
 
-    // --- 5. LÓGICA DE TEMAS Y SIDEBAR (TU CÓDIGO ORIGINAL) ---
+    // --- LÓGICA DE TEMAS Y SIDEBAR ---
     function toggleSidebar() {
         const isCollapsed = document.body.classList.contains('body-sidebar-collapsed');
         document.body.classList.replace(isCollapsed ? 'body-sidebar-collapsed' : 'body-sidebar-expanded', isCollapsed ? 'body-sidebar-expanded' : 'body-sidebar-collapsed');
@@ -252,6 +246,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 6. EJECUTAR LA APLICACIÓN ---
+    // --- EJECUTAR LA APLICACIÓN ---
     initialize();
 });
