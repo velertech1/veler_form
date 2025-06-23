@@ -1,52 +1,44 @@
-/* --- Formulario Principal y Secciones --- */
-/* Se aplica a <main id="formulario-completo"> */
+/* --- INICIA CÓDIGO PARA REEMPLAZAR --- */
+
 main#formulario-completo {
-    padding-top: calc(var(--top-bar-height) + 30px); /* Mantenemos ~100px arriba */
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 40px;
-    margin-left: var(--sidebar-width-expanded); /* Mantiene el espacio para el sidebar */
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    /* --- ANCHO FORZADO CON CALC() --- */
-    width: calc(100% - var(--sidebar-width-expanded)); /* Ocupa el resto del ancho */
-    /* max-width ELIMINADO */
-    /* --- FIN ANCHO FORZADO --- */
+    box-sizing: border-box;
+    display: block;
+    margin-left: var(--sidebar-width-expanded);
+    width: calc(100% - var(--sidebar-width-expanded));
     min-height: 100vh;
-    box-sizing: border-box; /* Importante para que padding no se sume al width */
-    transition: margin-left 0.3s ease, background-color 0.3s ease, width 0.3s ease; /* Añadida transición de width */
-    background-color: var(--bg-color);
-    text-align: left;
-    position: relative;
-    z-index: 1;
-    display: block; /* Asegurar que sea block por defecto, JS lo oculta/muestra */
+    /* Devolvemos un padding horizontal para que el contenido no se pegue a los bordes */
+    padding: calc(var(--top-bar-height) + 30px) 40px 40px 40px; 
+    transition: margin-left 0.3s ease, width 0.3s ease;
 }
 
-/* Ajuste para estado colapsado */
+/* Ajuste para cuando el menú está colapsado */
 body.body-sidebar-collapsed main#formulario-completo {
     margin-left: var(--sidebar-width-collapsed);
-    /* --- ANCHO FORZADO CON CALC() PARA ESTADO COLAPSADO --- */
-    width: calc(100% - var(--sidebar-width-collapsed)); /* Ajusta el ancho al sidebar colapsado */
-    /* --- FIN ANCHO FORZADO --- */
+    width: calc(100% - var(--sidebar-width-collapsed));
 }
 
-/* Estilos para cada sección dentro del main */
+
 .seccion-formulario {
-    /* Mantenemos el max-width y el centrado para el contenido interno */
-    max-width: 1400px; /* Ancho máximo deseado para el contenido del form */
-    margin: 0 auto 20px auto; /* Centrado horizontal y margen inferior */
-    /* --- FIN --- */
-    padding: 25px; /* Aumentamos un poco el padding interno de la sección */
+    box-sizing: border-box;
+    /* Esta es la propiedad clave que fuerza al formulario a usar el espacio */
+    width: 100%;    
+    /* Le ponemos un límite sensato para que no se vea demasiado ancho en pantallas gigantes. 
+       Si lo quieres aún más ancho, aumenta este número. Si lo quieres sin límite, borra la línea. */
+    max-width: 1400px;
+    
+    /* Esto lo centra cuando la pantalla es más ancha que el max-width */
+    margin: 0 auto 20px auto;
+    
+    padding: 25px;
     border-radius: 12px;
     background-color: var(--bg-container);
-    box-shadow: 0 4px 12px rgba(var(--bg-color-rgb,0,0,0),0.07); /* Sombra usa variable de tema */
-    display: none;
+    box-shadow: 0 4px 12px rgba(var(--bg-color-rgb,0,0,0),0.07);
+    display: none; /* Esta línea es correcta, JS la cambia */
     opacity: 0;
-    transition: opacity 0.4s ease-in-out, background-color 0.3s ease, box-shadow 0.3s ease, max-width 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
+    transition: opacity 0.4s ease-in-out, background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* --- TERMINA CÓDIGO PARA REEMPLAZAR --- */
 
 .seccion-formulario.seccion-activa {
     display: block;
@@ -236,7 +228,7 @@ main#formulario-completo.modo-revision #seccion-revision {
 .form-columns-container {
     display: grid;
     /* Por defecto 2 columnas, se puede ajustar por sección si es necesario */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas responsivas */
+    grid-template-columns: 1fr;
     gap: 10px 25px; /* gap vertical y horizontal */
     align-items: start; /* Alinea los items al inicio de su celda de grid */
 }
@@ -354,29 +346,6 @@ main#formulario-completo.modo-revision #seccion-revision {
     color: var(--error-alert, #dc3545);
     opacity: 0.7;
 }
-
-/* --- INICIO Estilos para Revelación Secuencial de Campos --- */
-.seccion-formulario .form-columns-container > .form-group.question-group,
-.seccion-formulario > .form-group.question-group { /* Para campos full-width directos en la sección */
-    display: none; /* Ocultar todos los grupos de campos por defecto */
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out, display 0s 0.3s; /* Transición para display */
-    width: 100%; /* Asegurar que ocupe el ancho si está en un grid */
-    grid-column: 1 / -1 !important; /* --- NUEVO: Forzar que ocupe todas las columnas del grid --- */
-}
-
-.seccion-formulario .form-columns-container > .form-group.question-group.field-visible,
-.seccion-formulario > .form-group.question-group.field-visible {
-    display: flex !important; 
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-    /* No es necesario repetir width y grid-column aquí si ya están en la regla base de arriba */
-}
-/* --- FIN Estilos para Revelación Secuencial de Campos --- */
-
-
 
 /* --- INICIO Estilos para Tooltips de Ayuda (Anclaje al Wrapper del Ícono) --- */
 .form-group label {
