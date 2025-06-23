@@ -380,11 +380,23 @@
             const CONFIG_OPS = {
                 THEME_STORAGE_KEY: 'theme_mode',
                 AVAILABLE_THEMES: [
-                    { name: "Veler Blue v2", file: "assets/css/theme-veler-blue_2.css" },
-                    { name: "GNP Default", file: "assets/css/theme-default.css" }
-                    // ... Poner todos los temas aquí ...
+            { name: "Veler Blue v2", file: "assets/css/theme-veler-blue_2.css" },
+            { name: "Veler Blue", file: "assets/css/theme-veler-blue.css" },
+            { name: "Teal Green v2", file: "assets/css/theme-teal-green_v2.css" },
+            { name: "Teal Green", file: "assets/css/theme-teal-green.css" },
+            { name: "Slate Mauve v2", file: "assets/css/theme-slate-mauve_2.css" },
+            { name: "Slate Mauve", file: "assets/css/theme-slate-mauve.css" },
+            { name: "Pink v2", file: "assets/css/theme-pink_2.css"},
+            { name: "Pink", file: "assets/css/theme-pink.css" },
+            { name: "Gold Teal v2", file: "assets/css/theme-gold-teal_2.css" },
+            { name: "Gold Teal", file: "assets/css/theme-gold-teal.css" },
+            { name: "Gold v2", file: "assets/css/theme-gold_2.css"},
+            { name: "Gold", file: "assets/css/theme-gold.css"},
+            { name: "Red Dark v2", file: "assets/css/theme-red-dark_2.css"},
+            { name: "Red Dark", file: "assets/css/theme-red-dark.css"},
+            { name: "GNP Default", file: "assets/css/theme-default.css" }
                 ],
-                DEFAULT_THEME_FILE: "assets/css/theme-veler-blue_2.css",
+                DEFAULT_THEME_FILE: "assets/css/theme-default.css",
                 SELECTED_THEME_FILE_KEY: 'selected_theme_file'
             };
 
@@ -438,66 +450,78 @@
             // --- FIN DE LÓGICA DE TEMAS ---
 
 
-            // --- INICIO DE NUEVA LÓGICA PARA EL MODAL DE TRANSICIÓN ---
+            // --- LÓGICA DEL MODAL DE TRANSICIÓN (ACTUALIZADA) ---
 
-            // Seleccionar los elementos del DOM para el modal
             const transicionModal = document.getElementById('transicionModal');
             const cerrarModalBtn = transicionModal.querySelector('.close-button');
             const modalPlanNombre = document.getElementById('modalPlanNombre');
             const formTipoSolicitante = document.getElementById('formTipoSolicitante');
             const botonesSeleccionarPlan = document.querySelectorAll('.btn-seleccionar-plan');
 
-            // Función para abrir el modal
             const abrirModal = (nombrePlan) => {
-                // Línea de depuración para ver qué plan se seleccionó
-                console.log(`DEBUG: Abriendo modal para el plan: ${nombrePlan}`);
-                
-                modalPlanNombre.textContent = nombrePlan; // Pone el nombre del plan en el modal
-                transicionModal.style.display = 'flex'; // Muestra el modal
+                modalPlanNombre.textContent = nombrePlan;
+                transicionModal.style.display = 'flex';
             };
 
-            // Función para cerrar el modal
             const cerrarModal = () => {
-                transicionModal.style.display = 'none'; // Oculta el modal
+                transicionModal.style.display = 'none';
             };
 
-            // Añadir evento a CADA botón "Seleccionar Plan"
             botonesSeleccionarPlan.forEach(boton => {
                 boton.addEventListener('click', () => {
-                    const nombrePlan = boton.dataset.planNombre; // Obtiene el nombre del plan del atributo data-*
+                    const nombrePlan = boton.dataset.planNombre;
                     abrirModal(nombrePlan);
                 });
             });
 
-            // Añadir evento al botón de cierre (la 'X')
             cerrarModalBtn.addEventListener('click', cerrarModal);
 
-            // Añadir evento para cerrar si se hace clic fuera del contenido del modal
             transicionModal.addEventListener('click', (event) => {
                 if (event.target === transicionModal) {
                     cerrarModal();
                 }
             });
 
+            // --- INICIO DE LA MODIFICACIÓN ---
             // Manejar el envío del formulario dentro del modal
             formTipoSolicitante.addEventListener('submit', (event) => {
                 event.preventDefault(); // Evita que la página se recargue
 
-                // Obtiene el valor seleccionado (persona, empresa o grupo)
                 const tipoSeleccionado = formTipoSolicitante.querySelector('input[name="tipo_solicitud"]:checked').value;
                 
-                // Línea de depuración para ver el tipo seleccionado
+                // Línea de depuración que puedes usar en la consola
                 console.log(`DEBUG: Tipo de solicitud seleccionado: ${tipoSeleccionado}`);
 
-                // Guarda la selección en localStorage para usarla en la siguiente página
                 localStorage.setItem('tipoDeSolicitud', tipoSeleccionado);
-                
-                // Guarda también el nombre del plan seleccionado
                 localStorage.setItem('planSeleccionado', modalPlanNombre.textContent);
 
-                // Redirige al usuario al formulario principal
-                window.location.href = 'index.html';
+                // Variable para definir a dónde redirigir
+                let urlDestino = '';
+
+                // Lógica para asignar la URL correcta
+                switch (tipoSeleccionado) {
+                    case 'persona':
+                        urlDestino = 'persona.html';
+                        break;
+                    case 'empresa':
+                        urlDestino = 'empresa.html';
+                        break;
+                    case 'grupo':
+                        urlDestino = 'grupo.html';
+                        break;
+                    default:
+                        // Como fallback, podemos redirigir a una página principal o no hacer nada
+                        console.error('Tipo de solicitud no reconocido:', tipoSeleccionado);
+                        urlDestino = 'index.html'; // Opcional: redirigir a una página por defecto
+                        break;
+                }
+
+                // Redirigir al usuario si se definió una URL de destino
+                if (urlDestino) {
+                    window.location.href = urlDestino;
+                }
             });
+            // --- FIN DE LA MODIFICACIÓN ---
         });
     </script>
 </body>

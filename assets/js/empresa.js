@@ -11,8 +11,21 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'revision', icon: 'preview', text: 'Revisión Final' }
         ],
         availableThemes: [
-             { name: "Veler Blue v2", file: "assets/css/theme-veler-blue_2.css" },
-             { name: "Pink v2", file: "assets/css/theme-pink_2.css"},
+            { name: "Veler Blue v2", file: "assets/css/theme-veler-blue_2.css" },
+            { name: "Veler Blue", file: "assets/css/theme-veler-blue.css" },
+            { name: "Teal Green v2", file: "assets/css/theme-teal-green_v2.css" },
+            { name: "Teal Green", file: "assets/css/theme-teal-green.css" },
+            { name: "Slate Mauve v2", file: "assets/css/theme-slate-mauve_2.css" },
+            { name: "Slate Mauve", file: "assets/css/theme-slate-mauve.css" },
+            { name: "Pink v2", file: "assets/css/theme-pink_2.css"},
+            { name: "Pink", file: "assets/css/theme-pink.css" },
+            { name: "Gold Teal v2", file: "assets/css/theme-gold-teal_2.css" },
+            { name: "Gold Teal", file: "assets/css/theme-gold-teal.css" },
+            { name: "Gold v2", file: "assets/css/theme-gold_2.css"},
+            { name: "Gold", file: "assets/css/theme-gold.css"},
+            { name: "Red Dark v2", file: "assets/css/theme-red-dark_2.css"},
+            { name: "Red Dark", file: "assets/css/theme-red-dark.css"},
+            { name: "GNP Default", file: "assets/css/theme-default.css" }
         ],
         domSelectors: {
             sidebar: '#sidebar-navegacion',
