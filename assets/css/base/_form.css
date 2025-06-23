@@ -417,3 +417,34 @@ main#formulario-completo.modo-revision #seccion-revision {
     border-color: transparent var(--bg-color) transparent transparent; 
 }
 /* --- FIN Estilos para Tooltips de Ayuda (Anclaje al Wrapper del Ícono) --- */
+/* --- INICIA ESTILOS PARA MODO REVISIÓN --- */
+
+/* Cuando el main está en modo revisión, muestra todas las secciones de formulario */
+main#formulario-completo.modo-revision .seccion-formulario {
+    display: block !important;
+    opacity: 1 !important;
+    margin-bottom: 25px; /* Más espacio entre secciones */
+}
+
+/* Oculta la propia sección de "Revisión Final" que solo es un título */
+main#formulario-completo.modo-revision #seccion-revision {
+    display: none !important;
+}
+
+/* Oculta los botones de navegación "Anterior" y "Siguiente" */
+main#formulario-completo.modo-revision .botones-navegacion #prev-btn,
+main#formulario-completo.modo-revision .botones-navegacion #next-btn {
+    display: none !important;
+}
+
+/* Estilo para los campos deshabilitados en modo revisión para que parezcan "bloqueados" */
+main#formulario-completo.modo-revision input:disabled,
+main#formulario-completo.modo-revision select:disabled,
+main#formulario-completo.modo-revision textarea:disabled {
+    background-color: rgba(var(--bg-color-rgb), 0.5) !important; /* Fondo más opaco */
+    cursor: not-allowed; /* Cursor de "no permitido" */
+    border-color: var(--border);
+    border-left-color: var(--border);
+}
+
+/* --- TERMINA ESTILOS PARA MODO REVISIÓN --- */
