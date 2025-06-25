@@ -24,30 +24,39 @@
                 <h2><span class="material-symbols-outlined">person</span>Solicitante</h2>
                 <p class="subtitulo-ligero">Comencemos con tus datos personales.</p>
                 <div class="form-columns-container">
-                    <div class="form-group"><label for="primer_apellido">Primer apellido <span class="required-marker">*</span></label><input type="text" id="primer_apellido" name="primer_apellido" class="form-control" required></div>
-                    <div class="form-group"><label for="segundo_apellido">Segundo apellido <span class="required-marker">*</span></label><input type="text" id="segundo_apellido" name="segundo_apellido" class="form-control" required></div>
-                    <div class="form-group"><label for="nombres">Nombre(s) <span class="required-marker">*</span></label><input type="text" id="nombres" name="nombres" class="form-control" required></div>
-                    <div class="form-group"><label for="fecha_nacimiento">Fecha de nacimiento <span class="required-marker">*</span></label><input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" required></div>
-                    <div class="form-group"><label for="rfc">RFC <span class="required-marker">*</span></label><input type="text" id="rfc" name="rfc" class="form-control" required></div>
-                    <div class="form-group"><label for="curp">CURP <span class="required-marker">*</span></label><input type="text" id="curp" name="curp" class="form-control" required></div>
-                    <div class="form-group"><label for="pais_nacimiento">País de nacimiento <span class="required-marker">*</span></label><input type="text" id="pais_nacimiento" name="pais_nacimiento" class="form-control" required></div>
-                    <div class="form-group"><label for="nacionalidad">Nacionalidad <span class="required-marker">*</span></label><input type="text" id="nacionalidad" name="nacionalidad" class="form-control" required></div>
-                    <div class="form-group"><label for="ocupacion">Ocupación <span class="required-marker">*</span></label><input type="text" id="ocupacion" name="ocupacion" class="form-control" required></div>
-                    <div class="form-group"><label for="genero">Género <span class="required-marker">*</span></label><select id="genero" name="genero" class="form-control" required><option value="">Selecciona...</option><option value="femenino">Femenino</option><option value="masculino">Masculino</option></select></div>
-                    <div class="form-group"><label for="correo">Correo electrónico <span class="required-marker">*</span></label><input type="email" id="correo" name="correo" class="form-control" required></div>
-                    <div class="form-group"><label for="estatura">Estatura (metros) <span class="required-marker">*</span></label><input type="number" step="0.01" id="estatura" name="estatura" class="form-control" required></div>
-                    <div class="form-group"><label for="peso">Peso (kg) <span class="required-marker">*</span></label><input type="number" step="0.1" id="peso" name="peso" class="form-control" required></div>
-                    <div class="form-group"><label for="tipo_identificacion">Tipo Identificación Oficial <span class="required-marker">*</span></label><input type="text" id="tipo_identificacion" name="tipo_identificacion" class="form-control" required></div>
-                    <div class="form-group"><label for="institucion_emisora">Institución Emisora <span class="required-marker">*</span></label><input type="text" id="institucion_emisora" name="institucion_emisora" class="form-control" required></div>
-                    <div class="form-group"><label for="folio_identificacion">Folio de la Identificación <span class="required-marker">*</span></label><input type="text" id="folio_identificacion" name="folio_identificacion" class="form-control" required></div>
+                    <div class="form-group"><label for="primer_apellido">Primer apellido <span class="required-marker">*</span></label><input type="text" id="primer_apellido" name="primer_apellido" class="form-control" required placeholder="Primer apellido"></div>
+                    <div class="form-group"><label for="segundo_apellido">Segundo apellido <span class="required-marker">*</span></label><input type="text" id="segundo_apellido" name="segundo_apellido" class="form-control" required placeholder="Segundo apellido"></div>
+                    <div class="form-group"><label for="nombres">Nombre(s) <span class="required-marker">*</span></label><input type="text" id="nombres" name="nombres" class="form-control" required placeholder="Nombre(s)"></div>
+                    <div class="form-group"><label for="fecha_nacimiento">Fecha de nacimiento <span class="required-marker">*</span></label><input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" required placeholder="dd/mm/aaaa"></div>
+                    <div class="form-group"><label for="rfc">RFC (con Homoclave) <span class="required-marker">*</span></label><input type="text" id="rfc" name="rfc" class="form-control" required maxlength="13" placeholder="RFC con homoclave"></div>
+                    <div class="form-group"><label for="curp">CURP <span class="required-marker">*</span></label><input type="text" id="curp" name="curp" class="form-control" required maxlength="18" placeholder="CURP"></div>
+                    <div class="form-group"><label for="pais_nacimiento">País de nacimiento <span class="required-marker">*</span></label><input type="text" id="pais_nacimiento" name="pais_nacimiento" class="form-control" required placeholder="País de nacimiento"></div>
+                    
+                    <div class="form-group"><label for="nacionalidad">Nacionalidad <span class="required-marker">*</span></label><input type="text" id="nacionalidad" name="nacionalidad" class="form-control" required placeholder="Nacionalidad"></div>
+                    
+                    <div class="form-group"><label for="ocupacion">Ocupación <span class="required-marker">*</span></label><input type="text" id="ocupacion" name="ocupacion" class="form-control" required placeholder="Ocupación"></div>
+                    
+                    <div class="form-group"><label for="sexo_nacer">Sexo al nacer <span class="required-marker">*</span></label><select id="sexo_nacer" name="sexo_nacer" class="form-control" required><option value="">Selecciona...</option><option value="femenino">Femenino</option><option value="masculino">Masculino</option></select></div>
+                    
+                    <div class="form-group"><label for="correo">Correo electrónico <span class="required-marker">*</span></label><input type="email" id="correo" name="correo" class="form-control" required placeholder="correo@ejemplo.com"></div>
+                    
+                    <div class="form-group"><label for="estatura">Estatura (metros) <span class="required-marker">*</span></label><input type="number" step="0.01" id="estatura" name="estatura" class="form-control" required placeholder="Ej: 1.75"></div>
+                    <div class="form-group"><label for="peso">Peso (kg) <span class="required-marker">*</span></label><input type="number" step="0.1" id="peso" name="peso" class="form-control" required placeholder="Ej: 70.5"></div>
+                    
+                    <div class="form-group"><label for="tipo_identificacion">Tipo Identificación Oficial <span class="required-marker">*</span></label>
+                        <select id="tipo_identificacion" name="tipo_identificacion" class="form-control" required>
+                            <option value="">Selecciona...</option>
+                            <option value="ine">Credencial para Votar (INE)</option>
+                            <option value="pasaporte">Pasaporte</option>
+                            <option value="cedula">Cédula Profesional</option>
+                            <option value="documento_migratorio">Documento Migratorio (Extranjeros)</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label for="archivo_identificacion">Subir archivo de identificación <span class="required-marker">*</span></label><input type="file" id="archivo_identificacion" name="archivo_identificacion" class="form-control" required></div>
                     <div class="form-group"><label>¿Desempeñó cargo en gobierno? <span class="required-marker">*</span></label><div class="radio-group"><label><input type="radio" name="cargo_gobierno" value="si"> Sí</label><label><input type="radio" name="cargo_gobierno" value="no" checked> No</label></div></div>
-                    <div class="form-group" id="cargo_dependencia_group" style="display: none;"><label for="cargo_dependencia">Cargo y dependencia</label><input type="text" id="cargo_dependencia" name="cargo_dependencia" class="form-control"></div>
+                    
+                    <div class="form-group" id="cargo_dependencia_group" style="display: none;"><label for="cargo_dependencia">Cargo y dependencia</label><input type="text" id="cargo_dependencia" name="cargo_dependencia" class="form-control" placeholder="Cargo y dependencia"></div>
                 </div>
-            </div>
-
-            <div id="seccion-contratante-asegurado" class="seccion-formulario">
-                <h2><span class="material-symbols-outlined">how_to_reg</span>Contratante y Asegurado</h2>
-                <p>En esta solicitud individual, tus datos registrados en la sección anterior se utilizarán tanto para el Contratante como para el Asegurado.</p>
             </div>
             
             <div id="seccion-domicilio" class="seccion-formulario">
@@ -64,6 +73,96 @@
                     <div class="form-group"><label for="tel_fijo">Teléfono Fijo (Opcional)</label><input type="tel" id="tel_fijo" name="tel_fijo" class="form-control"></div>
                     <div class="form-group"><label for="tel_celular">Teléfono Celular <span class="required-marker">*</span></label><input type="tel" id="tel_celular" name="tel_celular" class="form-control" required></div>
                     <div class="form-group"><label for="extension">Extensión (Opcional)</label><input type="text" id="extension" name="extension" class="form-control"></div>
+                </div>
+            </div>
+
+            <div id="seccion-contratante-asegurado" class="seccion-formulario">
+                <h2><span class="material-symbols-outlined">group</span>Datos del Contratante</h2>
+                <p class="subtitulo-ligero">El Contratante es el responsable legal y financiero de la póliza.</p>
+                <div class="form-columns-container">
+                    <div class="form-group"><label>¿El Solicitante Titular es la misma persona que el Contratante? <span class="required-marker">*</span></label><div class="radio-group"><label><input type="radio" id="contratanteEsTitularSi" name="contratanteEsTitular" value="si" checked> Sí</label><label><input type="radio" id="contratanteEsTitularNo" name="contratanteEsTitular" value="no"> No</label></div></div>
+                <div id="datosContratanteDiferenteContainer" style="display: none; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 20px;">
+                    
+                    <h4 style="margin-bottom: 15px; color: #333;">Datos del Contratante</h4>
+
+                    <div class="form-columns-container">
+                        <div class="form-group">
+                            <label for="contratante_nombre">Nombre(s) <span class="required-marker">*</span></label>
+                            <input type="text" id="contratante_nombre" name="contratante_nombre" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contratante_apellido1">Primer Apellido <span class="required-marker">*</span></label>
+                            <input type="text" id="contratante_apellido1" name="contratante_apellido1" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contratante_apellido2">Segundo Apellido</label>
+                            <input type="text" id="contratante_apellido2" name="contratante_apellido2" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="contratante_fecha_nacimiento">Fecha de Nacimiento <span class="required-marker">*</span></label>
+                            <input type="date" id="contratante_fecha_nacimiento" name="contratante_fecha_nacimiento" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contratante_rfc">R.F.C. <span class="required-marker">*</span></label>
+                            <input type="text" id="contratante_rfc" name="contratante_rfc" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contratante_ocupacion">Ocupación <span class="required-marker">*</span></label>
+                            <input type="text" id="contratante_ocupacion" name="contratante_ocupacion" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Sexo a nacer <span class="required-marker">*</span></label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="contratante_genero" value="F"> Femenino</label>
+                                <label><input type="radio" name="contratante_genero" value="M"> Masculino</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contratante_parentesco">Parentesco con el titular <span class="required-marker">*</span></label>
+                            <input type="text" id="contratante_parentesco" name="contratante_parentesco" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width seccion-separada">
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="contratanteDomicilioDiferente" name="contratante_domicilio_diferente">
+                                El domicilio particular del contratante es diferente al del titular
+                            </label>
+                        </div>
+                    </div>
+                    <div id="domicilioContratanteContainer" class="form-columns-container" style="display: none;">
+                        <h5 style="color:#555; grid-column: 1 / -1;">Domicilio Particular</h5>
+                        <div class="form-group">
+                            <label for="contratante_domicilio">Domicilio (Calle y Número) <span class="required-marker">*</span></label>
+                            <input type="text" id="contratante_domicilio" name="contratante_domicilio" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="contratante_cp">C.P. <span class="required-marker">*</span></label>
+                            <input type="text" id="contratante_cp" name="contratante_cp" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width seccion-separada">
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="contratanteFiscalIgual" name="contratante_fiscal_igual" checked>
+                                Mi domicilio fiscal es el mismo que mi domicilio particular
+                            </label>
+                        </div>
+                    </div>
+                    <div id="domicilioFiscalContainer" class="form-columns-container" style="display: none;">
+                        <h5 style="color:#555; grid-column: 1 / -1;">Domicilio Fiscal</h5>
+                        <div class="form-group">
+                            <label for="contratante_domicilio_fiscal">Domicilio Fiscal (Calle y Número) <span class="required-marker">*</span></label>
+                            <input type="text" id="contratante_domicilio_fiscal" name="contratante_domicilio_fiscal" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="contratante_cp_fiscal">C.P. Fiscal <span class="required-marker">*</span></label>
+                            <input type="text" id="contratante_cp_fiscal" name="contratante_cp_fiscal" class="form-control">
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
 

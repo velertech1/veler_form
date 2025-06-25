@@ -448,3 +448,10 @@ main#formulario-completo.modo-revision textarea:disabled {
 }
 
 /* --- TERMINA ESTILOS PARA MODO REVISIÓN --- */
+
+/* --- Linea para separar informacion en una seccion (EJEMPLO EN SOLICITANTES Y CONTRATANTE)--- */
+.form-separator {
+    border: none;
+    border-top: 1px solid #a5a0a0;
+    margin: 25px 0;
+}

@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 1. CONFIGURACIÓN CENTRALIZADA (ACTUALIZADA CON 11 SECCIONES) ---
     const config = {
         menuItems: [
-            { id: 'solicitante', icon: 'person', text: 'Solicitante' },
-            { id: 'contratante-asegurado', icon: 'how_to_reg', text: 'Contratante y Asegurado' },
+            { id: 'solicitante', icon: 'person', text: 'Solicitantes' },
             { id: 'domicilio', icon: 'home', text: 'Domicilio' },
+            { id: 'contratante-asegurado', icon: 'how_to_reg', text: 'Contratante' },
             { id: 'actividades-riesgo', icon: 'warning', text: 'Actividades de Riesgo' },
             { id: 'habitos', icon: 'health_and_safety', text: 'Hábitos' },
             { id: 'deportes', icon: 'sports_soccer', text: 'Deportes' },
@@ -152,6 +152,79 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setupConditionalFields() {
+            // --- INICIA LÓGICA PARA SOLICITANTES Y CONTRATANTES ---
+
+    // Lógica para mostrar/ocultar el selector de número de asegurados
+    const radiosAgregarAsegurados = document.querySelectorAll('input[name="agregarAsegurados"]');
+    const cantidadContainer = document.getElementById('cantidadAseguradosContainer');
+
+    radiosAgregarAsegurados.forEach(radio => {
+        radio.addEventListener('change', (event) => {
+            console.log(`DEBUG: Opción 'agregar asegurados' cambiada a: ${event.target.value}`); // Línea de depuración
+            if (event.target.value === 'si') {
+                cantidadContainer.style.display = 'block';
+            } else {
+                cantidadContainer.style.display = 'none';
+                // Futuro: Aquí pondremos la lógica para eliminar asegurados si el usuario cambia a "No".
+            }
+        });
+    });
+
+    // INICIA CONTRATANTE
+
+    // Lógica para mostrar/ocultar el formulario completo del Contratante
+    const radiosContratanteEsTitular = document.querySelectorAll('input[name="contratanteEsTitular"]');
+    // Apuntamos al nuevo contenedor principal
+    const datosContratanteContainer = document.getElementById('datosContratanteDiferenteContainer'); 
+
+    radiosContratanteEsTitular.forEach(radio => {
+        radio.addEventListener('change', (event) => {
+            console.log(`DEBUG: Opción 'contratante es titular' cambiada a: ${event.target.value}`); // Línea de depuración
+            if (event.target.value === 'no') {
+                datosContratanteContainer.style.display = 'block';
+            } else {
+                datosContratanteContainer.style.display = 'none';
+            }
+        });
+    });
+
+    // Nueva lógica para el checkbox de "domicilio diferente"
+    const checkDomicilioDiferente = document.getElementById('contratanteDomicilioDiferente');
+    const domicilioContainer = document.getElementById('domicilioContratanteContainer');
+
+    checkDomicilioDiferente.addEventListener('change', (event) => {
+        const esDiferente = event.target.checked;
+        console.log(`DEBUG: Checkbox 'domicilio diferente' cambió a: ${esDiferente}`); // Línea de depuración
+        if (esDiferente) {
+            domicilioContainer.style.display = 'grid'; // Usamos grid para que respete las columnas
+        } else {
+            domicilioContainer.style.display = 'none';
+        }
+    });
+
+    // --- AÑADE ESTE NUEVO BLOQUE DENTRO DE setupConditionalFields() ---
+
+    // Lógica para el checkbox de "domicilio fiscal"
+    const checkFiscalIgual = document.getElementById('contratanteFiscalIgual');
+    const domicilioFiscalContainer = document.getElementById('domicilioFiscalContainer');
+
+    checkFiscalIgual.addEventListener('change', (event) => {
+        const esIgual = event.target.checked;
+        console.log(`DEBUG: Checkbox 'domicilio fiscal es igual' cambió a: ${esIgual}`); // Línea de depuración
+        
+        // Si la casilla está marcada, el domicilio es igual, por lo tanto OCULTAMOS el contenedor.
+        // Si se desmarca, el domicilio es diferente, por lo tanto MOSTRAMOS el contenedor.
+        if (esIgual) {
+            domicilioFiscalContainer.style.display = 'none';
+        } else {
+            domicilioFiscalContainer.style.display = 'grid'; // Usamos grid para que respete las columnas
+        }
+    });
+    
+    // --- FIN DE CONTRATANTE-- //
+
+    // --- TERMINA LÓGICA PARA SOLICITANTES Y CONTRATANTES ---
+
         const addListener = (selector, event, handler) => {
             const element = document.querySelector(selector);
             if (element) element.addEventListener(event, handler);
