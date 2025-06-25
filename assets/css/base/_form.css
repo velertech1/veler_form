@@ -485,3 +485,13 @@ main#formulario-completo.modo-revision textarea:disabled {
     /* Si no la tienes, puedes usar una alternativa como esta: */
     /* background-color: #f0f8ff; */
 }
+
+.solicitante-checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 5px;
+}
+.solicitante-checkbox-container label {
+    cursor: pointer;
+}

@@ -63,6 +63,36 @@ document.addEventListener('DOMContentLoaded', () => {
     let solicitanteCount = 1;
     const MAX_SOLICITANTES = 10;
 
+    // Objeto con las plantillas para los campos de detalle de actividades de riesgo
+    const detalleActividadesPlantillas = {
+        motocicleta: (sufijo) => `
+            <div class="detalle-actividad-solicitante">
+                <h5>Detalles para Solicitante ${sufijo.split('_').pop()}</h5>
+                <div class="form-group">
+                    <label for="moto_uso${sufijo}">Tipo de Uso</label>
+                    <input type="text" id="moto_uso${sufijo}" name="moto_uso${sufijo}" class="form-control" placeholder="Transporte, Recreativo">
+                </div>
+                <div class="form-group">
+                    <label for="moto_cc${sufijo}">Cilindrada (cc)</label>
+                    <input type="text" id="moto_cc${sufijo}" name="moto_cc${sufijo}" class="form-control" placeholder="Ej: 250">
+                </div>
+            </div>
+        `,
+        aviones: (sufijo) => `
+            <div class="detalle-actividad-solicitante">
+                <h5>Detalles para Solicitante ${sufijo.split('_').pop()}</h5>
+                <div class="form-group">
+                    <label for="avion_rol${sufijo}">Rol en Vuelo</label>
+                    <input type="text" id="avion_rol${sufijo}" name="avion_rol${sufijo}" class="form-control" placeholder="Piloto, Pasajero">
+                </div>
+                <div class="form-group">
+                    <label for="avion_horas${sufijo}">Horas de Vuelo Anuales</label>
+                    <input type="number" id="avion_horas${sufijo}" name="avion_horas${sufijo}" class="form-control" placeholder="Aprox.">
+                </div>
+            </div>
+        `
+    };
+
     // --- 3. FUNCIONES DE INICIALIZACIÓN (CON LÓGICA AÑADIDA) ---
     function initialize() {
         state.isLightMode = (localStorage.getItem(config.storageKeys.themeMode) || 'dark') === 'light';
@@ -75,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupFormNavigation();
         setupConditionalFields(); // <--- LÓGICA NUEVA AÑADIDA AQUÍ
         document.getElementById('btn-agregar-asegurado').addEventListener('click', agregarNuevoSolicitante);
+        setupRiskActivities();
         showSection(0);
     }
 
@@ -241,108 +272,105 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const cantidadContainer = document.getElementById('cantidadAseguradosContainer');
-/**
- * Asigna todos los event listeners para los campos condicionales del formulario.
- * Esta función se encarga de mostrar u ocultar campos basados en la selección del usuario.
- */
-function setupConditionalFields() {
 
-    console.log("DEBUG: Configurando campos condicionales...");
+    function setupConditionalFields() {
 
-    // --- Lógica para la sección SOLICITANTE ---
-    const radiosCargoGobierno = document.querySelectorAll('input[name="cargo_gobierno"]');
-    const grupoDependencia = document.getElementById('cargo_dependencia_group');
-    if (radiosCargoGobierno.length > 0 && grupoDependencia) {
-        radiosCargoGobierno.forEach(radio => {
-            radio.addEventListener('change', (event) => {
-                grupoDependencia.style.display = (event.target.value === 'si') ? 'block' : 'none';
+        console.log("DEBUG: Configurando campos condicionales...");
+
+        // --- Lógica para la sección SOLICITANTE ---
+        const radiosCargoGobierno = document.querySelectorAll('input[name="cargo_gobierno"]');
+        const grupoDependencia = document.getElementById('cargo_dependencia_group');
+        if (radiosCargoGobierno.length > 0 && grupoDependencia) {
+            radiosCargoGobierno.forEach(radio => {
+                radio.addEventListener('change', (event) => {
+                    grupoDependencia.style.display = (event.target.value === 'si') ? 'block' : 'none';
+                });
             });
-        });
-    }
+        }
 
-    // --- Lógica para la sección DOMICILIO ---
-    const checkDomicilioFiscal = document.getElementById('domicilioFiscalDiferente');
-    const domicilioFiscalContainer = document.getElementById('domicilioFiscalContainer');
-    if (checkDomicilioFiscal && domicilioFiscalContainer) {
-        checkDomicilioFiscal.addEventListener('change', (event) => {
-            domicilioFiscalContainer.style.display = event.target.checked ? 'grid' : 'none';
-        });
-    }
-
-    // --- Lógica para la sección DATOS DEL CONTRATANTE ---
-    const radiosContratanteEsTitular = document.querySelectorAll('input[name="contratanteEsTitular"]');
-    const datosContratanteContainer = document.getElementById('datosContratanteDiferenteContainer');
-    if (radiosContratanteEsTitular.length > 0 && datosContratanteContainer) {
-        radiosContratanteEsTitular.forEach(radio => {
-            radio.addEventListener('change', (event) => {
-                datosContratanteContainer.style.display = (event.target.value === 'no') ? 'block' : 'none';
+        // --- Lógica para la sección DOMICILIO ---
+        const checkDomicilioFiscal = document.getElementById('domicilioFiscalDiferente');
+        const domicilioFiscalContainer = document.getElementById('domicilioFiscalContainer');
+        if (checkDomicilioFiscal && domicilioFiscalContainer) {
+            checkDomicilioFiscal.addEventListener('change', (event) => {
+                domicilioFiscalContainer.style.display = event.target.checked ? 'grid' : 'none';
             });
-        });
-    }
+        }
 
-    const checkDomicilioDiferenteContratante = document.getElementById('contratanteDomicilioDiferente');
-    const domicilioContratanteContainer = document.getElementById('domicilioContratanteContainer');
-    if (checkDomicilioDiferenteContratante && domicilioContratanteContainer) {
-        checkDomicilioDiferenteContratante.addEventListener('change', (event) => {
-            domicilioContratanteContainer.style.display = event.target.checked ? 'grid' : 'none';
-        });
-    }
-    
-    const checkFiscalIgualContratante = document.getElementById('contratanteFiscalIgual');
-    const domicilioFiscalContainerContratante = document.getElementById('domicilioFiscalContainer_contratante'); // Suponiendo que el ID en el HTML es este para diferenciarlo
-    if (checkFiscalIgualContratante && domicilioFiscalContainerContratante) {
-        checkFiscalIgualContratante.addEventListener('change', (event) => {
-            domicilioFiscalContainerContratante.style.display = event.target.checked ? 'none' : 'grid';
-        });
-    }
+        // --- Lógica para la sección DATOS DEL CONTRATANTE ---
+        const radiosContratanteEsTitular = document.querySelectorAll('input[name="contratanteEsTitular"]');
+        const datosContratanteContainer = document.getElementById('datosContratanteDiferenteContainer');
+        if (radiosContratanteEsTitular.length > 0 && datosContratanteContainer) {
+            radiosContratanteEsTitular.forEach(radio => {
+                radio.addEventListener('change', (event) => {
+                    datosContratanteContainer.style.display = (event.target.value === 'no') ? 'block' : 'none';
+                });
+            });
+        }
 
-    // --- Lógica para la sección HÁBITOS ---
-    const selectGenero = document.getElementById('sexo_nacer'); // Actualizado al ID correcto
-    const grupoEmbarazo = document.getElementById('embarazo_group');
-    if(selectGenero && grupoEmbarazo) {
-        selectGenero.addEventListener('change', (event) => {
-            grupoEmbarazo.style.display = (event.target.value === 'femenino') ? 'block' : 'none';
-        });
-    }
-    
-    const radiosFuma = document.querySelectorAll('input[name="fuma"]');
-    const detallesFuma = document.getElementById('fuma_details');
-    const detallesNoFuma = document.getElementById('no_fuma_details');
-    if(radiosFuma.length > 0 && detallesFuma && detallesNoFuma) {
-        radiosFuma.forEach(radio => radio.addEventListener('change', (e) => {
-            detallesFuma.style.display = (e.target.value === 'si') ? 'block' : 'none';
-            detallesNoFuma.style.display = (e.target.value === 'no') ? 'block' : 'none';
-        }));
-    }
+        const checkDomicilioDiferenteContratante = document.getElementById('contratanteDomicilioDiferente');
+        const domicilioContratanteContainer = document.getElementById('domicilioContratanteContainer');
+        if (checkDomicilioDiferenteContratante && domicilioContratanteContainer) {
+            checkDomicilioDiferenteContratante.addEventListener('change', (event) => {
+                domicilioContratanteContainer.style.display = event.target.checked ? 'grid' : 'none';
+            });
+        }
+        
+        const checkFiscalIgualContratante = document.getElementById('contratanteFiscalIgual');
+        const domicilioFiscalContainerContratante = document.getElementById('domicilioFiscalContainer_contratante'); // Suponiendo que el ID en el HTML es este para diferenciarlo
+        if (checkFiscalIgualContratante && domicilioFiscalContainerContratante) {
+            checkFiscalIgualContratante.addEventListener('change', (event) => {
+                domicilioFiscalContainerContratante.style.display = event.target.checked ? 'none' : 'grid';
+            });
+        }
 
-    // --- Lógica para OTRAS secciones (Actividades, Info Médica, etc.) ---
-    const checkMotocicleta = document.querySelector('input[value="motocicleta"]');
-    const detallesMoto = document.getElementById('moto_details');
-    if(checkMotocicleta && detallesMoto) {
-        checkMotocicleta.addEventListener('change', e => {
-            detallesMoto.style.display = e.target.checked ? 'block' : 'none';
-        });
-    }
-    
-    const padecimientosRadios = document.querySelectorAll('input[name="enf_cronica"], input[name="trat_medico"], input[name="hospitalizado"], input[name="discapacidad"], input[name="otro_padecimiento"]');
-    const detallePadecimientos = document.getElementById('detalle_padecimientos_group');
-    if(padecimientosRadios.length > 0 && detallePadecimientos){
-         padecimientosRadios.forEach(radio => radio.addEventListener('change', () => {
-            const algunoSi = Array.from(padecimientosRadios).some(r => r.checked && r.value === 'si');
-            detallePadecimientos.style.display = algunoSi ? 'block' : 'none';
-        }));
-    }
+        // --- Lógica para la sección HÁBITOS ---
+        const selectGenero = document.getElementById('sexo_nacer'); // Actualizado al ID correcto
+        const grupoEmbarazo = document.getElementById('embarazo_group');
+        if(selectGenero && grupoEmbarazo) {
+            selectGenero.addEventListener('change', (event) => {
+                grupoEmbarazo.style.display = (event.target.value === 'femenino') ? 'block' : 'none';
+            });
+        }
+        
+        const radiosFuma = document.querySelectorAll('input[name="fuma"]');
+        const detallesFuma = document.getElementById('fuma_details');
+        const detallesNoFuma = document.getElementById('no_fuma_details');
+        if(radiosFuma.length > 0 && detallesFuma && detallesNoFuma) {
+            radiosFuma.forEach(radio => radio.addEventListener('change', (e) => {
+                detallesFuma.style.display = (e.target.value === 'si') ? 'block' : 'none';
+                detallesNoFuma.style.display = (e.target.value === 'no') ? 'block' : 'none';
+            }));
+        }
 
-    const selectMedioPago = document.getElementById('pago_medio');
-    const detallesTarjeta = document.getElementById('pago_tarjeta_details');
-    const detallesClabe = document.getElementById('pago_clabe_details');
-    if(selectMedioPago && detallesTarjeta && detallesClabe) {
-        selectMedioPago.addEventListener('change', e => {
-            detallesTarjeta.style.display = (e.target.value === 'tarjeta') ? 'block' : 'none';
-            detallesClabe.style.display = (e.target.value === 'clabe') ? 'block' : 'none';
-        });
+        // --- Lógica para OTRAS secciones (Actividades, Info Médica, etc.) ---
+        const checkMotocicleta = document.querySelector('input[value="motocicleta"]');
+        const detallesMoto = document.getElementById('moto_details');
+        if(checkMotocicleta && detallesMoto) {
+            checkMotocicleta.addEventListener('change', e => {
+                detallesMoto.style.display = e.target.checked ? 'block' : 'none';
+            });
+        }
+        
+        const padecimientosRadios = document.querySelectorAll('input[name="enf_cronica"], input[name="trat_medico"], input[name="hospitalizado"], input[name="discapacidad"], input[name="otro_padecimiento"]');
+        const detallePadecimientos = document.getElementById('detalle_padecimientos_group');
+        if(padecimientosRadios.length > 0 && detallePadecimientos){
+            padecimientosRadios.forEach(radio => radio.addEventListener('change', () => {
+                const algunoSi = Array.from(padecimientosRadios).some(r => r.checked && r.value === 'si');
+                detallePadecimientos.style.display = algunoSi ? 'block' : 'none';
+            }));
+        }
+
+        const selectMedioPago = document.getElementById('pago_medio');
+        const detallesTarjeta = document.getElementById('pago_tarjeta_details');
+        const detallesClabe = document.getElementById('pago_clabe_details');
+        if(selectMedioPago && detallesTarjeta && detallesClabe) {
+            selectMedioPago.addEventListener('change', e => {
+                detallesTarjeta.style.display = (e.target.value === 'tarjeta') ? 'block' : 'none';
+                detallesClabe.style.display = (e.target.value === 'clabe') ? 'block' : 'none';
+            });
+        }
     }
-}
 
     function showSection(index) {
         const mainForm = document.querySelector(config.domSelectors.form);
@@ -405,4 +433,101 @@ function setupConditionalFields() {
 
     // --- 6. EJECUTAR LA APLICACIÓN ---
     initialize();
+
+    /**
+ * Configura la lógica interactiva para la sección de Actividades de Riesgo.
+ */
+function setupRiskActivities() {
+    const actividadesItems = document.querySelectorAll('.actividad-riesgo-item');
+
+    actividadesItems.forEach(item => {
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        const asignacionContainer = item.querySelector('.asignacion-container');
+
+        checkbox.addEventListener('change', (event) => {
+            // Limpiamos el contenedor cada vez que hay un cambio
+            asignacionContainer.innerHTML = '';
+            
+            if (event.target.checked) {
+                asignacionContainer.style.display = 'block';
+                crearSelectorDeSolicitantes(asignacionContainer, checkbox.value);
+            } else {
+                asignacionContainer.style.display = 'none';
+            }
+        });
+    });
+}
+
+/**
+ * Crea y añade una lista de checkboxes para seleccionar a los solicitantes.
+ * (Versión actualizada para usar checkboxes en lugar de un select).
+ */
+function crearSelectorDeSolicitantes(container, actividadValue) {
+    // 1. Crear el contenedor y la etiqueta
+    const selectorContainer = document.createElement('div');
+    selectorContainer.className = 'form-group';
+    selectorContainer.innerHTML = '<label>¿Quién(es) la practican?</label>';
+
+    // 2. Crear el div que contendrá todos los checkboxes
+    const checkboxWrapper = document.createElement('div');
+    checkboxWrapper.className = 'solicitante-checkbox-container'; // Le damos una clase para posibles estilos
+
+    // Contenedor para los campos de detalle que se generarán después
+    const detallesContainer = document.createElement('div');
+    detallesContainer.className = 'detalles-por-solicitante-container';
+
+    // 3. Llenar el wrapper con un checkbox por cada solicitante
+    for (let i = 1; i <= solicitanteCount; i++) {
+        const solicitanteID = `solicitante_${i}`;
+        const checkboxID = `${actividadValue}_${solicitanteID}`;
+        
+        const label = document.createElement('label');
+        const checkbox = document.createElement('input');
+        
+        checkbox.type = 'checkbox';
+        checkbox.id = checkboxID;
+        checkbox.name = `quien_practica_${actividadValue}`;
+        checkbox.value = i; // El valor es el índice del solicitante
+        
+        // Añadimos el 'listener' a CADA checkbox
+        checkbox.addEventListener('change', () => {
+            actualizarCamposDeDetalle(checkboxWrapper, detallesContainer, actividadValue);
+        });
+
+        label.appendChild(checkbox);
+        label.append((i === 1) ? ' Solicitante 1 - Titular' : ` Solicitante ${i}`);
+        
+        checkboxWrapper.appendChild(label);
+    }
+    
+    // 4. Añadir los nuevos elementos al DOM
+    selectorContainer.appendChild(checkboxWrapper);
+    container.appendChild(selectorContainer);
+    container.appendChild(detallesContainer);
+}
+
+/**
+ * Muestra u oculta los campos de detalle para una actividad según los checkboxes marcados.
+ * (Versión actualizada para funcionar con checkboxes).
+ */
+function actualizarCamposDeDetalle(checkboxWrapper, container, actividadValue) {
+    // Limpiar detalles anteriores
+    container.innerHTML = '';
+    
+    // Obtener todos los checkboxes que están marcados dentro del wrapper
+    const checkboxesSeleccionados = checkboxWrapper.querySelectorAll('input[type="checkbox"]:checked');
+    
+    // Verificar si para esta actividad se necesitan detalles
+    if (detalleActividadesPlantillas[actividadValue]) {
+        checkboxesSeleccionados.forEach(checkbox => {
+            const index = checkbox.value; // Obtenemos el índice del solicitante desde el valor del checkbox
+            const sufijo = `_solicitante_${index}`;
+            const plantillaFn = detalleActividadesPlantillas[actividadValue];
+            container.innerHTML += plantillaFn(sufijo);
+        });
+    }
+}
+
+
+
 });
