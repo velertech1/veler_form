@@ -240,120 +240,109 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function setupConditionalFields() {
-            // --- INICIA LÓGICA PARA SOLICITANTES Y CONTRATANTES ---
-
-    // Lógica para mostrar/ocultar el selector de número de asegurados
-    const radiosAgregarAsegurados = document.querySelectorAll('input[name="agregarAsegurados"]');
     const cantidadContainer = document.getElementById('cantidadAseguradosContainer');
+/**
+ * Asigna todos los event listeners para los campos condicionales del formulario.
+ * Esta función se encarga de mostrar u ocultar campos basados en la selección del usuario.
+ */
+function setupConditionalFields() {
 
-    radiosAgregarAsegurados.forEach(radio => {
-        radio.addEventListener('change', (event) => {
-            console.log(`DEBUG: Opción 'agregar asegurados' cambiada a: ${event.target.value}`); // Línea de depuración
-            if (event.target.value === 'si') {
-                cantidadContainer.style.display = 'block';
-            } else {
-                cantidadContainer.style.display = 'none';
-                // Futuro: Aquí pondremos la lógica para eliminar asegurados si el usuario cambia a "No".
-            }
-        });
-    });
+    console.log("DEBUG: Configurando campos condicionales...");
 
-    // INICIA CONTRATANTE
-
-    // Lógica para mostrar/ocultar el formulario completo del Contratante
-    const radiosContratanteEsTitular = document.querySelectorAll('input[name="contratanteEsTitular"]');
-    // Apuntamos al nuevo contenedor principal
-    const datosContratanteContainer = document.getElementById('datosContratanteDiferenteContainer'); 
-
-    radiosContratanteEsTitular.forEach(radio => {
-        radio.addEventListener('change', (event) => {
-            console.log(`DEBUG: Opción 'contratante es titular' cambiada a: ${event.target.value}`); // Línea de depuración
-            if (event.target.value === 'no') {
-                datosContratanteContainer.style.display = 'block';
-            } else {
-                datosContratanteContainer.style.display = 'none';
-            }
-        });
-    });
-
-    // Nueva lógica para el checkbox de "domicilio diferente"
-    const checkDomicilioDiferente = document.getElementById('contratanteDomicilioDiferente');
-    const domicilioContainer = document.getElementById('domicilioContratanteContainer');
-
-    checkDomicilioDiferente.addEventListener('change', (event) => {
-        const esDiferente = event.target.checked;
-        console.log(`DEBUG: Checkbox 'domicilio diferente' cambió a: ${esDiferente}`); // Línea de depuración
-        if (esDiferente) {
-            domicilioContainer.style.display = 'grid'; // Usamos grid para que respete las columnas
-        } else {
-            domicilioContainer.style.display = 'none';
-        }
-    });
-
-    // --- AÑADE ESTE NUEVO BLOQUE DENTRO DE setupConditionalFields() ---
-
-    // Lógica para el checkbox de "domicilio fiscal"
-    const checkFiscalIgual = document.getElementById('contratanteFiscalIgual');
-    const domicilioFiscalContainer = document.getElementById('domicilioFiscalContainer');
-
-    checkFiscalIgual.addEventListener('change', (event) => {
-        const esIgual = event.target.checked;
-        console.log(`DEBUG: Checkbox 'domicilio fiscal es igual' cambió a: ${esIgual}`); // Línea de depuración
-        
-        // Si la casilla está marcada, el domicilio es igual, por lo tanto OCULTAMOS el contenedor.
-        // Si se desmarca, el domicilio es diferente, por lo tanto MOSTRAMOS el contenedor.
-        if (esIgual) {
-            domicilioFiscalContainer.style.display = 'none';
-        } else {
-            domicilioFiscalContainer.style.display = 'grid'; // Usamos grid para que respete las columnas
-        }
-    });
-    
-    // --- FIN DE CONTRATANTE-- //
-
-    // --- TERMINA LÓGICA PARA SOLICITANTES Y CONTRATANTES ---
-
-        const addListener = (selector, event, handler) => {
-            const element = document.querySelector(selector);
-            if (element) element.addEventListener(event, handler);
-        };
-        const addListenerAll = (selector, event, handler) => {
-            document.querySelectorAll(selector).forEach(el => el.addEventListener(event, handler));
-        };
-        const toggleDisplay = (id, show) => {
-            const element = document.getElementById(id);
-            if (element) element.style.display = show ? 'block' : 'none';
-        };
-
-        addListenerAll('input[name="cargo_gobierno"]', 'change', e => toggleDisplay('cargo_dependencia_group', e.target.value === 'si'));
-        addListener('input[value="motocicleta"]', 'change', e => toggleDisplay('moto_details', e.target.checked));
-        addListener('input[value="aviones"]', 'change', e => toggleDisplay('avion_details', e.target.checked));
-        addListener('#genero', 'change', e => toggleDisplay('embarazo_group', e.target.value === 'femenino'));
-        addListenerAll('input[name="fuma"]', 'change', e => {
-            toggleDisplay('fuma_details', e.target.value === 'si');
-            toggleDisplay('no_fuma_details', e.target.value === 'no');
-        });
-        addListenerAll('input[name="alcohol"]', 'change', e => toggleDisplay('alcohol_details', e.target.value === 'si'));
-        addListenerAll('input[name="drogas"]', 'change', e => toggleDisplay('drogas_details', e.target.value === 'si'));
-        addListenerAll('input[name="embarazo"]', 'change', e => toggleDisplay('embarazo_details', e.target.value === 'si'));
-        const deportesCheckboxes = document.querySelectorAll('input[name="deporte_riesgo"]');
-        deportesCheckboxes.forEach(cb => cb.addEventListener('change', () => {
-            const algunoMarcado = Array.from(deportesCheckboxes).some(c => c.checked);
-            toggleDisplay('deporte_details', algunoMarcado);
-        }));
-        const padecimientosRadios = document.querySelectorAll('input[name="enf_cronica"], input[name="trat_medico"], input[name="hospitalizado"], input[name="discapacidad"], input[name="otro_padecimiento"]');
-        padecimientosRadios.forEach(radio => radio.addEventListener('change', () => {
-            const algunoSi = Array.from(padecimientosRadios).some(r => r.checked && r.value === 'si');
-            toggleDisplay('detalle_padecimientos_group', algunoSi);
-        }));
-        addListenerAll('input[name="viajar"]', 'change', e => toggleDisplay('viajar_details', e.target.value === 'si'));
-        addListenerAll('input[name="antiguedad"]', 'change', e => toggleDisplay('antiguedad_details', e.target.value === 'si'));
-        addListener('#pago_medio', 'change', e => {
-            toggleDisplay('pago_tarjeta_details', e.target.value === 'tarjeta');
-            toggleDisplay('pago_clabe_details', e.target.value === 'clabe');
+    // --- Lógica para la sección SOLICITANTE ---
+    const radiosCargoGobierno = document.querySelectorAll('input[name="cargo_gobierno"]');
+    const grupoDependencia = document.getElementById('cargo_dependencia_group');
+    if (radiosCargoGobierno.length > 0 && grupoDependencia) {
+        radiosCargoGobierno.forEach(radio => {
+            radio.addEventListener('change', (event) => {
+                grupoDependencia.style.display = (event.target.value === 'si') ? 'block' : 'none';
+            });
         });
     }
+
+    // --- Lógica para la sección DOMICILIO ---
+    const checkDomicilioFiscal = document.getElementById('domicilioFiscalDiferente');
+    const domicilioFiscalContainer = document.getElementById('domicilioFiscalContainer');
+    if (checkDomicilioFiscal && domicilioFiscalContainer) {
+        checkDomicilioFiscal.addEventListener('change', (event) => {
+            domicilioFiscalContainer.style.display = event.target.checked ? 'grid' : 'none';
+        });
+    }
+
+    // --- Lógica para la sección DATOS DEL CONTRATANTE ---
+    const radiosContratanteEsTitular = document.querySelectorAll('input[name="contratanteEsTitular"]');
+    const datosContratanteContainer = document.getElementById('datosContratanteDiferenteContainer');
+    if (radiosContratanteEsTitular.length > 0 && datosContratanteContainer) {
+        radiosContratanteEsTitular.forEach(radio => {
+            radio.addEventListener('change', (event) => {
+                datosContratanteContainer.style.display = (event.target.value === 'no') ? 'block' : 'none';
+            });
+        });
+    }
+
+    const checkDomicilioDiferenteContratante = document.getElementById('contratanteDomicilioDiferente');
+    const domicilioContratanteContainer = document.getElementById('domicilioContratanteContainer');
+    if (checkDomicilioDiferenteContratante && domicilioContratanteContainer) {
+        checkDomicilioDiferenteContratante.addEventListener('change', (event) => {
+            domicilioContratanteContainer.style.display = event.target.checked ? 'grid' : 'none';
+        });
+    }
+    
+    const checkFiscalIgualContratante = document.getElementById('contratanteFiscalIgual');
+    const domicilioFiscalContainerContratante = document.getElementById('domicilioFiscalContainer_contratante'); // Suponiendo que el ID en el HTML es este para diferenciarlo
+    if (checkFiscalIgualContratante && domicilioFiscalContainerContratante) {
+        checkFiscalIgualContratante.addEventListener('change', (event) => {
+            domicilioFiscalContainerContratante.style.display = event.target.checked ? 'none' : 'grid';
+        });
+    }
+
+    // --- Lógica para la sección HÁBITOS ---
+    const selectGenero = document.getElementById('sexo_nacer'); // Actualizado al ID correcto
+    const grupoEmbarazo = document.getElementById('embarazo_group');
+    if(selectGenero && grupoEmbarazo) {
+        selectGenero.addEventListener('change', (event) => {
+            grupoEmbarazo.style.display = (event.target.value === 'femenino') ? 'block' : 'none';
+        });
+    }
+    
+    const radiosFuma = document.querySelectorAll('input[name="fuma"]');
+    const detallesFuma = document.getElementById('fuma_details');
+    const detallesNoFuma = document.getElementById('no_fuma_details');
+    if(radiosFuma.length > 0 && detallesFuma && detallesNoFuma) {
+        radiosFuma.forEach(radio => radio.addEventListener('change', (e) => {
+            detallesFuma.style.display = (e.target.value === 'si') ? 'block' : 'none';
+            detallesNoFuma.style.display = (e.target.value === 'no') ? 'block' : 'none';
+        }));
+    }
+
+    // --- Lógica para OTRAS secciones (Actividades, Info Médica, etc.) ---
+    const checkMotocicleta = document.querySelector('input[value="motocicleta"]');
+    const detallesMoto = document.getElementById('moto_details');
+    if(checkMotocicleta && detallesMoto) {
+        checkMotocicleta.addEventListener('change', e => {
+            detallesMoto.style.display = e.target.checked ? 'block' : 'none';
+        });
+    }
+    
+    const padecimientosRadios = document.querySelectorAll('input[name="enf_cronica"], input[name="trat_medico"], input[name="hospitalizado"], input[name="discapacidad"], input[name="otro_padecimiento"]');
+    const detallePadecimientos = document.getElementById('detalle_padecimientos_group');
+    if(padecimientosRadios.length > 0 && detallePadecimientos){
+         padecimientosRadios.forEach(radio => radio.addEventListener('change', () => {
+            const algunoSi = Array.from(padecimientosRadios).some(r => r.checked && r.value === 'si');
+            detallePadecimientos.style.display = algunoSi ? 'block' : 'none';
+        }));
+    }
+
+    const selectMedioPago = document.getElementById('pago_medio');
+    const detallesTarjeta = document.getElementById('pago_tarjeta_details');
+    const detallesClabe = document.getElementById('pago_clabe_details');
+    if(selectMedioPago && detallesTarjeta && detallesClabe) {
+        selectMedioPago.addEventListener('change', e => {
+            detallesTarjeta.style.display = (e.target.value === 'tarjeta') ? 'block' : 'none';
+            detallesClabe.style.display = (e.target.value === 'clabe') ? 'block' : 'none';
+        });
+    }
+}
 
     function showSection(index) {
         const mainForm = document.querySelector(config.domSelectors.form);
