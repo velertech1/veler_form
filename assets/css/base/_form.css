@@ -559,3 +559,25 @@ main#formulario-completo.modo-revision textarea:disabled {
     border-bottom: 1px solid #eee;
     padding-bottom: 8px;
 }
+
+.deporte-fila {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.deporte-fila .form-group {
+    flex-grow: 1;
+}
+.btn-remover-fila {
+    background: transparent;
+    border: none;
+    color: var(--accent-color-danger, #dc3545);
+    font-size: 1.8em;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 10px;
+    line-height: 1;
+}

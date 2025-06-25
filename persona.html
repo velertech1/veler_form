@@ -323,23 +323,33 @@
 
             <div id="seccion-deportes" class="seccion-formulario">
                 <h2><span class="material-symbols-outlined">sports_soccer</span>Deportes</h2>
-                <p class="subtitulo-ligero">¿Practicas alguno de estos deportes o actividades con regularidad?</p>
-                 <div class="form-columns-container">
-                    <div class="form-group full-width-column">
-                        <label><input type="checkbox" name="deporte_riesgo" value="alpinismo"> Alpinismo / Montañismo / Escalada</label>
-                        <label><input type="checkbox" name="deporte_riesgo" value="artes_marciales"> Artes marciales (contacto)</label>
-                        <label><input type="checkbox" name="deporte_riesgo" value="automovilismo"> Automovilismo / Motociclismo deportivo</label>
-                        <label><input type="checkbox" name="deporte_riesgo" value="boxeo"> Boxeo</label>
-                        <label><input type="checkbox" name="deporte_riesgo" value="buceo"> Buceo (Scuba)</label>
-                        <label><input type="checkbox" name="deporte_riesgo" value="paracaidismo"> Paracaidismo / Parapente / Ala Delta</label>
-                        <label><input type="checkbox" name="deporte_riesgo" value="tauromaquia"> Tauromaquia</label>
+                <p class="subtitulo-ligero">Especifica los deportes practicados por cada solicitante.</p>
+
+                <div class="deportes-container">
+
+                    <div class="deporte-categoria-item">
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" name="deporte_categoria_check" value="amateur">
+                                ¿Algún solicitante practica algún deporte de manera amateur?
+                            </label>
+                        </div>
+                        <div class="asignacion-container" style="display: none;"></div>
                     </div>
-                    <div class="form-group full-width-column"><label for="otro_deporte">Otro deporte/actividad de riesgo:</label><input type="text" id="otro_deporte" name="otro_deporte" class="form-control"></div>
-                    <div id="deporte_details" style="display:none;" class="full-width-column">
-                        <div class="form-group"><label for="deporte_practica">Tipo de práctica</label><input type="text" id="deporte_practica" name="deporte_practica" class="form-control" placeholder="Amateur, Profesional"></div>
-                        <div class="form-group"><label for="deporte_frecuencia">Frecuencia</label><input type="text" id="deporte_frecuencia" name="deporte_frecuencia" class="form-control" placeholder="Ej: Semanal, Mensual"></div>
+
+                    <hr class="form-separator">
+
+                    <div class="deporte-categoria-item">
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" name="deporte_categoria_check" value="profesional">
+                                ¿Algún solicitante practica algún deporte de manera profesional? (que percibe alguna remuneración)
+                            </label>
+                        </div>
+                        <div class="asignacion-container" style="display: none;"></div>
                     </div>
-                 </div>
+                    
+                </div>
             </div>
 
             <div id="seccion-info-medica" class="seccion-formulario">

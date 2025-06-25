@@ -157,6 +157,35 @@ document.addEventListener('DOMContentLoaded', () => {
         `
     };
 
+    // Objeto con las plantillas para los campos de detalle de la sección Deportes
+    const detalleDeportesPlantillas = {
+        amateur: (sufijo) => `
+            <div class="deporte-fila" data-sufijo="${sufijo}">
+                <div class="form-group">
+                    <label for="deporte_amateur_nombre${sufijo}">Deporte:</label>
+                    <input type="text" id="deporte_amateur_nombre${sufijo}" name="deporte_amateur_nombre${sufijo}" class="form-control" placeholder="Nombre del deporte">
+                </div>
+                <div class="form-group">
+                    <label>Frecuencia: <span class="required-marker">*</span></label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="deporte_amateur_frecuencia${sufijo}" value="hasta_3" checked> Hasta 3 veces/semana</label>
+                        <label><input type="radio" name="deporte_amateur_frecuencia${sufijo}" value="mas_3"> Más de 3 veces/semana</label>
+                    </div>
+                </div>
+                <button type="button" class="btn-remover-fila" title="Eliminar este deporte">&times;</button>
+            </div>
+        `,
+        profesional: (sufijo) => `
+            <div class="deporte-fila" data-sufijo="${sufijo}">
+                <div class="form-group">
+                    <label for="deporte_profesional_nombre${sufijo}">Deporte:</label>
+                    <input type="text" id="deporte_profesional_nombre${sufijo}" name="deporte_profesional_nombre${sufijo}" class="form-control" placeholder="Nombre del deporte">
+                </div>
+                <button type="button" class="btn-remover-fila" title="Eliminar este deporte">&times;</button>
+            </div>
+        `
+    };
+
     // --- 3. FUNCIONES DE INICIALIZACIÓN (CON LÓGICA AÑADIDA) ---
     function initialize() {
         state.isLightMode = (localStorage.getItem(config.storageKeys.themeMode) || 'dark') === 'light';
@@ -171,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('btn-agregar-asegurado').addEventListener('click', agregarNuevoSolicitante);
         setupRiskActivities();
         setupHabits();
+        setupSports();
         showSection(0);
     }
 
@@ -708,6 +738,107 @@ function actualizarDetallesDeHabito(checkboxWrapper, container, habitoValue) {
     }
 }
 
+/**
+ * Configura la lógica interactiva para la sección de Deportes.
+ */
+function setupSports() {
+    document.querySelectorAll('.deporte-categoria-item').forEach(item => {
+        const checkCategoria = item.querySelector('input[name="deporte_categoria_check"]');
+        const asignacionContainer = item.querySelector('.asignacion-container');
 
+        checkCategoria.addEventListener('change', event => {
+            asignacionContainer.innerHTML = ''; // Limpiar al cambiar
+            if (event.target.checked) {
+                asignacionContainer.style.display = 'block';
+                crearAsignadorDeDeportes(asignacionContainer, checkCategoria.value);
+            } else {
+                asignacionContainer.style.display = 'none';
+            }
+        });
+    });
+}
+
+/**
+ * Crea la lista de solicitantes para asignar una categoría de deporte (amateur/profesional).
+ */
+function crearAsignadorDeDeportes(container, categoria) {
+    container.innerHTML = `
+        <div class="form-group">
+            <label class="asignacion-label">¿Quién(es) lo practican?</label>
+            <div class="solicitante-checkbox-container"></div>
+        </div>
+        <div class="detalles-por-solicitante-container"></div>
+    `;
+
+    const checkboxWrapper = container.querySelector('.solicitante-checkbox-container');
+    const detallesContainer = container.querySelector('.detalles-por-solicitante-container');
+
+    for (let i = 1; i <= solicitanteCount; i++) {
+        const nombre = document.getElementById(i === 1 ? 'nombres' : `nombres_solicitante_${i}`)?.value.split(' ')[0] || '';
+        const textoLabel = nombre ? `${i}.- ${nombre}` : (i === 1 ? 'Solicitante 1 - Titular' : `Solicitante ${i}`);
+        
+        const label = document.createElement('label');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = i;
+        label.append(checkbox, ` ${textoLabel}`);
+        
+        checkbox.addEventListener('change', () => actualizarBloqueDeportesPersona(checkbox, detallesContainer, categoria));
+        checkboxWrapper.appendChild(label);
+    }
+}
+
+/**
+ * Muestra u oculta el bloque de gestión de deportes para una persona.
+ */
+function actualizarBloqueDeportesPersona(checkbox, container, categoria) {
+    const solicitanteIndex = checkbox.value;
+    const bloqueExistente = container.querySelector(`#bloque_deportes_${categoria}_${solicitanteIndex}`);
+
+    if (checkbox.checked && !bloqueExistente) {
+        const nombre = document.getElementById(solicitanteIndex === '1' ? 'nombres' : `nombres_solicitante_${solicitanteIndex}`)?.value || `Solicitante ${solicitanteIndex}`;
+        const nuevoBloque = document.createElement('div');
+        nuevoBloque.id = `bloque_deportes_${categoria}_${solicitanteIndex}`;
+        nuevoBloque.className = 'detalle-actividad-solicitante'; // Reutilizamos clase de estilo
+        nuevoBloque.innerHTML = `
+            <h5>Deportes (${categoria}) de ${nombre.split(' ')[0]}</h5>
+            <div class="lista-deportes-container"></div>
+            <div class="accion-adicional-container" style="border-top: none; text-align: left; padding-top: 10px;">
+                <button type="button" class="btn-secundario btn-agregar-deporte">
+                    <span class="material-symbols-outlined">add</span>
+                    Agregar Deporte
+                </button>
+            </div>
+        `;
+        container.appendChild(nuevoBloque);
+        
+        // Asignar evento al nuevo botón "Agregar Deporte"
+        nuevoBloque.querySelector('.btn-agregar-deporte').addEventListener('click', () => {
+            agregarFilaDeporte(nuevoBloque.querySelector('.lista-deportes-container'), categoria, solicitanteIndex);
+        });
+
+    } else if (!checkbox.checked && bloqueExistente) {
+        bloqueExistente.remove();
+    }
+}
+
+/**
+ * Añade una nueva fila para registrar un deporte.
+ */
+function agregarFilaDeporte(container, categoria, solicitanteIndex) {
+    const numDeportes = container.querySelectorAll('.deporte-fila').length;
+    const sufijo = `_solicitante_${solicitanteIndex}_${numDeportes}`;
+    const plantillaFn = detalleDeportesPlantillas[categoria];
+    
+    const divFila = document.createElement('div');
+    divFila.innerHTML = plantillaFn(sufijo);
+
+    // Asignar evento al nuevo botón "Eliminar"
+    divFila.querySelector('.btn-remover-fila').addEventListener('click', (e) => {
+        e.target.closest('.deporte-fila').remove();
+    });
+
+    container.appendChild(divFila.firstElementChild);
+}
 
 });
