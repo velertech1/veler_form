@@ -495,3 +495,67 @@ main#formulario-completo.modo-revision textarea:disabled {
 .solicitante-checkbox-container label {
     cursor: pointer;
 }
+
+/* --- Estilos para la asignación de Actividades de Riesgo --- */
+
+/* Contenedor que aparece al marcar una actividad */
+.asignacion-container {
+    margin-top: 15px; /* Aumenta el espacio debajo de la actividad principal */
+    padding-left: 25px; /* Indentación para mostrar jerarquía */
+    border-left: 2px solid #f0f0f0; /* Línea visual sutil a la izquierda */
+    padding-top: 10px;
+}
+
+/* Estilo para la pregunta "¿Quién(es) la practican?" */
+.asignacion-label {
+    display: block;
+    margin-bottom: 10px; /* Espacio debajo de la pregunta */
+    font-size: 0.9em; /* Ligeramente más pequeña */
+    font-weight: 500;
+    color: var(--text-color-secondary); /* Usa el color de texto secundario del tema */
+}
+
+/* Contenedor de los checkboxes de solicitantes */
+.solicitante-checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 25px; /* Espacio vertical y horizontal entre checkboxes */
+    padding-top: 5px;
+}
+
+/* Etiqueta de cada solicitante (para alinear checkbox y texto) */
+.solicitante-checkbox-container label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95em; /* Tamaño de fuente para los nombres */
+}
+
+/* Tamaño y espaciado del checkbox en sí */
+.solicitante-checkbox-container input[type="checkbox"] {
+    width: 1.1em;   /* Un poco más grande */
+    height: 1.1em;  /* Un poco más grande */
+    margin-right: 8px; /* Espacio entre el checkbox y el nombre */
+}
+
+/* Contenedor para los campos de detalle (moto, avión, etc.) */
+.detalles-por-solicitante-container {
+    margin-top: 20px;
+}
+
+/* Estilo para cada bloque de detalle de un solicitante */
+.detalle-actividad-solicitante {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 6px;
+}
+
+.detalle-actividad-solicitante h5 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+    color: var(--accent-color);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}

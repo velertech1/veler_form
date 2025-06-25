@@ -458,15 +458,14 @@ function setupRiskActivities() {
     });
 }
 
-/**
- * Crea y añade una lista de checkboxes para seleccionar a los solicitantes.
- * (Versión actualizada para usar checkboxes en lugar de un select).
- */
 function crearSelectorDeSolicitantes(container, actividadValue) {
     // 1. Crear el contenedor y la etiqueta
     const selectorContainer = document.createElement('div');
     selectorContainer.className = 'form-group';
-    selectorContainer.innerHTML = '<label>¿Quién(es) la practican?</label>';
+    const preguntaLabel = document.createElement('label'); // <-- Creamos el label por separado
+    preguntaLabel.className = 'asignacion-label'; // <-- Le asignamos una clase
+    preguntaLabel.textContent = '¿Quién(es) la practican?';
+    selectorContainer.appendChild(preguntaLabel); // <-- Lo añadimos al contenedor
 
     // 2. Crear el div que contendrá todos los checkboxes
     const checkboxWrapper = document.createElement('div');
