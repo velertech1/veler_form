@@ -455,3 +455,33 @@ main#formulario-completo.modo-revision textarea:disabled {
     border-top: 1px solid #a5a0a0;
     margin: 25px 0;
 }
+
+/* --- Estilos para el botón de acciones adicionales --- */
+
+.accion-adicional-container {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color, #e0e0e0); /* Usa una variable de color si existe, si no, un gris por defecto */
+    text-align: right;
+}
+
+.btn-secundario {
+    background-color: transparent;
+    color: var(--accent-color, #007bff); /* Usa una variable de color si existe, si no, un azul por defecto */
+    border: 1px solid var(--accent-color, #007bff);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre el ícono y el texto */
+    transition: all 0.2s ease;
+}
+
+.btn-secundario:hover {
+    background-color: rgba(var(--accent-color-rgb), 0.1); /* Asume que tienes una variable --accent-color-rgb */
+    /* Si no la tienes, puedes usar una alternativa como esta: */
+    /* background-color: #f0f8ff; */
+}

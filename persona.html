@@ -21,7 +21,7 @@
         <form id="miFormularioDinamico">
             
             <div id="seccion-solicitante" class="seccion-formulario">
-                <h2><span class="material-symbols-outlined">person</span>Solicitante</h2>
+                <h2><span class="material-symbols-outlined">person</span>Solicitante 1 - Titular</h2>
                 <p class="subtitulo-ligero">Comencemos con tus datos personales.</p>
                 <div class="form-columns-container">
                     <div class="form-group"><label for="primer_apellido">Primer apellido <span class="required-marker">*</span></label><input type="text" id="primer_apellido" name="primer_apellido" class="form-control" required placeholder="Primer apellido"></div>
@@ -57,6 +57,12 @@
                     
                     <div class="form-group" id="cargo_dependencia_group" style="display: none;"><label for="cargo_dependencia">Cargo y dependencia</label><input type="text" id="cargo_dependencia" name="cargo_dependencia" class="form-control" placeholder="Cargo y dependencia"></div>
                 </div>
+                    <div class="accion-adicional-container">
+                        <button type="button" id="btn-agregar-asegurado" class="btn-secundario">
+                            <span class="material-symbols-outlined">person_add</span>
+                            Agregar Asegurado Adicional
+                        </button>
+                    </div>
             </div>
             
             <div id="seccion-domicilio" class="seccion-formulario">

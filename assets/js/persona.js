@@ -59,6 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
         menuItems: []
     };
 
+    // --- PARA LO DE SOLICITANTES EXTRA ---
+    let solicitanteCount = 1;
+    const MAX_SOLICITANTES = 10;
+
     // --- 3. FUNCIONES DE INICIALIZACIÓN (CON LÓGICA AÑADIDA) ---
     function initialize() {
         state.isLightMode = (localStorage.getItem(config.storageKeys.themeMode) || 'dark') === 'light';
@@ -70,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         setupFormNavigation();
         setupConditionalFields(); // <--- LÓGICA NUEVA AÑADIDA AQUÍ
+        document.getElementById('btn-agregar-asegurado').addEventListener('click', agregarNuevoSolicitante);
         showSection(0);
     }
 
@@ -132,6 +137,90 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.replace('body-sidebar-expanded', 'body-sidebar-collapsed');
         }
     }
+
+        /**
+         * Clona los campos del solicitante titular para registrar asegurados adicionales.
+         */
+        function agregarNuevoSolicitante() {
+            // 1. Validar el límite
+            if (solicitanteCount >= MAX_SOLICITANTES) {
+                console.log("DEBUG: Límite de solicitantes alcanzado.");
+                document.getElementById('btn-agregar-asegurado').disabled = true;
+                document.getElementById('btn-agregar-asegurado').textContent = "Límite de 10 solicitantes alcanzado";
+                return;
+            }
+
+            solicitanteCount++;
+            console.log(`DEBUG: Agregando Solicitante número ${solicitanteCount}`);
+
+            // 2. Definir el contenedor principal y el punto de inserción
+            const seccionSolicitante = document.getElementById('seccion-solicitante');
+            const contenedorBoton = document.querySelector('.accion-adicional-container');
+
+            // 3. Crear el nuevo bloque
+            const nuevoBloque = document.createElement('div');
+            nuevoBloque.className = 'bloque-solicitante-adicional';
+            
+            // 4. Clonar los campos del primer solicitante
+            const camposOriginales = document.querySelector('#seccion-solicitante .form-columns-container');
+            let camposClonadosHTML = camposOriginales.innerHTML;
+            
+            // 5. Crear identificadores únicos para los nuevos campos
+            const sufijo = `_solicitante_${solicitanteCount}`;
+            camposClonadosHTML = camposClonadosHTML.replace(/id="/g, `id="`);
+            camposClonadosHTML = camposClonadosHTML.replace(/for="([a-zA-Z0-9_]+)"/g, `for="$1${sufijo}"`);
+            camposClonadosHTML = camposClonadosHTML.replace(/id="([a-zA-Z0-9_]+)"/g, `id="$1${sufijo}"`);
+            camposClonadosHTML = camposClonadosHTML.replace(/name="([a-zA-Z0-9_]+)"/g, `name="$1${sufijo}"`);
+
+            // 6. Construir el HTML del nuevo bloque
+            nuevoBloque.innerHTML = `
+                <hr class="form-separator">
+                <h3>Solicitante ${solicitanteCount}</h3>
+                <div class="form-columns-container">
+                    ${camposClonadosHTML}
+                </div>
+            `;
+
+            // 7. Insertar el nuevo bloque en el DOM, antes del botón
+            seccionSolicitante.insertBefore(nuevoBloque, contenedorBoton);
+
+            // 8. Limpiar los valores de los campos recién creados
+            const camposNuevos = nuevoBloque.querySelectorAll('input, select');
+            camposNuevos.forEach(campo => {
+                if (campo.type === 'radio' || campo.type === 'checkbox') {
+                    campo.checked = false;
+                } else if (campo.tagName === 'SELECT') {
+                    campo.selectedIndex = 0;
+                } else {
+                    campo.value = '';
+                }
+            });
+
+            // Después de limpiar, establecemos explícitamente el 'No' como seleccionado.
+            const radioNoGobierno = nuevoBloque.querySelector(`input[name="cargo_gobierno${sufijo}"][value="no"]`);
+            if (radioNoGobierno) {
+                radioNoGobierno.checked = true;
+            }
+
+            // 9. Reactivar la lógica condicional para los campos del nuevo bloque
+            const nuevosRadiosGobierno = nuevoBloque.querySelectorAll(`input[name="cargo_gobierno${sufijo}"]`);
+            const nuevoGrupoDependencia = nuevoBloque.querySelector(`#cargo_dependencia_group${sufijo}`);
+
+            // Nos aseguramos que los elementos existan antes de añadir el 'listener'
+            if (nuevosRadiosGobierno && nuevoGrupoDependencia) {
+                nuevosRadiosGobierno.forEach(radio => {
+                    radio.addEventListener('change', (event) => {
+                        if (event.target.value === 'si') {
+                            nuevoGrupoDependencia.style.display = 'block';
+                        } else {
+                            nuevoGrupoDependencia.style.display = 'none';
+                        }
+                    });
+                });
+                console.log(`DEBUG: Lógica condicional de 'cargo gobierno' activada para Solicitante ${solicitanteCount}`);
+            }
+
+        }
     
     // --- 4. LÓGICA DE FORMULARIO (ACTUALIZADA) ---
     function setupFormNavigation() {
