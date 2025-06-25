@@ -65,139 +65,139 @@
                     </div>
             </div>
             
+            
+            <div id="seccion-domicilio" class="seccion-formulario">
+                <h2><span class="material-symbols-outlined">home</span>Domicilio</h2>
+                <p class="subtitulo-ligero">Información de tu residencia actual.</p>
+                
+                <p class="aclaracion-texto">
+                    <span class="material-symbols-outlined">info</span>
+                    Este domicilio se registrará como el principal para todos los solicitantes incluidos en esta póliza.
+                </p>
+
+                <div class="form-columns-container">
+                    <div class="form-group"><label for="calle">Calle <span class="required-marker">*</span></label><input type="text" id="calle" name="calle" class="form-control" required placeholder="Ej: Av. Paseo de la Reforma"></div>
+                    <div class="form-group"><label for="no_exterior">No. Exterior <span class="required-marker">*</span></label><input type="text" id="no_exterior" name="no_exterior" class="form-control" required placeholder="222"></div>
+                    <div class="form-group"><label for="no_interior">No. Interior (Opcional)</label><input type="text" id="no_interior" name="no_interior" class="form-control" placeholder="Piso 1, Depto A"></div>
+                    <div class="form-group"><label for="colonia">Colonia <span class="required-marker">*</span></label><input type="text" id="colonia" name="colonia" class="form-control" required placeholder="Colonia Juárez"></div>
+                    <div class="form-group"><label for="cp">Código Postal <span class="required-marker">*</span></label><input type="text" id="cp" name="cp" class="form-control" required placeholder="06600"></div>
+                    <div class="form-group"><label for="municipio">Municipio/Alcaldía <span class="required-marker">*</span></label><input type="text" id="municipio" name="municipio" class="form-control" required placeholder="Cuauhtémoc"></div>
+                    <div class="form-group"><label for="estado">Estado <span class="required-marker">*</span></label><input type="text" id="estado" name="estado" class="form-control" required placeholder="Ciudad de México"></div>
+                    <div class="form-group"><label for="tel_fijo">Teléfono Fijo (Opcional)</label><input type="tel" id="tel_fijo" name="tel_fijo" class="form-control" placeholder="10 dígitos"></div>
+                    <div class="form-group"><label for="tel_celular">Teléfono Celular <span class="required-marker">*</span></label><input type="tel" id="tel_celular" name="tel_celular" class="form-control" required placeholder="10 dígitos"></div>
+                    <div class="form-group"><label for="extension">Extensión (Opcional)</label><input type="text" id="extension" name="extension" class="form-control" placeholder="123"></div>
+                </div>
+
+                <div class="form-group full-width seccion-separada">
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" id="domicilioFiscalDiferente" name="domicilio_fiscal_diferente">
+                            Mi domicilio fiscal es diferente a mi domicilio particular
+                        </label>
+                    </div>
+                </div>
+                <div id="domicilioFiscalContainer" class="form-columns-container" style="display: none;">
+                    <h5 style="color:#555; grid-column: 1 / -1;">Datos del Domicilio Fiscal</h5>
+                    <div class="form-group"><label for="calle_fiscal">Calle <span class="required-marker">*</span></label><input type="text" id="calle_fiscal" name="calle_fiscal" class="form-control" placeholder="Ej: Av. de los Insurgentes Sur"></div>
+                    <div class="form-group"><label for="no_exterior_fiscal">No. Exterior <span class="required-marker">*</span></label><input type="text" id="no_exterior_fiscal" name="no_exterior_fiscal" class="form-control" placeholder="1025"></div>
+                    <div class="form-group"><label for="no_interior_fiscal">No. Interior (Opcional)</label><input type="text" id="no_interior_fiscal" name="no_interior_fiscal" class="form-control" placeholder="Piso 5"></div>
+                    <div class="form-group"><label for="colonia_fiscal">Colonia <span class="required-marker">*</span></label><input type="text" id="colonia_fiscal" name="colonia_fiscal" class="form-control" placeholder="San José Insurgentes"></div>
+                    <div class="form-group"><label for="cp_fiscal">Código Postal <span class="required-marker">*</span></label><input type="text" id="cp_fiscal" name="cp_fiscal" class="form-control" placeholder="03900"></div>
+                    <div class="form-group"><label for="municipio_fiscal">Municipio/Alcaldía <span class="required-marker">*</span></label><input type="text" id="municipio_fiscal" name="municipio_fiscal" class="form-control" placeholder="Benito Juárez"></div>
+                    <div class="form-group"><label for="estado_fiscal">Estado <span class="required-marker">*</span></label><input type="text" id="estado_fiscal" name="estado_fiscal" class="form-control" placeholder="Ciudad de México"></div>
+                </div>
+
             </div>
-<div id="seccion-domicilio" class="seccion-formulario">
-    <h2><span class="material-symbols-outlined">home</span>Domicilio</h2>
-    <p class="subtitulo-ligero">Información de tu residencia actual.</p>
-    
-    <p class="aclaracion-texto">
-        <span class="material-symbols-outlined">info</span>
-        Este domicilio se registrará como el principal para todos los solicitantes incluidos en esta póliza.
-    </p>
 
+<div id="seccion-contratante-asegurado" class="seccion-formulario">
+    <h2><span class="material-symbols-outlined">group</span>Datos del Contratante</h2>
+    <p class="subtitulo-ligero">El Contratante es el responsable legal y financiero de la póliza.</p>
     <div class="form-columns-container">
-        <div class="form-group"><label for="calle">Calle <span class="required-marker">*</span></label><input type="text" id="calle" name="calle" class="form-control" required placeholder="Ej: Av. Paseo de la Reforma"></div>
-        <div class="form-group"><label for="no_exterior">No. Exterior <span class="required-marker">*</span></label><input type="text" id="no_exterior" name="no_exterior" class="form-control" required placeholder="222"></div>
-        <div class="form-group"><label for="no_interior">No. Interior (Opcional)</label><input type="text" id="no_interior" name="no_interior" class="form-control" placeholder="Piso 1, Depto A"></div>
-        <div class="form-group"><label for="colonia">Colonia <span class="required-marker">*</span></label><input type="text" id="colonia" name="colonia" class="form-control" required placeholder="Colonia Juárez"></div>
-        <div class="form-group"><label for="cp">Código Postal <span class="required-marker">*</span></label><input type="text" id="cp" name="cp" class="form-control" required placeholder="06600"></div>
-        <div class="form-group"><label for="municipio">Municipio/Alcaldía <span class="required-marker">*</span></label><input type="text" id="municipio" name="municipio" class="form-control" required placeholder="Cuauhtémoc"></div>
-        <div class="form-group"><label for="estado">Estado <span class="required-marker">*</span></label><input type="text" id="estado" name="estado" class="form-control" required placeholder="Ciudad de México"></div>
-        <div class="form-group"><label for="tel_fijo">Teléfono Fijo (Opcional)</label><input type="tel" id="tel_fijo" name="tel_fijo" class="form-control" placeholder="10 dígitos"></div>
-        <div class="form-group"><label for="tel_celular">Teléfono Celular <span class="required-marker">*</span></label><input type="tel" id="tel_celular" name="tel_celular" class="form-control" required placeholder="10 dígitos"></div>
-        <div class="form-group"><label for="extension">Extensión (Opcional)</label><input type="text" id="extension" name="extension" class="form-control" placeholder="123"></div>
-    </div>
+        <div class="form-group"><label>¿El Solicitante Titular es la misma persona que el Contratante? <span class="required-marker">*</span></label><div class="radio-group"><label><input type="radio" id="contratanteEsTitularSi" name="contratanteEsTitular" value="si" checked> Sí</label><label><input type="radio" id="contratanteEsTitularNo" name="contratanteEsTitular" value="no"> No</label></div></div>
+        <div id="datosContratanteDiferenteContainer" style="display: none; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 20px;">
+            
+            <h4 style="margin-bottom: 15px; color: #333;">Datos del Contratante</h4>
 
-    <div class="form-group full-width seccion-separada">
-        <div class="checkbox-group">
-            <label>
-                <input type="checkbox" id="domicilioFiscalDiferente" name="domicilio_fiscal_diferente">
-                Mi domicilio fiscal es diferente a mi domicilio particular
-            </label>
+            <div class="form-columns-container">
+                <div class="form-group">
+                    <label for="contratante_nombre">Nombre(s) <span class="required-marker">*</span></label>
+                    <input type="text" id="contratante_nombre" name="contratante_nombre" class="form-control" required placeholder="Nombre(s)">
+                </div>
+                <div class="form-group">
+                    <label for="contratante_apellido1">Primer Apellido <span class="required-marker">*</span></label>
+                    <input type="text" id="contratante_apellido1" name="contratante_apellido1" class="form-control" required placeholder="Primer Apellido">
+                </div>
+                <div class="form-group">
+                    <label for="contratante_apellido2">Segundo Apellido</label>
+                    <input type="text" id="contratante_apellido2" name="contratante_apellido2" class="form-control" placeholder="Segundo Apellido">
+                </div>
+                <div class="form-group">
+                    <label for="contratante_fecha_nacimiento">Fecha de Nacimiento <span class="required-marker">*</span></label>
+                    <input type="date" id="contratante_fecha_nacimiento" name="contratante_fecha_nacimiento" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="contratante_rfc">R.F.C. <span class="required-marker">*</span></label>
+                    <input type="text" id="contratante_rfc" name="contratante_rfc" class="form-control" required placeholder="RFC con homoclave">
+                </div>
+                <div class="form-group">
+                    <label for="contratante_ocupacion">Ocupación <span class="required-marker">*</span></label>
+                    <input type="text" id="contratante_ocupacion" name="contratante_ocupacion" class="form-control" required placeholder="Ocupación">
+                </div>
+                <div class="form-group">
+                    <label>Sexo a nacer <span class="required-marker">*</span></label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="contratante_genero" value="F"> Femenino</label>
+                        <label><input type="radio" name="contratante_genero" value="M " checked> Masculino</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="contratante_parentesco">Parentesco con el titular <span class="required-marker">*</span></label>
+                    <input type="text" id="contratante_parentesco" name="contratante_parentesco" class="form-control" required placeholder="Ej: Cónyuge, Padre, etc.">
+                </div>
+            </div>
+
+            <div class="form-group full-width seccion-separada">
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="contratanteDomicilioDiferente" name="contratante_domicilio_diferente">
+                        El domicilio particular del contratante es diferente al del titular
+                    </label>
+                </div>
+            </div>
+            <div id="domicilioContratanteContainer" class="form-columns-container" style="display: none;">
+                <h5 style="color:#555; grid-column: 1 / -1;">Domicilio Particular</h5>
+                <div class="form-group">
+                    <label for="contratante_domicilio">Domicilio (Calle y Número) <span class="required-marker">*</span></label>
+                    <input type="text" id="contratante_domicilio" name="contratante_domicilio" class="form-control" placeholder="Ej: Av. de los Insurgentes Sur 123">
+                </div>
+                <div class="form-group">
+                    <label for="contratante_cp">C.P. <span class="required-marker">*</span></label>
+                    <input type="text" id="contratante_cp" name="contratante_cp" class="form-control" placeholder="03900">
+                </div>
+            </div>
+            
+            <div class="form-group full-width seccion-separada">
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="contratanteFiscalIgual" name="contratante_fiscal_igual" checked>
+                        Mi domicilio fiscal es el mismo que mi domicilio particular
+                    </label>
+                </div>
+            </div>
+            <div id="domicilioFiscalContainer" class="form-columns-container" style="display: none;">
+                <h5 style="color:#555; grid-column: 1 / -1;">Domicilio Fiscal</h5>
+                <div class="form-group">
+                    <label for="contratante_domicilio_fiscal">Domicilio Fiscal (Calle y Número) <span class="required-marker">*</span></label>
+                    <input type="text" id="contratante_domicilio_fiscal" name="contratante_domicilio_fiscal" class="form-control" placeholder="Calle y Número">
+                </div>
+                <div class="form-group">
+                    <label for="contratante_cp_fiscal">C.P. Fiscal <span class="required-marker">*</span></label>
+                    <input type="text" id="contratante_cp_fiscal" name="contratante_cp_fiscal" class="form-control" placeholder="Código Postal">
+                </div>
+            </div>
         </div>
     </div>
-    <div id="domicilioFiscalContainer" class="form-columns-container" style="display: none;">
-        <h5 style="color:#555; grid-column: 1 / -1;">Datos del Domicilio Fiscal</h5>
-        <div class="form-group"><label for="calle_fiscal">Calle <span class="required-marker">*</span></label><input type="text" id="calle_fiscal" name="calle_fiscal" class="form-control" placeholder="Ej: Av. de los Insurgentes Sur"></div>
-        <div class="form-group"><label for="no_exterior_fiscal">No. Exterior <span class="required-marker">*</span></label><input type="text" id="no_exterior_fiscal" name="no_exterior_fiscal" class="form-control" placeholder="1025"></div>
-        <div class="form-group"><label for="no_interior_fiscal">No. Interior (Opcional)</label><input type="text" id="no_interior_fiscal" name="no_interior_fiscal" class="form-control" placeholder="Piso 5"></div>
-        <div class="form-group"><label for="colonia_fiscal">Colonia <span class="required-marker">*</span></label><input type="text" id="colonia_fiscal" name="colonia_fiscal" class="form-control" placeholder="San José Insurgentes"></div>
-        <div class="form-group"><label for="cp_fiscal">Código Postal <span class="required-marker">*</span></label><input type="text" id="cp_fiscal" name="cp_fiscal" class="form-control" placeholder="03900"></div>
-        <div class="form-group"><label for="municipio_fiscal">Municipio/Alcaldía <span class="required-marker">*</span></label><input type="text" id="municipio_fiscal" name="municipio_fiscal" class="form-control" placeholder="Benito Juárez"></div>
-        <div class="form-group"><label for="estado_fiscal">Estado <span class="required-marker">*</span></label><input type="text" id="estado_fiscal" name="estado_fiscal" class="form-control" placeholder="Ciudad de México"></div>
-    </div>
-
 </div>
-
-            <div id="seccion-contratante-asegurado" class="seccion-formulario">
-                <h2><span class="material-symbols-outlined">group</span>Datos del Contratante</h2>
-                <p class="subtitulo-ligero">El Contratante es el responsable legal y financiero de la póliza.</p>
-                <div class="form-columns-container">
-                    <div class="form-group"><label>¿El Solicitante Titular es la misma persona que el Contratante? <span class="required-marker">*</span></label><div class="radio-group"><label><input type="radio" id="contratanteEsTitularSi" name="contratanteEsTitular" value="si" checked> Sí</label><label><input type="radio" id="contratanteEsTitularNo" name="contratanteEsTitular" value="no"> No</label></div></div>
-                <div id="datosContratanteDiferenteContainer" style="display: none; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 20px;">
-                    
-                    <h4 style="margin-bottom: 15px; color: #333;">Datos del Contratante</h4>
-
-                    <div class="form-columns-container">
-                        <div class="form-group">
-                            <label for="contratante_nombre">Nombre(s) <span class="required-marker">*</span></label>
-                            <input type="text" id="contratante_nombre" name="contratante_nombre" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contratante_apellido1">Primer Apellido <span class="required-marker">*</span></label>
-                            <input type="text" id="contratante_apellido1" name="contratante_apellido1" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contratante_apellido2">Segundo Apellido</label>
-                            <input type="text" id="contratante_apellido2" name="contratante_apellido2" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="contratante_fecha_nacimiento">Fecha de Nacimiento <span class="required-marker">*</span></label>
-                            <input type="date" id="contratante_fecha_nacimiento" name="contratante_fecha_nacimiento" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contratante_rfc">R.F.C. <span class="required-marker">*</span></label>
-                            <input type="text" id="contratante_rfc" name="contratante_rfc" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contratante_ocupacion">Ocupación <span class="required-marker">*</span></label>
-                            <input type="text" id="contratante_ocupacion" name="contratante_ocupacion" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Sexo a nacer <span class="required-marker">*</span></label>
-                            <div class="radio-group">
-                                <label><input type="radio" name="contratante_genero" value="F"> Femenino</label>
-                                <label><input type="radio" name="contratante_genero" value="M"> Masculino</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="contratante_parentesco">Parentesco con el titular <span class="required-marker">*</span></label>
-                            <input type="text" id="contratante_parentesco" name="contratante_parentesco" class="form-control" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group full-width seccion-separada">
-                        <div class="checkbox-group">
-                            <label>
-                                <input type="checkbox" id="contratanteDomicilioDiferente" name="contratante_domicilio_diferente">
-                                El domicilio particular del contratante es diferente al del titular
-                            </label>
-                        </div>
-                    </div>
-                    <div id="domicilioContratanteContainer" class="form-columns-container" style="display: none;">
-                        <h5 style="color:#555; grid-column: 1 / -1;">Domicilio Particular</h5>
-                        <div class="form-group">
-                            <label for="contratante_domicilio">Domicilio (Calle y Número) <span class="required-marker">*</span></label>
-                            <input type="text" id="contratante_domicilio" name="contratante_domicilio" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="contratante_cp">C.P. <span class="required-marker">*</span></label>
-                            <input type="text" id="contratante_cp" name="contratante_cp" class="form-control">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group full-width seccion-separada">
-                        <div class="checkbox-group">
-                            <label>
-                                <input type="checkbox" id="contratanteFiscalIgual" name="contratante_fiscal_igual" checked>
-                                Mi domicilio fiscal es el mismo que mi domicilio particular
-                            </label>
-                        </div>
-                    </div>
-                    <div id="domicilioFiscalContainer" class="form-columns-container" style="display: none;">
-                        <h5 style="color:#555; grid-column: 1 / -1;">Domicilio Fiscal</h5>
-                        <div class="form-group">
-                            <label for="contratante_domicilio_fiscal">Domicilio Fiscal (Calle y Número) <span class="required-marker">*</span></label>
-                            <input type="text" id="contratante_domicilio_fiscal" name="contratante_domicilio_fiscal" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="contratante_cp_fiscal">C.P. Fiscal <span class="required-marker">*</span></label>
-                            <input type="text" id="contratante_cp_fiscal" name="contratante_cp_fiscal" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
 
             <div id="seccion-actividades-riesgo" class="seccion-formulario">
                 <h2><span class="material-symbols-outlined">warning</span>Actividades de Riesgo</h2>
