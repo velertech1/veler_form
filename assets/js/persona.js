@@ -458,27 +458,53 @@ function setupRiskActivities() {
     });
 }
 
+/**
+ * Crea y añade una lista de checkboxes para seleccionar a los solicitantes,
+ * usando sus nombres si están disponibles.
+ * (Versión actualizada para mostrar nombres).
+ */
 function crearSelectorDeSolicitantes(container, actividadValue) {
     // 1. Crear el contenedor y la etiqueta
     const selectorContainer = document.createElement('div');
     selectorContainer.className = 'form-group';
-    const preguntaLabel = document.createElement('label'); // <-- Creamos el label por separado
-    preguntaLabel.className = 'asignacion-label'; // <-- Le asignamos una clase
+    const preguntaLabel = document.createElement('label');
+    preguntaLabel.className = 'asignacion-label';
     preguntaLabel.textContent = '¿Quién(es) la practican?';
-    selectorContainer.appendChild(preguntaLabel); // <-- Lo añadimos al contenedor
+    selectorContainer.appendChild(preguntaLabel);
 
     // 2. Crear el div que contendrá todos los checkboxes
     const checkboxWrapper = document.createElement('div');
-    checkboxWrapper.className = 'solicitante-checkbox-container'; // Le damos una clase para posibles estilos
+    checkboxWrapper.className = 'solicitante-checkbox-container';
 
-    // Contenedor para los campos de detalle que se generarán después
+    // Contenedor para los campos de detalle
     const detallesContainer = document.createElement('div');
     detallesContainer.className = 'detalles-por-solicitante-container';
 
     // 3. Llenar el wrapper con un checkbox por cada solicitante
     for (let i = 1; i <= solicitanteCount; i++) {
-        const solicitanteID = `solicitante_${i}`;
-        const checkboxID = `${actividadValue}_${solicitanteID}`;
+        // --- INICIA LÓGICA PARA OBTENER EL NOMBRE ---
+        let nombreSolicitante = '';
+        if (i === 1) {
+            // Para el titular, el ID no tiene sufijo
+            const nombreInput = document.getElementById('nombres');
+            if (nombreInput && nombreInput.value) {
+                nombreSolicitante = nombreInput.value.split(' ')[0]; // Usamos solo el primer nombre para brevedad
+            }
+        } else {
+            // Para los adicionales, el ID tiene sufijo
+            const nombreInput = document.getElementById(`nombres_solicitante_${i}`);
+            if (nombreInput && nombreInput.value) {
+                nombreSolicitante = nombreInput.value.split(' ')[0];
+            }
+        }
+        
+        // Texto final para la etiqueta del checkbox
+        const textoLabel = nombreSolicitante 
+            ? `${i}.- ${nombreSolicitante}` 
+            : (i === 1 ? 'Solicitante 1 - Titular' : `Solicitante ${i}`);
+        // --- TERMINA LÓGICA PARA OBTENER EL NOMBRE ---
+
+        const checkboxID = `${actividadValue}_solicitante_${i}`;
         
         const label = document.createElement('label');
         const checkbox = document.createElement('input');
@@ -486,15 +512,14 @@ function crearSelectorDeSolicitantes(container, actividadValue) {
         checkbox.type = 'checkbox';
         checkbox.id = checkboxID;
         checkbox.name = `quien_practica_${actividadValue}`;
-        checkbox.value = i; // El valor es el índice del solicitante
+        checkbox.value = i;
         
-        // Añadimos el 'listener' a CADA checkbox
         checkbox.addEventListener('change', () => {
             actualizarCamposDeDetalle(checkboxWrapper, detallesContainer, actividadValue);
         });
 
         label.appendChild(checkbox);
-        label.append((i === 1) ? ' Solicitante 1 - Titular' : ` Solicitante ${i}`);
+        label.append(` ${textoLabel}`); // Añadimos el texto dinámico
         
         checkboxWrapper.appendChild(label);
     }
