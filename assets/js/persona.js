@@ -201,6 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupRiskActivities();
         setupHabits();
         setupSports();
+        setupMedicalInfo(); 
         showSection(0);
     }
 
@@ -839,6 +840,123 @@ function agregarFilaDeporte(container, categoria, solicitanteIndex) {
     });
 
     container.appendChild(divFila.firstElementChild);
+}
+
+/**
+ * Configura la lógica interactiva para la sección de Información Médica
+ */
+function setupMedicalInfo() {
+    const checkPreguntas = document.querySelectorAll('input[name="pregunta_medica"]');
+    const contenedorAccion = document.getElementById('contenedor-accion-padecimiento');
+    const btnAgregar = document.getElementById('btn-agregar-padecimiento');
+    const listaFormsContainer = document.getElementById('lista-padecimientos-forms');
+    let padecimientoCounter = 0;
+
+    const toggleAgregarBoton = () => {
+        const algunoMarcado = Array.from(checkPreguntas).some(c => c.checked);
+        contenedorAccion.style.display = algunoMarcado ? 'block' : 'none';
+        
+        // CAMBIO: Si ninguna pregunta está marcada, limpiamos los formularios agregados.
+        if (!algunoMarcado) {
+            listaFormsContainer.innerHTML = '';
+            padecimientoCounter = 0; // Reseteamos el contador
+        }
+    };
+
+    checkPreguntas.forEach(check => check.addEventListener('change', toggleAgregarBoton));
+
+    btnAgregar.addEventListener('click', () => {
+        padecimientoCounter++;
+        const sufijo = `_pad_${padecimientoCounter}`;
+        const nuevoFormHTML = crearFormularioPadecimientoHTML(sufijo);
+
+        const divTemporal = document.createElement('div');
+        divTemporal.innerHTML = nuevoFormHTML;
+
+        activarLogicaFormularioPadecimiento(divTemporal, sufijo);
+        llenarDesplegablesPadecimiento(divTemporal, sufijo);
+
+        listaFormsContainer.appendChild(divTemporal.firstElementChild);
+    });
+}
+
+/**
+ * Crea el HTML para un nuevo formulario de detalle de padecimiento.
+ * (Versión actualizada con todos los campos y labels corregidos).
+ */
+function crearFormularioPadecimientoHTML(sufijo) {
+    return `
+        <div class="item-registrado-card" id="padecimiento_card${sufijo}">
+            <div class="card-header">
+                <h4>Detalle de Padecimiento #${sufijo.split('_').pop()}</h4>
+                <button type="button" class="btn-remover-item" title="Eliminar este padecimiento">&times;</button>
+            </div>
+            <div class="form-columns-container">
+                <div class="form-group"><label for="padecimiento_solicitante${sufijo}">No. Solicitante <span class="required-marker">*</span></label><select id="padecimiento_solicitante${sufijo}" name="padecimiento_solicitante${sufijo}" class="form-control" required></select></div>
+                <div class="form-group"><label for="padecimiento_pregunta${sufijo}">No. Pregunta <span class="required-marker">*</span></label><select id="padecimiento_pregunta${sufijo}" name="padecimiento_pregunta${sufijo}" class="form-control" required></select></div>
+                <div class="form-group full-width">
+                    <label for="padecimiento_nombre${sufijo}">Nombre del Padecimiento <span class="required-marker">*</span></label>
+                    <input type="text" id="padecimiento_nombre${sufijo}" name="padecimiento_nombre${sufijo}" class="form-control" required placeholder="Ej: Diabetes Tipo 2, Fractura de tobillo">
+                </div>
+                <div class="form-group"><label>Tipo de Evento:</label><div class="radio-group"><label><input type="radio" name="padecimiento_evento${sufijo}" value="enfermedad" checked> Enfermedad</label><label><input type="radio" name="padecimiento_evento${sufijo}" value="accidente"> Accidente</label></div></div>
+                <div class="form-group"><label for="padecimiento_inicio${sufijo}">Fecha de Inicio</label><input type="date" id="padecimiento_inicio${sufijo}" name="padecimiento_inicio${sufijo}" class="form-control"></div>
+                <div class="form-group full-width"><label>Tipo de Tratamiento:</label><div class="checkbox-group-grid"><label><input type="checkbox" name="padecimiento_tratamiento${sufijo}" value="quirurgico"> Quirúrgico</label><label><input type="checkbox" name="padecimiento_tratamiento${sufijo}" value="medico"> Médico</label><label><input type="checkbox" name="padecimiento_tratamiento${sufijo}" value="psicologico"> Psicológico</label><label><input type="checkbox" name="padecimiento_tratamiento${sufijo}" value="rehabilitacion"> Rehabilitación</label><label><input type="checkbox" name="padecimiento_tratamiento${sufijo}" value="quimioterapia"> Quimioterapia</label><label><input type="checkbox" name="padecimiento_tratamiento${sufijo}" value="radioterapia"> Radioterapia</label><label><input type="checkbox" name="padecimiento_tratamiento${sufijo}" value="trasplante"> Trasplante</label><label><input type="checkbox" name="padecimiento_tratamiento${sufijo}" value="observacion"> En observación</label></div></div>
+                <div class="form-group"><label>¿Estuvo hospitalizado?</label><div class="radio-group"><label><input type="radio" name="padecimiento_hosp${sufijo}" value="si"> Sí</label><label><input type="radio" name="padecimiento_hosp${sufijo}" value="no" checked> No</label></div></div>
+                <div class="form-group"><label>¿Quedó con alguna complicación?</label><div class="radio-group"><label><input type="radio" name="padecimiento_comp${sufijo}" value="si"> Sí</label><label><input type="radio" name="padecimiento_comp${sufijo}" value="no" checked> No</label></div></div>
+                <div class="form-group" style="display:none;">
+                    <label for="padecimiento_comp_cual${sufijo}">En caso afirmativo: ¿Cuál?</label>
+                    <input type="text" id="padecimiento_comp_cual${sufijo}" name="padecimiento_comp_cual${sufijo}" class="form-control" placeholder="Describa la complicación">
+                </div>
+                <div class="form-group"><label>¿Actualmente toma algún medicamento?</label><div class="radio-group"><label><input type="radio" name="padecimiento_meds${sufijo}" value="si"> Sí</label><label><input type="radio" name="padecimiento_meds${sufijo}" value="no" checked> No</label></div></div>
+                <div class="form-group" style="display:none;">
+                    <label for="padecimiento_meds_cual${sufijo}">En caso afirmativo: ¿Cuál?</label>
+                    <input type="text" id="padecimiento_meds_cual${sufijo}" name="padecimiento_meds_cual${sufijo}" class="form-control" placeholder="Nombre del medicamento y dosis">
+                </div>
+                <div class="form-group"><label>Estado Actual de Salud:</label><div class="radio-group"><label><input type="radio" name="padecimiento_salud${sufijo}" value="sano" checked> Sano</label><label><input type="radio" name="padecimiento_salud${sufijo}" value="tratamiento"> En tratamiento</label></div></div>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Activa los event listeners para los campos condicionales de un formulario de padecimiento específico.
+ */
+function activarLogicaFormularioPadecimiento(container, sufijo) {
+    // Botón de eliminar
+    container.querySelector('.btn-remover-item').addEventListener('click', (e) => {
+        e.target.closest('.item-registrado-card').remove();
+    });
+
+    // Lógica para 'complicaciones'
+    const compRadios = container.querySelectorAll(`input[name="padecimiento_comp${sufijo}"]`);
+    const compCualGroup = container.querySelector(`#padecimiento_comp_cual${sufijo}`).closest('.form-group');
+    compRadios.forEach(r => r.addEventListener('change', e => compCualGroup.style.display = e.target.value === 'si' ? 'block' : 'none'));
+
+    // Lógica para 'medicamentos'
+    const medsRadios = container.querySelectorAll(`input[name="padecimiento_meds${sufijo}"]`);
+    const medsCualGroup = container.querySelector(`#padecimiento_meds_cual${sufijo}`).closest('.form-group');
+    medsRadios.forEach(r => r.addEventListener('change', e => medsCualGroup.style.display = e.target.value === 'si' ? 'block' : 'none'));
+}
+
+/**
+ * Llena los menús desplegables de un formulario de padecimiento específico.
+ */
+function llenarDesplegablesPadecimiento(container, sufijo) {
+    // Llenar solicitantes
+    const selectSolicitante = container.querySelector(`#padecimiento_solicitante${sufijo}`);
+    selectSolicitante.innerHTML = '<option value="">Seleccione...</option>';
+    for (let i = 1; i <= solicitanteCount; i++) {
+        const nombre = document.getElementById(i === 1 ? 'nombres' : `nombres_solicitante_${i}`)?.value || `Solicitante ${i}`;
+        selectSolicitante.innerHTML += `<option value="${i}">${i}.- ${nombre}</option>`;
+    }
+
+    // Llenar preguntas
+    const selectPregunta = container.querySelector(`#padecimiento_pregunta${sufijo}`);
+    selectPregunta.innerHTML = '<option value="">Seleccione...</option>';
+    document.querySelectorAll('input[name="pregunta_medica"]:checked').forEach(check => {
+        const label = check.closest('label').textContent.trim().substring(0, 50) + '...';
+        selectPregunta.innerHTML += `<option value="${check.value}">${label}</option>`;
+    });
 }
 
 });

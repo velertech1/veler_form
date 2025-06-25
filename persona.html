@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitud de Seguro Individual - GNP</title>
+    <title>Solicitud de Seguro</title>
     
     <link rel="stylesheet" href="assets/css/main.css">
     
@@ -354,14 +354,24 @@
 
             <div id="seccion-info-medica" class="seccion-formulario">
                 <h2><span class="material-symbols-outlined">health_and_safety</span>Información Médica y Padecimientos</h2>
-                <p class="subtitulo-ligero">Responde sobre tu salud y detalla cualquier padecimiento relevante.</p>
-                <div class="form-columns-container">
-                    <div class="form-group"><label>¿Padeces o has padecido alguna enfermedad crónica o relevante? <span class="required-marker">*</span></label><div class="radio-group"><label><input type="radio" name="enf_cronica" value="si"> Sí</label><label><input type="radio" name="enf_cronica" value="no" checked> No</label></div></div>
-                    <div class="form-group"><label>¿Te encuentras actualmente bajo tratamiento médico o vigilancia? <span class="required-marker">*</span></label><div class="radio-group"><label><input type="radio" name="trat_medico" value="si"> Sí</label><label><input type="radio" name="trat_medico" value="no" checked> No</label></div></div>
-                    <div class="form-group"><label>¿Has sido hospitalizado, intervenido quirúrgicamente o sufrido algún accidente importante en los últimos 5 años? <span class="required-marker">*</span></label><div class="radio-group"><label><input type="radio" name="hospitalizado" value="si"> Sí</label><label><input type="radio" name="hospitalizado" value="no" checked> No</label></div></div>
-                    <div class="form-group"><label>¿Tienes alguna discapacidad física o limitación funcional? <span class="required-marker">*</span></label><div class="radio-group"><label><input type="radio" name="discapacidad" value="si"> Sí</label><label><input type="radio" name="discapacidad" value="no" checked> No</label></div></div>
-                    <div class="form-group"><label>¿Tienes algún otro padecimiento, síntoma o estudio pendiente que no hayas mencionado? <span class="required-marker">*</span></label><div class="radio-group"><label><input type="radio" name="otro_padecimiento" value="si"> Sí</label><label><input type="radio" name="otro_padecimiento" value="no" checked> No</label></div></div>
-                    <div class="form-group" id="detalle_padecimientos_group" style="display:none;"><label for="detalle_padecimientos">Si respondiste "Sí" a alguna pregunta anterior, por favor detalla aquí:</label><textarea id="detalle_padecimientos" name="detalle_padecimientos" class="form-control" rows="6"></textarea></div>
+                <p class="subtitulo-ligero">Responde sobre la salud de los solicitantes y detalla cualquier padecimiento relevante.</p>
+
+                <div class="cuestionario-salud-container">
+                    <div class="checkbox-group"><label><input type="checkbox" name="pregunta_medica" value="1"> 1. ¿Algún Solicitante padece o ha padecido...?</label></div>
+                    <hr class="form-separator">
+                    <div class="checkbox-group"><label><input type="checkbox" name="pregunta_medica" value="2"> 2. ¿Algún Solicitante ha sido hospitalizado...?</label></div>
+                    <hr class="form-separator">
+                    <div class="checkbox-group"><label><input type="checkbox" name="pregunta_medica" value="3"> 3. ¿Algún Solicitante padece alguna otra enfermedad...?</label></div>
+                </div>
+
+                <div id="lista-padecimientos-forms" class="lista-items-registrados">
+                    </div>
+
+                <div id="contenedor-accion-padecimiento" class="accion-adicional-container" style="display: none; border-top: none; margin-top: 10px;">
+                    <button type="button" id="btn-agregar-padecimiento" class="btn-secundario">
+                        <span class="material-symbols-outlined">add_circle</span>
+                        Agregar Detalle de Padecimiento
+                    </button>
                 </div>
             </div>
 
