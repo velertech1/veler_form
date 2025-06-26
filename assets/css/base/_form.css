@@ -632,3 +632,9 @@ main#formulario-completo.modo-revision textarea:disabled {
     margin: 0;
     color: var(--accent-color);
 }
+
+/* Espaciado para los enlaces dentro de texto */
+.link-documento {
+    /* Añadimos 4 píxeles de espacio a la izquierda y a la derecha */
+    margin: 0 4px;
+}
