@@ -376,21 +376,38 @@
             </div>
 
             <div id="seccion-detalles-solicitud" class="seccion-formulario">
-                 <h2><span class="material-symbols-outlined">description</span>Detalles de la Solicitud</h2>
-                 <p class="subtitulo-ligero">Información adicional sobre esta solicitud específica.</p>
-                 <div class="form-columns-container">
-                    <div class="form-group"><label for="fecha_solicitud">Fecha de Solicitud</label><input type="date" id="fecha_solicitud" name="fecha_solicitud" class="form-control"></div>
-                    <div class="form-group"><label>¿Planeas viajar o residir fuera de México en los próximos 12 meses? <span class="required-marker">*</span></label><div class="radio-group"><label><input type="radio" name="viajar" value="si"> Sí</label><label><input type="radio" name="viajar" value="no" checked> No</label></div></div>
-                    <div id="viajar_details" style="display:none;" class="full-width-column">
-                        <div class="form-group"><label for="viajar_destino">Destino(s) y duración del viaje</label><input type="text" id="viajar_destino" name="viajar_destino" class="form-control"></div>
+                <h2><span class="material-symbols-outlined">description</span>Detalles de la Solicitud</h2>
+                <p class="subtitulo-ligero">Información adicional sobre esta solicitud específica.</p>
+                <div class="form-columns-container">
+                    
+                    <div class="form-group">
+                        <label for="fecha_solicitud">Fecha de Solicitud</label>
+                        <input type="date" id="fecha_solicitud" name="fecha_solicitud" class="form-control" readonly>
                     </div>
-                    <div class="form-group"><label>¿Solicitas Reconocimiento de Antigüedad de otra compañía? <span class="required-marker">*</span></label><div class="radio-group"><label><input type="radio" name="antiguedad" value="si"> Sí</label><label><input type="radio" name="antiguedad" value="no" checked> No</label></div></div>
-                    <div id="antiguedad_details" style="display:none;" class="full-width-column">
-                        <div class="form-group"><label for="antiguedad_cia">Compañía Procedente</label><input type="text" id="antiguedad_cia" name="antiguedad_cia" class="form-control"></div>
-                        <div class="form-group"><label for="antiguedad_poliza">Número de Póliza Anterior</label><input type="text" id="antiguedad_poliza" name="antiguedad_poliza" class="form-control"></div>
+
+                    <div class="form-group full-width seccion-separada">
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" name="viaje_extranjero_check" value="si">
+                                ¿Algún solicitante viajará al extranjero en los próximos 6 meses con permanencia mayor a 3 meses?
+                            </label>
+                        </div>
+                        <div class="asignacion-container" id="viaje-asignacion-container" style="display: none;"></div>
                     </div>
-                    <div class="form-group"><label for="firma_solicitante">Firma del Solicitante</label><input type="file" id="firma_solicitante" name="firma_solicitante" class="form-control"></div>
-                 </div>
+                    
+                    <div class="form-group full-width seccion-separada">
+                        <label>¿Solicitas Reconocimiento de Antigüedad de otra compañía? <span class="required-marker">*</span></label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="antiguedad" value="si"> Sí</label>
+                            <label><input type="radio" name="antiguedad" value="no" checked> No</label>
+                        </div>
+                        <div id="antiguedad_details" style="display:none;" class="full-width-column">
+                            <div class="form-group"><label for="antiguedad_cia">Compañía Procedente</label><input type="text" id="antiguedad_cia" name="antiguedad_cia" class="form-control"></div>
+                            <div class="form-group"><label for="antiguedad_poliza">Número de Póliza Anterior</label><input type="text" id="antiguedad_poliza" name="antiguedad_poliza" class="form-control"></div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
 
             <div id="seccion-forma-pago" class="seccion-formulario">

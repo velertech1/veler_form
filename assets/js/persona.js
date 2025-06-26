@@ -186,6 +186,27 @@ document.addEventListener('DOMContentLoaded', () => {
         `
     };
 
+    // Objeto con la plantilla para los detalles del viaje
+    const detalleViajePlantilla = (sufijo) => `
+        <div class="detalle-viaje-solicitante">
+            <h5>Detalles del viaje para ${document.getElementById(`nombres${sufijo.replace('_solicitante', '')}`)?.value.split(' ')[0] || `Solicitante ${sufijo.split('_').pop()}`}</h5>
+            <div class="form-columns-container">
+                <div class="form-group">
+                    <label for="viaje_inicio${sufijo}">Fecha de Inicio</label>
+                    <input type="date" id="viaje_inicio${sufijo}" name="viaje_inicio${sufijo}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="viaje_fin${sufijo}">Fecha de Fin</label>
+                    <input type="date" id="viaje_fin${sufijo}" name="viaje_fin${sufijo}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="viaje_destino${sufijo}">Destino(s)</label>
+                    <input type="text" id="viaje_destino${sufijo}" name="viaje_destino${sufijo}" class="form-control" placeholder="Ciudad, País">
+                </div>
+            </div>
+        </div>
+    `;
+
     // --- 3. FUNCIONES DE INICIALIZACIÓN (CON LÓGICA AÑADIDA) ---
     function initialize() {
         state.isLightMode = (localStorage.getItem(config.storageKeys.themeMode) || 'dark') === 'light';
@@ -202,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupHabits();
         setupSports();
         setupMedicalInfo(); 
+        setupSolicitudDetails();
         showSection(0);
     }
 
@@ -671,42 +693,64 @@ function setupHabits() {
 }
 
 /**
- * Crea la lista de checkboxes para asignar un hábito a los solicitantes.
+ * Función genérica para crear un asignador de solicitantes con checkboxes.
  */
-function crearAsignadorDeHabitos(container, habitoValue) {
+function crearAsignadorGenerico(container, prefix, plantillaDetalleFn) {
     const selectorContainer = document.createElement('div');
     selectorContainer.className = 'form-group';
-    const preguntaLabel = document.createElement('label');
-    preguntaLabel.className = 'asignacion-label';
-    preguntaLabel.textContent = '¿Quién(es)?';
-    selectorContainer.appendChild(preguntaLabel);
-
+    selectorContainer.innerHTML = '<label class="asignacion-label">¿Quién(es)?</label>';
+    
     const checkboxWrapper = document.createElement('div');
     checkboxWrapper.className = 'solicitante-checkbox-container';
-
+    
     const detallesContainer = document.createElement('div');
     detallesContainer.className = 'detalles-por-solicitante-container';
 
     for (let i = 1; i <= solicitanteCount; i++) {
-        let nombreSolicitante = document.getElementById(i === 1 ? 'nombres' : `nombres_solicitante_${i}`)?.value.split(' ')[0] || '';
-        const textoLabel = nombreSolicitante ? `${i}.- ${nombreSolicitante}` : (i === 1 ? 'Solicitante 1 - Titular' : `Solicitante ${i}`);
+        const nombre = document.getElementById(i === 1 ? 'nombres' : `nombres_solicitante_${i}`)?.value.split(' ')[0] || '';
+        const textoLabel = nombre ? `${i}.- ${nombre}` : (i === 1 ? 'Solicitante 1 - Titular' : `Solicitante ${i}`);
         
+        const label = document.createElement('label');
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.value = i;
+        
         checkbox.addEventListener('change', () => {
-            actualizarDetallesDeHabito(checkboxWrapper, detallesContainer, habitoValue);
+            // Limpiamos y regeneramos los detalles cada vez
+            detallesContainer.innerHTML = '';
+            const checkboxesSeleccionados = checkboxWrapper.querySelectorAll('input:checked');
+            checkboxesSeleccionados.forEach(cb => {
+                const sufijo = `_solicitante_${cb.value}`;
+                detallesContainer.innerHTML += plantillaDetalleFn(sufijo);
+            });
         });
         
-        const label = document.createElement('label');
-        label.appendChild(checkbox);
-        label.append(` ${textoLabel}`);
+        label.append(checkbox, ` ${textoLabel}`);
         checkboxWrapper.appendChild(label);
     }
     
     selectorContainer.appendChild(checkboxWrapper);
     container.appendChild(selectorContainer);
     container.appendChild(detallesContainer);
+}
+
+// Ahora, ajusta la función 'setupHabits' para que use la nueva función genérica.
+function setupHabits() {
+    document.querySelectorAll('.habito-item').forEach(item => {
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        const asignacionContainer = item.querySelector('.asignacion-container');
+
+        checkbox.addEventListener('change', (event) => {
+            asignacionContainer.innerHTML = '';
+            if (event.target.checked) {
+                asignacionContainer.style.display = 'block';
+                const habitoValue = checkbox.value;
+                crearAsignadorGenerico(asignacionContainer, habitoValue, detalleHabitosPlantillas[habitoValue]);
+            } else {
+                asignacionContainer.style.display = 'none';
+            }
+        });
+    });
 }
 
 /**
@@ -957,6 +1001,44 @@ function llenarDesplegablesPadecimiento(container, sufijo) {
         const label = check.closest('label').textContent.trim().substring(0, 50) + '...';
         selectPregunta.innerHTML += `<option value="${check.value}">${label}</option>`;
     });
+}
+
+/**
+ * Configura la lógica interactiva para la sección de Detalles de la Solicitud.
+ */
+function setupSolicitudDetails() {
+    // 1. Llenar la fecha de solicitud automáticamente
+    const fechaSolicitudInput = document.getElementById('fecha_solicitud');
+    if (fechaSolicitudInput) {
+        fechaSolicitudInput.valueAsDate = new Date();
+    }
+
+    // 2. Lógica para la pregunta de viaje al extranjero
+    const checkViaje = document.querySelector('input[name="viaje_extranjero_check"]');
+    const asignacionContainer = document.getElementById('viaje-asignacion-container');
+
+    if (checkViaje && asignacionContainer) {
+        checkViaje.addEventListener('change', event => {
+            asignacionContainer.innerHTML = '';
+            if (event.target.checked) {
+                asignacionContainer.style.display = 'block';
+                // Usamos una función genérica para crear los checkboxes
+                crearAsignadorGenerico(asignacionContainer, 'viaje', detalleViajePlantilla);
+            } else {
+                asignacionContainer.style.display = 'none';
+            }
+        });
+    }
+
+    // 3. La lógica para la antigüedad (esta ya debería estar en setupConditionalFields)
+    // Nos aseguramos que siga funcionando.
+    const radiosAntiguedad = document.querySelectorAll('input[name="antiguedad"]');
+    const detallesAntiguedad = document.getElementById('antiguedad_details');
+    if (radiosAntiguedad.length > 0 && detallesAntiguedad) {
+         radiosAntiguedad.forEach(radio => radio.addEventListener('change', (e) => {
+            detallesAntiguedad.style.display = e.target.value === 'si' ? 'block' : 'none';
+        }));
+    }
 }
 
 });
