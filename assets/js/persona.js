@@ -224,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupSports();
         setupMedicalInfo(); 
         setupSolicitudDetails();
+        setupPaymentForm();
         showSection(0);
     }
 
@@ -1039,6 +1040,51 @@ function setupSolicitudDetails() {
             detallesAntiguedad.style.display = e.target.value === 'si' ? 'block' : 'none';
         }));
     }
+}
+
+/**
+ * Configura la lógica interactiva para la sección de Forma de Pago.
+ * (Versión actualizada con validador de solo números).
+ */
+function setupPaymentForm() {
+    const medioPagoSelect = document.getElementById('pago_medio');
+    if (!medioPagoSelect) return;
+
+    const tarjetaDetails = document.getElementById('pago_tarjeta_details');
+    const clabeDetails = document.getElementById('pago_clabe_details');
+
+    // --- INICIA EL CÓDIGO NUEVO ---
+    // Función "guardián" para permitir solo números
+    const forzarSoloNumeros = (event) => {
+        // Si la tecla presionada NO es un número Y NO es una tecla de control (como borrar, tab, etc.)
+        if (/[^0-9]/.test(event.key) && !event.ctrlKey && !event.metaKey && event.key.length === 1) {
+            event.preventDefault(); // Bloqueamos la escritura de esa tecla
+        }
+    };
+
+    // Aplicamos el "guardián" a los campos numéricos
+    const camposNumericos = ['tarjeta_numero', 'tarjeta_cvv', 'clabe_numero'];
+    camposNumericos.forEach(id => {
+        const campo = document.getElementById(id);
+        if (campo) {
+            campo.addEventListener('keydown', forzarSoloNumeros);
+        }
+    });
+    // --- TERMINA EL CÓDIGO NUEVO ---
+
+    // La lógica para mostrar/ocultar los contenedores no cambia
+    medioPagoSelect.addEventListener('change', (event) => {
+        const seleccion = event.target.value;
+        
+        if(tarjetaDetails) tarjetaDetails.style.display = 'none';
+        if(clabeDetails) clabeDetails.style.display = 'none';
+
+        if (seleccion === 'tarjeta' && tarjetaDetails) {
+            tarjetaDetails.style.display = 'block';
+        } else if (seleccion === 'clabe' && clabeDetails) {
+            clabeDetails.style.display = 'block';
+        }
+    });
 }
 
 });

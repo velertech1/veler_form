@@ -414,16 +414,75 @@
                 <h2><span class="material-symbols-outlined">credit_card</span>Forma de Pago</h2>
                 <p class="subtitulo-ligero">Elige cómo deseas pagar tu póliza.</p>
                 <div class="form-columns-container">
-                    <div class="form-group"><label for="pago_periodicidad">Forma de Pago (Periodicidad) <span class="required-marker">*</span></label><select id="pago_periodicidad" name="pago_periodicidad" class="form-control" required><option value="">Selecciona...</option><option value="anual">Anual</option><option value="semestral">Semestral</option><option value="trimestral">Trimestral</option><option value="mensual">Mensual</option></select></div>
-                    <div class="form-group"><label for="pago_medio">Medio de Pago <span class="required-marker">*</span></label><select id="pago_medio" name="pago_medio" class="form-control" required><option value="">Selecciona...</option><option value="tarjeta">Tarjeta de Crédito/Débito</option><option value="clabe">CLABE Interbancaria</option></select></div>
-                    <div id="pago_tarjeta_details" style="display:none;" class="full-width-column">
-                        <div class="form-group"><label for="tarjeta_numero">Número Tarjeta (16)</label><input type="text" id="tarjeta_numero" name="tarjeta_numero" class="form-control"></div>
-                        <div class="form-group"><label for="tarjeta_vencimiento">Fecha Vencimiento (MM/AA)</label><input type="text" id="tarjeta_vencimiento" name="tarjeta_vencimiento" class="form-control" placeholder="MM/AA"></div>
-                        <div class="form-group"><label for="tarjeta_banco">Banco Emisor</label><input type="text" id="tarjeta_banco" name="tarjeta_banco" class="form-control"></div>
+                    <div class="form-group">
+                        <label for="pago_periodicidad">Forma de Pago (Periodicidad) <span class="required-marker">*</span></label>
+                        <select id="pago_periodicidad" name="pago_periodicidad" class="form-control" required>
+                            <option value="">Selecciona...</option>
+                            <option value="anual">Anual</option>
+                            <option value="semestral">Semestral</option>
+                            <option value="trimestral">Trimestral</option>
+                            <option value="mensual">Mensual</option>
+                        </select>
                     </div>
+                    <div class="form-group">
+                        <label for="pago_medio">Medio de Pago <span class="required-marker">*</span></label>
+                        <select id="pago_medio" name="pago_medio" class="form-control" required>
+                            <option value="">Selecciona...</option>
+                            <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+                            <option value="clabe">Domiciliación (CLABE)</option>
+                        </select>
+                    </div>
+
+                    <div id="pago_tarjeta_details" style="display:none;" class="full-width-column">
+                        <hr class="form-separator">
+                        <div class="form-columns-container">
+                            <div class="form-group full-width">
+                                <label for="tarjeta_nombre">Nombre del Tarjetahabiente <span class="required-marker">*</span></label>
+                                <input type="text" id="tarjeta_nombre" name="tarjeta_nombre" class="form-control" placeholder="Como aparece en la tarjeta">
+                            </div>
+                            <div class="form-group">
+                                <label for="tarjeta_numero">Número de Tarjeta <span class="required-marker">*</span></label>
+                                <input type="text" id="tarjeta_numero" name="tarjeta_numero" class="form-control" placeholder="---- ---- ---- ----" maxlength="16" inputmode="numeric" pattern="[0-9]*">
+                            </div>
+                            <div class="form-group">
+                                <label for="tarjeta_vencimiento">Vencimiento (MM/AA) <span class="required-marker">*</span></label>
+                                <input type="text" id="tarjeta_vencimiento" name="tarjeta_vencimiento" class="form-control" placeholder="MM/AA" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="tarjeta_cvv">CVV <span class="required-marker">*</span></label>
+                                <input type="text" id="tarjeta_cvv" name="tarjeta_cvv" class="form-control" placeholder="---" maxlength="4" inputmode="numeric" pattern="[0-9]*">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Tarjeta <span class="required-marker">*</span></label>
+                                <div class="radio-group"><label><input type="radio" name="tarjeta_tipo" value="visa" checked> Visa</label><label><input type="radio" name="tarjeta_tipo" value="mastercard"> MasterCard</label><label><input type="radio" name="tarjeta_tipo" value="amex"> Amex</label></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tarjeta_banco">Banco Emisor <span class="required-marker">*</span></label>
+                                <input type="text" id="tarjeta_banco" name="tarjeta_banco" class="form-control" placeholder="Ej: BBVA, Santander">
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="pago_clabe_details" style="display:none;" class="full-width-column">
-                         <div class="form-group"><label for="clabe_numero">CLABE (18)</label><input type="text" id="clabe_numero" name="clabe_numero" class="form-control"></div>
-                         <div class="form-group"><label for="clabe_banco">Banco Emisor</label><input type="text" id="clabe_banco" name="clabe_banco" class="form-control"></div>
+                        <hr class="form-separator">
+                        <div class="form-columns-container">
+                            <div class="form-group full-width">
+                                <label for="clabe_nombre">Nombre del Titular de la Cuenta <span class="required-marker">*</span></label>
+                                <input type="text" id="clabe_nombre" name="clabe_nombre" class="form-control" placeholder="Nombre completo del titular">
+                            </div>
+                            <div class="form-group">
+                                <label for="clabe_numero">CLABE Interbancaria <span class="required-marker">*</span></label>
+                                <input type="text" id="clabe_numero" name="clabe_numero" class="form-control" placeholder="18 dígitos" maxlength="18" inputmode="numeric" pattern="[0-9]*">
+                            </div>
+                            <div class="form-group">
+                                <label for="clabe_banco">Nombre del Banco <span class="required-marker">*</span></label>
+                                <input type="text" id="clabe_banco" name="clabe_banco" class="form-control" placeholder="Ej: Banorte, Scotiabank">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Cuenta <span class="required-marker">*</span></label>
+                                <div class="radio-group"><label><input type="radio" name="clabe_tipo_cuenta" value="cheques" checked> Cheques</label><label><input type="radio" name="clabe_tipo_cuenta" value="ahorro"> Ahorro</label><label><input type="radio" name="clabe_tipo_cuenta" value="nomina"> Nómina</label></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
