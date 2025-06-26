@@ -1,0 +1,12 @@
+/* Importa los módulos base en orden lógico */
+@import url('base/_fonts.css');          /* 1. Fuentes */
+@import url('base/_base-styles.css');    /* 2. Estilos base generales */
+@import url('base/_splash.css');         /* 3. Splash screen */
+@import url('base/_header.css');         /* 4. Cabecera */
+@import url('base/_switch.css');         /* 5. Switch de tema */
+@import url('base/_sidebar.css');        /* 6. Sidebar */
+@import url("base/_form.css");
+@import url('base/_buttons.css');        /* 8. Botones específicos */
+@import url('base/_modal.css');          /* 9. Modal */
+@import url('base/_responsive.css');     /* 10. Estilos responsivos (móvil) */
+@import url("base/admin.css");

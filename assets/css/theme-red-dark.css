@@ -1,0 +1,92 @@
+/* Tema Red Dark */
+:root {
+    /* --- Tema Oscuro (Igual al Default) --- */
+    --bg-color: #1E1E1E;
+    --bg-container: #1E1E1E;
+    --text-color-primary: #F0E6D2;
+    --text-color-secondary: #CCCCCC;
+    --accent-color: #F7D7A5;                 /* Acento: Dorado pálido */
+    --input-bg: #3D3D3C;
+    --input-text-color: var(--text-color-primary);
+    --input-placeholder-color: #C8B575;
+    --button-primary-bg: var(--accent-color);
+    --button-primary-text: #1E1E1E;
+    --button-secondary-bg: #161616;
+    --button-secondary-text: var(--accent-color);
+    --border: #444;
+    --error-alert: #E57373;
+    --logo-line-color: var(--accent-color);
+    --modal-bg: var(--bg-container);
+    --modal-text: var(--text-color-primary);
+    --header-bg: var(--bg-container);
+
+    /* -- Variables Sidebar Modo Oscuro (Colores Originales) -- */
+    --sidebar-bg: var(--bg-container);
+    --sidebar-top-bg: var(--sidebar-bg);
+    --sidebar-bottom-bg: var(--sidebar-bg);
+    --sidebar-text-color: var(--text-color-primary);
+    --sidebar-icon-color: var(--text-color-secondary);
+    --sidebar-border-color: var(--border);
+    --sidebar-item-hover-bg: rgba(var(--accent-color-rgb), 0.1);
+    --sidebar-item-active-bg: rgba(var(--accent-color-rgb), 0.2);
+    --sidebar-item-active-border: var(--accent-color);
+    --sidebar-item-active-color: var(--accent-color);
+    --sidebar-progress-bar-bg: var(--border);
+    --sidebar-progress-fill-bg: var(--accent-color);
+    --sidebar-status-default-bg: var(--border);
+    --sidebar-status-completed-bg: #81C784;
+    --sidebar-toggle-color: var(--accent-color);
+    --sidebar-toggle-collapsed-color: var(--sidebar-toggle-color);
+    --sidebar-toggle-hover-bg: rgba(var(--accent-color-rgb), 0.15);
+
+    /* Versiones RGB (Originales) */
+    --accent-color-rgb: 247, 215, 165;
+    --bg-color-rgb: 30, 30, 30;
+    --text-color-primary-rgb: 240, 230, 210;
+}
+
+/* --- Tema Claro (Acento Rojo #D33649, Texto Oscuro #281B24) --- */
+:root.light-theme {
+    --bg-color: #FFFFFF;                     /* Fondo Blanco */
+    --bg-container: #FFFFFF;                 /* Contenedor Blanco */
+    --text-color-primary: #281B24;             /* !! Texto Principal Oscuro Provisto !! */
+    --text-color-secondary: #6c757d;           /* Texto Gris secundario estándar */
+    --accent-color: #D33649;                 /* !! Acento Rojo Provisto !! */
+    --input-bg: #f8f9fa;                     /* Input Gris muy claro */
+    --input-text-color: var(--text-color-primary);
+    --input-placeholder-color: #6c757d;       /* Placeholder Gris */
+    --button-primary-bg: var(--accent-color);    /* Botón primario Rojo */
+    --button-primary-text: #FFFFFF;             /* Texto Blanco */
+    --button-secondary-bg: #FFFFFF;             /* Botón secundario Blanco */
+    --button-secondary-text: var(--accent-color);/* Texto Rojo */
+    --border: #DEE2E6;                     /* Borde Gris claro estándar */
+    --error-alert: #dc3545;                 /* Rojo Error */
+    --logo-line-color: var(--border);
+    --modal-bg: var(--bg-container);
+    --modal-text: var(--text-color-primary);
+    --header-bg: var(--bg-container);
+
+    /* -- Variables Sidebar Modo Claro (Estilo Estándar Claro con Acento Rojo) -- */
+    --sidebar-bg: #FFFFFF;                    /* Fondo Sidebar Blanco */
+    --sidebar-top-bg: var(--sidebar-bg);
+    --sidebar-bottom-bg: var(--sidebar-bg);
+    --sidebar-text-color: var(--text-color-primary); /* Texto Oscuro Provisto */
+    --sidebar-icon-color: #495057;            /* Icono Gris Oscuro */
+    --sidebar-border-color: var(--border);    /* Borde Gris Claro */
+    --sidebar-item-hover-bg: rgba(var(--accent-color-rgb), 0.08); /* Hover Rojo Muy Transparente */
+    --sidebar-item-active-bg: rgba(var(--accent-color-rgb), 0.15);/* Activo Rojo Transparente */
+    --sidebar-item-active-border: var(--accent-color); /* Borde Activo Rojo */
+    --sidebar-item-active-color: var(--accent-color); /* Texto/Icono Activo Rojo */
+    --sidebar-progress-bar-bg: var(--border);   /* Fondo Barra Gris Claro */
+    --sidebar-progress-fill-bg: var(--accent-color); /* Relleno Rojo */
+    --sidebar-status-default-bg: var(--border); /* Status Gris Claro */
+    --sidebar-status-completed-bg: #4CAF50;   /* Verde Estándar */
+    --sidebar-toggle-color: var(--accent-color);/* Icono Toggle Rojo */
+    --sidebar-toggle-collapsed-color: var(--accent-color); /* Mismo color colapsado */
+    --sidebar-toggle-hover-bg: rgba(var(--accent-color-rgb), 0.15);
+
+    /* Versiones RGB */
+    --accent-color-rgb: 211, 54, 73;          /* !! RGB Rojo !! */
+    --bg-color-rgb: 255, 255, 255;
+    --text-color-primary-rgb: 40, 27, 36;      /* !! RGB Texto Oscuro Provisto !! */
+}

@@ -1,0 +1,640 @@
+/* --- INICIA CÓDIGO PARA REEMPLAZAR --- */
+
+main#formulario-completo {
+    box-sizing: border-box;
+    display: block;
+    margin-left: var(--sidebar-width-expanded);
+    width: calc(100% - var(--sidebar-width-expanded));
+    min-height: 100vh;
+    /* Devolvemos un padding horizontal para que el contenido no se pegue a los bordes */
+    padding: calc(var(--top-bar-height) + 30px) 40px 40px 40px; 
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+/* Ajuste para cuando el menú está colapsado */
+body.body-sidebar-collapsed main#formulario-completo {
+    margin-left: var(--sidebar-width-collapsed);
+    width: calc(100% - var(--sidebar-width-collapsed));
+}
+
+
+.seccion-formulario {
+    box-sizing: border-box;
+    /* Esta es la propiedad clave que fuerza al formulario a usar el espacio */
+    width: 100%;    
+    /* Le ponemos un límite sensato para que no se vea demasiado ancho en pantallas gigantes. 
+       Si lo quieres aún más ancho, aumenta este número. Si lo quieres sin límite, borra la línea. */
+    max-width: 1400px;
+    
+    /* Esto lo centra cuando la pantalla es más ancha que el max-width */
+    margin: 0 auto 20px auto;
+    
+    padding: 25px;
+    border-radius: 12px;
+    background-color: var(--bg-container);
+    box-shadow: 0 4px 12px rgba(var(--bg-color-rgb,0,0,0),0.07);
+    display: none; /* Esta línea es correcta, JS la cambia */
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- TERMINA CÓDIGO PARA REEMPLAZAR --- */
+
+.seccion-formulario.seccion-activa {
+    display: block;
+    opacity: 1;
+}
+
+/* Grupos de Campos */
+.form-group {
+    margin-bottom: 18px; /* Un poco más de espacio entre grupos */
+    display: flex;
+    flex-direction: column;
+}
+.form-group label {
+    display: flex; /* Para alinear el texto del label y el marcador en la misma línea */
+    align-items: center; /* Alineación vertical */
+    margin-bottom: 6px; /* Espacio entre label e input */
+    font-weight: 500; /* Un poco menos bold que el default del navegador */
+    font-size: 0.88em; /* Ligeramente más pequeño */
+    color: var(--text-color-secondary);
+    transition: color 0.3s ease;
+}
+.form-group label:has(input[type="checkbox"]),
+.form-group label:has(input[type="radio"]) {
+    /* display: flex; ya está arriba */
+    /* align-items: center; ya está arriba */
+    cursor: pointer;
+    font-weight: normal; /* Texto normal para estos labels */
+    color: var(--text-color-primary); /* Color primario para mejor legibilidad */
+    margin-bottom: 0; /* Quitar margen inferior para estos labels si el input está debajo */
+}
+
+/* Estilo para el marcador de campo obligatorio */
+.required-marker {
+    color: var(--error-alert, #dc3545); /* Usa el color de error del tema o un rojo estándar */
+    margin-left: 4px;
+    font-weight: bold;
+    font-size: 1.2em; /* Ligeramente más grande que el texto del label */
+    line-height: 1; /* Para evitar que afecte la altura de la línea del label */
+}
+
+
+/* Campos */
+.form-control {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    color: var(--input-text-color);
+    background-color: var(--input-bg);
+    border: 1px solid var(--border); /* Borde sutil en todos lados */
+    border-left: 3px solid var(--accent-color); /* Borde izquierdo acentuado */
+    border-radius: 8px; /* Redondeado más estándar */
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: 1.1em;
+    height: 1.1em;
+    margin-right: 0.6em;
+    vertical-align: middle;
+    accent-color: var(--accent-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    flex-shrink: 0; /* Evitar que se encoja si el texto del label es largo */
+}
+.radio-group {
+    display: flex;
+    gap: 20px; /* Más espacio entre opciones de radio */
+    flex-wrap: wrap;
+    margin-top: 8px; /* Espacio sobre el grupo de radios */
+}
+.radio-group label {
+    margin-bottom: 0;
+    font-weight: normal;
+    color: var(--text-color-primary);
+    font-size: 0.95rem; /* Tamaño de fuente igual al de los inputs */
+}
+
+/* Quitar estilos de .form-control si se aplican a checkbox/radio */
+input[type="checkbox"].form-control,
+input[type="radio"].form-control {
+    appearance: auto; width: auto; height: auto; background-color: transparent;
+    border: none; border-radius: 0; padding: 0; box-shadow: none; border-left: none;
+}
+
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 1em 1em;
+    padding-right: 40px;
+    color: var(--input-text-color);
+}
+:root.light-theme select.form-control {
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23495057' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+}
+textarea.form-control {
+    min-height: 90px;
+    resize: vertical;
+}
+.form-control::placeholder {
+    color: var(--input-placeholder-color);
+    opacity: 0.7; /* Un poco más sutil */
+    transition: color 0.3s ease;
+}
+.form-control:focus {
+    border-color: var(--accent-color); /* Mantiene el color de acento en el borde izquierdo */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb, 252, 108, 17), 0.25); /* Sombra de foco más visible */
+}
+
+/* Modo Revisión */
+main#formulario-completo.modo-revision {
+    padding-left: 40px; /* Mantiene padding lateral */
+    padding-right: 40px;
+}
+main#formulario-completo.modo-revision .seccion-formulario {
+    display: block !important; opacity: 1 !important; transition: none !important;
+    margin-bottom: 25px; /* Más espacio entre secciones en revisión */
+    padding: 25px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background-color: rgba(var(--text-color-primary-rgb, 0, 0, 0), 0.03); /* Fondo más sutil aún */
+    box-shadow: none; /* Quitar sombra en modo revisión para limpiar */
+    max-width: 1400px; /* Mantiene el max-width */
+    margin-left: auto;
+    margin-right: auto;
+}
+/* En modo revisión, las columnas se mantienen para consistencia visual, pero si se quisiera una sola columna: */
+/* main#formulario-completo.modo-revision .form-columns-container {
+    display: block;
+} */
+main#formulario-completo.modo-revision .question-group { margin-bottom: 12px; } /* Menos margen en revisión */
+main#formulario-completo.modo-revision .seccion-formulario .botones-navegacion { display: none; }
+
+main#formulario-completo.modo-revision #seccion-revision {
+    display: block !important; opacity: 1 !important; border: none;
+    padding: 15px 0; /* Padding vertical para la sección de revisión */
+    background-color: transparent; box-shadow: none;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#seccion-revision { display: none; } /* Oculta por defecto */
+
+#seccion-revision h2 {
+    color: var(--accent-color);
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.8em; /* Título más grande para la revisión */
+}
+#seccion-revision p.subtitulo-ligero { /* Estilo específico para el subtítulo de revisión */
+    color: var(--text-color-secondary);
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1em;
+}
+#seccion-revision #resumen-final {
+    margin-bottom: 30px; /* Más espacio antes de los botones finales */
+    padding: 25px;
+    border-radius: 8px; border: 1px solid var(--border);
+    color: var(--text-color-secondary); background-color: var(--bg-container); /* Fondo igual al de las secciones normales */
+    text-align: left;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+#seccion-revision #resumen-final ul { list-style: none; padding: 0; margin: 0; }
+#seccion-revision #resumen-final li {
+    margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dotted var(--border);
+    line-height: 1.6; display: flex; flex-wrap: wrap; gap: 8px; /* Espacio entre label y valor */
+     transition: border-color 0.3s ease;
+}
+#seccion-revision #resumen-final li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+#seccion-revision #resumen-final li strong {
+    color: var(--text-color-primary); display: inline-block; min-width: 200px; /* Más ancho para el label */
+    font-weight: 600; flex-shrink: 0;
+     transition: color 0.3s ease;
+}
+#seccion-revision #resumen-final li span.respuesta-valor { /* Clase para el valor */
+    color: var(--text-color-primary); /* O --input-text-color si se prefiere */
+    word-break: break-word; /* Para que valores largos no rompan el layout */
+}
+
+
+/* --- Layout de Columnas para Campos del Formulario --- */
+.form-columns-container {
+    display: grid;
+    /* Por defecto 2 columnas, se puede ajustar por sección si es necesario */
+    grid-template-columns: 1fr;
+    gap: 10px 25px; /* gap vertical y horizontal */
+    align-items: start; /* Alinea los items al inicio de su celda de grid */
+}
+.form-columns-container .form-group {
+    margin-bottom: 8px; /* Reduce el margen inferior de los form-group dentro del contenedor de columnas */
+}
+
+/* Para elementos que deben ocupar todo el ancho dentro del grid */
+.form-group.full-width-column,
+.form-columns-container > hr.full-width-column,
+.form-columns-container > p.full-width-column,
+.form-columns-container > div.full-width-column
+{
+    grid-column: 1 / -1; /* Ocupa todas las columnas disponibles */
+}
+
+/* Estilos para elementos específicos dentro de las columnas si es necesario */
+.padecimiento-bloque, .cobertura-adicional-bloque, .beneficiario-bloque {
+    border: 1px solid var(--border);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px; /* Espacio entre bloques repetibles */
+    background-color: rgba(var(--bg-color-rgb), 0.02); /* Fondo muy sutil para distinguir bloques */
+}
+.padecimiento-bloque h4, .cobertura-adicional-bloque h4, .beneficiario-bloque h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+}
+
+/* Ajustes para la sección de "Declaraciones Legales" y "Agente" si usan columnas */
+#seccion-declaraciones_legales .form-columns-container,
+#seccion-agente .form-columns-container {
+    /* Podrían necesitar ajustes específicos si la mayoría de sus campos son full-width */
+}
+
+#seccion-declaraciones_legales .form-group label:has(input[type="checkbox"]) {
+    font-size: 0.9rem; /* Texto de consentimientos un poco más pequeño */
+    line-height: 1.5;
+}
+#seccion-declaraciones_legales .form-group label a {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* Nudge area en la sección de revisión */
+.final-nudge-area {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: rgba(var(--accent-color-rgb), 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(var(--accent-color-rgb), 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.testimonial, .data-point, .emotional-appeal {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-color-secondary);
+}
+.testimonial .material-symbols-outlined,
+.data-point .material-symbols-outlined,
+.emotional-appeal .material-symbols-outlined {
+    font-size: 2.5em;
+    color: var(--accent-color);
+    flex-shrink: 0;
+}
+.testimonial div p, .data-point p, .emotional-appeal p {
+    margin: 0;
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: var(--text-color-primary); /* Texto más oscuro para el contenido principal del nudge */
+}
+.testimonial span {
+    font-size: 0.85em;
+    font-style: italic;
+    color: var(--text-color-secondary);
+    display: block;
+    margin-top: 4px;
+}
+.data-point strong, .emotional-appeal strong {
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+/* Al final de assets/css/base/_form.css */
+
+/* Estilo para campos inválidos después de la interacción */
+.form-control.is-invalid {
+    border-left-color: var(--error-alert, #dc3545); /* Borde izquierdo rojo */
+    box-shadow: 0 0 0 2px rgba(var(--error-alert-rgb, 220, 53, 69), 0.25); /* Sombra roja sutil */
+    /* --error-alert-rgb debe definirse en los temas si no existe, ej: 220, 53, 69 para #dc3545 */
+}
+
+/* Opcional: Estilo para campos válidos después de la interacción */
+/*
+.form-control.is-valid {
+    border-left-color: #28a745; // Verde para válido
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.25); // Sombra verde sutil
+}
+*/
+
+/* Ajuste para el foco cuando ya es inválido, para que no se sobreponga demasiado */
+.form-control.is-invalid:focus {
+    box-shadow: 0 0 0 3px rgba(var(--error-alert-rgb, 220, 53, 69), 0.35);
+}
+
+/* Asegurar que los placeholders también cambien de color o se adapten si es necesario */
+.form-control.is-invalid::placeholder {
+    color: var(--error-alert, #dc3545);
+    opacity: 0.7;
+}
+
+/* --- INICIO Estilos para Tooltips de Ayuda (Anclaje al Wrapper del Ícono) --- */
+.form-group label {
+    /* position: relative; No es necesario aquí si el wrapper del ícono es el ancla */
+    display: flex;
+    align-items: center;
+}
+
+.help-icon-wrapper {
+    position: relative; /* --- IMPORTANTE: El wrapper ahora es el ancla --- */
+    display: inline-flex; /* Se comporta como inline pero permite dimensiones y alineación flex interna */
+    align-items: center; /* Centra el ícono verticalmente dentro del wrapper */
+    margin-left: 8px; /* Espacio entre el texto del label y el wrapper del ícono */
+}
+
+.help-icon { /* Estilos solo para el ícono de interrogación */
+    font-size: 1.1em; 
+    color: var(--text-color-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.help-icon:hover {
+    color: var(--accent-color);
+}
+
+.tooltip-content {
+    display: none; 
+    position: absolute;
+    /* Posicionamiento relativo al .help-icon-wrapper */
+    left: calc(100% + 8px); /* A la derecha del wrapper del ícono, con un pequeño espacio */
+    top: 50%;               
+    transform: translateY(-50%); /* Centrado vertical respecto al wrapper del ícono */
+    
+    background-color: var(--bg-color); 
+    color: var(--text-color-primary); 
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 15px;
+    box-shadow: 0 4px 12px rgba(var(--bg-color-rgb, 0,0,0), 0.2); 
+    width: 250px; 
+    max-width: calc(100vw - 50px); /* Prevenir desbordamiento en pantallas muy pequeñas */
+    font-size: 0.85em;
+    line-height: 1.5;
+    z-index: 1000; 
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0s 0.2s, transform 0.2s ease-in-out;
+}
+
+.tooltip-content.tooltip-visible {
+    display: block; 
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.2s ease-in-out, visibility 0s 0s, transform 0.2s ease-in-out;
+}
+
+.tooltip-content::before { /* Flecha del tooltip */
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%; /* Lado izquierdo del tooltip, apuntando al wrapper del ícono */
+    transform: translateY(-50%); 
+    border-width: 6px; 
+    border-style: solid;
+    border-color: transparent var(--bg-color) transparent transparent; 
+}
+/* --- FIN Estilos para Tooltips de Ayuda (Anclaje al Wrapper del Ícono) --- */
+/* --- INICIA ESTILOS PARA MODO REVISIÓN --- */
+
+/* Cuando el main está en modo revisión, muestra todas las secciones de formulario */
+main#formulario-completo.modo-revision .seccion-formulario {
+    display: block !important;
+    opacity: 1 !important;
+    margin-bottom: 25px; /* Más espacio entre secciones */
+}
+
+/* Oculta la propia sección de "Revisión Final" que solo es un título */
+main#formulario-completo.modo-revision #seccion-revision {
+    display: none !important;
+}
+
+/* Oculta los botones de navegación "Anterior" y "Siguiente" */
+main#formulario-completo.modo-revision .botones-navegacion #prev-btn,
+main#formulario-completo.modo-revision .botones-navegacion #next-btn {
+    display: none !important;
+}
+
+/* Estilo para los campos deshabilitados en modo revisión para que parezcan "bloqueados" */
+main#formulario-completo.modo-revision input:disabled,
+main#formulario-completo.modo-revision select:disabled,
+main#formulario-completo.modo-revision textarea:disabled {
+    background-color: rgba(var(--bg-color-rgb), 0.5) !important; /* Fondo más opaco */
+    cursor: not-allowed; /* Cursor de "no permitido" */
+    border-color: var(--border);
+    border-left-color: var(--border);
+}
+
+/* --- TERMINA ESTILOS PARA MODO REVISIÓN --- */
+
+/* --- Linea para separar informacion en una seccion (EJEMPLO EN SOLICITANTES Y CONTRATANTE)--- */
+.form-separator {
+    border: none;
+    border-top: 1px solid #a5a0a0;
+    margin: 25px 0;
+}
+
+/* --- Estilos para el botón de acciones adicionales --- */
+
+.accion-adicional-container {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color, #e0e0e0); /* Usa una variable de color si existe, si no, un gris por defecto */
+    text-align: right;
+}
+
+.btn-secundario {
+    background-color: transparent;
+    color: var(--accent-color, #007bff); /* Usa una variable de color si existe, si no, un azul por defecto */
+    border: 1px solid var(--accent-color, #007bff);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre el ícono y el texto */
+    transition: all 0.2s ease;
+}
+
+.btn-secundario:hover {
+    background-color: rgba(var(--accent-color-rgb), 0.1); /* Asume que tienes una variable --accent-color-rgb */
+    /* Si no la tienes, puedes usar una alternativa como esta: */
+    /* background-color: #f0f8ff; */
+}
+
+.solicitante-checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 5px;
+}
+.solicitante-checkbox-container label {
+    cursor: pointer;
+}
+
+/* --- Estilos para la asignación de Actividades de Riesgo --- */
+
+/* Contenedor que aparece al marcar una actividad */
+.asignacion-container {
+    margin-top: 15px; /* Aumenta el espacio debajo de la actividad principal */
+    padding-left: 25px; /* Indentación para mostrar jerarquía */
+    border-left: 2px solid #f0f0f0; /* Línea visual sutil a la izquierda */
+    padding-top: 10px;
+}
+
+/* Estilo para la pregunta "¿Quién(es) la practican?" */
+.asignacion-label {
+    display: block;
+    margin-bottom: 10px; /* Espacio debajo de la pregunta */
+    font-size: 0.9em; /* Ligeramente más pequeña */
+    font-weight: 500;
+    color: var(--text-color-secondary); /* Usa el color de texto secundario del tema */
+}
+
+/* Contenedor de los checkboxes de solicitantes */
+.solicitante-checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 25px; /* Espacio vertical y horizontal entre checkboxes */
+    padding-top: 5px;
+}
+
+/* Etiqueta de cada solicitante (para alinear checkbox y texto) */
+.solicitante-checkbox-container label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95em; /* Tamaño de fuente para los nombres */
+}
+
+/* Tamaño y espaciado del checkbox en sí */
+.solicitante-checkbox-container input[type="checkbox"] {
+    width: 1.1em;   /* Un poco más grande */
+    height: 1.1em;  /* Un poco más grande */
+    margin-right: 8px; /* Espacio entre el checkbox y el nombre */
+}
+
+/* Contenedor para los campos de detalle (moto, avión, etc.) */
+.detalles-por-solicitante-container {
+    margin-top: 20px;
+}
+
+/* Estilo para cada bloque de detalle de un solicitante */
+.detalle-actividad-solicitante {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 6px;
+}
+
+.detalle-actividad-solicitante h5 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+    color: var(--accent-color);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.deporte-fila {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.deporte-fila .form-group {
+    flex-grow: 1;
+}
+.btn-remover-fila {
+    background: transparent;
+    border: none;
+    color: var(--accent-color-danger, #dc3545);
+    font-size: 1.8em;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 10px;
+    line-height: 1;
+}
+
+/* Estilos para el modal de detalles */
+.modal-oculto {
+    display: none; /* Por defecto está oculto */
+    position: fixed; /* Se queda fijo en la pantalla */
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* Fondo oscuro semitransparente */
+    align-items: center;
+    justify-content: center;
+}
+.modal-oculto.visible {
+    display: flex; /* Se muestra con flexbox para centrar */
+}
+.modal-contenido {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.modal-acciones {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.item-registrado-card {
+    background-color: #fcfcfc;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    position: relative;
+}
+.item-registrado-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+.item-registrado-card .card-header h4 {
+    margin: 0;
+    color: var(--accent-color);
+}
+
+/* Espaciado para los enlaces dentro de texto */
+.link-documento {
+    /* Añadimos 4 píxeles de espacio a la izquierda y a la derecha */
+    margin: 0 4px;
+}

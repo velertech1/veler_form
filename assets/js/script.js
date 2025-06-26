@@ -1,13 +1,50 @@
+/**
+ * Script para Formulario de Solicitud GNP
+ * Maneja navegación, temas (archivo y modo), sidebar, progreso y envío.
+ * VERSIÓN: Lógica condicional mejorada para Hábitos y validación onblur.
+ */
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Elementos del DOM ---
+    // --- Configuración ---
+    const CONFIG = {
+        FADE_DURATION: 400,
+        SPLASH_DISPLAY_DURATION: 1500,
+        SPLASH_FADE_DURATION: 500,
+        API_ENDPOINT: '/tu-endpoint-real-en-el-servidor', // Reemplazar con el endpoint real
+        LOGO_VELER_DARK: 'assets/img/VELER_DARK.png',
+        LOGO_VELER_LIGHT: 'assets/img/VELER_LIGHT.png',
+        LOGO_GNP_DARK: 'assets/img/GNP_DARK.png',
+        LOGO_GNP_LIGHT: 'assets/img/GNP_LIGHT.png',
+        THEME_STORAGE_KEY: 'theme_mode',
+        MOBILE_BREAKPOINT: 767,
+        AVAILABLE_THEMES: [
+            { name: "Veler Blue v2", file: "assets/css/theme-veler-blue_2.css" },
+            { name: "Veler Blue", file: "assets/css/theme-veler-blue.css" },
+            { name: "Teal Green v2", file: "assets/css/theme-teal-green_v2.css" },
+            { name: "Teal Green", file: "assets/css/theme-teal-green.css" },
+            { name: "Slate Mauve v2", file: "assets/css/theme-slate-mauve_2.css" },
+            { name: "Slate Mauve", file: "assets/css/theme-slate-mauve.css" },
+            { name: "Pink v2", file: "assets/css/theme-pink_2.css"}, // Corregido nombre si es v2
+            { name: "Pink", file: "assets/css/theme-pink.css" },
+            { name: "Gold Teal v2", file: "assets/css/theme-gold-teal_2.css" },
+            { name: "Gold Teal", file: "assets/css/theme-gold-teal.css" },
+            { name: "Gold v2", file: "assets/css/theme-gold_2.css"}, // Corregido nombre si es v2
+            { name: "Gold", file: "assets/css/theme-gold.css"},
+            { name: "Red Dark v2", file: "assets/css/theme-red-dark_2.css"}, // Corregido nombre si es v2
+            { name: "Red Dark", file: "assets/css/theme-red-dark.css"},
+            { name: "GNP Default", file: "assets/css/theme-default.css" }
+        ],
+        DEFAULT_THEME_FILE: "assets/css/theme-veler-blue_2.css",
+        SELECTED_THEME_FILE_KEY: 'selected_theme_file',
+        THEME_LINK_ID: 'dynamic-theme-style-link'
+    };
+
+    // --- Selección de Elementos DOM ---
+    const $html = document.documentElement;
+    const $body = document.body;
     const $splashScreen = document.getElementById('splash-screen');
     const $mainHeader = document.getElementById('main-header');
-    const $formularioCompletoDiv = document.getElementById('formulario-completo');
+    const $formularioCompleto = document.getElementById('formulario-completo');
     const $form = document.getElementById('miFormularioDinamico');
-    const $secciones = Array.from($form.querySelectorAll('.seccion-formulario'));
-    const $seccionRevision = document.getElementById('seccion-revision');
-    // Asegúrate que $seccionesNavegables esté definido correctamente aquí
-    const $seccionesNavegables = $secciones.filter(sec => sec.id !== 'seccion-revision');
     const $modalOverlay = document.getElementById('modal-overlay');
     const $modalContainer = document.getElementById('modal-container');
     const $modalErrorIcon = document.getElementById('modal-error-icon');
@@ -17,611 +54,924 @@ document.addEventListener('DOMContentLoaded', () => {
     const $modalCloseBtn = document.getElementById('modal-close-btn');
     const $modalOkBtn = document.getElementById('modal-ok-btn');
     const $themeSwitch = document.getElementById('theme-checkbox');
-    const $sidebar = document.getElementById('sidebar-navegacion'); // <<< NUEVO: Sidebar element
+    const $themeSelector = document.getElementById('theme-selector');
+    const $sidebar = document.getElementById('sidebar-navegacion');
+    const $sidebarToggle = $sidebar ? $sidebar.querySelector('.sidebar-toggle') : null;
+    const $sidebarMenuItems = $sidebar ? Array.from($sidebar.querySelectorAll('.menu-item')) : [];
+    const $progressBarFill = $sidebar ? $sidebar.querySelector('.progress-fill') : null;
+    const $progressText = $sidebar ? $sidebar.querySelector('.progress-text') : null;
 
-    // --- Referencias a los logos ---
+    const $logoVelerSidebar = document.getElementById('logo-veler-sidebar');
     const $logo1Splash = document.getElementById('logo1-splash');
     const $logo2Splash = document.getElementById('logo2-splash');
-    const $logo1Header = document.getElementById('logo1-header');
-    const $logo2Header = document.getElementById('logo2-header');
 
-    // --- Rutas de los logos ---
-    const LOGO1_DARK_SRC = 'assets/img/VELER_DARK.png';
-    const LOGO2_DARK_SRC = 'assets/img/GNP_DARK.png';
-    const LOGO1_LIGHT_SRC = 'assets/img/VELER_LIGHT.png';
-    const LOGO2_LIGHT_SRC = 'assets/img/GNP_LIGHT.png';
+    const $allSections = $form ? Array.from($form.querySelectorAll('.seccion-formulario')) : [];
+    const $seccionRevision = $allSections.find(sec => sec.id === 'seccion-revision');
+    const $seccionesNavegables = $allSections.filter(sec => sec.id !== 'seccion-revision');
+    const $allFormFields = $form ? Array.from($form.querySelectorAll('input, select, textarea')) : [];
 
-    // --- Variables de Estado ---
-    let currentSeccionIndex = 0;
-    const FADE_DURATION = 400; // Duración fade secciones formulario
-    const SPLASH_DISPLAY_DURATION = 1500; // Tiempo splash visible
-    const SPLASH_FADE_DURATION = 500; // Tiempo fade out splash
-    let lastSubmitButton = null;
-
-    // --- Botón Toggle Sidebar (Encuentra o Crea) ---
-    let $sidebarToggle = document.querySelector('.sidebar-toggle');
-    if (!$sidebarToggle) {
-        console.log("Creando botón de toggle del sidebar dinámicamente.");
-        $sidebarToggle = document.createElement('button');
-        $sidebarToggle.className = 'sidebar-toggle material-symbols-outlined';
-        // Icono y título inicial se establecen en initializeSidebarState
-        document.body.appendChild($sidebarToggle);
-    }
+    // --- Estado de la Aplicación ---
+    let state = {
+        currentSeccionIndex: 0,
+        isSidebarExpanded: true,
+        isSidebarVisibleMobile: false,
+        lastSubmitButton: null,
+        isSubmitting: false,
+    };
 
     // --- Inicialización ---
-    initAppAnimation(); // Animación inicial (splash, header)
-    initTheme();        // Tema claro/oscuro
-    initializeSidebarState(); // <<< NUEVO: Establecer estado inicial del sidebar
-    // Llamada inicial segura a actualizarProgreso
-    if (typeof actualizarProgreso === 'function') {
-         actualizarProgreso();
-    } else {
-         console.error("La función actualizarProgreso no está definida al inicializar.");
-    }
-
-    // --- Listeners ---
-    if ($sidebarToggle) {
-        $sidebarToggle.addEventListener('click', toggleSidebar); // Asignar listener
-    } else {
-        console.error("El botón .sidebar-toggle no se encontró ni se pudo crear.");
-    }
-    window.addEventListener('resize', handleResize); // <<< NUEVO: Listener para redimensionar
-
-    // Listeners existentes
-    if ($form) $form.addEventListener('click', handleFormClick);
-    if ($modalOverlay) $modalOverlay.addEventListener('click', hideModal);
-    if ($modalCloseBtn) $modalCloseBtn.addEventListener('click', hideModal);
-    if ($modalOkBtn) $modalOkBtn.addEventListener('click', hideModal);
-    if ($themeSwitch) {
-        $themeSwitch.addEventListener('change', handleThemeSwitchChange);
-    } else {
-        console.warn("Elemento #theme-checkbox no encontrado.");
-    }
-
-    // --- NUEVA Función: Establecer Estado Inicial Sidebar ---
-    function initializeSidebarState() {
-        if (!$sidebarToggle) return; // Salir si no hay botón
-
-        if (window.innerWidth <= 767) {
-            // MÓVIL: Oculto por defecto, remover clases de desktop
-            document.body.classList.remove('body-sidebar-expanded', 'body-sidebar-collapsed', 'sidebar-visible');
-            $sidebarToggle.textContent = 'menu'; // Icono para mostrar
-            $sidebarToggle.title = 'Mostrar menú de navegación';
-        } else {
-            // DESKTOP: Expandido por defecto (o según preferencia guardada si la hubiera)
-            // Por ahora, empieza expandido
-            document.body.classList.add('body-sidebar-expanded');
-            document.body.classList.remove('body-sidebar-collapsed', 'sidebar-visible');
-            $sidebarToggle.textContent = 'menu'; // Icono para contraer
-            $sidebarToggle.title = 'Contraer menú';
+    function initializeApp() {
+        if (!validateEssentialElements()) {
+            console.error("Error Crítico: Faltan elementos esenciales del DOM. La aplicación no puede iniciar correctamente.");
+            return;
         }
-    }
-
-    // --- NUEVA Función: Manejar Redimensionamiento ---
-    function handleResize() {
-        // Re-inicializa el estado para aplicar clases correctas según tamaño
+        initThemeSelector();
+        initTheme();
         initializeSidebarState();
+        initFormNavigation();
+        initEventListeners();
+        initAppAnimation();
+        if ($seccionesNavegables.length > 0) {
+            // La lógica de revelación secuencial se iniciará en fadeInSection
+            // runSectionSpecificLogic($seccionesNavegables[0].id); // No es necesario aquí si fadeInSection lo maneja
+        }
     }
 
-    // --- NUEVA/MODIFICADA Función: Alternar Sidebar ---
-    function toggleSidebar() {
-        if (!$sidebarToggle) return; // Salir si no hay botón
-
-        if (window.innerWidth <= 767) {
-            // Lógica MÓVIL (Mostrar/Ocultar completo)
-            document.body.classList.toggle('sidebar-visible');
-            const isVisible = document.body.classList.contains('sidebar-visible');
-            $sidebarToggle.textContent = isVisible ? 'close' : 'menu';
-            $sidebarToggle.title = isVisible ? 'Ocultar menú' : 'Mostrar menú de navegación';
-            // Remover clases de desktop por seguridad
-            document.body.classList.remove('body-sidebar-expanded', 'body-sidebar-collapsed');
-        } else {
-            // Lógica DESKTOP (Expandir/Colapsar)
-            const isExpanded = document.body.classList.contains('body-sidebar-expanded');
-            if (isExpanded) {
-                document.body.classList.remove('body-sidebar-expanded');
-                document.body.classList.add('body-sidebar-collapsed');
-                $sidebarToggle.textContent = 'menu_open'; // Icono para expandir
-                $sidebarToggle.title = 'Expandir menú';
-            } else {
-                document.body.classList.remove('body-sidebar-collapsed');
-                document.body.classList.add('body-sidebar-expanded');
-                $sidebarToggle.textContent = 'menu'; // Icono para contraer
-                $sidebarToggle.title = 'Contraer menú';
+    function validateEssentialElements() {
+        // ... (código existente)
+        const essential = {
+             $form, $formularioCompleto, $sidebar, $sidebarToggle,
+             $themeSwitch, $themeSelector,
+             $mainHeader
+        };
+         let allPresent = true;
+        for (const key in essential) {
+            if (!essential[key]) {
+                console.error(`Error Init: Elemento ${key.replace('$', '')} no encontrado.`);
+                allPresent = false;
             }
-            // Remover clase de visibilidad móvil por seguridad
-            document.body.classList.remove('sidebar-visible');
+        }
+        if ($seccionesNavegables.length === 0 && $form) {
+             console.warn("Warning Init: No se encontraron secciones navegables.");
+        }
+        return allPresent;
+    }
+
+    function initThemeSelector() {
+        // ... (código existente)
+        let themeLink = document.getElementById(CONFIG.THEME_LINK_ID);
+        if (!themeLink) {
+            themeLink = document.createElement('link');
+            themeLink.id = CONFIG.THEME_LINK_ID;
+            themeLink.rel = 'stylesheet';
+            document.head.appendChild(themeLink);
+        }
+
+        if ($themeSelector) {
+            CONFIG.AVAILABLE_THEMES.forEach(theme => {
+                const option = document.createElement('option');
+                option.value = theme.file;
+                option.textContent = theme.name;
+                $themeSelector.appendChild(option);
+            });
+        } else {
+             console.error("Error Init: Elemento theme-selector no encontrado.");
+             return;
+        }
+        const savedThemeFile = localStorage.getItem(CONFIG.SELECTED_THEME_FILE_KEY) || CONFIG.DEFAULT_THEME_FILE;
+        const isValidSavedTheme = CONFIG.AVAILABLE_THEMES.some(theme => theme.file === savedThemeFile);
+        const themeFileToLoad = isValidSavedTheme ? savedThemeFile : CONFIG.DEFAULT_THEME_FILE;
+
+        themeLink.href = themeFileToLoad;
+        $themeSelector.value = themeFileToLoad;
+
+        if (themeFileToLoad !== savedThemeFile) {
+             localStorage.setItem(CONFIG.SELECTED_THEME_FILE_KEY, themeFileToLoad);
         }
     }
 
-
-    // --- Función de Animación Inicial (Sin cambios) ---
-    function initAppAnimation() {
-        if (!$splashScreen || !$mainHeader || !$formularioCompletoDiv) {
-            console.error("Error: Faltan elementos esenciales (splash, header o form)");
-            if ($mainHeader) $mainHeader.style.display = 'flex';
-            if ($formularioCompletoDiv) $formularioCompletoDiv.style.display = 'block';
-            // Intenta mostrar la primera sección si el formulario existe
-             if ($form && $seccionesNavegables.length > 0) {
-                showSection(0);
-             }
-            return;
-        }
-        setTimeout(() => {
-             $splashScreen.style.opacity = '1';
-             $splashScreen.style.pointerEvents = 'auto';
-        }, 100);
-        setTimeout(() => {
-            $splashScreen.style.opacity = '0';
-            $splashScreen.style.pointerEvents = 'none';
-            setTimeout(() => {
-                $splashScreen.style.display = 'none';
-                $mainHeader.style.display = 'flex';
-                $formularioCompletoDiv.style.display = 'block';
-                // Muestra la primera sección del formulario
-                 if ($seccionesNavegables.length > 0) {
-                    showSection(0);
-                 }
-            }, SPLASH_FADE_DURATION);
-        }, SPLASH_DISPLAY_DURATION);
-    }
-
-    // --- Funciones de Tema (Sin cambios) ---
     function initTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        applyTheme(savedTheme);
-        // Listener ya asignado arriba
+        // ... (código existente)
+        const savedThemeMode = localStorage.getItem(CONFIG.THEME_STORAGE_KEY) || 'dark';
+        applyThemeMode(savedThemeMode);
+        if ($themeSwitch) $themeSwitch.checked = (savedThemeMode === 'light');
     }
-    function applyTheme(theme) {
-        const isLightTheme = theme === 'light';
-        document.documentElement.classList.toggle('light-theme', isLightTheme);
-        if ($themeSwitch) $themeSwitch.checked = isLightTheme;
-        if ($logo1Splash && $logo2Splash && $logo1Header && $logo2Header) {
-            $logo1Splash.src = isLightTheme ? LOGO1_LIGHT_SRC : LOGO1_DARK_SRC;
-            $logo2Splash.src = isLightTheme ? LOGO2_LIGHT_SRC : LOGO2_DARK_SRC;
-            $logo1Header.src = isLightTheme ? LOGO1_LIGHT_SRC : LOGO1_DARK_SRC;
-            $logo2Header.src = isLightTheme ? LOGO2_LIGHT_SRC : LOGO2_DARK_SRC;
-        } else {
-            console.error("Uno o más elementos de logo no fueron encontrados.");
+
+    function applyThemeMode(themeMode) {
+        // ... (código existente)
+        const isLightTheme = themeMode === 'light';
+        $html.classList.toggle('light-theme', isLightTheme);
+        if ($logoVelerSidebar) $logoVelerSidebar.src = isLightTheme ? CONFIG.LOGO_VELER_LIGHT : CONFIG.LOGO_VELER_DARK;
+        if ($logo1Splash) $logo1Splash.src = isLightTheme ? CONFIG.LOGO_VELER_LIGHT : CONFIG.LOGO_VELER_DARK;
+        if ($logo2Splash) $logo2Splash.src = isLightTheme ? CONFIG.LOGO_GNP_LIGHT : CONFIG.LOGO_GNP_DARK;
+        if ($modalSuccessLogo) {
+            // $modalSuccessLogo.src = isLightTheme ? 'assets/img/V_icon_light.png' : 'assets/img/V_icon.png';
         }
     }
+
     function handleThemeSwitchChange() {
-        const currentTheme = this.checked ? 'light' : 'dark';
-        applyTheme(currentTheme);
-        localStorage.setItem('theme', currentTheme);
+        // ... (código existente)
+        const currentThemeMode = this.checked ? 'light' : 'dark';
+        applyThemeMode(currentThemeMode);
+        localStorage.setItem(CONFIG.THEME_STORAGE_KEY, currentThemeMode);
     }
 
-    // --- Funciones de Navegación del Formulario ---
-    // MODIFICADO: showSection ahora también actualiza el item activo del menú
-    function showSection(indexToShow) {
-        if (!isValidSectionIndex(indexToShow)) return;
-
-        const $currentActive = $form.querySelector('.seccion-formulario.seccion-activa');
-        // Asegúrate que $seccionesNavegables está disponible
-        if (!$seccionesNavegables || !$seccionesNavegables[indexToShow]) {
-            console.error("Índice o array de secciones navegables inválido en showSection:", indexToShow);
-            return;
+    function handleThemeFileChange() {
+        // ... (código existente)
+        const selectedFile = this.value;
+        const themeLink = document.getElementById(CONFIG.THEME_LINK_ID);
+        if (themeLink) {
+            themeLink.href = selectedFile;
+            localStorage.setItem(CONFIG.SELECTED_THEME_FILE_KEY, selectedFile);
+            const currentThemeMode = localStorage.getItem(CONFIG.THEME_STORAGE_KEY) || 'dark';
+            applyThemeMode(currentThemeMode);
         }
-        const $nextSection = $seccionesNavegables[indexToShow];
+    }
 
-        // Lógica de fadeOut/fadeIn
-        if ($currentActive && $currentActive !== $nextSection) {
-            fadeOutSection($currentActive, () => fadeInSection($nextSection));
-        } else if (!$currentActive) {
-            fadeInSection($nextSection); // Primera carga
+    function initAppAnimation() {
+        // ... (código existente)
+        if ($splashScreen) {
+            $splashScreen.style.opacity = '1';
+            $splashScreen.style.pointerEvents = 'auto';
+            setTimeout(() => {
+                $splashScreen.style.opacity = '0';
+                $splashScreen.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    if ($splashScreen) $splashScreen.style.display = 'none'; // Chequeo extra
+                    revealMainContent();
+                }, CONFIG.SPLASH_FADE_DURATION);
+            }, CONFIG.SPLASH_DISPLAY_DURATION);
         } else {
-            // Ya está activa, no hacer nada o refrescar si es necesario
+            revealMainContent();
         }
-
-        currentSeccionIndex = indexToShow; // Actualizar índice global
-
-        // <<< NUEVO: Actualizar item activo en el sidebar >>>
-        const menuItems = document.querySelectorAll('#sidebar-navegacion .menu-item');
-        menuItems.forEach(item => item.classList.remove('active'));
-        // Encuentra el item correspondiente a la sección que se acaba de mostrar
-        const activeMenuItem = document.querySelector(`#sidebar-navegacion .menu-item[data-section="${$nextSection.id}"]`);
-        if (activeMenuItem) {
-            activeMenuItem.classList.add('active');
-        }
-        // <<< Fin de actualización de item activo >>>
     }
 
-    function isValidSectionIndex(index) {
-        // Asegúrate que $seccionesNavegables existe
-        if (!$seccionesNavegables) return false;
-        const isValid = index >= 0 && index < $seccionesNavegables.length;
-        if (!isValid) {
-             console.error("Índice de sección fuera de rango:", index);
+    function revealMainContent() {
+        // ... (código existente)
+         if($mainHeader) $mainHeader.style.display = 'flex';
+         if($sidebar) $sidebar.style.display = 'flex';
+         if($formularioCompleto) $formularioCompleto.style.display = 'block';
+         if ($seccionesNavegables.length > 0) {
+            showSection(0);
+            actualizarProgreso();
+         }
+    }
+
+    function initializeSidebarState() {
+        // ... (código existente)
+        const isMobile = window.innerWidth <= CONFIG.MOBILE_BREAKPOINT;
+        const savedSidebarState = localStorage.getItem('sidebar_expanded');
+        const startExpanded = isMobile ? false : (savedSidebarState !== null ? JSON.parse(savedSidebarState) : state.isSidebarExpanded);
+        state.isSidebarExpanded = startExpanded;
+        state.isSidebarVisibleMobile = false;
+        if (isMobile) {
+            $body.classList.remove('body-sidebar-expanded', 'sidebar-visible');
+            $body.classList.add('body-sidebar-collapsed');
+        } else {
+            $body.classList.toggle('body-sidebar-expanded', startExpanded);
+            $body.classList.toggle('body-sidebar-collapsed', !startExpanded);
+            $body.classList.remove('sidebar-visible');
         }
-        return isValid;
+        updateSidebarToggleButton();
+    }
+
+    function toggleSidebar() {
+        // ... (código existente)
+        const isMobile = window.innerWidth <= CONFIG.MOBILE_BREAKPOINT;
+        if (isMobile) {
+            state.isSidebarVisibleMobile = !state.isSidebarVisibleMobile;
+            $body.classList.toggle('sidebar-visible', state.isSidebarVisibleMobile);
+            $body.classList.remove('body-sidebar-expanded', 'body-sidebar-collapsed');
+        } else {
+            state.isSidebarExpanded = !state.isSidebarExpanded;
+            $body.classList.toggle('body-sidebar-expanded', state.isSidebarExpanded);
+            $body.classList.toggle('body-sidebar-collapsed', !state.isSidebarExpanded);
+            $body.classList.remove('sidebar-visible');
+            localStorage.setItem('sidebar_expanded', JSON.stringify(state.isSidebarExpanded));
+        }
+        updateSidebarToggleButton();
+    }
+
+    function updateSidebarToggleButton() {
+        // ... (código existente)
+        if (!$sidebarToggle) return;
+        const isMobile = window.innerWidth <= CONFIG.MOBILE_BREAKPOINT;
+        if (isMobile) {
+             $sidebarToggle.textContent = state.isSidebarVisibleMobile ? 'close' : 'menu';
+             $sidebarToggle.title = state.isSidebarVisibleMobile ? 'Ocultar menú' : 'Mostrar menú';
+        } else {
+            $sidebarToggle.textContent = state.isSidebarExpanded ? 'menu_open' : 'menu';
+            $sidebarToggle.title = state.isSidebarExpanded ? 'Contraer menú' : 'Expandir menú';
+        }
+    }
+
+    function handleResize() { initializeSidebarState(); }
+
+    function initFormNavigation() {
+        // ... (código existente)
+        $sidebarMenuItems.forEach(item => item.addEventListener('click', handleMenuItemClick));
+    }
+
+    function isValidSectionIndex(index) { return index >= 0 && index < $seccionesNavegables.length; }
+
+    function showSection(indexToShow) {
+        if (!$form || !isValidSectionIndex(indexToShow)) return;
+        const $currentActive = $form.querySelector('.seccion-formulario.seccion-activa');
+        const $nextSection = $seccionesNavegables[indexToShow];
+        if ($currentActive === $nextSection) return;
+
+        // --- NUEVO: Limpiar listeners de revelación secuencial de la sección anterior ---
+        if ($currentActive) {
+            clearSequentialRevealListeners($currentActive);
+        }
+        // --- FIN NUEVO ---
+
+        if ($currentActive) {
+            fadeOutSection($currentActive, () => fadeInSection($nextSection, indexToShow));
+        } else {
+            fadeInSection($nextSection, indexToShow);
+        }
+        state.currentSeccionIndex = indexToShow;
     }
 
     function fadeOutSection($section, callback) {
-        $section.classList.remove('seccion-activa');
-        // Espera a que termine la animación de fade antes de ocultar con display:none
+        // ... (código existente)
+        $section.style.opacity = '0';
         setTimeout(() => {
+            $section.classList.remove('seccion-activa');
             $section.style.display = 'none';
             if (callback) callback();
-        }, FADE_DURATION); // Usar la constante de duración
+        }, CONFIG.FADE_DURATION);
     }
 
-    function fadeInSection($section) {
-        if ($section) {
-            $section.style.display = 'block'; // Hacer visible primero
-            // Pequeño delay para asegurar que display:block se aplique antes de añadir la clase
-            setTimeout(() => {
-                $section.classList.add('seccion-activa'); // Iniciar animación de fade in
-            }, 10);
+    function fadeInSection($section, index) {
+        if (!$section) return; 
+        $section.style.display = 'block'; 
+        
+        // --- : Inicializar revelación secuencial para la nueva sección ---
+        initSequentialReveal($section); 
+        // --- FIN  ---
+
+        setTimeout(() => { 
+            $section.style.opacity = '1';
+            $section.classList.add('seccion-activa');
+            updateActiveMenuItem(index);
+            window.scrollTo(0, 0);
+            runSectionSpecificLogic($section.id); 
+        }, 50); 
+    }
+    
+    function runSectionSpecificLogic(sectionId) {
+        // Llama a las funciones de lógica condicional para la sección actual
+        if (sectionId === 'seccion-habitos') {
+            toggleHabitosFields();
+        }
+        // Añadir más secciones aquí si es necesario
+        // if (sectionId === 'seccion-deportes') { toggleDeportesFields(); }
+    }
+
+    function updateActiveMenuItem(activeIndex) {
+        // ... (código existente)
+        const activeSectionId = activeIndex >= 0 && $seccionesNavegables[activeIndex] ? $seccionesNavegables[activeIndex].id : null;
+        $sidebarMenuItems.forEach(item => {
+            item.classList.toggle('active', item.getAttribute('data-section') === activeSectionId);
+        });
+    }
+
+    function handleFormButtonClick(event) {
+        // ... (código existente)
+        const $button = event.target.closest('button');
+        if (!$button) return;
+
+        if ($button.classList.contains('btn-siguiente')) {
+            if ($button.classList.contains('btn-final')) {
+                showReviewMode();
+            } else if (state.currentSeccionIndex < $seccionesNavegables.length - 1) {
+                showSection(state.currentSeccionIndex + 1);
+            }
+        } else if ($button.classList.contains('btn-anterior')) {
+            if ($button.classList.contains('btn-volver-a-editar')) {
+                hideReviewMode();
+            } else if (state.currentSeccionIndex > 0) {
+                showSection(state.currentSeccionIndex - 1);
+            }
+        } else if ($button.type === 'submit' && $button.closest('#seccion-revision')) {
+            handleSubmitButtonClick($button, event);
         }
     }
 
-    // Funciones showReviewMode, hideReviewMode, generateFinalSummary, isValidInputValue, getLabelText (Sin cambios)
+    function handleMenuItemClick(event) {
+        // ... (código existente)
+        if ($formularioCompleto.classList.contains('modo-revision')) return;
+        const sectionId = event.currentTarget.getAttribute('data-section');
+        const targetIndex = $seccionesNavegables.findIndex(sec => sec.id === sectionId);
+        if (targetIndex !== -1) {
+            showSection(targetIndex);
+            const isMobile = window.innerWidth <= CONFIG.MOBILE_BREAKPOINT;
+            if (isMobile && $body.classList.contains('sidebar-visible')) {
+                toggleSidebar();
+            }
+        }
+    }
+
     function showReviewMode() {
-        console.log("Entrando en modo revisión...");
+        // ... (código existente)
         const $currentActive = $form.querySelector('.seccion-formulario.seccion-activa');
         const enterReview = () => {
-            $formularioCompletoDiv.classList.add('modo-revision');
-            if ($seccionRevision) $seccionRevision.style.display = 'block';
-            generateFinalSummary();
+            $formularioCompleto.classList.add('modo-revision');
+            if ($seccionRevision) {
+                $seccionRevision.style.display = 'block';
+                setTimeout(() => { $seccionRevision.style.opacity = '1'; $seccionRevision.classList.add('seccion-activa'); }, 50);
+                generateFinalSummary();
+            }
+            $seccionesNavegables.forEach(sec => { sec.style.display = 'block'; sec.style.opacity = '1'; sec.classList.remove('seccion-activa'); });
+            updateActiveMenuItem(-1);
             window.scrollTo(0, 0);
         };
-        if ($currentActive) {
-            // Desvanecer la sección activa actual antes de mostrar el modo revisión
+        if ($currentActive && $currentActive !== $seccionRevision) {
             fadeOutSection($currentActive, enterReview);
-        } else {
-            // Si no hay sección activa (raro), entrar directamente
-            enterReview();
-        }
+        } else { enterReview(); }
     }
+
     function hideReviewMode() {
-        console.log("Saliendo de modo revisión...");
-        $formularioCompletoDiv.classList.remove('modo-revision');
-        if ($seccionRevision) $seccionRevision.style.display = 'none';
-        // Volver a mostrar la última sección activa (o la que corresponda)
-        showSection(currentSeccionIndex);
+        // ... (código existente)
+        $formularioCompleto.classList.remove('modo-revision');
+        $seccionesNavegables.forEach(sec => { sec.style.opacity = '0'; sec.style.display = 'none'; sec.classList.remove('seccion-activa'); });
+        if ($seccionRevision) {
+            fadeOutSection($seccionRevision, () => { showSection(state.currentSeccionIndex); actualizarProgreso(); });
+        } else { showSection(state.currentSeccionIndex); actualizarProgreso(); }
     }
+
     function generateFinalSummary() {
-        const $resumenDiv = document.getElementById('resumen-final');
-        if (!$resumenDiv) {
-             console.error("Elemento #resumen-final no encontrado");
-             return;
-        }
-        $resumenDiv.innerHTML = '';
+        // ... (código existente)
+        if (!$seccionRevision) return;
+        const $resumenFinal = $seccionRevision.querySelector('#resumen-final');
+        if (!$resumenFinal) return;
+        $resumenFinal.innerHTML = '';
         const formData = new FormData($form);
-        let resumenHTML = '<ul>';
+        const dataObject = {};
+        formData.forEach((value, key) => {
+            if (dataObject[key]) {
+                if (!Array.isArray(dataObject[key])) dataObject[key] = [dataObject[key]];
+                dataObject[key].push(value);
+            } else { dataObject[key] = value; }
+        });
+        const $ul = document.createElement('ul');
         $seccionesNavegables.forEach(section => {
-            section.querySelectorAll('.form-group [name]').forEach(inputElement => {
-                const key = inputElement.name;
-                const value = formData.get(key);
-                // const allValues = formData.getAll(key); // Útil para checkboxes con mismo name
-                let displayValue = null;
-                let labelText = getLabelText($form, key) || key;
-                if (inputElement.type === 'checkbox') {
-                    // Mostrar solo si está marcado
-                    if (inputElement.checked) {
-                        // Si tiene un valor específico, usarlo, sino 'Sí'
-                        displayValue = inputElement.value !== 'on' && inputElement.value !== 'true' ? inputElement.value : 'Sí';
-                    } else {
-                        displayValue = null; // No mostrar si no está marcado
-                    }
-                } else if (inputElement.type === 'radio') {
-                     // Mostrar solo el radio seleccionado
-                     if (inputElement.checked) { displayValue = value; } else { displayValue = null; }
-                } else if (inputElement.tagName === 'SELECT' && value) {
-                    const selectedOption = inputElement.querySelector(`option[value="${value}"]`);
-                    displayValue = selectedOption ? selectedOption.textContent : value;
-                } else if (inputElement.type === 'file' && value instanceof File && value.size > 0) {
-                    displayValue = `${value.name} (${(value.size / 1024).toFixed(1)} KB)`;
+            const sectionId = section.id;
+            const sectionTitle = section.querySelector('h2')?.textContent || sectionId.replace('seccion-', '').replace(/_/g, ' ');
+            let sectionHasData = false;
+            const $sectionUl = document.createElement('ul');
+            section.querySelectorAll('.form-group [name]').forEach(input => {
+                if (input.offsetParent === null && !input.closest('.seccion-formulario.seccion-activa')) return; // Evitar campos ocultos
+                const key = input.name;
+                let value = dataObject[key];
+                let displayValue = '';
+                if (input.type === 'checkbox') {
+                    displayValue = dataObject.hasOwnProperty(key) ? 'Sí' : 'No';
+                } else if (input.type === 'radio') {
+                    const checkedRadio = section.querySelector(`input[name="${key}"]:checked`);
+                    displayValue = checkedRadio ? (getLabelText(checkedRadio.parentElement) || checkedRadio.value) : 'No seleccionado';
+                } else if (input.tagName === 'SELECT' && input.multiple) {
+                     displayValue = value ? (Array.isArray(value) ? value.join(', ') : value) : 'No seleccionado';
+                } else if (input.tagName === 'SELECT') {
+                    const selectedOption = input.options[input.selectedIndex];
+                    displayValue = selectedOption && selectedOption.value ? selectedOption.text : 'No seleccionado';
                 } else if (isValidInputValue(value)) {
                     displayValue = value;
-                }
-
-                // Evitar duplicados de radio buttons (solo muestra el seleccionado)
-                 const isRadioAndAlreadyAdded = inputElement.type === 'radio' && resumenHTML.includes(`<strong>${labelText}:`);
-
-                if (displayValue !== null && !isRadioAndAlreadyAdded) {
-                    resumenHTML += `<li><strong>${labelText}:</strong> ${displayValue}</li>`;
-                }
-            });
-        });
-        resumenHTML += '</ul>';
-        $resumenDiv.innerHTML = resumenHTML;
-    }
-    function isValidInputValue(value) {
-        // Considera 0 como válido si es numérico, ajusta si es necesario
-        return value !== null && value !== undefined && String(value).trim() !== '';
-    }
-    function getLabelText($form, key) {
-        // Intenta encontrar por 'for' o buscando dentro del .form-group
-        const $inputElement = $form.querySelector(`[name="${key}"]`);
-        if (!$inputElement) return key; // Devuelve la key si no encuentra el input
-
-        let $labelElement = null;
-        if ($inputElement.id) {
-            $labelElement = document.querySelector(`label[for="${$inputElement.id}"]`);
-        }
-        if (!$labelElement) {
-             $labelElement = $inputElement.closest('.form-group')?.querySelector('label');
-        }
-        // Caso especial para checkbox/radio donde el input está dentro del label
-        if (!$labelElement && ($inputElement.type === 'checkbox' || $inputElement.type === 'radio')) {
-            $labelElement = $inputElement.closest('label');
-        }
-
-        if (!$labelElement) return key; // Devuelve la key si no encuentra label
-
-        // Limpia el texto del label (quita el input si está dentro)
-        const cleanLabel = $labelElement.cloneNode(true);
-        cleanLabel.querySelectorAll('input, select, textarea, button, span.required-indicator').forEach($el => $el.remove()); // Remover elementos internos
-        return cleanLabel.textContent.trim().replace(':', '');
-    }
-
-
-    // --- Funciones de Manejo de Modales (Sin cambios) ---
-    function showModal(type, message = '') {
-        if (!$modalContainer || !$modalOverlay) {
-            console.error("Elementos del modal no encontrados!");
-            return;
-        }
-        if (type === 'success') {
-            $modalTitle.textContent = '¡Éxito!';
-            $modalMessage.textContent = message || 'Tus datos han sido enviados correctamente. ¡Gracias por tu participación!';
-            if ($modalErrorIcon) $modalErrorIcon.style.display = 'none';
-            if ($modalSuccessLogo) $modalSuccessLogo.style.display = 'inline-block';
-            if ($modalCloseBtn) $modalCloseBtn.style.display = 'none';
-            if ($modalOkBtn) $modalOkBtn.style.display = 'inline-block';
-        } else { // 'error' or other types
-            $modalTitle.textContent = 'Error';
-            if ($modalErrorIcon) {
-                 $modalErrorIcon.textContent = 'error'; // Ensure icon name is correct
-                 $modalErrorIcon.style.display = 'inline-block';
-            }
-            if ($modalSuccessLogo) $modalSuccessLogo.style.display = 'none';
-            $modalMessage.textContent = message || 'Hubo un problema. Por favor, revisa la información o inténtalo más tarde.';
-            if ($modalCloseBtn) $modalCloseBtn.style.display = 'inline-block';
-            if ($modalOkBtn) $modalOkBtn.style.display = 'none';
-        }
-        document.body.classList.add('modal-visible');
-    }
-    function hideModal() {
-        if (!document.body.classList.contains('modal-visible')) return;
-        document.body.classList.remove('modal-visible');
-        // Reactivar botón de submit si fue desactivado
-        if (lastSubmitButton) {
-            lastSubmitButton.disabled = false;
-            // Restaurar texto original si es necesario (requiere guardarlo)
-            lastSubmitButton.textContent = 'Enviar Formulario'; // O el texto original
-            lastSubmitButton = null;
-        }
-    }
-
-    // --- Funciones de Manejo de Eventos del Formulario (Sin cambios) ---
-    function handleFormClick(event) {
-        const $target = event.target.closest('button');
-        if (!$target) return; // No es un botón o no está dentro de uno
-
-        if ($target.classList.contains('btn-siguiente')) {
-            handleNextButtonClick($target);
-        } else if ($target.classList.contains('btn-anterior')) {
-            handlePrevButtonClick($target);
-        } else if ($target.type === 'submit' && $target.closest('#seccion-revision')) {
-            // Es el botón final de envío en la sección de revisión
-            handleSubmitButtonClick($target, event);
-        }
-        // Otros tipos de botones dentro del form podrían manejarse aquí
-    }
-    function handleNextButtonClick($target) {
-        // Podrías añadir validación de la sección actual aquí antes de avanzar
-        const esBotonFinalParaRevision = $target.classList.contains('btn-final');
-        if (esBotonFinalParaRevision) {
-            showReviewMode();
-        } else if (currentSeccionIndex < $seccionesNavegables.length - 1) {
-            showSection(currentSeccionIndex + 1);
-        }
-    }
-    function handlePrevButtonClick($target) {
-        if ($target.classList.contains('btn-volver-a-editar')) {
-            // Botón específico para salir del modo revisión
-            hideReviewMode();
-        } else if (currentSeccionIndex > 0) {
-            showSection(currentSeccionIndex - 1);
-        }
-    }
-    function handleSubmitButtonClick($target, event) {
-        event.preventDefault(); // Evitar envío HTML normal
-
-        // Doble check que estemos en modo revisión
-        if (!$formularioCompletoDiv.classList.contains('modo-revision')) {
-            console.warn("Intento de envío fuera del modo revisión.");
-            showModal('error', 'El formulario no está en modo revisión. Por favor, completa los pasos.');
-            return;
-        }
-
-        const formData = new FormData($form);
-        console.log("Datos recolectados para enviar:", Object.fromEntries(formData.entries())); // Mostrar datos
-
-        // Desactivar botón y mostrar feedback
-        $target.disabled = true;
-        $target.textContent = 'Enviando...';
-        lastSubmitButton = $target; // Guardar referencia para reactivar en hideModal
-
-        // Llamar a la función que envía los datos
-        sendFormData(formData);
-    }
-
-    // --- Función de Envío de Datos (Sin cambios, ajustar endpoint) ---
-    function sendFormData(formData) {
-        // <<< ¡¡¡ IMPORTANTE: Cambia esto a tu endpoint real !!! >>>
-        const endpointURL = '/tu-endpoint-real-en-el-servidor'; // Ejemplo
-        // const endpointURL = 'https://jsonplaceholder.typicode.com/posts'; // Endpoint de prueba
-
-        console.log(`Enviando datos a: ${endpointURL}`);
-
-        fetch(endpointURL, {
-            method: 'POST',
-            body: formData
-            // Podrías necesitar añadir headers aquí si tu API los requiere
-            // headers: {
-            //   'Content-Type': 'application/json', // ¡Ojo! FormData no suele usar este header
-            //   'Authorization': 'Bearer TU_TOKEN_AQUI'
-            // },
-            // Si necesitas enviar JSON en lugar de FormData:
-            // body: JSON.stringify(Object.fromEntries(formData.entries())),
-            // headers: { 'Content-Type': 'application/json' }
-        })
-        .then(async response => {
-            // Procesar la respuesta
-            const contentType = response.headers.get("content-type");
-            let responseData;
-            if (contentType && contentType.includes("application/json")) {
-                responseData = await response.json();
-            } else {
-                responseData = await response.text(); // O .blob(), .arrayBuffer() según necesites
-            }
-
-            if (!response.ok) {
-                // Intentar obtener mensaje de error del cuerpo de la respuesta
-                let errorMessage = `Error ${response.status}: ${response.statusText}`;
-                if (responseData) {
-                     errorMessage = (typeof responseData === 'object' && responseData.message) ? responseData.message : JSON.stringify(responseData);
-                }
-                // Crear un error para pasar al .catch()
-                const error = new Error(errorMessage);
-                error.status = response.status;
-                error.data = responseData; // Adjuntar datos de respuesta al error
-                throw error;
-            }
-
-            return responseData; // Pasar datos exitosos al siguiente .then()
-        })
-        .then(data => {
-            console.log('Éxito:', data);
-            // Extraer mensaje de éxito si existe
-            const successMessage = (typeof data === 'object' && data?.message) ? data.message : 'Formulario enviado con éxito.';
-            showModal('success', successMessage);
-            // Podrías resetear el formulario aquí si quieres: $form.reset(); initializeSidebarState(); actualizarProgreso(); showSection(0);
-        })
-        .catch(error => {
-            console.error('Error en fetch:', error);
-            // Mostrar mensaje de error del objeto Error creado antes
-            showModal('error', error.message || 'Ocurrió un error al enviar el formulario.');
-             // No reactivar el botón aquí, se hace en hideModal()
-        });
-    }
-
-    // --- MODIFICADO: Listener para Items del Menú (Lógica Principal) ---
-    const menuItems = document.querySelectorAll('#sidebar-navegacion .menu-item');
-    menuItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const sectionId = item.getAttribute('data-section');
-            let sectionIndex = -1;
-
-            // Encontrar el índice de la sección basado en su ID
-            // Asegúrate que $seccionesNavegables está definido y accesible aquí
-            if (!$seccionesNavegables) {
-                console.error("$seccionesNavegables no está disponible en el listener del menú.");
-                return;
-            }
-            $seccionesNavegables.forEach((sec, idx) => {
-                if (sec.id === sectionId) {
-                    sectionIndex = idx;
+                } else if (input.required) {
+                    displayValue = '--- PENDIENTE ---';
+                } else { return; }
+                const labelText = getLabelForInput(input);
+                if (labelText) {
+                    const $li = document.createElement('li');
+                    const $valueSpan = document.createElement('span');
+                    $valueSpan.className = 'respuesta-valor';
+                    $valueSpan.textContent = displayValue;
+                    $li.innerHTML = `<strong>${labelText}:</strong> `;
+                    $li.appendChild($valueSpan);
+                    $sectionUl.appendChild($li);
+                    sectionHasData = true;
                 }
             });
-
-            if (sectionIndex !== -1) {
-                showSection(sectionIndex); // Llama a la función para mostrar la sección por índice
-            } else {
-                console.warn(`Sección con ID ${sectionId} no encontrada en $seccionesNavegables.`);
-            }
-
-            // (La actualización de la clase .active ahora se hace dentro de showSection)
-
-            // Cerrar sidebar en MÓVIL después de seleccionar
-            if (window.innerWidth <= 767 && document.body.classList.contains('sidebar-visible')) {
-                document.body.classList.remove('sidebar-visible');
-                 if ($sidebarToggle) { // Actualizar botón si existe
-                     $sidebarToggle.textContent = 'menu';
-                     $sidebarToggle.title = 'Mostrar menú de navegación';
-                 }
+            if (sectionHasData) {
+                const $sectionHeaderLi = document.createElement('li');
+                $sectionHeaderLi.innerHTML = `<h4>${sectionTitle}</h4>`;
+                $sectionHeaderLi.style.borderBottom = 'none'; $sectionHeaderLi.style.marginBottom = '10px';
+                $ul.appendChild($sectionHeaderLi); $ul.appendChild($sectionUl);
+                const $hr = document.createElement('hr');
+                $hr.style.borderColor = 'var(--border)'; $hr.style.opacity = '0.5'; $hr.style.margin = '15px 0';
+                $ul.appendChild($hr);
             }
         });
-    });
+        const lastElement = $ul.lastElementChild;
+        if (lastElement && lastElement.tagName === 'HR') $ul.removeChild(lastElement);
+        $resumenFinal.appendChild($ul);
+    }
+    function isValidInputValue(value) { return value !== null && value !== undefined && String(value).trim() !== ''; }
 
-    // --- REEMPLAZADO: Función Actualizar Progreso ---
+    function getLabelForInput(inputElement) {
+        // ... (código existente para obtener el label)
+        let label = null;
+        if (inputElement.id) label = $form.querySelector(`label[for="${inputElement.id}"]`);
+        if (!label) label = inputElement.closest('label');
+        if (!label) {
+            const formGroup = inputElement.closest('.form-group.question-group');
+            if (formGroup) label = formGroup.querySelector('label');
+        }
+        if (label) {
+            const clone = label.cloneNode(true);
+            const inputInside = clone.querySelector('input, select, textarea, .required-marker');
+            if (inputInside) inputInside.remove();
+             // Remover spans de marcadores si están fuera del input pero dentro del label
+            clone.querySelectorAll('.required-marker').forEach(marker => marker.remove());
+            return clone.textContent.replace(':', '').trim();
+        }
+        return inputElement.name || 'Campo sin etiqueta';
+    }
+
+
     function actualizarProgreso() {
-        const progressBarFill = document.querySelector('#sidebar-navegacion .progress-fill');
-        const progressText = document.querySelector('#sidebar-navegacion .progress-text');
-        const allMenuItems = document.querySelectorAll('#sidebar-navegacion .menu-item');
-
-        // Salir temprano si los elementos no existen (puede pasar al inicio)
-        if (!progressBarFill || !progressText || !allMenuItems.length) {
-             return;
-        }
-
-        const formSections = document.querySelectorAll('#miFormularioDinamico .seccion-formulario:not(#seccion-revision)');
-        let totalCampos = 0;
-        let camposCompletados = 0;
-
-        // Contar campos y completados usando checkValidity()
-        formSections.forEach(section => {
+        // ... (código existente)
+        if (!$progressBarFill || !$progressText || !$form) return;
+        let totalCamposNavegables = 0;
+        let camposCompletadosNavegables = 0;
+        $seccionesNavegables.forEach((section) => {
+            let sectionIsComplete = true;
+            let sectionHasRequiredFields = false;
             const inputsInSection = section.querySelectorAll('.form-group [name]');
             inputsInSection.forEach(input => {
-                 // Considerar solo inputs visibles y habilitados? Podría ser más complejo
-                 // if (input.offsetParent !== null && !input.disabled) {
-                 totalCampos++;
-                 if (input.checkValidity()) { // Usa validación HTML5 nativa
-                     camposCompletados++;
-                 }
-                 // }
-            });
-        });
-
-        const porcentaje = totalCampos > 0 ? Math.round((camposCompletados / totalCampos) * 100) : 0;
-
-        progressBarFill.style.width = `${porcentaje}%`;
-        progressText.textContent = `${porcentaje}% completado`;
-
-        // Marcar secciones completadas (si todos sus campos son válidos)
-        allMenuItems.forEach(item => {
-            const sectionId = item.getAttribute('data-section');
-            const seccion = document.getElementById(sectionId);
-            if (!seccion) return;
-
-            const camposSeccion = seccion.querySelectorAll('.form-group [name]');
-            let completadosSeccion = 0;
-            let totalSeccion = 0;
-            let seccionCompleta = true; // Asumir completa hasta encontrar uno inválido
-
-            camposSeccion.forEach(input => {
-                totalSeccion++;
-                if (!input.checkValidity()) {
-                    seccionCompleta = false;
+                if (input.offsetParent !== null && !input.disabled) {
+                    totalCamposNavegables++;
+                    if (input.checkValidity()) {
+                        camposCompletadosNavegables++;
+                    } else {
+                         if (input.required) sectionIsComplete = false;
+                    }
+                    if (input.required) sectionHasRequiredFields = true;
                 }
             });
+            const menuItem = $sidebarMenuItems.find(item => item.getAttribute('data-section') === section.id);
+            if (menuItem) {
+                 const markAsCompleted = (sectionHasRequiredFields && sectionIsComplete) || (!sectionHasRequiredFields && sectionIsComplete);
+                 menuItem.classList.toggle('completed', markAsCompleted);
+            }
+        });
+        const porcentaje = totalCamposNavegables > 0 ? Math.round((camposCompletadosNavegables / totalCamposNavegables) * 100) : 0;
+        $progressBarFill.style.width = `${porcentaje}%`;
+        $progressText.textContent = `${porcentaje}% completado`;
+    }
 
-            const menuItemTarget = document.querySelector(`#sidebar-navegacion .menu-item[data-section="${sectionId}"]`);
-            if (!menuItemTarget) return;
+    function showModal(type, message = '', title = '') {
+        // ... (código existente)
+        if (!$modalOverlay || !$modalContainer) return;
+        $modalMessage.textContent = message;
+        $modalTitle.textContent = title || (type === 'error' ? 'Error' : 'Éxito');
+        if ($modalErrorIcon) $modalErrorIcon.style.display = (type === 'error') ? 'inline-block' : 'none';
+        if ($modalSuccessLogo) $modalSuccessLogo.style.display = (type === 'success') ? 'inline-block' : 'none';
+        if ($modalOkBtn) $modalOkBtn.style.display = (type === 'success') ? 'inline-block' : 'inline-block';
+        if ($modalCloseBtn) $modalCloseBtn.style.display = 'inline-block';
+        $body.classList.add('modal-visible');
+    }
 
-            // Marcar como completado SOLO si hay campos y TODOS son válidos
-            if (totalSeccion > 0 && seccionCompleta) {
-                menuItemTarget.classList.add('completed');
+    function hideModal() {
+        // ... (código existente)
+        if (!$body.classList.contains('modal-visible')) return;
+        $body.classList.remove('modal-visible');
+         if ($modalMessage) $modalMessage.textContent = '';
+         if ($modalTitle) $modalTitle.textContent = '';
+         if (state.lastSubmitButton && state.isSubmitting) {
+             state.lastSubmitButton.disabled = false;
+             state.lastSubmitButton.textContent = 'Enviar Formulario';
+             state.isSubmitting = false;
+             state.lastSubmitButton = null;
+         }
+    }
+
+    function handleSubmitButtonClick($button, event) {
+        // ... (código existente)
+        event.preventDefault();
+        if (state.isSubmitting) return;
+        if (!$form.checkValidity()) {
+             showModal('error', 'Por favor, revisa los campos marcados o incompletos antes de enviar.', 'Formulario Incompleto');
+             $form.reportValidity();
+             return;
+        }
+        state.isSubmitting = true;
+        state.lastSubmitButton = $button;
+        $button.disabled = true;
+        $button.textContent = 'Enviando...';
+        const formData = new FormData($form);
+        const dataObject = {};
+        formData.forEach((value, key) => { dataObject[key] = value; });
+        sendFormData(dataObject);
+    }
+
+    async function sendFormData(data) {
+        // ... (código existente)
+        try {
+            const response = await fetch(CONFIG.API_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify(data)
+            });
+            if (!response.ok) {
+                 let errorMsg = `Error del servidor: ${response.status} ${response.statusText}`;
+                 try { const errorData = await response.json(); errorMsg = errorData.message || errorData.error || errorMsg; } catch (e) { /* No JSON */ }
+                 throw new Error(errorMsg);
+            }
+            const result = await response.json();
+            showModal('success', 'Tu solicitud ha sido enviada exitosamente.', 'Envío Exitoso');
+        } catch (error) {
+            showModal('error', `No se pudo enviar la solicitud. ${error.message}`, 'Error de Envío');
+        } finally {
+             if (state.lastSubmitButton && state.isSubmitting) {
+                 state.lastSubmitButton.disabled = false;
+                 state.lastSubmitButton.textContent = 'Enviar Formulario';
+                 state.isSubmitting = false;
+             }
+        }
+    }
+
+    // --- Lógica Condicional de Campos ---
+    function toggleFieldVisibility(fieldId, show, dependentFieldIdToClear = null) {
+        const fieldElement = document.getElementById(fieldId);
+        const formGroup = fieldElement ? fieldElement.closest('.form-group.question-group') : null;
+        if (formGroup) {
+            formGroup.style.display = show ? 'flex' : 'none'; // 'flex' porque .form-group es flex
+            if (!show && dependentFieldIdToClear) {
+                const dependentField = document.getElementById(dependentFieldIdToClear);
+                if (dependentField) {
+                    if (dependentField.type === 'checkbox' || dependentField.type === 'radio') {
+                        dependentField.checked = false;
+                    } else {
+                        dependentField.value = '';
+                    }
+                    // Disparar evento change para que otras lógicas (como validación o progreso) se actualicen
+                    dependentField.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+            }
+        }
+    }
+
+    // --- INICIO: Lógica Condicional Sección Hábitos ---
+    // (Este bloque de código es el que ya tenías y funcionaba)
+    function toggleHabitosFields() {
+        if (!$form) return;
+
+        const fumaRadio = $form.querySelector('input[name="hab_fuma"]:checked');
+        const consumeAlcoholRadio = $form.querySelector('input[name="hab_consume_alcohol"]:checked');
+        const consumeDrogasRadio = $form.querySelector('input[name="hab_consume_drogas"]:checked');
+        const generoSelect = document.getElementById('sol_genero');
+        const embarazadaRadio = $form.querySelector('input[name="hab_embarazada"]:checked');
+
+        if (fumaRadio) {
+            toggleFieldVisibility('hab_cigarrillos_dia', fumaRadio.value === 'si', 'hab_cigarrillos_dia');
+            toggleFieldVisibility('hab_cuando_dejo_fumar', fumaRadio.value === 'no', 'hab_cuando_dejo_fumar');
+        } else { 
+            toggleFieldVisibility('hab_cigarrillos_dia', false, 'hab_cigarrillos_dia');
+            toggleFieldVisibility('hab_cuando_dejo_fumar', false, 'hab_cuando_dejo_fumar');
+        }
+
+        if (consumeAlcoholRadio) {
+            toggleFieldVisibility('hab_frecuencia_alcohol', consumeAlcoholRadio.value === 'si', 'hab_frecuencia_alcohol');
+        } else {
+            toggleFieldVisibility('hab_frecuencia_alcohol', false, 'hab_frecuencia_alcohol');
+        }
+
+        if (consumeDrogasRadio) {
+            toggleFieldVisibility('hab_tipo_droga_frecuencia', consumeDrogasRadio.value === 'si', 'hab_tipo_droga_frecuencia');
+        } else {
+            toggleFieldVisibility('hab_tipo_droga_frecuencia', false, 'hab_tipo_droga_frecuencia');
+        }
+        
+        const preguntaEmbarazoFormGroup = document.getElementById('pregunta-embarazo'); 
+        const semanasEmbarazoInput = document.getElementById('hab_semanas_embarazo');
+
+        if (generoSelect && preguntaEmbarazoFormGroup && semanasEmbarazoInput) {
+            const esFemenino = generoSelect.value === 'F';
+            toggleFieldVisibility('pregunta-embarazo', esFemenino, null, true); 
+
+            if (esFemenino) {
+                const radiosEmbarazo = preguntaEmbarazoFormGroup.querySelectorAll('input[name="hab_embarazada"]');
+                if (radiosEmbarazo) radiosEmbarazo.forEach(r => r.disabled = false);
+                
+                if (embarazadaRadio) { 
+                    toggleFieldVisibility('hab_semanas_embarazo', embarazadaRadio.value === 'si', 'hab_semanas_embarazo');
+                } else { 
+                    toggleFieldVisibility('hab_semanas_embarazo', false, 'hab_semanas_embarazo');
+                }
+            } else { 
+                toggleFieldVisibility('hab_semanas_embarazo', false, 'hab_semanas_embarazo');
+                const naRadio = preguntaEmbarazoFormGroup.querySelector('input[name="hab_embarazada"][value="na"]');
+                if (naRadio) naRadio.checked = true; 
+                const otrosRadiosEmbarazo = preguntaEmbarazoFormGroup.querySelectorAll('input[name="hab_embarazada"]:not([value="na"])');
+                if (otrosRadiosEmbarazo) otrosRadiosEmbarazo.forEach(r => {
+                    r.checked = false;
+                    r.disabled = true;
+                });
+            }
+        }
+        actualizarProgreso(); 
+    }
+    // --- FIN: Lógica Condicional Sección Hábitos ---
+
+
+    // --- : INICIO Lógica Condicional Sección Deportes ---
+    function toggleDeportesFields() {
+        if (!$form) return; // Asegurar que el formulario existe
+        const tipoPracticaSelect = document.getElementById('dep_tipo_practica');
+        const otrosDeportesCheckbox = $form.querySelector('input[name="dep_otros_riesgos"]'); // Asumiendo que solo hay uno con este nombre
+
+        // Lógica para "Nombre del Deporte" y "Frecuencia"
+        if (tipoPracticaSelect) {
+            const showNombreYFrecuencia = tipoPracticaSelect.value === 'Profesional' || tipoPracticaSelect.value === 'Amateur';
+            toggleFieldVisibility('dep_nombre_deporte', showNombreYFrecuencia, 'dep_nombre_deporte');
+            toggleFieldVisibility('dep_frecuencia_deporte', showNombreYFrecuencia, 'dep_frecuencia_deporte');
+        } else { // Si no se encuentra el select, ocultar los campos dependientes por seguridad
+            toggleFieldVisibility('dep_nombre_deporte', false, 'dep_nombre_deporte');
+            toggleFieldVisibility('dep_frecuencia_deporte', false, 'dep_frecuencia_deporte');
+        }
+
+        // Lógica para "Describe otros"
+        if (otrosDeportesCheckbox) {
+            toggleFieldVisibility('dep_descripcion_otros', otrosDeportesCheckbox.checked, 'dep_descripcion_otros');
+        } else { // Si no se encuentra el checkbox, ocultar el campo dependiente
+            toggleFieldVisibility('dep_descripcion_otros', false, 'dep_descripcion_otros');
+        }
+        actualizarProgreso(); // Actualizar progreso después de cambiar visibilidad
+    }
+    // --- : FIN Lógica Condicional Sección Deportes ---
+
+     // --- INICIO Lógica para Revelación Secuencial de Campos ---
+    function initSequentialReveal(sectionElement) {
+        if (!sectionElement) return;
+
+        // --- MODIFICADO: Se elimina la condición if (sectionElement.id !== 'seccion-solicitantes') ---
+        // Ahora la lógica se aplicará a todas las secciones que tengan la estructura esperada.
+
+        console.log(`DEBUG: initSequentialReveal para ${sectionElement.id}`);
+        const formColumnsContainer = sectionElement.querySelector('.form-columns-container');
+        
+        // Si no hay un .form-columns-container, buscar .form-group directamente en la sección
+        // Esto es para secciones que no usan el layout de columnas pero sí tienen form-groups directos.
+        const fieldGroupsSource = formColumnsContainer || sectionElement;
+        
+        // Asegurarse de que solo tomamos hijos directos que sean form-group.question-group
+        const fieldGroups = Array.from(fieldGroupsSource.children).filter(el => el.classList.contains('form-group') && el.classList.contains('question-group'));
+        
+        if (fieldGroups.length === 0) {
+            // Si no hay fieldGroups directos (ej. en secciones como padecimientos_detalle que tienen un div intermedio),
+            // hacer todos los .form-group.question-group visibles por defecto dentro de la sección.
+            // Esto evita que campos en estructuras más complejas queden ocultos.
+            const allInternalGroups = sectionElement.querySelectorAll('.form-group.question-group');
+            allInternalGroups.forEach(group => group.classList.add('field-visible'));
+            console.log(`DEBUG: No se encontraron fieldGroups directos en ${sectionElement.id}, mostrando todos los internos.`);
+            return;
+        }
+        
+        fieldGroups.forEach((group, index) => {
+            if (index === 0) {
+                group.classList.add('field-visible');
+                addRevealListenerToGroup(group, fieldGroups, index);
             } else {
-                menuItemTarget.classList.remove('completed');
+                group.classList.remove('field-visible');
+                const inputElement = group.querySelector('input, select, textarea');
+                if (inputElement) {
+                    inputElement.removeEventListener('change', handleFieldRevealInteraction);
+                    inputElement.removeEventListener('blur', handleFieldRevealInteraction);
+                    inputElement.removeEventListener('input', handleFieldRevealInteractionDebounced);
+                }
             }
         });
     }
 
-    // --- REEMPLAZADO: Listeners para actualizar progreso ---
-    document.querySelectorAll('#miFormularioDinamico input, #miFormularioDinamico select, #miFormularioDinamico textarea').forEach(campo => {
-        // 'input' da feedback más inmediato para campos de texto/textarea
-        campo.addEventListener('input', actualizarProgreso);
-        // 'change' es bueno para selects, checkboxes, radios, date, file
-        campo.addEventListener('change', actualizarProgreso);
-    });
+    function addRevealListenerToGroup(groupElement, allGroups, currentIndex) {
+        if (!groupElement) return;
+        const inputElement = groupElement.querySelector('input:not([type="radio"]):not([type="checkbox"]), select, textarea');
+        const radioGroup = groupElement.querySelector('.radio-group');
+        const checkboxElements = groupElement.querySelectorAll('input[type="checkbox"]');
+
+        if (inputElement) { 
+            const eventType = inputElement.tagName === 'SELECT' ? 'change' : 'blur';
+            inputElement.removeEventListener(eventType, handleFieldRevealInteraction);
+            inputElement.addEventListener(eventType, handleFieldRevealInteraction);
+            if (inputElement.type === 'text' || inputElement.type === 'email' || inputElement.type === 'number' || inputElement.type === 'date' || inputElement.tagName === 'TEXTAREA') {
+                inputElement.removeEventListener('input', handleFieldRevealInteractionDebounced);
+                inputElement.addEventListener('input', handleFieldRevealInteractionDebounced);
+            }
+        } else if (radioGroup) { 
+            const radios = groupElement.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                radio.removeEventListener('change', handleFieldRevealInteraction);
+                radio.addEventListener('change', handleFieldRevealInteraction);
+            });
+        } else if (checkboxElements.length > 0) { 
+             checkboxElements.forEach(checkbox => {
+                checkbox.removeEventListener('change', handleFieldRevealInteraction);
+                checkbox.addEventListener('change', handleFieldRevealInteraction);
+             });
+        }
+    }
+    
+    let revealDebounceTimer;
+    function handleFieldRevealInteractionDebounced(event) {
+        clearTimeout(revealDebounceTimer);
+        revealDebounceTimer = setTimeout(() => {
+            handleFieldRevealInteraction(event);
+        }, 750); 
+    }
+
+    function handleFieldRevealInteraction(event) {
+        const currentField = event.target;
+        const currentGroup = currentField.closest('.form-group.question-group');
+        if (!currentGroup) return;
+
+        let canRevealNext = true;
+        if (currentField.required && currentField.value.trim() === "" && currentField.type !== "checkbox" && currentField.type !== "radio") {
+            canRevealNext = false;
+        }
+        if (currentField.tagName === 'SELECT' && currentField.required && currentField.value === "") {
+            canRevealNext = false;
+        }
+
+        if (canRevealNext || event.type === 'change') { 
+            const sectionElement = currentGroup.closest('.seccion-formulario');
+            if (!sectionElement) return;
+            
+            const formColumnsContainer = sectionElement.querySelector('.form-columns-container');
+            const fieldGroupsSource = formColumnsContainer || sectionElement;
+            const fieldGroups = Array.from(fieldGroupsSource.children).filter(el => el.classList.contains('form-group') && el.classList.contains('question-group'));
+            const currentIndex = fieldGroups.indexOf(currentGroup);
+
+            if (currentIndex !== -1 && currentIndex < fieldGroups.length - 1) {
+                const nextGroup = fieldGroups[currentIndex + 1];
+                if (nextGroup && !nextGroup.classList.contains('field-visible')) {
+                    nextGroup.classList.add('field-visible');
+                    addRevealListenerToGroup(nextGroup, fieldGroups, currentIndex + 1);
+                }
+            }
+        }
+    }
+
+    function clearSequentialRevealListeners(sectionElement) {
+        if (!sectionElement) return;
+        const fieldGroups = sectionElement.querySelectorAll('.form-columns-container > .form-group.question-group, .seccion-formulario > .form-group.question-group');
+        fieldGroups.forEach(group => {
+            const inputElement = group.querySelector('input:not([type="radio"]):not([type="checkbox"]), select, textarea');
+            const radios = group.querySelectorAll('input[type="radio"]');
+            const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+
+            if (inputElement) {
+                inputElement.removeEventListener('change', handleFieldRevealInteraction);
+                inputElement.removeEventListener('blur', handleFieldRevealInteraction);
+                inputElement.removeEventListener('input', handleFieldRevealInteractionDebounced);
+            }
+            radios.forEach(radio => radio.removeEventListener('change', handleFieldRevealInteraction));
+            checkboxes.forEach(checkbox => checkbox.removeEventListener('change', handleFieldRevealInteraction));
+        });
+    }
+    // --- FIN Lógica para Revelación Secuencial de Campos ---
+
+     // --- NUEVO: INICIO Lógica para Tooltips de Ayuda ---
+    function initTooltipListeners() {
+        if (!$form) return;
+        const helpIcons = $form.querySelectorAll('.help-icon');
+
+        helpIcons.forEach(icon => {
+            const tooltipId = icon.dataset.tooltipTarget;
+            const tooltipContent = document.getElementById(tooltipId);
+
+            if (!tooltipContent) {
+                console.warn(`Tooltip content not found for target: ${tooltipId}`);
+                return;
+            }
+
+            // Mostrar con mouseenter/focus, ocultar con mouseleave/blur
+            icon.addEventListener('mouseenter', () => showTooltip(tooltipContent));
+            icon.addEventListener('focus', () => showTooltip(tooltipContent)); // Para accesibilidad con teclado
+            
+            icon.addEventListener('mouseleave', () => hideTooltip(tooltipContent));
+            icon.addEventListener('blur', () => hideTooltip(tooltipContent)); // Para accesibilidad con teclado
+
+            // Opcional: cerrar tooltip al hacer clic fuera
+            // document.addEventListener('click', (event) => {
+            //     if (!tooltipContent.contains(event.target) && !icon.contains(event.target) && tooltipContent.classList.contains('tooltip-visible')) {
+            //         hideTooltip(tooltipContent);
+            //     }
+            // });
+        });
+    }
+
+    function showTooltip(tooltipElement) {
+        if (!tooltipElement) return;
+        // Calcular posición para evitar desbordamiento (simplificado, podría necesitar Popper.js para casos complejos)
+        // Por ahora, el CSS maneja el posicionamiento básico.
+        tooltipElement.classList.add('tooltip-visible');
+    }
+
+    function hideTooltip(tooltipElement) {
+        if (!tooltipElement) return;
+        tooltipElement.classList.remove('tooltip-visible');
+    }
+    // --- NUEVO: FIN Lógica para Tooltips de Ayuda ---
 
 
-}); // Fin del DOMContentLoaded
+    function initConditionalLogicHandlers() {
+        // Contratante
+        const radioContratanteIgual = $form.querySelectorAll('input[name="con_igual_titular"]');
+        const datosContratanteDiferente = document.getElementById('datos-contratante-diferente');
+        const toggleContratante = () => {
+            if (!datosContratanteDiferente) return;
+            const sel = $form.querySelector('input[name="con_igual_titular"]:checked');
+            datosContratanteDiferente.style.display = (sel?.value === 'no') ? 'block' : 'none';
+            actualizarProgreso();
+        };
+        if (radioContratanteIgual?.length > 0) {
+            radioContratanteIgual.forEach(radio => radio.addEventListener('change', toggleContratante));
+            toggleContratante(); // Llamada inicial
+        }
 
-// --- ELIMINADO ---
-// Ya no se necesita el código que estaba aquí fuera del DOMContentLoaded para crear el botón toggle.
-// --- FIN ELIMINADO ---
+        // Tarjetahabiente
+        const $checkTitularIgual = document.getElementById('pago_titular_igual_contratante');
+        const $datosTarjetaHabienteDiferente = document.getElementById('datos-tarjetahabiente-diferente');
+        const toggleTarjeta = () => {
+            if (!$checkTitularIgual || !$datosTarjetaHabienteDiferente) return;
+            $datosTarjetaHabienteDiferente.style.display = $checkTitularIgual.checked ? 'none' : 'block';
+            actualizarProgreso();
+        };
+        if ($checkTitularIgual) {
+            $checkTitularIgual.addEventListener('change', toggleTarjeta);
+            toggleTarjeta(); // Llamada inicial
+        }
+
+        // --- Listeners para sección Hábitos ---
+        $form.querySelectorAll('input[name="hab_fuma"], input[name="hab_consume_alcohol"], input[name="hab_consume_drogas"], input[name="hab_embarazada"]')
+             .forEach(radio => radio.addEventListener('change', toggleHabitosFields));
+        const generoSelect = document.getElementById('sol_genero');
+        if (generoSelect) generoSelect.addEventListener('change', toggleHabitosFields);
+        
+        // Llamada inicial para la lógica de hábitos al cargar la página (si la sección está visible)
+        // Esto se manejará mejor con runSectionSpecificLogic al mostrar la sección.
+        // toggleHabitosFields();
+        // --- NUEVO: INICIO Listeners para Lógica Condicional Sección Deportes ---
+        const tipoPracticaSelect = document.getElementById('dep_tipo_practica');
+        if (tipoPracticaSelect) {
+            tipoPracticaSelect.addEventListener('change', toggleDeportesFields);
+        }
+        const otrosDeportesCheckbox = $form.querySelector('input[name="dep_otros_riesgos"]');
+        if (otrosDeportesCheckbox) {
+            otrosDeportesCheckbox.addEventListener('change', toggleDeportesFields);
+        }
+        // --- NUEVO: FIN Listeners para Lógica Condicional Sección Deportes ---
+    }
+
+
+    // --- Validación de Campos (onblur) ---
+    function initFieldValidationListeners() {
+        const allFieldsToValidate = $form.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]), select, textarea');
+        allFieldsToValidate.forEach(field => {
+            field.addEventListener('blur', handleFieldValidation);
+            // Opcional: field.addEventListener('input', handleFieldValidation);
+        });
+    }
+
+    function handleFieldValidation(event) {
+        const field = event.target;
+        // Solo aplicar .is-invalid si el campo ha sido tocado o tiene valor (para no marcar todo en rojo al inicio)
+        // O si es requerido y está vacío
+        if (field.value.trim() !== "" || field.required) {
+            if (field.checkValidity()) {
+                field.classList.remove('is-invalid');
+            } else {
+                field.classList.add('is-invalid');
+            }
+        } else { // Si no es requerido y está vacío, no lo marcamos como inválido al perder foco
+             field.classList.remove('is-invalid');
+        }
+    }
+
+    function initEventListeners() {
+        if ($themeSwitch) $themeSwitch.addEventListener('change', handleThemeSwitchChange);
+        if ($themeSelector) $themeSelector.addEventListener('change', handleThemeFileChange);
+        if ($sidebarToggle) $sidebarToggle.addEventListener('click', toggleSidebar);
+        window.addEventListener('resize', handleResize);
+        if ($form) $form.addEventListener('click', handleFormButtonClick);
+        if ($modalOverlay) $modalOverlay.addEventListener('click', hideModal);
+        if ($modalCloseBtn) $modalCloseBtn.addEventListener('click', hideModal);
+        if ($modalOkBtn) $modalOkBtn.addEventListener('click', hideModal);
+
+        $allFormFields.forEach(field => {
+            field.addEventListener('input', actualizarProgreso);
+            field.addEventListener('change', actualizarProgreso);
+        });
+
+        initFieldValidationListeners(); // Añadido para validación onblur
+        initConditionalLogicHandlers(); // Añadido para manejar lógica condicional
+        // --- NUEVO: Llamada para inicializar listeners de tooltips ---
+        initTooltipListeners();
+        // --- FIN NUEVO ---
+    }
+
+    initializeApp();
+});

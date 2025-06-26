@@ -1,0 +1,94 @@
+/* Tema Rosa Mexicano - Modo Oscuro Original / Modo Claro Rosa Atenuado + Var Toggle Colapsado */
+:root {
+    /* --- Tema Oscuro (Restaurado COMPLETAMENTE del theme-default.css ORIGINAL) --- */
+    --bg-color: #1E1E1E;
+    --bg-container: #1E1E1E;
+    --text-color-primary: #F0E6D2;             /* Texto principal claro original */
+    --text-color-secondary: #CCCCCC;           /* Texto secundario grisáceo original */
+    --accent-color: #F7D7A5;                 /* !! Acento Dorado Pálido Original !! */
+    --input-bg: #3D3D3C;                     /* Input bg original */
+    --input-text-color: var(--text-color-primary);
+    --input-placeholder-color: #C8B575;       /* Placeholder original */
+    --button-primary-bg: var(--accent-color);    /* Botón primario con acento original */
+    --button-primary-text: #1E1E1E;             /* Texto oscuro botón primario original */
+    --button-secondary-bg: #161616;
+    --button-secondary-text: var(--accent-color);/* Botón secundario con acento original */
+    --border: #444;
+    --error-alert: #E57373;
+    --logo-line-color: var(--accent-color);
+    --modal-bg: var(--bg-container);
+    --modal-text: var(--text-color-primary);
+    --header-bg: var(--bg-container);
+
+    /* -- Variables Sidebar Modo Oscuro (Colores Originales) -- */
+    --sidebar-bg: var(--bg-container);        /* Fondo oscuro original */
+    --sidebar-top-bg: var(--sidebar-bg);      /* Fondo superior igual */
+    --sidebar-bottom-bg: var(--sidebar-bg);   /* Fondo inferior igual */
+    --sidebar-text-color: var(--text-color-primary); /* Texto claro original */
+    --sidebar-icon-color: var(--text-color-secondary); /* Icono gris claro original */
+    --sidebar-border-color: var(--border);    /* Borde oscuro original */
+    --sidebar-item-hover-bg: rgba(var(--accent-color-rgb), 0.1); /* Hover con acento original */
+    --sidebar-item-active-bg: rgba(var(--accent-color-rgb), 0.2); /* Activo con acento original */
+    --sidebar-item-active-border: var(--accent-color); /* Borde activo con acento original */
+    --sidebar-item-active-color: var(--accent-color); /* Texto/Icono activo con acento original */
+    --sidebar-progress-bar-bg: var(--border);
+    --sidebar-progress-fill-bg: var(--accent-color); /* Relleno con acento original */
+    --sidebar-status-default-bg: var(--border);
+    --sidebar-status-completed-bg: #81C784; /* Verde estándar oscuro */
+    --sidebar-toggle-color: var(--accent-color); /* Icono toggle con acento original */
+    --sidebar-toggle-collapsed-color: var(--sidebar-toggle-color); /* Color colapsado = normal en modo oscuro */
+    --sidebar-toggle-hover-bg: rgba(var(--accent-color-rgb), 0.15);
+
+    /* Versiones RGB (Originales) */
+    --accent-color-rgb: 247, 215, 165;         /* !! RGB Dorado Pálido Original !! */
+    --bg-color-rgb: 30, 30, 30;
+    --text-color-primary-rgb: 240, 230, 210;
+}
+
+/* --- Tema Claro (Más Neutro + Sidebar Rosa) --- */
+:root.light-theme {
+    --bg-color: #FFFFFF;
+    --bg-container: #FFFFFF;
+    --text-color-primary: #343a40;
+    --text-color-secondary: #6c757d;
+    --accent-color: #E4007C;                 /* !! Rosa Mexicano !! */
+    --input-bg: #f8f9fa;
+    --input-text-color: var(--text-color-primary);
+    --input-placeholder-color: #999999;
+    --button-primary-bg: var(--accent-color);
+    --button-primary-text: #FFFFFF;
+    --button-secondary-bg: #FFFFFF;
+    --button-secondary-text: var(--text-color-primary);
+    --border: #DEE2E6;
+    --error-alert: #dc3545;
+    --logo-line-color: var(--border);
+    --modal-bg: var(--bg-container);
+    --modal-text: var(--text-color-primary);
+    --header-bg: var(--bg-container);
+
+    /* -- Variables Sidebar Modo Claro (Tema Rosa) -- */
+    --sidebar-bg: var(--accent-color);        /* Fondo Rosa! */
+    --sidebar-top-bg: var(--sidebar-bg);
+    --sidebar-bottom-bg: var(--sidebar-bg);
+    --sidebar-text-color: #FFFFFF;            /* Texto blanco */
+    --sidebar-icon-color: rgba(255, 255, 255, 0.75);
+    --sidebar-border-color: rgba(255, 255, 255, 0.2);
+    --sidebar-item-hover-bg: rgba(255, 255, 255, 0.1);
+    --sidebar-item-active-bg: rgba(255, 255, 255, 0.2);
+    --sidebar-item-active-border: #FFFFFF;
+    --sidebar-item-active-color: #FFFFFF;
+    --sidebar-progress-bar-bg: rgba(255, 255, 255, 0.3);
+    --sidebar-progress-fill-bg: #FFFFFF;
+    --sidebar-status-default-bg: rgba(255, 255, 255, 0.4);
+    --sidebar-status-completed-bg: #a5d6a7;
+    --sidebar-toggle-color: #FFFFFF;          /* Color normal (expandido): Blanco */
+    --sidebar-toggle-hover-bg: rgba(255, 255, 255, 0.15);
+    /* --- VARIABLE AÑADIDA --- */
+    --sidebar-toggle-collapsed-color: var(--accent-color); /* Color colapsado: Rosa */
+    /* --- FIN VARIABLE AÑADIDA --- */
+
+    /* Versiones RGB */
+    --accent-color-rgb: 228, 0, 124;
+    --bg-color-rgb: 255, 255, 255;
+    --text-color-primary-rgb: 52, 58, 64;
+}

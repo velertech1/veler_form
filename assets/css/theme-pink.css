@@ -1,0 +1,53 @@
+:root {
+    /* --- Tema Oscuro (Restaurado del theme-default.css ORIGINAL) --- */
+    --bg-color: #1E1E1E;
+    --bg-container: #1E1E1E;
+    --text-color-primary: #F0E6D2;             /* Texto principal claro original */
+    --text-color-secondary: #CCCCCC;           /* Texto secundario grisáceo original */
+    --accent-color: #E4007C;                 /* !! Rosa Mexicano (ÚNICO CAMBIO en modo oscuro) !! */
+    --input-bg: #3D3D3C;                     /* Input bg original */
+    --input-text-color: var(--text-color-primary);
+    --input-placeholder-color: #a47a93;       /* Placeholder rosa desaturado (Mantenido del paso anterior) */
+    --button-primary-bg: var(--accent-color);    /* Botón primario con nuevo acento */
+    --button-primary-text: #FFFFFF;             /* Texto blanco para contraste con rosa */
+    --button-secondary-bg: #161616;             /* Botón secundario bg original */
+    --button-secondary-text: var(--accent-color);/* Botón secundario con nuevo acento */
+    --border: #444;                         /* Borde original */
+    --error-alert: #E57373;                 /* Error original */
+    --logo-line-color: var(--accent-color);    /* Línea con nuevo acento */
+    --modal-bg: var(--bg-container);
+    --modal-text: var(--text-color-primary);
+    --header-bg: var(--bg-container);
+
+    /* Versiones RGB (Actualizadas para nuevo acento) */
+    --accent-color-rgb: 228, 0, 124;         /* RGB de #E4007C */
+    --bg-color-rgb: 30, 30, 30;               /* RGB original #1E1E1E */
+    --text-color-primary-rgb: 240, 230, 210;    /* RGB original #F0E6D2 */
+}
+
+/* --- Tema Claro (Más Neutro - Mantenido del paso anterior) --- */
+:root.light-theme {
+    --bg-color: #FFFFFF;
+    --bg-container: #FFFFFF;
+    --text-color-primary: #343a40;             /* Texto primario gris oscuro estándar */
+    --text-color-secondary: #6c757d;           /* Texto secundario gris estándar */
+    --accent-color: #E4007C;                 /* !! Rosa Mexicano (Acento Principal) !! */
+    --input-bg: #f8f9fa;                     /* Fondo input gris muy claro (neutro) */
+    --input-text-color: var(--text-color-primary);
+    --input-placeholder-color: #999999;       /* Placeholder gris */
+    --button-primary-bg: var(--accent-color);    /* Botón primario Rosa */
+    --button-primary-text: #FFFFFF;
+    --button-secondary-bg: #FFFFFF;
+    --button-secondary-text: var(--text-color-primary); /* Texto oscuro en botón secundario (NO rosa) */
+    --border: #DEE2E6;                     /* Borde gris claro estándar (neutro) */
+    --error-alert: #dc3545;
+    --logo-line-color: var(--border);
+    --modal-bg: var(--bg-container);
+    --modal-text: var(--text-color-primary);
+    --header-bg: var(--bg-container);
+
+    /* Versiones RGB */
+    --accent-color-rgb: 228, 0, 124;
+    --bg-color-rgb: 255, 255, 255;
+    --text-color-primary-rgb: 52, 58, 64;      /* RGB de #343a40 */
+}

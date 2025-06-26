@@ -1,0 +1,57 @@
+/* assets/css/theme-default.css */
+/* Define la paleta de colores principal y para el tema claro */
+:root {
+    /* Tema Oscuro (Predeterminado) */
+    --bg-color: #1E1E1E;
+    --bg-container: #1E1E1E;
+    --text-color-primary: #F0E6D2; /* Texto principal claro */
+    --text-color-secondary: #CCCCCC; /* Texto secundario grisáceo */
+    --accent-color: #F7D7A5; /* Acento: Dorado pálido */
+    --input-bg: #3D3D3C;
+    --input-text-color: var(--text-color-primary);
+    --input-placeholder-color: #C8B575;
+    --button-primary-bg: var(--accent-color);
+    --button-primary-text: #1E1E1E; /* Texto oscuro para contraste en botón primario */
+    --button-secondary-bg: #161616;
+    --button-secondary-text: var(--accent-color);
+    --border: #444; /* Bordes sutiles */
+    --error-alert: #E57373; /* Color para errores (Rojo claro) */
+    --logo-line-color: var(--accent-color); /* Línea divisora logos */
+    --modal-bg: var(--bg-container);
+    --modal-text: var(--text-color-primary);
+    --header-bg: var(--bg-container);
+
+    /* Versiones RGB para usar con opacidad (ej. box-shadow) */
+    --accent-color-rgb: 247, 215, 165;
+    --bg-color-rgb: 30, 30, 30;
+    --text-color-primary-rgb: 240, 230, 210;
+    --error-alert-rgb: 229, 115, 115; /* RGB para #E57373 */
+}
+
+/* Tema Claro */
+:root.light-theme {
+    --bg-color: #FFFFFF;
+    --bg-container: #ffffff;
+    --text-color-primary: #0d3a7c; /* Azul oscuro GNP */
+    --text-color-secondary: #495057; /* Gris oscuro texto */
+    --accent-color: #fc6c11; /* Naranja GNP */
+    --input-bg: #f6f6f6;
+    --input-text-color: var(--text-color-primary);
+    --input-placeholder-color: #7495bc; /* Azul grisáceo placeholder */
+    --button-primary-bg: var(--accent-color);
+    --button-primary-text: #FFFFFF; /* Texto blanco para contraste */
+    --button-secondary-bg: #ffffff;
+    --button-secondary-text: #212529; /* Texto oscuro botón secundario */
+    --border: #DEE2E6;
+    --error-alert: #dc3545; /* Rojo Bootstrap */
+    --logo-line-color: #DEE2E6;
+    --modal-bg: var(--bg-color);
+    --modal-text: var(--text-color-primary);
+    --header-bg: var(--bg-container);
+
+    /* Versiones RGB */
+    --accent-color-rgb: 252, 108, 17;
+    --bg-color-rgb: 255, 255, 255;
+    --text-color-primary-rgb: 13, 58, 124;
+    --error-alert-rgb: 220, 53, 69; /* RGB para #dc3545 */
+}

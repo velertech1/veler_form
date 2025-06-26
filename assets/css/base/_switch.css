@@ -1,0 +1,49 @@
+/* --- Switch de Tema --- */
+.theme-switch { /* Label */
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 25px;
+    cursor: pointer;
+    background-color: var(--input-bg);
+    border: 1px solid var(--accent-color);
+    border-radius: 25px;
+    text-indent: -9999px;
+    transition: background-color 0.3s ease;
+}
+.theme-switch input[type="checkbox"] { /* Checkbox oculto */
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+.theme-switch .slider { /* Círculo deslizante */
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 21px;
+    height: 21px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.slider .icon { /* Iconos dentro del slider */
+    line-height: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    color: var(--button-primary-text);
+}
+.slider .icon.material-symbols-outlined { /* Posicionamiento iconos */
+     font-size: 16px;
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+}
+/* Estados de iconos y slider */
+.slider .sun { opacity: 0; transform: translate(-50%, -50%) scale(0) rotate(-90deg); }
+.slider .moon { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+.theme-switch input:checked + .slider { transform: translateX(25px); }
+.theme-switch input:checked + .slider .sun { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+.theme-switch input:checked + .slider .moon { opacity: 0; transform: translate(-50%, -50%) scale(0) rotate(90deg); }
