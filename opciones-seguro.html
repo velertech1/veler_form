@@ -27,12 +27,14 @@
 
         .opciones-main-container {
             width: 100%;
+            height: auto;
             max-width: 960px;
             margin-top: 40px;
             margin-bottom: 40px;
         }
 
         .opciones-header {
+            font-family: SF Pro Display Light;
             text-align: center;
             margin-bottom: 40px;
         }
@@ -45,16 +47,19 @@
         }
 
         .opciones-header .subtitulo-opciones {
+            font-family: SF Pro Display Light;
             color: var(--text-color-secondary);
             font-size: 1.1em;
             font-weight: 300;
         }
 
-        .tarjetas-opciones-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 35px;
-            justify-items: center;
+        .card-options-div {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: stretch;
+            padding: 15px;
+            gap: 20px;
         }
 
         .tarjeta-opcion {
@@ -65,11 +70,19 @@
             box-shadow: 0 4px 12px rgba(var(--bg-color-rgb, 0,0,0),0.05);
             display: flex;
             flex-direction: column;
-            width: 100%;
-            max-width: 320px;
+            flex: 1 1;
+            width: 40%;
+            height: auto;
+            max-width: 40%;
             transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
                         box-shadow 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
                         border-color 0.25s ease-in-out;
+        }
+
+        @media (max-width: 530px) {
+            .tarjeta-opcion {
+                max-width: 100%;
+            }
         }
 
         .tarjeta-opcion:hover {
@@ -80,6 +93,7 @@
 
         .tarjeta-opcion h2 {
             color: var(--accent-color);
+            font-family: SF Pro Display Light;
             font-size: 1.4em;
             margin-top: 0;
             margin-bottom: 15px;
@@ -104,6 +118,7 @@
             padding: 0;
             margin: 0 0 20px 0;
             text-align: left;
+            font-family: SF Pro Display Light;
             flex-grow: 1;
         }
         .tarjeta-opcion ul li {
@@ -119,6 +134,11 @@
             color: var(--accent-color);
         }
 
+        a {
+            text-decoration: none;
+            color: var(--link-color);
+        }
+
         .btn-seleccionar-plan {
             background-color: var(--button-primary-bg);
             color: var(--button-primary-text);
@@ -126,6 +146,7 @@
             border: none;
             border-radius: 25px;
             cursor: pointer;
+            font-family: SF Pro Display Light;
             font-weight: 600;
             font-size: 0.9rem;
             text-transform: uppercase;
@@ -272,24 +293,29 @@
             <p class="subtitulo-opciones">Hemos preparado estas alternativas basadas en tus datos. <br>Selecciona una para ver todos los detalles y completar tu solicitud.</p>
         </div>
 
-        <div class="tarjetas-opciones-grid">
+        <div class="card-options-div">
             <div class="tarjeta-opcion">
-                <h2>Plan Esencial GNP</h2>
+                <h2>Plan Esencial</h2>
                 <div class="precio-estimado">$1,250 <span>MXN/mes</span></div>
                 <ul>
                     <li><span class="material-symbols-outlined">local_hospital</span> Cobertura Nacional</li>
                     <li><span class="material-symbols-outlined">paid</span> Suma Asegurada: $2,000,000</li>
                     <li><span class="material-symbols-outlined">receipt_long</span> Deducible: $15,000</li>
                     <li><span class="material-symbols-outlined">percent</span> Coaseguro: 10%</li>
-                    <li><span class="material-symbols-outlined">verified_user</span> Lorem ipsum dolor sit amet.</li>
+                    <li>
+                        <span class="material-symbols-outlined">verified_user</span>
+                        <span>Cobertura
+                        <a href="https://www.velertech.com/mx/vhealth"> vHealth </a>
+                        Básica</span>
+                    </li>
                 </ul>
-                <button type="button" class="btn-seleccionar-plan" data-plan-nombre="Plan Esencial GNP">
+                <button type="button" class="btn-seleccionar-plan" data-plan-nombre="Plan Esencial">
                     Seleccionar Plan
                 </button>
             </div>
 
             <div class="tarjeta-opcion">
-                <h2>Plan Confort GNP</h2>
+                <h2>Plan Comfort</h2>
                 <div class="precio-estimado">$1,800 <span>MXN/mes</span></div>
                 <ul>
                     <li><span class="material-symbols-outlined">local_hospital</span> Cobertura Nacional Amplia</li>
@@ -297,9 +323,14 @@
                     <li><span class="material-symbols-outlined">receipt_long</span> Deducible: $10,000</li>
                     <li><span class="material-symbols-outlined">percent</span> Coaseguro: 10% (Tope $50,000)</li>
                     <li><span class="material-symbols-outlined">emergency_home</span> Emergencia en el extranjero.</li>
-                    <li><span class="material-symbols-outlined">verified_user</span> Consectetur adipiscing elit.</li>
+                    <li>
+                        <span class="material-symbols-outlined">verified_user</span>
+                        <span>Cobertura
+                        <a href="https://www.velertech.com/mx/vhealth"> vHealth </a>
+                        Media</span>
+                    </li>
                 </ul>
-                <button type="button" class="btn-seleccionar-plan" data-plan-nombre="Plan Confort GNP">
+                <button type="button" class="btn-seleccionar-plan" data-plan-nombre="Plan Confort">
                     Seleccionar Plan
                 </button>
             </div>
@@ -313,7 +344,12 @@
                     <li><span class="material-symbols-outlined">receipt_long</span> Deducible: $500 USD</li>
                     <li><span class="material-symbols-outlined">percent</span> Coaseguro: 0% en el extranjero (red)</li>
                     <li><span class="material-symbols-outlined">health_and_safety</span> Todos los beneficios premium.</li>
-                    <li><span class="material-symbols-outlined">verified_user</span> Sed do eiusmod tempor incididunt.</li>
+                    <li>
+                        <span class="material-symbols-outlined">verified_user</span>
+                        <span>Cobertura
+                        <a href="https://www.velertech.com/mx/vhealth"> vHealth </a>
+                        Premium</span>
+                    </li>
                 </ul>
                 <button type="button" class="btn-seleccionar-plan" data-plan-nombre="Plan Premium Global">
                     Seleccionar Plan
@@ -380,19 +416,12 @@
             const CONFIG_OPS = {
                 THEME_STORAGE_KEY: 'theme_mode',
                 AVAILABLE_THEMES: [
-            { name: "Veler Blue v2", file: "assets/css/theme-veler-blue_2.css" },
             { name: "Veler Blue", file: "assets/css/theme-veler-blue.css" },
-            { name: "Teal Green v2", file: "assets/css/theme-teal-green_v2.css" },
             { name: "Teal Green", file: "assets/css/theme-teal-green.css" },
-            { name: "Slate Mauve v2", file: "assets/css/theme-slate-mauve_2.css" },
             { name: "Slate Mauve", file: "assets/css/theme-slate-mauve.css" },
-            { name: "Pink v2", file: "assets/css/theme-pink_2.css"},
             { name: "Pink", file: "assets/css/theme-pink.css" },
-            { name: "Gold Teal v2", file: "assets/css/theme-gold-teal_2.css" },
             { name: "Gold Teal", file: "assets/css/theme-gold-teal.css" },
-            { name: "Gold v2", file: "assets/css/theme-gold_2.css"},
             { name: "Gold", file: "assets/css/theme-gold.css"},
-            { name: "Red Dark v2", file: "assets/css/theme-red-dark_2.css"},
             { name: "Red Dark", file: "assets/css/theme-red-dark.css"},
             { name: "GNP Default", file: "assets/css/theme-default.css" }
                 ],

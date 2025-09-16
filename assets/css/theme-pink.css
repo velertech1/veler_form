@@ -4,12 +4,12 @@
     --bg-container: #1E1E1E;
     --text-color-primary: #F0E6D2;             /* Texto principal claro original */
     --text-color-secondary: #CCCCCC;           /* Texto secundario grisáceo original */
-    --accent-color: #E4007C;                 /* !! Rosa Mexicano (ÚNICO CAMBIO en modo oscuro) !! */
+    --accent-color: #F7D7A5;                 /* !! Rosa Mexicano (ÚNICO CAMBIO en modo oscuro) !! */
     --input-bg: #3D3D3C;                     /* Input bg original */
     --input-text-color: var(--text-color-primary);
     --input-placeholder-color: #a47a93;       /* Placeholder rosa desaturado (Mantenido del paso anterior) */
     --button-primary-bg: var(--accent-color);    /* Botón primario con nuevo acento */
-    --button-primary-text: #FFFFFF;             /* Texto blanco para contraste con rosa */
+    --button-primary-text: #161616;             /* Texto blanco para contraste con rosa */
     --button-secondary-bg: #161616;             /* Botón secundario bg original */
     --button-secondary-text: var(--accent-color);/* Botón secundario con nuevo acento */
     --border: #444;                         /* Borde original */
@@ -23,6 +23,9 @@
     --accent-color-rgb: 228, 0, 124;         /* RGB de #E4007C */
     --bg-color-rgb: 30, 30, 30;               /* RGB original #1E1E1E */
     --text-color-primary-rgb: 240, 230, 210;    /* RGB original #F0E6D2 */
+
+    --link-color: #F7D7A5;
+
 }
 
 /* --- Tema Claro (Más Neutro - Mantenido del paso anterior) --- */
@@ -50,4 +53,6 @@
     --accent-color-rgb: 228, 0, 124;
     --bg-color-rgb: 255, 255, 255;
     --text-color-primary-rgb: 52, 58, 64;      /* RGB de #343a40 */
+
+    --link-color: #E4007C;
 }

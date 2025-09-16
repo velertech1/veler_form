@@ -3,8 +3,9 @@
     /* --- Tema Oscuro (Mantenido - Igual al Default) --- */
     --bg-color: #1E1E1E;
     --bg-container: #1E1E1E;
+    --sidebar-top-bg: #FEFEFE;
     --text-color-primary: #F0E6D2;
-    --text-color-secondary: #CCCCCC;
+    --text-color-secondary: #FEFEFE;
     --accent-color: #F7D7A5;                 /* Acento: Dorado pálido */
     --input-bg: #3D3D3C;
     --input-text-color: var(--text-color-primary);
@@ -22,7 +23,7 @@
 
     /* -- Variables Sidebar Modo Oscuro (Colores Originales) -- */
     --sidebar-bg: var(--bg-container);
-    --sidebar-top-bg: var(--sidebar-bg);
+    --sidebar-top-bg: var(--sidebar);
     --sidebar-bottom-bg: var(--sidebar-bg);
     --sidebar-text-color: var(--text-color-primary);
     --sidebar-icon-color: var(--text-color-secondary);
@@ -47,17 +48,17 @@
 
 /* --- Tema Claro (Acento Teal/Green) --- */
 :root.light-theme {
-    --bg-color: #FFFFFF;                     /* Fondo Blanco */
-    --bg-container: #FFFFFF;                 /* Contenedor Blanco */
-    --text-color-primary: #212529;             /* Texto Negro/Gris muy oscuro */
+    --bg-color: #FEFEFE;                     /* Fondo Blanco */
+    --bg-container: #FEFEFE;                 /* Contenedor Blanco */
+    --text-color-primary: #1E1E1E;             /* Texto Negro/Gris muy oscuro */
     --text-color-secondary: #5a7d7c;           /* Texto secundario gris-azulado sutil */
     --accent-color: #0F7D7E;                 /* !! Acento Teal Oscuro !! */
     --input-bg: #f0fafa;                     /* Input verde azulado muy pálido */
     --input-text-color: var(--text-color-primary);
     --input-placeholder-color: #76B5A0;       /* !! Placeholder Verde Claro !! */
     --button-primary-bg: var(--accent-color);    /* Botón primario Teal Oscuro */
-    --button-primary-text: #FFFFFF;             /* Texto Blanco */
-    --button-secondary-bg: #FFFFFF;             /* Botón secundario Blanco */
+    --button-primary-text: #FEFEFE;             /* Texto Blanco */
+    --button-secondary-bg: #FEFEFE;             /* Botón secundario Blanco */
     --button-secondary-text: var(--accent-color);/* Texto Teal Oscuro */
     --border: #cceceb;                     /* Borde verde azulado muy claro */
     --error-alert: #dc3545;                 /* Rojo Error */
@@ -67,7 +68,7 @@
     --header-bg: var(--bg-container);
 
     /* -- Variables Sidebar Modo Claro (Estilo Estándar Claro con Acentos Teal/Green) -- */
-    --sidebar-bg: #FFFFFF;                    /* Fondo Sidebar Blanco */
+    --sidebar-bg: ##FEFEFE;                    /* Fondo Sidebar Blanco */
     --sidebar-top-bg: var(--sidebar-bg);
     --sidebar-bottom-bg: var(--sidebar-bg);
     --sidebar-text-color: #343a40;            /* Texto Oscuro */

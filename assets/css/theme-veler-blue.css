@@ -43,6 +43,8 @@
     --accent-color-rgb: 247, 215, 165;         /* RGB Dorado Pálido */
     --bg-color-rgb: 30, 30, 30;
     --text-color-primary-rgb: 240, 230, 210;
+
+    --link-color: #F7D7A5;
 }
 
 /* --- Tema Claro (Acento Azul Veler) --- */
@@ -89,4 +91,7 @@
     --accent-color-rgb: 52, 89, 161;          /* !! RGB Azul Veler !! */
     --bg-color-rgb: 255, 255, 255;
     --text-color-primary-rgb: 33, 37, 41;       /* RGB #212529 */
+
+    --link-color: #3459A1;
+
 }

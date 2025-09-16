@@ -43,6 +43,9 @@
     --accent-color-rgb: 247, 215, 165;
     --bg-color-rgb: 30, 30, 30;
     --text-color-primary-rgb: 240, 230, 210;
+
+    --link-color: #F7D7A5;
+
 }
 
 /* --- Tema Claro (Acento Dorado, Sidebar Blanco) --- */
@@ -90,4 +93,7 @@
     --bg-color-rgb: 255, 255, 255;
     --text-color-primary-rgb: 33, 37, 41;
     /* RGB Teal: 21, 143, 162 */
+
+    --link-color: #E4B302;
+
 }

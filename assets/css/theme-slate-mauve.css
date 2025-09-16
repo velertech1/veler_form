@@ -43,6 +43,9 @@
     --accent-color-rgb: 247, 215, 165;
     --bg-color-rgb: 30, 30, 30;
     --text-color-primary-rgb: 240, 230, 210;
+
+    --link-color: #F7D7A5;
+
 }
 
 /* --- Tema Claro (Acento Malva #9A5071, Texto Azul Pizarra #2F3559, Sidebar Blanco) --- */
@@ -89,4 +92,7 @@
     --accent-color-rgb: 154, 80, 113;          /* !! RGB Malva !! */
     --bg-color-rgb: 255, 255, 255;
     --text-color-primary-rgb: 47, 53, 89;      /* !! RGB Azul Pizarra !! */
+
+    --link-color: #9A5071;
+
 }

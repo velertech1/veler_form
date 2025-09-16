@@ -26,6 +26,8 @@
     --bg-color-rgb: 30, 30, 30;
     --text-color-primary-rgb: 240, 230, 210;
     --error-alert-rgb: 229, 115, 115; /* RGB para #E57373 */
+
+    --link-color: #F7D7A5;
 }
 
 /* Tema Claro */
@@ -54,4 +56,6 @@
     --bg-color-rgb: 255, 255, 255;
     --text-color-primary-rgb: 13, 58, 124;
     --error-alert-rgb: 220, 53, 69; /* RGB para #dc3545 */
+
+    --link-color: #fc6c11;
 }

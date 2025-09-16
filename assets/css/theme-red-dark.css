@@ -43,6 +43,9 @@
     --accent-color-rgb: 247, 215, 165;
     --bg-color-rgb: 30, 30, 30;
     --text-color-primary-rgb: 240, 230, 210;
+
+    --link-color: #F7D7A5;
+
 }
 
 /* --- Tema Claro (Acento Rojo #D33649, Texto Oscuro #281B24) --- */
@@ -89,4 +92,7 @@
     --accent-color-rgb: 211, 54, 73;          /* !! RGB Rojo !! */
     --bg-color-rgb: 255, 255, 255;
     --text-color-primary-rgb: 40, 27, 36;      /* !! RGB Texto Oscuro Provisto !! */
+
+    --link-color: #D33649;
+
 }

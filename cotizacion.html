@@ -223,7 +223,7 @@
 
     <div class="cotizacion-outer-container">
         <div class="cotizacion-container">
-            <img id="logo-main-cotizacion" src="assets/img/GNP_Medium.png" alt="Logo GNP Seguros" style="max-height: 60px; margin-bottom: 20px;">
+            <img id="logo-main-cotizacion" src="assets/img/VELER_DARK.png" alt="Logo GNP Seguros" style="max-height: 60px; margin-bottom: 20px;">
             <h1>Cotiza tu Seguro Fácil y Rápido</h1>
             <p class="subtitulo-cotizacion">Solo necesitamos unos pocos datos para darte una estimación.</p>
 
@@ -272,33 +272,24 @@
             const CONFIG_COT = {
                 THEME_STORAGE_KEY: 'theme_mode', // Misma que en config.js
                 AVAILABLE_THEMES: [ // Sincronizar con tu config.js
-                    { name: "Veler Blue v2", file: "assets/css/theme-veler-blue_2.css" },
                     { name: "Veler Blue", file: "assets/css/theme-veler-blue.css" },
-                    { name: "Teal Green v2", file: "assets/css/theme-teal-green_v2.css" },
                     { name: "Teal Green", file: "assets/css/theme-teal-green.css" },
-                    { name: "Slate Mauve v2", file: "assets/css/theme-slate-mauve_2.css" },
                     { name: "Slate Mauve", file: "assets/css/theme-slate-mauve.css" },
-                    { name: "Pink v2", file: "assets/css/theme-pink_2.css"},
                     { name: "Pink", file: "assets/css/theme-pink.css" },
-                    { name: "Gold Teal v2", file: "assets/css/theme-gold-teal_2.css" },
                     { name: "Gold Teal", file: "assets/css/theme-gold-teal.css" },
-                    { name: "Gold v2", file: "assets/css/theme-gold_2.css"},
                     { name: "Gold", file: "assets/css/theme-gold.css"},
-                    { name: "Red Dark v2", file: "assets/css/theme-red-dark_2.css"},
                     { name: "Red Dark", file: "assets/css/theme-red-dark.css"},
                     { name: "GNP Default", file: "assets/css/theme-default.css" }
                 ],
-                DEFAULT_THEME_FILE: "assets/css/theme-veler-blue_2.css", // Sincronizar
+                DEFAULT_THEME_FILE: "assets/css/theme-veler-blue.css", // Sincronizar
                 SELECTED_THEME_FILE_KEY: 'selected_theme_file' // Misma que en config.js
             };
 
             function applyThemeModeCot(mode) {
                 htmlEl.classList.toggle('light-theme', mode === 'light');
-                // Cambiar logo si es necesario (ej. el logo GNP_Medium si tienes versiones light/dark)
                 const logoMain = document.getElementById('logo-main-cotizacion');
                 if (logoMain) {
-                    // Asumiendo que tienes 'GNP_Medium_Light.png' y 'GNP_Medium_Dark.png'
-                    // logoMain.src = mode === 'light' ? 'assets/img/GNP_Medium_Light.png' : 'assets/img/GNP_Medium_Dark.png';
+                    logoMain.src = mode == 'light' ? './assets/img/veler_light.png' : 'assets/img/VELER_DARK.png';    
                 }
             }
 
