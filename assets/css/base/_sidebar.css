@@ -61,7 +61,7 @@
     cursor: pointer;
     box-shadow: none;
     transition: transform 0.3s ease, color 0.3s ease, background-color 0.2s ease;
-    margin-left: 10px;
+
 }
 .sidebar-toggle:hover {
      /* --- VARIABLE: Fondo hover del toggle --- */
@@ -181,7 +181,7 @@ body.body-sidebar-expanded .menu-item { justify-content: flex-start; padding: 10
 
 /* Colapsado (Estilos para mostrar solo iconos) */
 body.body-sidebar-collapsed #sidebar-navegacion { width: var(--sidebar-width-collapsed); }
-body.body-sidebar-collapsed #logo-veler-sidebar { opacity: 0; visibility: hidden; transition-delay: 0s; }
+body.body-sidebar-collapsed #logo-veler-sidebar { position: absolute; left: -400px; opacity: 0; visibility: hidden; transition-delay: 0s; }
 
 /* Ocultar texto, progreso y status en modo colapsado */
 body.body-sidebar-collapsed .menu-text,
