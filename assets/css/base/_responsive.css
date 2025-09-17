@@ -110,20 +110,9 @@
         z-index: 16 !important; transition: none !important;
         border-radius: 50%;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        color: var(--sidebar-toggle-color);
-        background: transparent;
     }
      body.body-sidebar-expanded .sidebar-toggle,
      body.body-sidebar-collapsed .sidebar-toggle {
          left: 10px !important; top: 70px !important;
      }
-
-    .light-theme .sidebar-toggle {
-        background-color: var(--accent-color);
-        color: var(--sidebar-toggle-color);
-    }
-    .light-theme .sidebar-toggle:hover {
-         background-color: var(--accent-color);
-         opacity: 0.85;
-    }
 }

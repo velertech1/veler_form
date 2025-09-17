@@ -1087,4 +1087,20 @@ function setupPaymentForm() {
     });
 }
 
+    isMobile();
 });
+
+
+function isMobile() {
+    if(window.innerWidth <= 750) {
+        collapsed();
+    }
+
+    function collapsed() {
+        document.body.classList.add('body-sidebar-collapsed');
+    }
+}
+
+window.onresize = function() {
+    isMobile();
+}

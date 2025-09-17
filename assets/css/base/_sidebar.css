@@ -48,9 +48,9 @@
 
 .sidebar-toggle {
     position: relative;
-    background: transparent;
     /* --- VARIABLE: Color del icono del toggle --- */
     color: var(--sidebar-toggle-color); /* Eliminado fallback, depende 100% de la variable */
+    background-color: var(--sidebar-toggle-color-bg);
     border: none;
     border-radius: 50%;
     width: 40px;

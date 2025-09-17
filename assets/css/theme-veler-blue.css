@@ -36,6 +36,7 @@
     --sidebar-status-default-bg: var(--border);
     --sidebar-status-completed-bg: #81C784;
     --sidebar-toggle-color: var(--accent-color);
+    --sidebar-toggle-color-bg: #1E1E1E;
     --sidebar-toggle-collapsed-color: var(--sidebar-toggle-color);
     --sidebar-toggle-hover-bg: rgba(var(--accent-color-rgb), 0.15);
 
@@ -84,6 +85,7 @@
     --sidebar-status-default-bg: var(--border); /* Status Gris Claro */
     --sidebar-status-completed-bg: #4CAF50;   /* Verde Estándar */
     --sidebar-toggle-color: var(--accent-color);/* Icono Toggle Azul */
+    --sidebar-toggle-color-bg: white;
     --sidebar-toggle-collapsed-color: var(--sidebar-toggle-color); /* Mismo color colapsado */
     --sidebar-toggle-hover-bg: rgba(var(--accent-color-rgb), 0.15);
 

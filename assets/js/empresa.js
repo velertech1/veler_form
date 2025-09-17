@@ -10,23 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'historial', icon: 'history', text: 'Historial' },
             { id: 'revision', icon: 'preview', text: 'Revisión Final' }
         ],
-        availableThemes: [
-            { name: "Veler Blue v2", file: "assets/css/theme-veler-blue_2.css" },
-            { name: "Veler Blue", file: "assets/css/theme-veler-blue.css" },
-            { name: "Teal Green v2", file: "assets/css/theme-teal-green_v2.css" },
-            { name: "Teal Green", file: "assets/css/theme-teal-green.css" },
-            { name: "Slate Mauve v2", file: "assets/css/theme-slate-mauve_2.css" },
-            { name: "Slate Mauve", file: "assets/css/theme-slate-mauve.css" },
-            { name: "Pink v2", file: "assets/css/theme-pink_2.css"},
-            { name: "Pink", file: "assets/css/theme-pink.css" },
-            { name: "Gold Teal v2", file: "assets/css/theme-gold-teal_2.css" },
-            { name: "Gold Teal", file: "assets/css/theme-gold-teal.css" },
-            { name: "Gold v2", file: "assets/css/theme-gold_2.css"},
-            { name: "Gold", file: "assets/css/theme-gold.css"},
-            { name: "Red Dark v2", file: "assets/css/theme-red-dark_2.css"},
-            { name: "Red Dark", file: "assets/css/theme-red-dark.css"},
-            { name: "vHealth Default", file: "assets/css/theme-default.css" }
-        ],
         domSelectors: {
             sidebar: '#sidebar-navegacion',
             header: '#main-header',
@@ -73,17 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
         headerContainer.innerHTML = `
             <div class="header-content-wrapper">
                 <div class="theme-controls">
-                    <select id="theme-selector" title="Seleccionar Tema de Color"></select>
                     <label class="theme-switch" for="theme-checkbox"><input type="checkbox" id="theme-checkbox" /><div class="slider round"><span class="icon material-symbols-outlined sun">light_mode</span><span class="icon material-symbols-outlined moon">dark_mode</span></div></label>
                 </div>
             </div>`;
-        const themeSelector = headerContainer.querySelector('#theme-selector');
         const themeCheckbox = headerContainer.querySelector('#theme-checkbox');
-        config.availableThemes.forEach(theme => themeSelector.add(new Option(theme.name, theme.file)));
-        themeSelector.addEventListener('change', (e) => setThemePalette(e.target.value));
         themeCheckbox.addEventListener('change', (e) => setThemeMode(e.target.checked ? 'light' : 'dark'));
         const savedFile = localStorage.getItem(config.storageKeys.themeFile) || config.availableThemes[0].file;
-        themeSelector.value = savedFile;
         setThemePalette(savedFile);
         themeCheckbox.checked = state.isLightMode;
         setThemeMode(state.isLightMode ? 'light' : 'dark');
@@ -261,4 +239,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- EJECUTAR LA APLICACIÓN ---
     initialize();
+    isMobile();
 });
+
+function isMobile() {
+    if(window.innerWidth <= 750) {
+        collapsed();
+    }
+
+    function collapsed() {
+        document.body.classList.add('body-sidebar-collapsed');
+    }
+}
+
+window.onresize = function() {
+    isMobile();
+}

@@ -6,7 +6,6 @@
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    border-top: 1px solid var(--border);
 }
 .botones-navegacion button:only-child { margin-left: auto; }
 #seccion-revision .botones-navegacion { justify-content: center; gap: 15px; }
