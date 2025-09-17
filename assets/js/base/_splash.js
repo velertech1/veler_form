@@ -1,4 +1,4 @@
-// GNP_Local/assets/js/base/_splash.js
+// vHealth_Local/assets/js/base/_splash.js
 import { CONFIG, DOMElements } from '../config.js';
 import { showSection as showFirstSection } from './_formNavigation.js'; // Import for revealing first section
 import { actualizarProgreso } from './_sidebar.js'; // Import for initial progress update

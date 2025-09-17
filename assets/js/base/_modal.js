@@ -1,4 +1,4 @@
-// GNP_Local/assets/js/base/_modal.js
+// vHealth_Local/assets/js/base/_modal.js
 import { DOMElements, state } from '../config.js';
 
 export function showModal(type, message = '', title = '') {

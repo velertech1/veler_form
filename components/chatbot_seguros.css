@@ -1,5 +1,5 @@
 /* components/chatbot_seguros.css */
-.chatbot-gnp-toggle-button {
+.chatbot-vHealth-toggle-button {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -18,30 +18,30 @@
     z-index: 1001;
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
-.chatbot-gnp-toggle-button .material-symbols-outlined {
+.chatbot-vHealth-toggle-button .material-symbols-outlined {
     transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
-.chatbot-gnp-toggle-button .icon-close {
+.chatbot-vHealth-toggle-button .icon-close {
     position: absolute;
     opacity: 0;
     transform: rotate(-90deg) scale(0.5);
 }
-.chatbot-gnp-toggle-button.open .icon-open {
+.chatbot-vHealth-toggle-button.open .icon-open {
     opacity: 0;
     transform: rotate(90deg) scale(0.5);
 }
-.chatbot-gnp-toggle-button.open .icon-close {
+.chatbot-vHealth-toggle-button.open .icon-close {
     opacity: 1;
     transform: rotate(0deg) scale(1);
 }
 
 
-.chatbot-gnp-toggle-button:hover {
+.chatbot-vHealth-toggle-button:hover {
     transform: scale(1.1);
     opacity: 0.9;
 }
 
-.chatbot-gnp-container {
+.chatbot-vHealth-container {
     position: fixed;
     bottom: 90px; /* Para que aparezca encima del botón toggle */
     right: 20px;
@@ -61,12 +61,12 @@
     transform-origin: bottom right;
 }
 
-.chatbot-gnp-container.chat-visible {
+.chatbot-vHealth-container.chat-visible {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
 
-.chatbot-gnp-header {
+.chatbot-vHealth-header {
     background-color: var(--accent-color, #075E54); 
     color: var(--button-primary-text, white);
     padding: 12px 15px;
@@ -75,7 +75,7 @@
     position: relative; 
 }
 
-.chatbot-gnp-avatar {
+.chatbot-vHealth-avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -83,39 +83,39 @@
     border: 2px solid var(--button-primary-text, white);
 }
 
-.chatbot-gnp-header-info .chatbot-gnp-name {
+.chatbot-vHealth-header-info .chatbot-vHealth-name {
     font-weight: 600; /* Más bold */
     font-size: 1em;
     display: block;
 }
 
-.chatbot-gnp-header-info .chatbot-gnp-status {
+.chatbot-vHealth-header-info .chatbot-vHealth-status {
     font-size: 0.8em;
     opacity: 0.9;
     display: block;
 }
 
-.chatbot-gnp-chat-area {
+.chatbot-vHealth-chat-area {
     flex-grow: 1;
     padding: 15px;
     overflow-y: auto;
     background-color: var(--bg-color, #E5DDD5); /* Fondo del chat */
 }
 
-.chatbot-gnp-message {
+.chatbot-vHealth-message {
     margin-bottom: 15px;
     display: flex;
 }
 
-.chatbot-gnp-message.bot-message { /* Cambiado de .dosys */
+.chatbot-vHealth-message.bot-message { /* Cambiado de .dosys */
     justify-content: flex-start;
 }
 
-.chatbot-gnp-message.user-message { 
+.chatbot-vHealth-message.user-message { 
     justify-content: flex-end;
 }
 
-.chatbot-gnp-bubble {
+.chatbot-vHealth-bubble {
     padding: 10px 14px; /* Padding ajustado */
     border-radius: 18px; /* Burbujas más redondeadas */
     max-width: 85%; 
@@ -123,32 +123,32 @@
     line-height: 1.5; /* Mejor interlineado */
 }
 
-.chatbot-gnp-message.bot-message .chatbot-gnp-bubble {
+.chatbot-vHealth-message.bot-message .chatbot-vHealth-bubble {
     background-color: var(--input-bg, #DCF8C6); 
     color: var(--input-text-color, #333);
     border-bottom-left-radius: 4px; /* Detalle de burbuja */
 }
 
-.chatbot-gnp-message.user-message .chatbot-gnp-bubble {
+.chatbot-vHealth-message.user-message .chatbot-vHealth-bubble {
     background-color: var(--accent-color, #DCF8C6); /* Usar accent color para el usuario */
     color: var(--button-primary-text, #333); /* Texto que contraste con accent */
     border-bottom-right-radius: 4px; /* Detalle de burbuja */
 }
 
-.chatbot-gnp-bubble p {
+.chatbot-vHealth-bubble p {
     margin: 0 0 8px 0;
     font-size: 0.95em;
     word-wrap: break-word; 
 }
-.chatbot-gnp-bubble p:last-child {
+.chatbot-vHealth-bubble p:last-child {
     margin-bottom: 0;
 }
 
-.chatbot-gnp-bubble p strong {
+.chatbot-vHealth-bubble p strong {
     font-weight: 600; /* O usar la variable de tema para bold si existe */
 }
 
-.chatbot-gnp-bubble ul {
+.chatbot-vHealth-bubble ul {
     margin-top: 8px;
     margin-bottom: 10px;
     padding-left: 20px; 
@@ -156,26 +156,26 @@
     line-height: 1.5;
 }
 
-.chatbot-gnp-bubble ul li {
+.chatbot-vHealth-bubble ul li {
     margin-bottom: 5px; 
 }
 
 
-.chatbot-gnp-timestamp {
+.chatbot-vHealth-timestamp {
     font-size: 0.75em; /* Ligeramente más grande */
     color: var(--text-color-secondary, #888);
     text-align: right;
     margin-top: 8px;
 }
 
-.chatbot-gnp-quick-replies {
+.chatbot-vHealth-quick-replies {
     margin-top: 12px;
     display: flex;
     flex-wrap: wrap;
     gap: 8px; 
 }
 
-.chatbot-gnp-quick-replies button {
+.chatbot-vHealth-quick-replies button {
     background-color: var(--bg-container, #fff);
     border: 1px solid var(--accent-color, #075E54); 
     color: var(--accent-color, #075E54); 
@@ -187,13 +187,13 @@
     font-weight: 500;
 }
 
-.chatbot-gnp-quick-replies button:hover {
+.chatbot-vHealth-quick-replies button:hover {
     background-color: var(--accent-color, #075E54);
     color: var(--button-primary-text, white);
     transform: translateY(-1px);
 }
 
-.chatbot-gnp-close-button {
+.chatbot-vHealth-close-button {
     position: absolute;
     top: 50%;
     right: 15px;
@@ -208,6 +208,6 @@
     line-height: 1;
 }
 
-.chatbot-gnp-close-button:hover {
+.chatbot-vHealth-close-button:hover {
     opacity: 0.7;
 }

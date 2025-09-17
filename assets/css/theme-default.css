@@ -34,9 +34,9 @@
 :root.light-theme {
     --bg-color: #FFFFFF;
     --bg-container: #ffffff;
-    --text-color-primary: #0d3a7c; /* Azul oscuro GNP */
+    --text-color-primary: #0d3a7c; /* Azul oscuro vHealth */
     --text-color-secondary: #495057; /* Gris oscuro texto */
-    --accent-color: #fc6c11; /* Naranja GNP */
+    --accent-color: #fc6c11; /* Naranja vHealth */
     --input-bg: #f6f6f6;
     --input-text-color: var(--text-color-primary);
     --input-placeholder-color: #7495bc; /* Azul grisáceo placeholder */

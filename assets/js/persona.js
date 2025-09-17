@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: "Gold Teal", file: "assets/css/theme-gold-teal.css" },
             { name: "Gold", file: "assets/css/theme-gold.css"},
             { name: "Red Dark", file: "assets/css/theme-red-dark.css"},
-            { name: "GNP Default", file: "assets/css/theme-default.css" }
+            { name: "vHealth Default", file: "assets/css/theme-default.css" }
         ],
         domSelectors: {
             sidebar: '#sidebar-navegacion',

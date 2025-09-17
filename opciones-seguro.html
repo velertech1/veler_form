@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opciones de Seguro - GNP</title>
+    <title>Opciones de Seguro - vHealth</title>
     <link rel="stylesheet" href="assets/css/main.css">
     <link id="dynamic-theme-style-link" rel="stylesheet" href="assets/css/theme-veler-blue_2.css">
     <link rel="icon" href="assets/img/V_icon.png" type="image/x-icon">
@@ -330,7 +330,7 @@
                         Media</span>
                     </li>
                 </ul>
-                <button type="button" class="btn-seleccionar-plan" data-plan-nombre="Plan Confort">
+                <button type="button" class="btn-seleccionar-plan" data-plan-nombre="Plan Comfort">
                     Seleccionar Plan
                 </button>
             </div>
@@ -358,12 +358,12 @@
         </div>
     </div>
 
-    <button id="chatbot-gnp-toggle-button" class="chatbot-gnp-toggle-button">
+    <button id="chatbot-vHealth-toggle-button" class="chatbot-vHealth-toggle-button">
         <span class="material-symbols-outlined icon-open">support_agent</span>
         <span class="material-symbols-outlined icon-close" style="display:none;">close</span>
     </button>
     
-    <div id="chatbotGNPContainer" class="chatbot-gnp-container" style="display: none;">
+    <div id="chatbotvHealthContainer" class="chatbot-vHealth-container" style="display: none;">
         </div>
 
 
@@ -423,7 +423,7 @@
             { name: "Gold Teal", file: "assets/css/theme-gold-teal.css" },
             { name: "Gold", file: "assets/css/theme-gold.css"},
             { name: "Red Dark", file: "assets/css/theme-red-dark.css"},
-            { name: "GNP Default", file: "assets/css/theme-default.css" }
+            { name: "vHealth Default", file: "assets/css/theme-default.css" }
                 ],
                 DEFAULT_THEME_FILE: "assets/css/theme-default.css",
                 SELECTED_THEME_FILE_KEY: 'selected_theme_file'
@@ -433,7 +433,7 @@
                 htmlEl.classList.toggle('light-theme', mode === 'light');
                 const logoMain = document.getElementById('logo-main-opciones');
                 if (logoMain) {
-                    logoMain.src = mode === 'light' ? 'assets/img/VELER_LIGHT.png' : 'assets/img/VELER_DARK.png';
+                    logoMain.src = mode === 'light' ? './assets/img/VELER_LIGHT.png' : './assets/img/VELER_DARK.png';
                 }
             }
 

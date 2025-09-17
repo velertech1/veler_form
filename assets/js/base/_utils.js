@@ -1,4 +1,4 @@
-// GNP_Local/assets/js/base/_utils.js
+// vHealth_Local/assets/js/base/_utils.js
 import { DOMElements } from '../config.js';
 
 export function validateEssentialElements() {

@@ -1,4 +1,4 @@
-// GNP_Local/assets/js/config.js
+// vHealth_Local/assets/js/config.js
 
 export const CONFIG = {
     FADE_DURATION: 400,
@@ -7,8 +7,8 @@ export const CONFIG = {
     API_ENDPOINT: '/tu-endpoint-real-en-el-servidor',
     LOGO_VELER_DARK: 'assets/img/VELER_DARK.png',
     LOGO_VELER_LIGHT: 'assets/img/VELER_LIGHT.png',
-    LOGO_GNP_DARK: 'assets/img/GNP_DARK.png',
-    LOGO_GNP_LIGHT: 'assets/img/GNP_LIGHT.png',
+    LOGO_vHealth_DARK: 'assets/img/vHealth_DARK.png',
+    LOGO_vHealth_LIGHT: 'assets/img/vHealth_LIGHT.png',
     THEME_STORAGE_KEY: 'theme_mode',
     MOBILE_BREAKPOINT: 767,
     AVAILABLE_THEMES: [
@@ -26,7 +26,7 @@ export const CONFIG = {
         { name: "Gold", file: "assets/css/theme-gold.css"},
         { name: "Red Dark v2", file: "assets/css/theme-red-dark_2.css"},
         { name: "Red Dark", file: "assets/css/theme-red-dark.css"},
-        { name: "GNP Default", file: "assets/css/theme-default.css" }
+        { name: "vHealth Default", file: "assets/css/theme-default.css" }
     ],
     DEFAULT_THEME_FILE: "assets/css/theme-veler-blue_2.css",
     SELECTED_THEME_FILE_KEY: 'selected_theme_file',

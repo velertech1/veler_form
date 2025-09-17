@@ -64,9 +64,9 @@
 :root.light-theme {
     --bg-color: #FFFFFF;
     --bg-container: #ffffff;
-    --text-color-primary: #0d3a7c; /* Azul oscuro GNP */
+    --text-color-primary: #0d3a7c; /* Azul oscuro vHealth */
     --text-color-secondary: #495057; /* Gris oscuro texto */
-    --accent-color: #fc6c11; /* Naranja GNP */
+    --accent-color: #fc6c11; /* Naranja vHealth */
     --input-bg: #f6f6f6;
     --input-text-color: var(--text-color-primary);
     --input-placeholder-color: #7495bc; /* Azul grisáceo placeholder */
@@ -210,7 +210,7 @@ h2 {
 }
 #splash-screen #logo2-splash,
 #main-header #logo2-header {
-    transform: scale(0.75); /* Logo GNP un poco más pequeño */
+    transform: scale(0.75); /* Logo vHealth un poco más pequeño */
     transform-origin: center center;
 }
 

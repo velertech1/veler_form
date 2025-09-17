@@ -1,4 +1,4 @@
-// GNP_Local/assets/js/base/_api.js
+// vHealth_Local/assets/js/base/_api.js
 import { CONFIG, state, DOMElements } from '../config.js';
 import { showModal } from './_modal.js'; // Import showModal
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido - GNP Seguros</title>
+    <title>Bienvenido - vHealth Seguros</title>
     <link rel="stylesheet" href="assets/css/main.css">
     <link id="dynamic-theme-style-link-splash" rel="stylesheet" href="">
     <link rel="icon" href="assets/img/V_icon.png" type="image/x-icon">
@@ -71,7 +71,7 @@
         <div class="logos-wrapper">
             <img id="logo1-splash" src="assets/img/VELER_DARK.png" alt="Logo Veler Technologies">
             <div class="linea-divisora"></div>
-            <img id="logo2-splash" src="assets/img/GNP_DARK.png" alt="Logo GNP Seguros">
+            <img id="logo2-splash" src="assets/img/vHealth_DARK.png" alt="Logo vHealth Seguros">
         </div>
     </div>
 
@@ -95,16 +95,16 @@
 
             const savedThemeMode = localStorage.getItem(THEME_MODE_KEY) || 'dark';
             const logoVelerSplash = document.getElementById('logo1-splash');
-            const logoGNPSplash = document.getElementById('logo2-splash');
+            const logovHealthSplash = document.getElementById('logo2-splash');
 
             if (savedThemeMode === 'light') {
                 document.documentElement.classList.add('light-theme');
                 if (logoVelerSplash) logoVelerSplash.src = 'assets/img/VELER_LIGHT.png';
-                if (logoGNPSplash) logoGNPSplash.src = 'assets/img/GNP_LIGHT.png';
+                if (logovHealthSplash) logovHealthSplash.src = 'assets/img/vHealth_LIGHT.png';
             } else {
                 document.documentElement.classList.remove('light-theme');
                 if (logoVelerSplash) logoVelerSplash.src = 'assets/img/VELER_DARK.png';
-                if (logoGNPSplash) logoGNPSplash.src = 'assets/img/GNP_DARK.png';
+                if (logovHealthSplash) logovHealthSplash.src = 'assets/img/vHealth_DARK.png';
             }
 
             const savedThemeFile = localStorage.getItem(SELECTED_THEME_FILE_KEY) || DEFAULT_THEME_FILE;
