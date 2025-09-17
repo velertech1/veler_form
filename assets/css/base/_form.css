@@ -4,10 +4,11 @@ main#formulario-completo {
     box-sizing: border-box;
     display: block;
     margin-left: var(--sidebar-width-expanded);
-    width: calc(100% - var(--sidebar-width-expanded));
+    width: 100%;
     min-height: 100vh;
     /* Devolvemos un padding horizontal para que el contenido no se pegue a los bordes */
-    padding: calc(var(--top-bar-height) + 30px) 40px 40px 40px; 
+    padding-top: 70px;
+    padding-bottom: 45px;
     transition: margin-left 0.3s ease, width 0.3s ease;
 }
 
@@ -25,7 +26,6 @@ body.body-sidebar-collapsed main#formulario-completo {
     /* Le ponemos un límite sensato para que no se vea demasiado ancho en pantallas gigantes. 
        Si lo quieres aún más ancho, aumenta este número. Si lo quieres sin límite, borra la línea. */
     max-width: 1400px;
-    
     /* Esto lo centra cuando la pantalla es más ancha que el max-width */
     margin: 0 auto 20px auto;
     
@@ -153,14 +153,10 @@ textarea.form-control {
 }
 
 /* Modo Revisión */
-main#formulario-completo.modo-revision {
-    padding-left: 40px; /* Mantiene padding lateral */
-    padding-right: 40px;
-}
+
 main#formulario-completo.modo-revision .seccion-formulario {
     display: block !important; opacity: 1 !important; transition: none !important;
     margin-bottom: 25px; /* Más espacio entre secciones en revisión */
-    padding: 25px;
     border: 1px solid var(--border);
     border-radius: 15px;
     background-color: rgba(var(--text-color-primary-rgb, 0, 0, 0), 0.03); /* Fondo más sutil aún */
@@ -178,7 +174,6 @@ main#formulario-completo.modo-revision .seccion-formulario .botones-navegacion {
 
 main#formulario-completo.modo-revision #seccion-revision {
     display: block !important; opacity: 1 !important; border: none;
-    padding: 15px 0; /* Padding vertical para la sección de revisión */
     background-color: transparent; box-shadow: none;
     max-width: 1400px;
     margin-left: auto;
@@ -200,7 +195,6 @@ main#formulario-completo.modo-revision #seccion-revision {
 }
 #seccion-revision #resumen-final {
     margin-bottom: 30px; /* Más espacio antes de los botones finales */
-    padding: 25px;
     border-radius: 8px; border: 1px solid var(--border);
     color: var(--text-color-secondary); background-color: var(--bg-container); /* Fondo igual al de las secciones normales */
     text-align: left;

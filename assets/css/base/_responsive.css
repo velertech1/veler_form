@@ -13,13 +13,13 @@
     #main-header .linea-divisora { height: 30px; margin: 0 5px; }
 
     /* Sidebar Móvil */
-    #sidebar-navegacion {
+    /*#sidebar-navegacion {
         position: fixed; width: 85%; max-width: 300px; height: calc(100vh - 60px);
         top: 60px; left: 0; transform: translateX(-100%); transition: transform 0.3s ease;
         z-index: 15; border-right: 1px solid var(--sidebar-border-color, var(--border)); padding: 20px 0; overflow-y: auto;
         background-color: var(--sidebar-bg, var(--bg-container));
-    }
-    body.sidebar-visible #sidebar-navegacion { transform: translateX(0); }
+    }*/
+    body.sidebar-visible #sidebar-navegacion {transform: translateX(0); }
     #sidebar-navegacion .sidebar-header,
     #sidebar-navegacion .menu-text,
     #sidebar-navegacion .sidebar-progress,
@@ -39,7 +39,7 @@
     #formulario-completo {
         width: 98%; /* MODIFICADO: de 95% a 98% para más ancho */
         max-width: 98%; /* MODIFICADO: de 95% a 98% para más ancho */
-        padding: 0 10px 15px 10px; /* Ajustar padding lateral si es necesario con el nuevo width */
+        padding: 0 40px 40px 40px; /* Ajustar padding lateral si es necesario con el nuevo width */
         margin: 10px auto 20px auto !important; /* Forzar centrado */
         transition: opacity 0.3s ease; opacity: 1; pointer-events: auto;
     }
