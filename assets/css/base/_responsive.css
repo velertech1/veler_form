@@ -37,10 +37,9 @@
 
     /* Formulario Móvil */
     #formulario-completo {
-        width: 98%; /* MODIFICADO: de 95% a 98% para más ancho */
-        max-width: 98%; /* MODIFICADO: de 95% a 98% para más ancho */
-        padding: 0 40px 40px 40px; /* Ajustar padding lateral si es necesario con el nuevo width */
-        margin: 10px auto 20px auto !important; /* Forzar centrado */
+        width: 100%; /* MODIFICADO: de 95% a 98% para más ancho */
+        max-width: 100%; /* MODIFICADO: de 95% a 98% para más ancho */
+        padding: 0 20px 20px 20px; /* Ajustar padding lateral si es necesario con el nuevo width */
         transition: opacity 0.3s ease; opacity: 1; pointer-events: auto;
     }
     body.sidebar-visible #formulario-completo { opacity: 0.3; pointer-events: none; }
@@ -107,7 +106,7 @@
 
     /* Botón Toggle Sidebar Móvil */
     .sidebar-toggle {
-        position: fixed !important; left: 10px !important; top: 70px !important;
+        position: static !important; left: 10px !important; top: -70px !important;
         z-index: 16 !important; transition: none !important;
         border-radius: 50%;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);

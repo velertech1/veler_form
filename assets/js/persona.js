@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSectionIndex: 0,
         isLightMode: false,
         formSections: [],
-        menuItems: []
+        menuItems: [],
+        menusCompleted: {}
     };
 
     // --- PARA LO DE SOLICITANTES EXTRA ---
@@ -255,6 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <li class="menu-item" data-section-index="${index}">
                 <span class="menu-icon material-symbols-outlined">${item.icon}</span>
                 <span class="menu-text">${item.text}</span>
+                <span class="menu-status">
+                </span>
             </li>`).join('');
         sidebarContainer.innerHTML = `
             <div class="sidebar-top-area">
@@ -364,6 +367,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupFormNavigation() {
         document.querySelector(config.domSelectors.nextBtn)?.addEventListener('click', () => {
             if (state.currentSectionIndex < config.menuItems.length - 1) {
+                let lastSectionSelected = document.querySelector(`[data-section-index="${state.currentSectionIndex}"]`);
+                let innerStatus = lastSectionSelected.getElementsByClassName("menu-status")[0];
+                let bgStyleInnerStatus = window.getComputedStyle(innerStatus).backgroundColor;
+                let styleToSetInnerStatus = innerStatus.style;
+                if(bgStyleInnerStatus == "rgb(68, 68, 68)" || bgStyleInnerStatus == "rgb(180, 180, 180)") {
+                    styleToSetInnerStatus.backgroundColor = `var(--sidebar-status-completed-bg)`;
+                }
+
                 showSection(state.currentSectionIndex + 1);
             }
         });
