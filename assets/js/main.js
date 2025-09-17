@@ -1,4 +1,4 @@
-// GNP_Local/assets/js/main.js
+// vHealth_Local/assets/js/main.js
 import { renderSidebarMenu } from './base/_sidebar.js';
 import { CONFIG, state, DOMElements } from './config.js';
 import { initializeTheme } from './base/_switch.js';
@@ -8,7 +8,7 @@ import { initializeModals } from './base/_modal.js';
 import { initializeTooltips } from './base/_tooltips.js';
 import { validateEssentialElements } from './base/_utils.js';
 
-// En tu archivo GNP_Local/assets/js/main.js
+// En tu archivo vHealth_Local/assets/js/main.js
 function initializeApp() {
 
 
@@ -33,7 +33,7 @@ function initializeApp() {
     initializeModals();
     initializeSplash();
 
-    console.log(`Aplicación GNP con Formulario Dinámico Inicializada para: ${tipoDeSolicitante.toUpperCase()}`);
+    console.log(`Aplicación vHealth con Formulario Dinámico Inicializada para: ${tipoDeSolicitante.toUpperCase()}`);
 }
 
 document.addEventListener('DOMContentLoaded', initializeApp);

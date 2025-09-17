@@ -1,4 +1,4 @@
-// GNP_Local/assets/js/base/_tooltips.js
+// vHealth_Local/assets/js/base/_tooltips.js
 import { DOMElements } from '../config.js';
 
 function showTooltip(tooltipElement) {

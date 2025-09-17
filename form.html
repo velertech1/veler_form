@@ -212,7 +212,7 @@
                 <h2>Plan de Seguro Solicitado</h2>
                  <p class="subtitulo-ligero">Detalles de la cobertura que deseas contratar.</p>
                  <div class="form-columns-container">
-                    <div class="form-group question-group"> <label for="plan_nombre_plan">Nombre del Plan:<span class="required-marker">*</span></label> <input type="text" id="plan_nombre_plan" name="plan_nombre_plan" class="form-control" placeholder="Ej: Línea Azul Plenitud, GNP Nacional" maxlength="50" required> </div>
+                    <div class="form-group question-group"> <label for="plan_nombre_plan">Nombre del Plan:<span class="required-marker">*</span></label> <input type="text" id="plan_nombre_plan" name="plan_nombre_plan" class="form-control" placeholder="Ej: Línea Azul Plenitud, vHealth Nacional" maxlength="50" required> </div>
                     <div class="form-group question-group"> <label for="plan_tipo_plan">Tipo de Plan (Cobertura Geográfica):<span class="required-marker">*</span></label> <select id="plan_tipo_plan" name="plan_tipo_plan" class="form-control" required> <option value="" disabled selected>Seleccione...</option> <option value="Nacional">Nacional</option> <option value="Internacional">Internacional</option> <option value="Regional">Regional (si aplica)</option> </select> </div>
                     <div class="form-group question-group"> <label for="plan_suma_asegurada">Suma Asegurada:<span class="required-marker">*</span></label> <input type="number" id="plan_suma_asegurada" name="plan_suma_asegurada" class="form-control" placeholder="Monto sin comas ni puntos" step="1000" min="0" required> </div>
                     <div class="form-group question-group"> <label for="plan_tipo_suma_asegurada">Tipo Suma Asegurada:</label> <select id="plan_tipo_suma_asegurada" name="plan_tipo_suma_asegurada" class="form-control"> <option value="" disabled selected>Seleccione...</option> <option value="Por Padecimiento">Por Padecimiento</option> <option value="Anual">Anual</option> <option value="Vitalicia">Vitalicia</option> <option value="Única">Única</option> </select> </div>
@@ -361,13 +361,13 @@
                  <h2>Información del Agente</h2> <p class="subtitulo-ligero">Datos del intermediario de seguros.</p>
                  <div class="form-columns-container">
                     <div class="form-group question-group"> <label for="agente_nombre">Nombre Completo del Agente:<span class="required-marker">*</span></label> <input type="text" id="agente_nombre" name="agente_nombre" class="form-control" placeholder="Nombre Completo" maxlength="100" required> </div>
-                    <div class="form-group question-group"> <label for="agente_clave">Clave del Agente:<span class="required-marker">*</span></label> <input type="text" id="agente_clave" name="agente_clave" class="form-control" placeholder="Clave asignada por GNP" maxlength="20" required> </div>
+                    <div class="form-group question-group"> <label for="agente_clave">Clave del Agente:<span class="required-marker">*</span></label> <input type="text" id="agente_clave" name="agente_clave" class="form-control" placeholder="Clave asignada por vHealth" maxlength="20" required> </div>
                     <div class="form-group question-group"> <label for="agente_nombre_2">Nombre Agente 2 (si aplica):</label> <input type="text" id="agente_nombre_2" name="agente_nombre_2" class="form-control" placeholder="Nombre Completo Agente 2" maxlength="100"> </div>
                     <div class="form-group question-group"> <label for="agente_clave_2">Clave Agente 2 (si aplica):</label> <input type="text" id="agente_clave_2" name="agente_clave_2" class="form-control" placeholder="Clave Agente 2" maxlength="20"> </div>
                     <div class="form-group question-group"> <label for="agente_distribucion">Distribución de Comisión Agente 1 (%):</label> <input type="number" id="agente_distribucion" name="agente_distribucion" class="form-control" placeholder="%" step="0.1" min="0" max="100" value="100"> </div>
                     <div class="form-group question-group"> <label for="agente_distribucion_2">Distribución de Comisión Agente 2 (%):</label> <input type="number" id="agente_distribucion_2" name="agente_distribucion_2" class="form-control" placeholder="%" step="0.1" min="0" max="100" value="0"> </div>
                     <div class="form-group question-group"> <label for="agente_fecha_conocimiento">Fecha desde que conoce al Cliente/Contratante:</label> <input type="text" id="agente_fecha_conocimiento" name="agente_fecha_conocimiento" class="form-control" placeholder="MM/AAAA" maxlength="7"> </div>
-                    <div class="form-group question-group"> <label>¿Recomienda al solicitante para ser asegurado por GNP?</label> <div class="radio-group"> <label><input type="radio" name="agente_recomendacion" value="si" checked> Sí</label> <label><input type="radio" name="agente_recomendacion" value="no"> No</label> </div> </div>
+                    <div class="form-group question-group"> <label>¿Recomienda al solicitante para ser asegurado por vHealth?</label> <div class="radio-group"> <label><input type="radio" name="agente_recomendacion" value="si" checked> Sí</label> <label><input type="radio" name="agente_recomendacion" value="no"> No</label> </div> </div>
                     <div class="form-group question-group full-width-column"> <label for="agente_observaciones">Observaciones del Agente:</label> <textarea id="agente_observaciones" name="agente_observaciones" class="form-control" rows="3" placeholder="Comentarios relevantes sobre el cliente o la solicitud"></textarea> </div>
                     <div class="form-group question-group"> <label for="agente_firma">Firma del Agente (Adjuntar imagen o PDF):</label> <input type="file" id="agente_firma" name="agente_firma" class="form-control" accept="image/*,.pdf"> </div>
                     <div class="form-group question-group"> <label for="agente_fecha_firma">Fecha Firma Agente:<span class="required-marker">*</span></label> <input type="date" id="agente_fecha_firma" name="agente_fecha_firma" class="form-control" required> </div>
@@ -385,8 +385,8 @@
                      <div class="testimonial">
                         <span class="material-symbols-outlined">record_voice_over</span>
                         <div>
-                            <p>"Saber que mi familia está protegida con GNP me da una tranquilidad invaluable. El proceso fue más sencillo de lo que esperaba."</p>
-                            <span>- Ana L., Cliente GNP desde 2021</span>
+                            <p>"Saber que mi familia está protegida con vHealth me da una tranquilidad invaluable. El proceso fue más sencillo de lo que esperaba."</p>
+                            <span>- Ana L., Cliente vHealth desde 2021</span>
                         </div>
                      </div>
                      <div class="data-point">
