@@ -13,7 +13,7 @@
     --button-primary-text: #1E1E1E;             /* Texto oscuro para contraste en botón primario */
     --button-secondary-bg: #161616;
     --button-secondary-text: var(--accent-color);
-    --border: #444;                         /* Bordes sutiles */
+    --border: #444444;                         /* Bordes sutiles */
     --error-alert: #E57373;                 /* Color para errores */
     --logo-line-color: var(--accent-color);    /* Línea divisora logos */
     --modal-bg: var(--bg-container);
@@ -61,7 +61,7 @@
     --button-primary-text: #FFFFFF;             /* Texto Blanco */
     --button-secondary-bg: #FFFFFF;             /* Botón secundario Blanco */
     --button-secondary-text: var(--accent-color);/* Texto Azul */
-    --border: #DEE2E6;                     /* Borde Gris claro */
+    --border: #b4b4b4;                     /* Borde Gris claro */
     --error-alert: #dc3545;                 /* Rojo Error */
     --logo-line-color: var(--border);
     --modal-bg: var(--bg-container);

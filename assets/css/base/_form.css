@@ -1,5 +1,10 @@
 /* --- INICIA CÓDIGO PARA REEMPLAZAR --- */
 
+a {
+    text-decoration: none;
+    color: var(--link-color);
+}
+
 main#formulario-completo {
     box-sizing: border-box;
     display: block;
@@ -27,10 +32,9 @@ body.body-sidebar-collapsed main#formulario-completo {
        Si lo quieres aún más ancho, aumenta este número. Si lo quieres sin límite, borra la línea. */
     max-width: 1400px;
     /* Esto lo centra cuando la pantalla es más ancha que el max-width */
-    margin: 0 auto 20px auto;
-    
     padding: 25px;
     border-radius: 12px;
+    color: var(--text-color-primary);
     background-color: var(--bg-container);
     box-shadow: 0 4px 12px rgba(var(--bg-color-rgb,0,0,0),0.07);
     display: none; /* Esta línea es correcta, JS la cambia */
