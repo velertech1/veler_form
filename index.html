@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotización Rápida - vHealth (Seguros)</title>
-    <link rel="stylesheet" href="assets/css/main.css"> <link id="dynamic-theme-style-link" rel="stylesheet" href="assets/css/theme-veler-blue_2.css"> <link rel="icon" href="assets/img/V_icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link id="dynamic-theme-style-link" rel="stylesheet" href="assets/css/theme-veler-blue.css">
+    <link rel="icon" href="assets/img/V_icon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
         /* Estilos básicos para la página de cotización */
@@ -40,6 +42,12 @@
             max-width: 480px; /* Ancho similar al modal */
             text-align: center;
             border: 1px solid var(--border); /* Borde sutil */
+        }
+
+        @media (max-width: 550px) {
+            .cotizacion-container {
+                border: none;
+            }
         }
 
         .cotizacion-container h1 {
@@ -211,8 +219,6 @@
 </head>
 <body>
     <div class="theme-controls-cotizacion">
-        <select id="theme-selector-cotizacion" title="Seleccionar Tema de Color">
-            </select>
         <label class="theme-switch" for="theme-checkbox-cotizacion">
             <input type="checkbox" id="theme-checkbox-cotizacion" />
             <div class="slider round">
@@ -297,12 +303,7 @@
                 }
 
                 if (themeSelectorCot) {
-                    CONFIG_COT.AVAILABLE_THEMES.forEach(theme => {
-                        const option = document.createElement('option');
-                        option.value = theme.file;
-                        option.textContent = theme.name;
-                        themeSelectorCot.appendChild(option);
-                    });
+                    
                     const savedThemeFile = localStorage.getItem(CONFIG_COT.SELECTED_THEME_FILE_KEY) || CONFIG_COT.DEFAULT_THEME_FILE;
                     const isValidSavedTheme = CONFIG_COT.AVAILABLE_THEMES.some(theme => theme.file === savedThemeFile);
                     const themeFileToLoad = isValidSavedTheme ? savedThemeFile : CONFIG_COT.DEFAULT_THEME_FILE;

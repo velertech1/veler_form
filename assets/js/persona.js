@@ -17,9 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'declaraciones', icon: 'gavel', text: 'Declaraciones' },
             { id: 'revision', icon: 'preview', text: 'Revisión Final' }
         ],
-        availableThemes: [
-            { name: "Veler Blue", file: "assets/css/theme-veler-blue.css" }
-        ],
         domSelectors: {
             sidebar: '#sidebar-navegacion',
             header: '#main-header',
@@ -224,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
         headerContainer.innerHTML = `
             <div class="header-content-wrapper">
                 <div class="theme-controls">
-                    <select id="theme-selector" title="Seleccionar Tema de Color"></select>
                     <label class="theme-switch" for="theme-checkbox">
                         <input type="checkbox" id="theme-checkbox" />
                         <div class="slider round">
@@ -234,16 +230,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     </label>
                 </div>
             </div>`;
-        const themeSelector = headerContainer.querySelector('#theme-selector');
         const themeCheckbox = headerContainer.querySelector('#theme-checkbox');
-        config.availableThemes.forEach(theme => {
-            const option = new Option(theme.name, theme.file);
-            themeSelector.add(option);
-        });
-        themeSelector.addEventListener('change', (e) => setThemePalette(e.target.value));
         themeCheckbox.addEventListener('change', (e) => setThemeMode(e.target.checked ? 'light' : 'dark'));
-        const savedFile = localStorage.getItem(config.storageKeys.themeFile) || config.availableThemes[config.availableThemes.length - 1].file;
-        themeSelector.value = savedFile;
+        
+        let savedFile = localStorage.getItem(config.storageKeys.themeFile);
+        if(savedFile == null) {
+            savedFile = "assets/css/theme-veler-blue.css";
+        }
         setThemePalette(savedFile);
         themeCheckbox.checked = state.isLightMode;
         setThemeMode(state.isLightMode ? 'light' : 'dark');
@@ -261,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </li>`).join('');
         sidebarContainer.innerHTML = `
             <div class="sidebar-top-area">
-                <img id="logo-veler-sidebar" src="assets/img/veler_light.png" alt="Logo Veler Technologies">
+                <img id="logo-veler-sidebar" src="./assets/img/VELER_DARK.png" alt="Logo Veler Technologies">
                 <button class="sidebar-toggle material-symbols-outlined" title="Contraer/Expandir menú">menu_open</button>
             </div>
             <div class="sidebar-bottom-area">
@@ -545,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.classList.toggle('light-theme', state.isLightMode);
         const logo = document.getElementById('logo-veler-sidebar');
         if (logo) {
-            logo.src = state.isLightMode ? 'assets/img/veler_light.png' : 'assets/img/VELER_DARK.png';
+            logo.src = state.isLightMode ? './assets/img/veler_light.png' : 'assets/img/VELER_DARK.png';
         }
     }
 

@@ -276,7 +276,6 @@
 </head>
 <body>
     <div class="theme-controls-opciones">
-        <select id="theme-selector-opciones" title="Seleccionar Tema de Color"></select>
         <label class="theme-switch" for="theme-checkbox-opciones">
             <input type="checkbox" id="theme-checkbox-opciones" />
             <div class="slider round">
@@ -411,7 +410,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             // --- LÓGICA DE TEMAS (SIN CAMBIOS) ---
             const themeSwitchOps = document.getElementById('theme-checkbox-opciones');
-            const themeSelectorOps = document.getElementById('theme-selector-opciones');
             const htmlEl = document.documentElement;
             const dynamicThemeLink = document.getElementById('dynamic-theme-style-link');
 
@@ -433,25 +431,10 @@
             }
 
             function _initThemeSelectorDOMOps() {
-                if (themeSelectorOps) {
-                    CONFIG_OPS.AVAILABLE_THEMES.forEach(theme => {
-                        const option = document.createElement('option');
-                        option.value = theme.file;
-                        option.textContent = theme.name;
-                        themeSelectorOps.appendChild(option);
-                    });
                     const savedThemeFile = localStorage.getItem(CONFIG_OPS.SELECTED_THEME_FILE_KEY) || CONFIG_OPS.DEFAULT_THEME_FILE;
                     const isValidSavedTheme = CONFIG_OPS.AVAILABLE_THEMES.some(theme => theme.file === savedThemeFile);
                     const themeFileToLoad = isValidSavedTheme ? savedThemeFile : CONFIG_OPS.DEFAULT_THEME_FILE;
-
                     if (dynamicThemeLink) dynamicThemeLink.href = themeFileToLoad;
-                    themeSelectorOps.value = themeFileToLoad;
-
-                    themeSelectorOps.addEventListener('change', function() {
-                        if(dynamicThemeLink) dynamicThemeLink.href = this.value;
-                        localStorage.setItem(CONFIG_OPS.SELECTED_THEME_FILE_KEY, this.value);
-                    });
-                }
             }
 
             function _initCurrentThemeModeOps() {
