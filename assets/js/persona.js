@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    
+
     // --- 1. CONFIGURACIÓN CENTRALIZADA (ACTUALIZADA CON 11 SECCIONES) ---
     const config = {
         menuItems: [
@@ -16,14 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'revision', icon: 'preview', text: 'Revisión Final' }
         ],
         availableThemes: [
-            { name: "Veler Blue", file: "assets/css/theme-veler-blue.css" },
-            { name: "Teal Green", file: "assets/css/theme-teal-green.css" },
-            { name: "Slate Mauve", file: "assets/css/theme-slate-mauve.css" },
-            { name: "Pink", file: "assets/css/theme-pink.css" },
-            { name: "Gold Teal", file: "assets/css/theme-gold-teal.css" },
-            { name: "Gold", file: "assets/css/theme-gold.css"},
-            { name: "Red Dark", file: "assets/css/theme-red-dark.css"},
-            { name: "vHealth Default", file: "assets/css/theme-default.css" }
+            { name: "Veler Blue", file: "assets/css/theme-veler-blue.css" }
         ],
         domSelectors: {
             sidebar: '#sidebar-navegacion',
@@ -516,6 +511,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector(config.domSelectors.nextBtn).style.display = isLastSection ? 'none' : 'inline-block';
         document.querySelector(config.domSelectors.submitBtn).style.display = isLastSection ? 'inline-block' : 'none';
         document.querySelector(config.domSelectors.editBtn).style.display = isLastSection ? 'inline-block' : 'none';
+    }
+
+    if(window.innerWidth <= 750) {
+        collapsed();
+    }
+
+    function collapsed() {
+        document.body.classList.add('body-sidebar-collapsed');
     }
 
     // --- 5. LÓGICA DE TEMAS Y SIDEBAR (TU CÓDIGO ORIGINAL) ---
