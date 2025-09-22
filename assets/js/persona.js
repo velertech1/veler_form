@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </li>`).join('');
         sidebarContainer.innerHTML = `
             <div class="sidebar-top-area">
-                <img id="logo-veler-sidebar" src="./assets/img/VELER_DARK.png" alt="Logo Veler Technologies">
+                <img id="logo-veler-sidebar" src="./assets/img/veler_light.png" alt="Logo Veler Technologies">
                 <button class="sidebar-toggle material-symbols-outlined" title="Contraer/Expandir menú">menu_open</button>
             </div>
             <div class="sidebar-bottom-area">

@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="menu-text">${item.text}</span>
             </li>`).join('');
         sidebarContainer.innerHTML = `
-            <div class="sidebar-top-area"><img id="logo-veler-sidebar" src="${state.isLightMode ? 'assets/img/VELER_LIGHT.png' : 'assets/img/VELER_DARK.png'}" alt="Logo"><button class="sidebar-toggle material-symbols-outlined" title="Contraer/Expandir menú">menu_open</button></div>
+            <div class="sidebar-top-area"><img id="logo-veler-sidebar" src="${state.isLightMode ? 'assets/img/veler_light.png' : 'assets/img/VELER_DARK.png'}" alt="Logo"><button class="sidebar-toggle material-symbols-outlined" title="Contraer/Expandir menú">menu_open</button></div>
             <div class="sidebar-bottom-area"><nav class="sidebar-menu"><ul class="menu-navegacion">${menuItemsHTML}</ul></nav></div>`;
         sidebarContainer.querySelector('.sidebar-toggle').addEventListener('click', toggleSidebar);
         sidebarContainer.querySelectorAll('.menu-item').forEach(item => {
