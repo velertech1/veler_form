@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.classList.toggle('light-theme', state.isLightMode);
         const logo = document.getElementById('logo-veler-sidebar');
         if (logo) {
-            logo.src = state.isLightMode ? 'assets/img/VELER_LIGHT.png' : 'assets/img/VELER_DARK.png';
+            logo.src = state.isLightMode ? 'assets/img/veler_light.png' : 'assets/img/VELER_DARK.png';
         }
     }
 
