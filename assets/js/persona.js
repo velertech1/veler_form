@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isLightMode: false,
         formSections: [],
         menuItems: [],
-        menusCompleted: {}
+        formsCompleted: {}
     };
 
     // --- PARA LO DE SOLICITANTES EXTRA ---
@@ -360,13 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupFormNavigation() {
         document.querySelector(config.domSelectors.nextBtn)?.addEventListener('click', () => {
             if (state.currentSectionIndex < config.menuItems.length - 1) {
-                let lastSectionSelected = document.querySelector(`[data-section-index="${state.currentSectionIndex}"]`);
-                let innerStatus = lastSectionSelected.getElementsByClassName("menu-status")[0];
-                let bgStyleInnerStatus = window.getComputedStyle(innerStatus).backgroundColor;
-                let styleToSetInnerStatus = innerStatus.style;
-                if(bgStyleInnerStatus == "rgb(68, 68, 68)" || bgStyleInnerStatus == "rgb(180, 180, 180)") {
-                    styleToSetInnerStatus.backgroundColor = `var(--sidebar-status-completed-bg)`;
-                }
+                
 
                 showSection(state.currentSectionIndex + 1);
             }
@@ -487,26 +481,61 @@ document.addEventListener('DOMContentLoaded', () => {
         const mainForm = document.querySelector(config.domSelectors.form);
         if (!mainForm) return;
 
+        // Determina si la sección actual es la de revisión final.
         const isReviewMode = config.menuItems[index].id === 'revision';
+        // Agrega o quita la clase 'modo-revision' al formulario principal.
         mainForm.classList.toggle('modo-revision', isReviewMode);
 
+        // Deshabilita o habilita todos los campos de entrada en las secciones
+        // si el modo de revisión está activo (excepto los botones de navegación).
         state.formSections.forEach(section => {
-            section.querySelectorAll('input, select, textarea').forEach(el => {
-                el.disabled = isReviewMode;
+            section.querySelectorAll('input, select, textarea, button').forEach(el => {
+                if (el.id !== 'prev-btn' && el.id !== 'next-btn' && el.id !== 'submit-btn' && el.id !== 'edit-btn') {
+                    el.disabled = isReviewMode;
+                }
             });
         });
 
+        // Si no estamos en modo revisión, muestra la sección actual y oculta las demás.
         if (!isReviewMode) {
             state.formSections.forEach((section, i) => {
-                section.classList.toggle('seccion-activa', i === index);
+                section.style.display = i === index ? 'block' : 'none';
+            });
+            // Añade una clase para indicar la sección activa para estilos.
+            document.querySelectorAll(config.domSelectors.sections).forEach(sec => {
+                if (sec.style.display === 'block') {
+                    sec.classList.add('seccion-activa');
+                } else {
+                    sec.classList.remove('seccion-activa');
+                }
             });
         }
         
-        state.currentSectionIndex = index;
+        state.currentSectionIndex = index; // Actualiza el índice de la sección actual.
+
+        // Si existe, muestra un modal persuasivo (función externa a este script).
+        const modalType = config.menuItems[index].id;
+        if (typeof window.showPersuasiveModal === 'function') {
+            window.showPersuasiveModal(modalType);
+        }
+        
+        // --- LÓGICA DEL INDICADOR DE COMPLETADO ---
+        // Actualiza las clases 'active' y 'completed' en los elementos del menú lateral.
         document.querySelectorAll(config.domSelectors.menuItems).forEach((item, i) => {
-            item.classList.toggle('active', i === index);
+            
+                let lastSectionSelected = document.querySelector(`[data-section-index="${state.currentSectionIndex}"]`);
+                let innerStatus = lastSectionSelected.getElementsByClassName("menu-status")[0];
+                let bgStyleInnerStatus = window.getComputedStyle(innerStatus).backgroundColor;
+                let styleToSetInnerStatus = innerStatus.style;
+                if(bgStyleInnerStatus == "rgb(68, 68, 68)" || bgStyleInnerStatus == "rgb(180, 180, 180)") {
+                    styleToSetInnerStatus.backgroundColor = `var(--sidebar-status-completed-bg)`;
+                }
+            
         });
-        updateButtons();
+        // --- FIN DE LA LÓGICA ---
+
+        updateButtons();     // Actualiza la visibilidad de los botones de navegación.
+        updateProgressBar(); // Actualiza el progreso del formulario.
     }
     
     function updateButtons() {
