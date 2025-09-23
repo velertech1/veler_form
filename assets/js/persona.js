@@ -360,8 +360,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupFormNavigation() {
         document.querySelector(config.domSelectors.nextBtn)?.addEventListener('click', () => {
             if (state.currentSectionIndex < config.menuItems.length - 1) {
-                
-
                 showSection(state.currentSectionIndex + 1);
             }
         });
@@ -478,16 +476,101 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showSection(index) {
+        visibleSection(index);
+
+        state.currentSectionIndex = index;
+
+        const nameForm = config.menuItems[state.currentSectionIndex-1].id;
+
+        console.log(nameForm);
+
+        /* ==== Fields validation ====*/
+
+        const currentForm = document.getElementById("seccion-" + nameForm);
+        const isOnlyRadioButtons = (nameForm === "contratante-asegurado" 
+            || nameForm === "detalles-solicitud") ? true : false;
+        let formGroups = currentForm.getElementsByClassName("form-columns-container")[0].getElementsByClassName("form-group");
+        const allResults = [];
+        const isFormaPago = (nameForm === "forma-pago") ? true : false;
+        let isEmpty = false;
+
+        console.log(isOnlyRadioButtons);
+
+        for(const element of formGroups) {
+            const allInputs = element.querySelectorAll("input, select, textarea");
+            allInputs.forEach((input) => {
+                if(input !== undefined) {
+                    if(input.type === 'radio' && isOnlyRadioButtons) {
+                        allResults.push(input.checked);
+                    } else if (!isOnlyRadioButtons) {
+                        allResults.push(input.value);
+                    }
+                }
+            });
+        }
+
+        console.log(allResults);
+
+        isEmpty = (allResults.length === 0 || allResults.isEmpty || allResults.includes(""));
+
+        if(isFormaPago) isEmpty = !validFormaPago(allResults);
+
+        /* ======================== */
+
+        if (isEmpty) {
+            if(typeof window.showPersuasiveModal === 'function') {
+                const modalTypeName = config.menuItems[state.currentSectionIndex-1].id;
+                window.showPersuasiveModal(modalTypeName);
+            }
+            state.currentSectionIndex = (state.currentSectionIndex === 0) ? 0 : state.currentSectionIndex-1;
+            visibleSection(state.currentSectionIndex);
+        } else {
+            document.querySelectorAll(config.domSelectors.menuItems).forEach((item, i) => {
+                    let lastSectionSelected = document.querySelector(`[data-section-index="${state.currentSectionIndex-1}"]`);
+                    let innerStatus = lastSectionSelected.getElementsByClassName("menu-status")[0];
+                    let bgStyleInnerStatus = window.getComputedStyle(innerStatus).backgroundColor;
+                    let styleToSetInnerStatus = innerStatus.style;
+                    if(bgStyleInnerStatus == "rgb(68, 68, 68)" || bgStyleInnerStatus == "rgb(180, 180, 180)") {
+                        styleToSetInnerStatus.backgroundColor = `var(--sidebar-status-completed-bg)`;
+                    }
+                
+            });
+        }
+        // --- FIN DE LA LÓGICA ---
+
+        updateButtons();     // Actualiza la visibilidad de los botones de navegación.
+    }
+
+    function validFormaPago(allResults) {
+        let isInvalid1 = false;
+        let isInvalid2 = false;
+        for(let i = 2; i <= 9; i++) {
+            if(allResults[i] == '') {
+                isInvalid1 = true;
+            }
+        }
+        for(let i = 10; i <= 12; i++) {
+            if(allResults[i] == '') {
+                isInvalid2 = true;
+            }
+        }
+        return (!isInvalid1 || !isInvalid2);
+    }    
+    function updateButtons() {
+        const isLastSection = state.currentSectionIndex === config.menuItems.length - 1;
+        document.querySelector(config.domSelectors.prevBtn).style.display = (state.currentSectionIndex > 0 && !isLastSection) ? 'inline-block' : 'none';
+        document.querySelector(config.domSelectors.nextBtn).style.display = isLastSection ? 'none' : 'inline-block';
+        document.querySelector(config.domSelectors.submitBtn).style.display = isLastSection ? 'inline-block' : 'none';
+        document.querySelector(config.domSelectors.editBtn).style.display = isLastSection ? 'inline-block' : 'none';
+    }
+
+    function visibleSection(index) {
         const mainForm = document.querySelector(config.domSelectors.form);
         if (!mainForm) return;
 
-        // Determina si la sección actual es la de revisión final.
         const isReviewMode = config.menuItems[index].id === 'revision';
-        // Agrega o quita la clase 'modo-revision' al formulario principal.
         mainForm.classList.toggle('modo-revision', isReviewMode);
 
-        // Deshabilita o habilita todos los campos de entrada en las secciones
-        // si el modo de revisión está activo (excepto los botones de navegación).
         state.formSections.forEach(section => {
             section.querySelectorAll('input, select, textarea, button').forEach(el => {
                 if (el.id !== 'prev-btn' && el.id !== 'next-btn' && el.id !== 'submit-btn' && el.id !== 'edit-btn') {
@@ -496,12 +579,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Si no estamos en modo revisión, muestra la sección actual y oculta las demás.
         if (!isReviewMode) {
             state.formSections.forEach((section, i) => {
                 section.style.display = i === index ? 'block' : 'none';
             });
-            // Añade una clase para indicar la sección activa para estilos.
             document.querySelectorAll(config.domSelectors.sections).forEach(sec => {
                 if (sec.style.display === 'block') {
                     sec.classList.add('seccion-activa');
@@ -510,40 +591,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
-        
-        state.currentSectionIndex = index; // Actualiza el índice de la sección actual.
-
-        // Si existe, muestra un modal persuasivo (función externa a este script).
-        const modalType = config.menuItems[index].id;
-        if (typeof window.showPersuasiveModal === 'function') {
-            window.showPersuasiveModal(modalType);
-        }
-        
-        // --- LÓGICA DEL INDICADOR DE COMPLETADO ---
-        // Actualiza las clases 'active' y 'completed' en los elementos del menú lateral.
-        document.querySelectorAll(config.domSelectors.menuItems).forEach((item, i) => {
-            
-                let lastSectionSelected = document.querySelector(`[data-section-index="${state.currentSectionIndex}"]`);
-                let innerStatus = lastSectionSelected.getElementsByClassName("menu-status")[0];
-                let bgStyleInnerStatus = window.getComputedStyle(innerStatus).backgroundColor;
-                let styleToSetInnerStatus = innerStatus.style;
-                if(bgStyleInnerStatus == "rgb(68, 68, 68)" || bgStyleInnerStatus == "rgb(180, 180, 180)") {
-                    styleToSetInnerStatus.backgroundColor = `var(--sidebar-status-completed-bg)`;
-                }
-            
-        });
-        // --- FIN DE LA LÓGICA ---
-
-        updateButtons();     // Actualiza la visibilidad de los botones de navegación.
-        updateProgressBar(); // Actualiza el progreso del formulario.
-    }
-    
-    function updateButtons() {
-        const isLastSection = state.currentSectionIndex === config.menuItems.length - 1;
-        document.querySelector(config.domSelectors.prevBtn).style.display = (state.currentSectionIndex > 0 && !isLastSection) ? 'inline-block' : 'none';
-        document.querySelector(config.domSelectors.nextBtn).style.display = isLastSection ? 'none' : 'inline-block';
-        document.querySelector(config.domSelectors.submitBtn).style.display = isLastSection ? 'inline-block' : 'none';
-        document.querySelector(config.domSelectors.editBtn).style.display = isLastSection ? 'inline-block' : 'none';
     }
 
     if(window.innerWidth <= 750) {
