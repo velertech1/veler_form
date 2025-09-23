@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <li class="menu-item" data-section-index="${index}">
                 <span class="menu-icon material-symbols-outlined">${item.icon}</span>
                 <span class="menu-text">${item.text}</span>
+                <span class="menu-status">
             </li>`).join('');
         sidebarContainer.innerHTML = `
             <div class="sidebar-top-area"><img id="logo-veler-sidebar" src="${state.isLightMode ? 'assets/img/veler_light.png' : 'assets/img/VELER_DARK.png'}" alt="Logo"><button class="sidebar-toggle material-symbols-outlined" title="Contraer/Expandir menú">menu_open</button></div>
@@ -151,35 +152,46 @@ document.addEventListener('DOMContentLoaded', () => {
     function showSection(index) {
         if (index < 0 || index >= config.menuItems.length) return;
 
-        const mainContainer = document.querySelector(config.domSelectors.mainContainer);
-        const isReviewMode = config.menuItems[index].id === 'revision';
+        visibleSection(index);
+        state.currentSectionIndex = index;
+        
+        const nameForm = config.menuItems[state.currentSectionIndex-1].id;
 
-        // 1. Activar/Desactivar el "modo revisión" global en el <main>
-        mainContainer.classList.toggle('modo-revision', isReviewMode);
+        console.log(nameForm);
 
-        // 2. Si es modo revisión, generar el resumen y deshabilitar campos
-        if (isReviewMode) {
-            generateReview();
-            state.formSections.forEach(section => {
-                section.querySelectorAll('input, select, textarea').forEach(el => el.disabled = true);
-            });
-            // Ocultamos todas las secciones del formulario
-            state.formSections.forEach(section => section.classList.remove('seccion-activa'));
-            // Y mostramos explícitamente la de revisión
-            document.getElementById('seccion-revision')?.classList.add('seccion-activa');
+        /* ==== Fields validation ====*/
 
-        } else {
-            // 3. Si NO es modo revisión, funciona como antes
-            state.formSections.forEach(section => {
-                section.querySelectorAll('input, select, textarea').forEach(el => el.disabled = false);
-            });
-            state.formSections.forEach((section, i) => {
-                section.classList.toggle('seccion-activa', i === index);
+        const currentForm = document.getElementById("seccion-" + nameForm);
+        let formGroups = currentForm.getElementsByClassName("form-columns-container")[0].getElementsByClassName("form-group");
+        const allResults = [];
+        let isEmpty = false;
+
+        for(const element of formGroups) {
+            const allInputs = element.querySelectorAll("input, select, textarea");
+            allInputs.forEach((input) => {
+                if(input !== undefined) {
+                    allResults.push(input.value);
+                }
             });
         }
-        
-        // El resto de la lógica se mantiene
-        state.currentSectionIndex = index;
+
+        isEmpty = (allResults.length === 0 || allResults.isEmpty || allResults.includes(""));
+
+        /* ======================== */
+
+        if (isEmpty) {
+            state.currentSectionIndex = (state.currentSectionIndex === 0) ? 0 : state.currentSectionIndex-1;
+            visibleSection(state.currentSectionIndex);
+        } else {
+                    let lastSectionSelected = document.querySelector(`[data-section-index="${state.currentSectionIndex-1}"]`);
+                    let innerStatus = lastSectionSelected.getElementsByClassName("menu-status")[0];
+                    let bgStyleInnerStatus = window.getComputedStyle(innerStatus).backgroundColor;
+                    let styleToSetInnerStatus = innerStatus.style;
+                    console.log(styleToSetInnerStatus);
+                    if(bgStyleInnerStatus == "rgb(68, 68, 68)" || bgStyleInnerStatus == "rgb(180, 180, 180)") {
+                        styleToSetInnerStatus.backgroundColor = `var(--sidebar-status-completed-bg)`;
+                    }
+        }
         state.menuItems.forEach((item, i) => item.classList.toggle('active', i === index));
 
         const sectionId = config.menuItems[index]?.id;
@@ -188,6 +200,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         updateButtons();
+    }
+
+    function visibleSection(index) {
+        const mainContainer = document.querySelector(config.domSelectors.mainContainer);
+        const isReviewMode = config.menuItems[index].id === 'revision';
+
+        mainContainer.classList.toggle('modo-revision', isReviewMode);
+        if (isReviewMode) {
+            generateReview();
+            state.formSections.forEach(section => {
+                section.querySelectorAll('input, select, textarea').forEach(el => el.disabled = true);
+            });
+            state.formSections.forEach(section => section.classList.remove('seccion-activa'));
+            document.getElementById('seccion-revision')?.classList.add('seccion-activa');
+
+        } else {
+            state.formSections.forEach(section => {
+                section.querySelectorAll('input, select, textarea').forEach(el => el.disabled = false);
+            });
+            state.formSections.forEach((section, i) => {
+                section.classList.toggle('seccion-activa', i === index);
+            });
+        }
     }
     
     function updateButtons() {
